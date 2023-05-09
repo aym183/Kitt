@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import SwiftUI
+import FirebaseStorage
 
 class CreateDB : ObservableObject {
     
@@ -82,5 +83,21 @@ class CreateDB : ObservableObject {
         }
     }
     
+    func uploadProfileImage(image: UIImage) {
+        let storage = Storage.storage().reference()
+        let imageData = image.jpegData(compressionQuality: 0.8)
+
+        guard imageData != nil else {
+            return
+        }
+        
+        let fileRef = storage.child("profile_images/\(UUID().uuidString).jpg")
+        let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+            
+        }
+    }
+    
+    func uploadProductImage(image: UIImage) {
+    }
     
 }

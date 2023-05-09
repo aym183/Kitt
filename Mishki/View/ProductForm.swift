@@ -81,13 +81,15 @@ struct ProductForm: View {
                         Spacer()
                         
                         Button(action: {
-                            if products_number != 0 {
-                                if let image = self.image {
-                                    UpdateDB().updateProducts(image: String(describing: image), name: productName, description: productDesc, price: productPrice)
-                                }
-                            } else {
-                                if let image = self.image {
-                                    CreateDB().addProducts(image: String(describing: image), name: productName, description: productDesc, price: productPrice)
+                            DispatchQueue.global(qos: .userInteractive).async {
+                                if products_number != 0 {
+                                    if let image = self.image {
+                                        UpdateDB().updateProducts(image: String(describing: image), name: productName, description: productDesc, price: productPrice)
+                                    }
+                                } else {
+                                    if let image = self.image {
+                                        CreateDB().addProducts(image: String(describing: image), name: productName, description: productDesc, price: productPrice)
+                                    }
                                 }
                             }
                             productCreated.toggle()

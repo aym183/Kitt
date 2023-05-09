@@ -32,10 +32,12 @@ struct LinkForm: View {
                         Spacer()
                         
                         Button(action: {
-                            if links_number != 0 {
-                                UpdateDB().updateLinks(name: linkName, url: linkURL)
-                            } else {
-                                CreateDB().addLink(name: linkName, url: linkURL)
+                            DispatchQueue.global(qos: .userInteractive).async {
+                                if links_number != 0 {
+                                    UpdateDB().updateLinks(name: linkName, url: linkURL)
+                                } else {
+                                    CreateDB().addLink(name: linkName, url: linkURL)
+                                }
                             }
                             linkCreated.toggle()
                         }) {
