@@ -12,6 +12,7 @@ struct UserDetails: View {
     @State var profileImageUploadShown = false
     @Binding var homePageShown: Bool
     @Binding var createAccountSheet: Bool
+    @Binding var email: String
     
     var body: some View {
         GeometryReader { geometry in
@@ -33,7 +34,16 @@ struct UserDetails: View {
                         }
                         .padding(.top).padding(.leading, 5)
                         
-                        Button(action: { profileImageUploadShown.toggle() }) {
+                        Button(action: {
+                            CreateDB().addUser(email: email, username: username) { response in
+                                if response == "User Added" {
+                                    profileImageUploadShown.toggle()
+                                } else {
+                                    print("Unsuccessful user added")
+                                }
+                            }
+                            
+                        }) {
                             HStack {
                                 Text("Create")
                             }

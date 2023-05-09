@@ -11,12 +11,14 @@ import FirebaseAuth
 class AuthViewModel : ObservableObject {
     let auth = Auth.auth()
     
-    func signUp(email: String, password: String) {
+    func signUp(email: String, password: String, completion: @escaping (String?) -> Void) {
         auth.createUser(withEmail: email, password: password) { result, error in
             if error != nil {
                 print(error!.localizedDescription)
+                completion("Unsuccessful")
             } else {
                 print("Successful auth")
+                completion("Successful")
             }
         }
     }

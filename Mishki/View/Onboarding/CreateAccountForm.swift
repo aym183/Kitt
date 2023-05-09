@@ -48,9 +48,14 @@ struct CreateAccountForm: View {
                         
                         Button(action: {
                             DispatchQueue.global(qos: .userInteractive).async {
-                                AuthViewModel().signUp(email: email, password: password)
+                                AuthViewModel().signUp(email: email, password: password) { response in
+                                    if response == "Successful" {
+                                        showProfileCreation.toggle()
+                                    } else {
+                                        print("Incorrect email/unmatched passwords")
+                                    }
+                                }
                             }
-                            showProfileCreation.toggle()
                             
                         }) {
                             HStack {
@@ -68,7 +73,7 @@ struct CreateAccountForm: View {
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $showProfileCreation) {
-                        UserDetails(homePageShown: $homePageShown, createAccountSheet: $createAccountSheet).navigationBarHidden(true)
+                        UserDetails(homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: $email).navigationBarHidden(true)
                     }
                 }
             }
