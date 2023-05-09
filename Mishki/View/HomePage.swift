@@ -61,8 +61,14 @@ struct HomePage: View {
                     
                     if !productsListed {
                         Text("No products or links added yet.").fontWeight(.semibold)
-                        
                         Spacer()
+                    } else {
+                        ScrollView {
+                            Text("No products.").fontWeight(.semibold)
+                            Spacer()
+                        }
+                        .border(.black, width: 2).padding(.top)
+                        
                     }
                 }
                 .frame(width: geometry.size.width-40, height: geometry.size.height-20)
