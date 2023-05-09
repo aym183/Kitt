@@ -13,6 +13,9 @@ struct UserDetails: View {
     @Binding var homePageShown: Bool
     @Binding var createAccountSheet: Bool
     @Binding var email: String
+    var areAllFieldsEmpty: Bool {
+        return username.isEmpty
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -51,10 +54,11 @@ struct UserDetails: View {
                             .font(Font.system(size: 25))
                             .fontWeight(.semibold)
                             .frame(width: 200, height: 70)
-                            .background(Color.black).foregroundColor(Color.white)
+                            .background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white)
                             .cornerRadius(50)
                         }
                         .padding(.top)
+                        .disabled(areAllFieldsEmpty)
                         
                         Spacer()
 
