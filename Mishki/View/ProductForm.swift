@@ -24,7 +24,7 @@ struct ProductForm: View {
                             
                             Spacer()
                         }
-                        .padding(.leading, 15).padding(.bottom, -5)
+                        .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                         
                         Button(action: {}) {
                             ZStack {
@@ -53,7 +53,7 @@ struct ProductForm: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(.gray)
                                     .opacity(0.2)
-                                    .frame(height: geometry.size.height - 780)
+                                    .frame(height: 60)
                                     .padding(.top,10)
                                 HStack {
                                     Image(systemName: "plus")

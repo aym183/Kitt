@@ -45,6 +45,12 @@ struct FormSelection: View {
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     }
                     .foregroundColor(.black)
+                    .navigationDestination(isPresented: $productFormShown) {
+                        ProductForm()
+                    }
+//                    .navigationDestination(isPresented: $formShown) {
+//                        FormSelection()
+//                    }
                 }
         }
     }
