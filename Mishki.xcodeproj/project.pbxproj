@@ -48,6 +48,7 @@
 		61A0E8572A0A2C2000FE474D /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 61A0E8562A0A2C2000FE474D /* FirebaseStorage */; };
 		61A0E8592A0A2C2000FE474D /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 61A0E8582A0A2C2000FE474D /* FirebaseStorageCombine-Community */; };
 		61A0E85D2A0A2D0800FE474D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61A0E85C2A0A2D0800FE474D /* GoogleService-Info.plist */; };
+		61A0E85F2A0A2F4100FE474D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E85E2A0A2F4100FE474D /* AuthViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		61A0E81C2A0A121E00FE474D /* UserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetails.swift; sourceTree = "<group>"; };
 		61A0E81E2A0A15DC00FE474D /* UploadProfileImageForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProfileImageForm.swift; sourceTree = "<group>"; };
 		61A0E85C2A0A2D0800FE474D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		61A0E85E2A0A2F4100FE474D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 		61A0E80D2A09D43F00FE474D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				61A0E85E2A0A2F4100FE474D /* AuthViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */,
 				61A0E8162A0A051300FE474D /* SettingsPage.swift in Sources */,
 				61A0E81F2A0A15DC00FE474D /* UploadProfileImageForm.swift in Sources */,
+				61A0E85F2A0A2F4100FE474D /* AuthViewModel.swift in Sources */,
 				61A0E7FE2A09D0D500FE474D /* MishkiApp.swift in Sources */,
 				61A0E80F2A09E16100FE474D /* FormSelection.swift in Sources */,
 				61A0E81B2A0A0E3700FE474D /* CreateAccountForm.swift in Sources */,
