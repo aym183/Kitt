@@ -11,6 +11,8 @@ struct HomePage: View {
     @State var productsListed = false
     @State var formShown = false
     @State var settingsShown = false
+    @AppStorage("profile_image") var profileImage: String = ""
+    @AppStorage("username") var userName: String = ""
     var body: some View {
         GeometryReader { geometry in
                 ZStack {
@@ -18,7 +20,7 @@ struct HomePage: View {
                     VStack {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text("mishki.shop/alicap").font(Font.system(size: 20)).fontWeight(.bold)
+                                Text("mishki.shop/\(userName)").font(Font.system(size: 20)).fontWeight(.bold)
                                 
                                 HStack(spacing: 25) {
                                     Button(action: {}) {
@@ -40,8 +42,17 @@ struct HomePage: View {
                             }
                             Spacer()
                             
-                            Button(action: { settingsShown.toggle() }) {
+                            Button(action: {settingsShown.toggle()}) {
+                                
+                                //                                if let data = profileImage.data(using: .utf8), let image = UIImage(data: data) {
+                                //                                    Image(uiImage: image)
+                                //                                        .resizable()
+                                //                                        .scaledToFill()
+                                //                                        .frame(width: 80, height: 80)
+                                //                                        .cornerRadius(50)
+                                //                                } else {
                                 Image(systemName: "person.circle").font(Font.system(size: 60))
+                                //                                }
                             }
                         }
                         .padding(.horizontal, 10)

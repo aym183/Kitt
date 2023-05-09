@@ -12,15 +12,17 @@ struct LandingPage: View {
     @AppStorage("username") var userName: String = ""
     
     var body: some View {
+        NavigationStack {
             ZStack {
                 VStack {
-//                    if Auth.auth().currentUser != nil {
-//                       HomePage()
-//                    } else {
+                    if Auth.auth().currentUser != nil {
+                        HomePage()
+                    } else {
                         LandingContent()
-//                    }
+                    }
                 }
             }
+        }
     }
 }
 
@@ -28,7 +30,6 @@ struct LandingContent: View {
     @State var createAccountSheet = false
     @State var homePageShown = false
     var body: some View {
-        NavigationStack {
             GeometryReader { geometry in
                 ZStack {
                     Color(.white).ignoresSafeArea()
@@ -66,7 +67,6 @@ struct LandingContent: View {
                     }
                 }
             }
-        }
     }
 }
 

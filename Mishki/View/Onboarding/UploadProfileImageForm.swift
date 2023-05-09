@@ -49,14 +49,18 @@ struct UploadProfileImageForm: View {
                         }
                         .frame(width: geometry.size.width-60, height: 75)
                         .padding(.vertical, 30).padding(.horizontal, 10)
-//
-//                        TextField("", text: $confirmPassword, prompt: Text("Confirm Password").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5)
-
                         
                         HStack {
                             Button(action: {
-                                createAccountSheet.toggle()
-                                homePageShown.toggle()
+                                if let image = self.image {
+                                    DispatchQueue.global(qos: .userInteractive).async {
+                                        UpdateDB().updateImage(image: image)
+                                    }
+                                    createAccountSheet.toggle()
+                                    homePageShown.toggle()
+                                } else {
+                                    print("No image uploaded")
+                                }
                                 
                             }) {
                                 HStack {
@@ -70,7 +74,10 @@ struct UploadProfileImageForm: View {
                             }
                             .padding(.top)
                             
-                            Button(action: { homePageShown.toggle() }) {
+                            Button(action: {
+                                createAccountSheet.toggle()
+                                homePageShown.toggle()
+                                }) {
                                 Text("I'll do it later").font(Font.system(size: 20))
                                     .fontWeight(.semibold).padding([.top, .leading])
                             }

@@ -27,6 +27,7 @@ class CreateDB : ObservableObject {
                 completion("Error")
             } else {
                 print("User added")
+                UserDefaults.standard.set(username, forKey: "username")
                 completion("User Added")
             }
             

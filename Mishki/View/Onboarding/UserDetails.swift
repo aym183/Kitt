@@ -35,14 +35,15 @@ struct UserDetails: View {
                         .padding(.top).padding(.leading, 5)
                         
                         Button(action: {
-                            CreateDB().addUser(email: email, username: username) { response in
-                                if response == "User Added" {
-                                    profileImageUploadShown.toggle()
-                                } else {
-                                    print("Unsuccessful user added")
+                            DispatchQueue.global(qos: .userInteractive).async {
+                                CreateDB().addUser(email: email, username: username) { response in
+                                    if response == "User Added" {
+                                        profileImageUploadShown.toggle()
+                                    } else {
+                                        print("Unsuccessful user added")
+                                    }
                                 }
                             }
-                            
                         }) {
                             HStack {
                                 Text("Create")

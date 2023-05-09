@@ -52,6 +52,8 @@
 		61A0E8612A0A410400FE474D /* CreateDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8602A0A410400FE474D /* CreateDB.swift */; };
 		61A0E8642A0A416F00FE474D /* TimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8632A0A416F00FE474D /* TimeData.swift */; };
 		61A0E8682A0A44DC00FE474D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8672A0A44DC00FE474D /* ImagePicker.swift */; };
+		61A0E86A2A0A491A00FE474D /* UpdateDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8692A0A491A00FE474D /* UpdateDB.swift */; };
+		61A0E86C2A0A4A5F00FE474D /* ReadDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E86B2A0A4A5F00FE474D /* ReadDB.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +75,8 @@
 		61A0E8602A0A410400FE474D /* CreateDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDB.swift; sourceTree = "<group>"; };
 		61A0E8632A0A416F00FE474D /* TimeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeData.swift; sourceTree = "<group>"; };
 		61A0E8672A0A44DC00FE474D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		61A0E8692A0A491A00FE474D /* UpdateDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDB.swift; sourceTree = "<group>"; };
+		61A0E86B2A0A4A5F00FE474D /* ReadDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDB.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +175,8 @@
 			isa = PBXGroup;
 			children = (
 				61A0E8602A0A410400FE474D /* CreateDB.swift */,
+				61A0E8692A0A491A00FE474D /* UpdateDB.swift */,
+				61A0E86B2A0A4A5F00FE474D /* ReadDB.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -316,9 +322,11 @@
 				61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */,
 				61A0E8162A0A051300FE474D /* SettingsPage.swift in Sources */,
 				61A0E81F2A0A15DC00FE474D /* UploadProfileImageForm.swift in Sources */,
+				61A0E86C2A0A4A5F00FE474D /* ReadDB.swift in Sources */,
 				61A0E85F2A0A2F4100FE474D /* AuthViewModel.swift in Sources */,
 				61A0E7FE2A09D0D500FE474D /* MishkiApp.swift in Sources */,
 				61A0E80F2A09E16100FE474D /* FormSelection.swift in Sources */,
+				61A0E86A2A0A491A00FE474D /* UpdateDB.swift in Sources */,
 				61A0E81B2A0A0E3700FE474D /* CreateAccountForm.swift in Sources */,
 				61A0E8612A0A410400FE474D /* CreateDB.swift in Sources */,
 			);

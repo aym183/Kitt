@@ -1,0 +1,34 @@
+//
+//  UpdateDB.swift
+//  Mishki
+//
+//  Created by Ayman Ali on 09/05/2023.
+//
+
+import Foundation
+import SwiftUI
+import Firebase
+
+class UpdateDB : ObservableObject {
+    
+    func updateImage(image: UIImage) {
+        let db = Firestore.firestore()
+        let collectionRef = db.collection("users")
+        @AppStorage("username") var userName: String = ""
+        
+        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error updating Image: \(error)")
+            } else {
+                guard let document = querySnapshot?.documents.first else {
+                    print("No documents found")
+                    return
+                }
+            
+                let docRef = collectionRef.document(document.documentID)
+                docRef.updateData(["profile_image": String(describing: image)])
+                UserDefaults.standard.set(String(describing: image), forKey: "profile_image")
+            }
+        }
+    }
+}
