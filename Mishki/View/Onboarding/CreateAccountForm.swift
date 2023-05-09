@@ -12,6 +12,7 @@ struct CreateAccountForm: View {
     @State var password = ""
     @State var confirmPassword = ""
     @Binding var createAccountSheet: Bool
+    @State var showProfileCreation = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -41,7 +42,7 @@ struct CreateAccountForm: View {
                             .opacity(0.7)
                         
                         
-                        Button(action: {}) {
+                        Button(action: { showProfileCreation.toggle() }) {
                             HStack {
                                 Text("Sign Up")
                             }
@@ -55,6 +56,9 @@ struct CreateAccountForm: View {
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
+                    .navigationDestination(isPresented: $showProfileCreation) {
+                        UserDetails().navigationBarHidden(true)
+                    }
                 }
             }
         }

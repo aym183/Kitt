@@ -18,23 +18,36 @@ struct UserDetails: View {
                         HStack {
                             Text("Create Profile")
                             Spacer()
-                            Button(action: {}) {
-                                Image(systemName: "xmark.circle.fill")
-                            }
                         }
                         .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
                         .frame(width: geometry.size.width-40)
                         
-                        TextField("", text: $username, prompt: Text("@username").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5)
+                        TextField("", text: $username, prompt: Text("@username").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
                         
-                        Text("Your new page will be available under mishki.com/\(username == "" ? "username":username)")
-                            .font(.footnote).fontWeight(.semibold)
-                            .padding(.top).padding(.leading, 5)
-                            .opacity(0.7)
+                        VStack {
+                            Text("Your new page will be available under ") + Text("mishki.com/\(username == "" ? "username":username)").fontWeight(.bold)
+                                
+                        }
+                        .padding(.top).padding(.leading, 5)
                         
+                        Button(action: {}) {
+                            HStack {
+                                Text("Create")
+                            }
+                            .font(Font.system(size: 25))
+                            .fontWeight(.semibold)
+                        }
+                        .frame(width: 200, height: 60)
+                        .background(Color.black).foregroundColor(Color.white)
+                        .cornerRadius(50)
+                        .padding(.top)
+                        
+                        Spacer()
+
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
+                    .padding(.top, 30)
                 }
             }
         }
