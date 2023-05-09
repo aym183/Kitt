@@ -55,11 +55,11 @@ class UpdateDB : ObservableObject {
     }
     
     func updateProducts(image: String, name: String, description: String, price: String) {
-        @AppStorage("products") var links: String = ""
+        @AppStorage("products") var products: String = ""
         
         let db = Firestore.firestore()
         let ref = db.collection("products")
-        var docID = ref.document(links)
+        var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
         
         var documentData = [String: Any]()
@@ -68,9 +68,9 @@ class UpdateDB : ObservableObject {
         
         docID.updateData(documentData) { error in
         if let error = error {
-            print("Error updating link: \(error.localizedDescription)")
+            print("Error updating product: \(error.localizedDescription)")
         } else {
-            print("Link Updated!")
+            print("Product Updated!")
         }
         }
         

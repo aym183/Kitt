@@ -33,7 +33,6 @@ struct UserDetails: View {
                         
                         VStack {
                             Text("Your new page will be available under ") + Text("mishki.com/\(username == "" ? "username":username)").fontWeight(.bold)
-                                
                         }
                         .padding(.top).padding(.leading, 5)
                         

@@ -62,11 +62,11 @@ class CreateDB : ObservableObject {
     }
     
     func addProducts(image: String, name: String, description: String, price: String) {
-        @AppStorage("products") var links: String = ""
+        @AppStorage("products") var products: String = ""
         
         let db = Firestore.firestore()
-        let ref = db.collection("links")
-        var docID = ref.document(links)
+        let ref = db.collection("products")
+        var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
         
         var documentData = [String: Any]()
@@ -75,9 +75,9 @@ class CreateDB : ObservableObject {
         
         docID.setData(documentData) { error in
            if let error = error {
-               print("Error adding link: \(error.localizedDescription)")
+               print("Error adding product: \(error.localizedDescription)")
            } else {
-               print("Link added successfully!")
+               print("Product added successfully!")
            }
         }
     }
