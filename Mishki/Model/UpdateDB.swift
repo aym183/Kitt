@@ -31,4 +31,26 @@ class UpdateDB : ObservableObject {
             }
         }
     }
+    
+    func updateLinks(name: String, url: String) {
+        @AppStorage("links") var links: String = ""
+        
+        let db = Firestore.firestore()
+        let ref = db.collection("links")
+        var docID = ref.document(links)
+        var presentDateTime = TimeData().getPresentDateTime()
+        
+        var documentData = [String: Any]()
+        var fieldID = ref.document()
+        documentData[fieldID.documentID] = ["name": name, "url": url, "time_created": presentDateTime]
+        
+        docID.updateData(documentData) { error in
+        if let error = error {
+            print("Error adding link: \(error.localizedDescription)")
+        } else {
+            print("Link Added!")
+        }
+        }
+        
+    }
 }

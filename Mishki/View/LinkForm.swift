@@ -10,6 +10,7 @@ import SwiftUI
 struct LinkForm: View {
     @State var linkName = ""
     @State var linkURL = ""
+    @State var linkCreated = false
     var body: some View {
         GeometryReader { geometry in
                 ZStack {
@@ -22,20 +23,25 @@ struct LinkForm: View {
                         }
                         .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                         
-                        TextField("", text: $linkName, prompt: Text("Link Name").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 10)
+                        TextField("", text: $linkName, prompt: Text("Link Name").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none)
                         
-                        TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10)
+                        TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                         
                         Spacer()
                         
-                        Button(action: {}) {
+                        Button(action: {
+                            CreateDB().addLink(name: linkName, url: linkURL)
+                            linkCreated.toggle()
+                        }) {
                             Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
                         }
                         .padding(.bottom)
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
-                    
+                    .navigationDestination(isPresented: $linkCreated) {
+                        HomePage().navigationBarHidden(true)
+                    }
                     
                 }
         }
