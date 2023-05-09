@@ -10,6 +10,7 @@ import SwiftUI
 struct HomePage: View {
     @State var productsListed = false
     @State var formShown = false
+    @State var settingsShown = false
     var body: some View {
         GeometryReader { geometry in
             NavigationStack {
@@ -40,7 +41,7 @@ struct HomePage: View {
                             }
                             Spacer()
                             
-                            Button(action: {}) {
+                            Button(action: { settingsShown.toggle() }) {
                                 Image(systemName: "person.circle").font(Font.system(size: 60))
                             }
                         }
@@ -77,6 +78,9 @@ struct HomePage: View {
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .navigationDestination(isPresented: $formShown) {
                         FormSelection()
+                    }
+                    .navigationDestination(isPresented: $settingsShown) {
+                        SettingsPage()
                     }
                     .foregroundColor(.black)
                     .padding(.top, 30)
