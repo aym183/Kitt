@@ -12,7 +12,6 @@ struct LinkForm: View {
     @State var linkURL = ""
     var body: some View {
         GeometryReader { geometry in
-            NavigationStack {
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack {
@@ -39,7 +38,6 @@ struct LinkForm: View {
                     
                     
                 }
-            }
         }
         }
 }

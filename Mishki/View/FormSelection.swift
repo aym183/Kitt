@@ -14,7 +14,6 @@ struct FormSelection: View {
     @State var linkFormShown = false
     var body: some View {
         GeometryReader { geometry in
-            NavigationStack {
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack {
@@ -51,7 +50,6 @@ struct FormSelection: View {
                     .navigationDestination(isPresented: $linkFormShown) {
                         LinkForm()
                     }
-                }
         }
     }
 }

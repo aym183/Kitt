@@ -14,7 +14,6 @@ struct UploadProfileImageForm: View {
     
     var body: some View {
         GeometryReader { geometry in
-            NavigationStack {
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack(alignment: .leading) {
@@ -73,7 +72,6 @@ struct UploadProfileImageForm: View {
                     .foregroundColor(.black)
                     .padding(.top, 30)
                 }
-            }
         }
     }
 }

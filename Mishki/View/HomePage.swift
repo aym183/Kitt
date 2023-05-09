@@ -13,7 +13,6 @@ struct HomePage: View {
     @State var settingsShown = false
     var body: some View {
         GeometryReader { geometry in
-            NavigationStack {
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack {
@@ -85,7 +84,6 @@ struct HomePage: View {
                     .foregroundColor(.black)
                     .padding(.top, 30)
                 }
-            }
         }
     }
 }

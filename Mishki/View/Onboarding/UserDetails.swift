@@ -15,7 +15,6 @@ struct UserDetails: View {
     
     var body: some View {
         GeometryReader { geometry in
-            NavigationStack {
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack(alignment: .leading) {
@@ -56,7 +55,7 @@ struct UserDetails: View {
                         UploadProfileImageForm(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet).navigationBarHidden(true)
                     }
                 }
-            }
+            
         }
     }
 }

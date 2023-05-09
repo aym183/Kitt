@@ -15,7 +15,6 @@ struct ProductForm: View {
     
     var body: some View {
         GeometryReader { geometry in
-            NavigationStack {
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack {
@@ -81,7 +80,6 @@ struct ProductForm: View {
                     }
                
                     .foregroundColor(.black)
-                }
             }
     }
 }

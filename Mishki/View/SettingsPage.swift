@@ -11,7 +11,6 @@ struct SettingsPage: View {
     var labels = ["Total Sales", "Payment Details", "Change username", "Change profile image", "Help", "Refer a friend"]
     var body: some View {
         GeometryReader { geometry in
-            NavigationStack {
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack {
@@ -49,7 +48,6 @@ struct SettingsPage: View {
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
                 }
-            }
         }
     }
 }
