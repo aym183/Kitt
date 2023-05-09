@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		61A0E7FE2A09D0D500FE474D /* MishkiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FD2A09D0D500FE474D /* MishkiApp.swift */; };
-		61A0E8002A09D0D500FE474D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FF2A09D0D500FE474D /* ContentView.swift */; };
+		61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FF2A09D0D500FE474D /* HomePage.swift */; };
 		61A0E8022A09D0D600FE474D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61A0E8012A09D0D600FE474D /* Assets.xcassets */; };
 		61A0E8052A09D0D600FE474D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61A0E8042A09D0D600FE474D /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -16,7 +16,7 @@
 /* Begin PBXFileReference section */
 		61A0E7FA2A09D0D500FE474D /* Mishki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mishki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61A0E7FD2A09D0D500FE474D /* MishkiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MishkiApp.swift; sourceTree = "<group>"; };
-		61A0E7FF2A09D0D500FE474D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		61A0E7FF2A09D0D500FE474D /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		61A0E8012A09D0D600FE474D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61A0E8042A09D0D600FE474D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,8 +51,10 @@
 		61A0E7FC2A09D0D500FE474D /* Mishki */ = {
 			isa = PBXGroup;
 			children = (
+				61A0E80D2A09D43F00FE474D /* ViewModel */,
+				61A0E80C2A09D43B00FE474D /* Model */,
+				61A0E80B2A09D43600FE474D /* View */,
 				61A0E7FD2A09D0D500FE474D /* MishkiApp.swift */,
-				61A0E7FF2A09D0D500FE474D /* ContentView.swift */,
 				61A0E8012A09D0D600FE474D /* Assets.xcassets */,
 				61A0E8032A09D0D600FE474D /* Preview Content */,
 			);
@@ -65,6 +67,28 @@
 				61A0E8042A09D0D600FE474D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		61A0E80B2A09D43600FE474D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				61A0E7FF2A09D0D500FE474D /* HomePage.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		61A0E80C2A09D43B00FE474D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		61A0E80D2A09D43F00FE474D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61A0E8002A09D0D500FE474D /* ContentView.swift in Sources */,
+				61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */,
 				61A0E7FE2A09D0D500FE474D /* MishkiApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
