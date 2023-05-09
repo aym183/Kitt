@@ -12,6 +12,10 @@ struct ProductForm: View {
     @State var productDesc = ""
     @State var productPrice = ""
     @State var uploadFile = ""
+    @State var showImagePicker = false
+    @State var image: UIImage?
+    @State var productCreated = false
+    var products_number: Int
     
     var body: some View {
         GeometryReader { geometry in
@@ -25,18 +29,26 @@ struct ProductForm: View {
                         }
                         .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                         
-                        Button(action: {}) {
+                        Button(action: { showImagePicker.toggle() }) {
                             ZStack {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.gray)
-                                    .opacity(0.2)
-                                    .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
-                                
-                                VStack {
-                                    Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
-                                    Text("Add cover image").padding(.top,5).fontWeight(.semibold)
+                                if let image = self.image {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
+                                        .cornerRadius(10)
+                                } else {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(.gray)
+                                        .opacity(0.2)
+                                        .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
+                                    
+                                    VStack {
+                                        Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
+                                        Text("Add cover image").padding(.top,5).fontWeight(.semibold)
+                                    }
+                                    .opacity(0.5)
                                 }
-                                .opacity(0.5)
                             }
                             
                         }
@@ -68,7 +80,18 @@ struct ProductForm: View {
                         
                         Spacer()
                         
-                        Button(action: {}) {
+                        Button(action: {
+                            if products_number != 0 {
+                                if let image = self.image {
+                                    UpdateDB().updateProducts(image: String(describing: image), name: productName, description: productDesc, price: productPrice)
+                                }
+                            } else {
+                                if let image = self.image {
+                                    CreateDB().addProducts(image: String(describing: image), name: productName, description: productDesc, price: productPrice)
+                                }
+                            }
+                            productCreated.toggle()
+                        }) {
                             Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
                         }
                         .padding(.bottom)
@@ -76,14 +99,19 @@ struct ProductForm: View {
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     }
-               
                     .foregroundColor(.black)
+                    .sheet(isPresented: $showImagePicker) {
+                        ImagePicker(image: $image)
+                    }
+                    .navigationDestination(isPresented: $productCreated) {
+                        HomePage().navigationBarHidden(true)
+                    }
             }
     }
 }
 
-struct ProductForm_Previews: PreviewProvider {
-    static var previews: some View {
-        ProductForm()
-    }
-}
+//struct ProductForm_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProductForm()
+//    }
+//}

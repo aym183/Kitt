@@ -58,7 +58,28 @@ class CreateDB : ObservableObject {
            } else {
                print("Link added successfully!")
            }
-                   }
+        }
+    }
+    
+    func addProducts(image: String, name: String, description: String, price: String) {
+        @AppStorage("products") var links: String = ""
+        
+        let db = Firestore.firestore()
+        let ref = db.collection("links")
+        var docID = ref.document(links)
+        var presentDateTime = TimeData().getPresentDateTime()
+        
+        var documentData = [String: Any]()
+        var fieldID = ref.document()
+        documentData[fieldID.documentID] = ["name": name, "image": image, "time_created": presentDateTime, "description": description, "price": price]
+        
+        docID.setData(documentData) { error in
+           if let error = error {
+               print("Error adding link: \(error.localizedDescription)")
+           } else {
+               print("Link added successfully!")
+           }
+        }
     }
     
     
