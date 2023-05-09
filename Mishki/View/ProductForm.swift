@@ -41,11 +41,11 @@ struct ProductForm: View {
                             
                         }
                         
-                        TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top)
+                        TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top).disableAutocorrection(true).autocapitalization(.none)
                         
-                        TextField("", text: $productDesc, prompt: Text("Product Description").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 10)
+                        TextField("", text: $productDesc, prompt: Text("Product Description").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none)
                         
-                        TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10)
+                        TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                         
                         Button(action: {}) {
                             ZStack {
@@ -72,8 +72,6 @@ struct ProductForm: View {
                             Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
                         }
                         .padding(.bottom)
-                        
-                        
                         
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
