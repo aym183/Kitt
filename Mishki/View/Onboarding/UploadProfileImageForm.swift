@@ -11,6 +11,8 @@ struct UploadProfileImageForm: View {
     @Binding var username: String
     @Binding var homePageShown: Bool
     @Binding var createAccountSheet: Bool
+    @State var showImagePicker = false
+    @State var image: UIImage?
     
     var body: some View {
         GeometryReader { geometry in
@@ -27,10 +29,18 @@ struct UploadProfileImageForm: View {
                         Text("Select an image to use as your profile \npicture. It will show up on your page.").padding(.top).padding(.leading, 5)
                         
                         HStack {
-                            Button(action: {}) {
+                            Button(action: {showImagePicker.toggle()}) {
                                 ZStack {
-                                    Circle().fill(.gray).opacity(0.2).frame(width: 100, height: 100)
-                                    Image(systemName: "plus").fontWeight(.heavy).font(.system(size: 30))
+                                    if let image = self.image {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 80, height: 80)
+                                            .cornerRadius(50)
+                                    } else {
+                                        Circle().fill(.gray).opacity(0.2).frame(width: 100, height: 100)
+                                        Image(systemName: "plus").fontWeight(.heavy).font(.system(size: 30))
+                                    }
                                 }
                             }
                             
@@ -61,16 +71,20 @@ struct UploadProfileImageForm: View {
                             .padding(.top)
                             
                             Button(action: { homePageShown.toggle() }) {
-                                Text("I'll do it later").font(Font.system(size: 25))
+                                Text("I'll do it later").font(Font.system(size: 20))
                                     .fontWeight(.semibold).padding([.top, .leading])
                             }
                         }
                         
-                        Spacer()
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
                     .padding(.top, 30)
+                    .sheet(isPresented: $showImagePicker) {
+                        ImagePicker(image: $image)
+                    }
+                    
+                    Spacer()
                 }
         }
     }

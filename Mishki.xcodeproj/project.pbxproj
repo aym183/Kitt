@@ -51,6 +51,7 @@
 		61A0E85F2A0A2F4100FE474D /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E85E2A0A2F4100FE474D /* AuthViewModel.swift */; };
 		61A0E8612A0A410400FE474D /* CreateDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8602A0A410400FE474D /* CreateDB.swift */; };
 		61A0E8642A0A416F00FE474D /* TimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8632A0A416F00FE474D /* TimeData.swift */; };
+		61A0E8682A0A44DC00FE474D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8672A0A44DC00FE474D /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		61A0E85E2A0A2F4100FE474D /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		61A0E8602A0A410400FE474D /* CreateDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDB.swift; sourceTree = "<group>"; };
 		61A0E8632A0A416F00FE474D /* TimeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeData.swift; sourceTree = "<group>"; };
+		61A0E8672A0A44DC00FE474D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 				61A0E8102A09F78200FE474D /* ProductForm.swift */,
 				61A0E8122A09F78900FE474D /* LinkForm.swift */,
 				61A0E8152A0A051300FE474D /* SettingsPage.swift */,
+				61A0E8672A0A44DC00FE474D /* ImagePicker.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				61A0E8182A0A09F000FE474D /* LandingPage.swift in Sources */,
 				61A0E8132A09F78900FE474D /* LinkForm.swift in Sources */,
 				61A0E8642A0A416F00FE474D /* TimeData.swift in Sources */,
+				61A0E8682A0A44DC00FE474D /* ImagePicker.swift in Sources */,
 				61A0E81D2A0A121E00FE474D /* UserDetails.swift in Sources */,
 				61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */,
 				61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */,
