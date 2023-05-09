@@ -39,10 +39,10 @@ struct UserDetails: View {
                             }
                             .font(Font.system(size: 25))
                             .fontWeight(.semibold)
+                            .frame(width: 200, height: 70)
+                            .background(Color.black).foregroundColor(Color.white)
+                            .cornerRadius(50)
                         }
-                        .frame(width: 200, height: 60)
-                        .background(Color.black).foregroundColor(Color.white)
-                        .cornerRadius(50)
                         .padding(.top)
                         
                         Spacer()

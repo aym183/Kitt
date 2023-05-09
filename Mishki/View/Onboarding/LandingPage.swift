@@ -6,18 +6,19 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct LandingPage: View {
     @AppStorage("username") var userName: String = ""
-    @State var userIsLoggedIn = false
+    
     var body: some View {
             ZStack {
                 VStack {
-                    if userIsLoggedIn {
-                       HomePage()
-                    } else {
+//                    if Auth.auth().currentUser != nil {
+//                       HomePage()
+//                    } else {
                         LandingContent()
-                    }
+//                    }
                 }
             }
     }
@@ -49,13 +50,10 @@ struct LandingContent: View {
                             }
                             .font(Font.system(size: 25))
                             .fontWeight(.semibold)
+                            .frame(width: 300, height: 70)
+                            .background(Color.black).foregroundColor(Color.white)
+                            .cornerRadius(50)
                         }
-                        .frame(width: 300, height: 70)
-                        .background(Color.black).foregroundColor(Color.white)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 50).stroke(Color.black, lineWidth: 2)
-                        )
-                        .cornerRadius(50)
                         .padding(.horizontal, 50).padding(.bottom)
                         .sheet(isPresented: $createAccountSheet) {
                             CreateAccountForm(createAccountSheet: $createAccountSheet, homePageShown: $homePageShown).presentationDetents([.height(500)])

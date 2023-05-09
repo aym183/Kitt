@@ -14,6 +14,9 @@ struct CreateAccountForm: View {
     @Binding var createAccountSheet: Bool
     @State var showProfileCreation = false
     @Binding var homePageShown: Bool
+    var areAllFieldsEmpty: Bool {
+        return email.isEmpty || password.isEmpty || confirmPassword.isEmpty
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -31,11 +34,11 @@ struct CreateAccountForm: View {
                         .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
                         .frame(width: geometry.size.width-40)
                         
-                        TextField("", text: $email, prompt: Text("Email").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5)
+                        TextField("", text: $email, prompt: Text("Email").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
                         
-                        TextField("", text: $password, prompt: Text("Password").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5)
+                        SecureField("", text: $password, prompt: Text("Password").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
                         
-                        TextField("", text: $confirmPassword, prompt: Text("Confirm Password").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5)
+                        SecureField("", text: $confirmPassword, prompt: Text("Confirm Password").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
                         
                         Text("By continuing you agree to our Terms of Service.\nOpenrack services are subject to our Privacy Policy.")
                             .font(.footnote).fontWeight(.semibold)
@@ -43,17 +46,24 @@ struct CreateAccountForm: View {
                             .opacity(0.7)
                         
                         
-                        Button(action: { showProfileCreation.toggle() }) {
+                        Button(action: {
+                            DispatchQueue.global(qos: .userInteractive).async {
+                                AuthViewModel().signUp(email: email, password: password)
+                            }
+                            showProfileCreation.toggle()
+                            
+                        }) {
                             HStack {
                                 Text("Sign Up")
                             }
                             .font(Font.system(size: 25))
                             .fontWeight(.semibold)
+                            .frame(width: 200, height: 70)
+                            .background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white)
+                            .cornerRadius(50)
                         }
-                        .frame(width: 200, height: 60)
-                        .background(Color.black).foregroundColor(Color.white)
-                        .cornerRadius(50)
                         .padding(.top)
+                        .disabled(areAllFieldsEmpty)
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)

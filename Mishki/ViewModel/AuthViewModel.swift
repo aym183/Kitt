@@ -11,7 +11,18 @@ import FirebaseAuth
 class AuthViewModel : ObservableObject {
     let auth = Auth.auth()
     
-    func signIn(username: String, email: String, password: String) {
+    func signUp(email: String, password: String) {
+        auth.createUser(withEmail: email, password: password) { result, error in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                print("Successful auth")
+            }
+        }
+    }
+
+    
+    func signIn(email: String, password: String) {
         auth.signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 print(error.localizedDescription)
