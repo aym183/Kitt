@@ -91,19 +91,26 @@ struct HomePage: View {
                                     HStack {
                                         ZStack {
                                             HStack {
-                                                RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-150, height: 100).foregroundColor(.gray).opacity(0.2).padding(.leading, 10)
+                                                RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-150, height: 240).foregroundColor(.gray).opacity(0.2).padding(.leading, 10)
                                                 Spacer()
                                             }
                                             
-                                            HStack {
-                                                VStack(alignment: .leading) {
-                                                    Text( readData.products![index]["name"]!).font(Font.system(size: 15)).fontWeight(.medium)
-                                                    
-                                                    Text("\(readData.products![index]["price"]!) AED").font(Font.system(size: 15)).fontWeight(.heavy).padding(.top, 5)
+                                            VStack() {
+                                                Image("ShowPreview").resizable().frame(width: geometry.size.width-152, height: 160).cornerRadius(10).scaledToFit().padding(.trailing, 21)
+                                                
+                                                HStack {
+                                                    VStack(alignment: .leading) {
+                                                        Spacer()
+                                                        Text( readData.products![index]["name"]!).font(Font.system(size: 15)).fontWeight(.medium)
+                                                        
+                                                        Text("\(readData.products![index]["price"]!) AED").font(Font.system(size: 15)).fontWeight(.heavy).padding(.top, -2)
+                                                    }
+                                                    .padding(.leading, 22).padding(.bottom, 5)
+                                                    Spacer()
                                                 }
-                                                .padding(.leading, 30)
-                                                Spacer()
                                             }
+                                            
+                                            
                                         }
                                         .padding(.top,10)
                                         .id(index)
@@ -139,7 +146,7 @@ struct HomePage: View {
                                             }
                                             
                                             HStack {
-                                                Text( readData.links![index]["name"]!).foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 30)
+                                                Text( readData.links![index]["name"]!).foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 22)
                                                 Spacer()
                                             }
                                         }
