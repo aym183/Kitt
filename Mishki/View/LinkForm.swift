@@ -17,7 +17,7 @@ struct LinkForm: View {
                     Color(.white).ignoresSafeArea()
                     VStack {
                         HStack {
-                            Text("New Link").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical).kerning(1.5)
+                            Text("New Link").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
                             
                             Spacer()
                         }

@@ -15,6 +15,9 @@
 		61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8102A09F78200FE474D /* ProductForm.swift */; };
 		61A0E8132A09F78900FE474D /* LinkForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8122A09F78900FE474D /* LinkForm.swift */; };
 		61A0E8162A0A051300FE474D /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8152A0A051300FE474D /* SettingsPage.swift */; };
+		61A0E8182A0A09F000FE474D /* LandingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8172A0A09F000FE474D /* LandingPage.swift */; };
+		61A0E81B2A0A0E3700FE474D /* CreateAccountForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E81A2A0A0E3600FE474D /* CreateAccountForm.swift */; };
+		61A0E81D2A0A121E00FE474D /* UserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E81C2A0A121E00FE474D /* UserDetails.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,9 @@
 		61A0E8102A09F78200FE474D /* ProductForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductForm.swift; sourceTree = "<group>"; };
 		61A0E8122A09F78900FE474D /* LinkForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkForm.swift; sourceTree = "<group>"; };
 		61A0E8152A0A051300FE474D /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
+		61A0E8172A0A09F000FE474D /* LandingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPage.swift; sourceTree = "<group>"; };
+		61A0E81A2A0A0E3600FE474D /* CreateAccountForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountForm.swift; sourceTree = "<group>"; };
+		61A0E81C2A0A121E00FE474D /* UserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,7 @@
 		61A0E80B2A09D43600FE474D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				61A0E8192A0A0E1E00FE474D /* Onboarding */,
 				61A0E7FF2A09D0D500FE474D /* HomePage.swift */,
 				61A0E80E2A09E16100FE474D /* FormSelection.swift */,
 				61A0E8102A09F78200FE474D /* ProductForm.swift */,
@@ -101,6 +108,16 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		61A0E8192A0A0E1E00FE474D /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				61A0E8172A0A09F000FE474D /* LandingPage.swift */,
+				61A0E81A2A0A0E3600FE474D /* CreateAccountForm.swift */,
+				61A0E81C2A0A121E00FE474D /* UserDetails.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,12 +190,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61A0E8182A0A09F000FE474D /* LandingPage.swift in Sources */,
 				61A0E8132A09F78900FE474D /* LinkForm.swift in Sources */,
+				61A0E81D2A0A121E00FE474D /* UserDetails.swift in Sources */,
 				61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */,
 				61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */,
 				61A0E8162A0A051300FE474D /* SettingsPage.swift in Sources */,
 				61A0E7FE2A09D0D500FE474D /* MishkiApp.swift in Sources */,
 				61A0E80F2A09E16100FE474D /* FormSelection.swift in Sources */,
+				61A0E81B2A0A0E3700FE474D /* CreateAccountForm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
