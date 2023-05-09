@@ -11,6 +11,7 @@
 		61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FF2A09D0D500FE474D /* HomePage.swift */; };
 		61A0E8022A09D0D600FE474D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61A0E8012A09D0D600FE474D /* Assets.xcassets */; };
 		61A0E8052A09D0D600FE474D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61A0E8042A09D0D600FE474D /* Preview Assets.xcassets */; };
+		61A0E80F2A09E16100FE474D /* FormSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E80E2A09E16100FE474D /* FormSelection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		61A0E7FF2A09D0D500FE474D /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		61A0E8012A09D0D600FE474D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61A0E8042A09D0D600FE474D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		61A0E80E2A09E16100FE474D /* FormSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSelection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				61A0E7FF2A09D0D500FE474D /* HomePage.swift */,
+				61A0E80E2A09E16100FE474D /* FormSelection.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 			files = (
 				61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */,
 				61A0E7FE2A09D0D500FE474D /* MishkiApp.swift in Sources */,
+				61A0E80F2A09E16100FE474D /* FormSelection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
