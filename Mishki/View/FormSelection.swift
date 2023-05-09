@@ -10,6 +10,8 @@ import SwiftUI
 struct FormSelection: View {
     var emojis = ["😎", "❤️"]
     var labels = ["New Product", "New Link"]
+    @State var productFormShown = false
+    @State var linkFormShown = false
     var body: some View {
         GeometryReader { geometry in
             NavigationStack {
@@ -23,7 +25,13 @@ struct FormSelection: View {
                                 RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-60, height: 70).foregroundColor(.gray).opacity(0.2)
                                 
                                 HStack {
-                                    Button(action: {}) {
+                                    Button(action: {
+                                        if index == 0 {
+                                            productFormShown.toggle()
+                                        } else {
+                                            linkFormShown.toggle()
+                                        }
+                                    }) {
                                         Text("\(emojis[index]) \(labels[index])").foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 30)
                                         Spacer()
                                     }
