@@ -12,6 +12,8 @@ struct FormSelection: View {
     var labels = ["New Product", "New Link"]
     @State var productFormShown = false
     @State var linkFormShown = false
+    var links_number: Int
+    
     var body: some View {
         GeometryReader { geometry in
                 ZStack {
@@ -48,14 +50,14 @@ struct FormSelection: View {
                         ProductForm()
                     }
                     .navigationDestination(isPresented: $linkFormShown) {
-                        LinkForm()
+                        LinkForm(links_number: links_number)
                     }
         }
     }
 }
 
-struct FormSelection_Previews: PreviewProvider {
-    static var previews: some View {
-        FormSelection()
-    }
-}
+//struct FormSelection_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FormSelection()
+//    }
+//}

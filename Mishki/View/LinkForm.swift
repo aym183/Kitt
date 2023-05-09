@@ -11,6 +11,8 @@ struct LinkForm: View {
     @State var linkName = ""
     @State var linkURL = ""
     @State var linkCreated = false
+    var links_number: Int
+    
     var body: some View {
         GeometryReader { geometry in
                 ZStack {
@@ -30,7 +32,11 @@ struct LinkForm: View {
                         Spacer()
                         
                         Button(action: {
-                            CreateDB().addLink(name: linkName, url: linkURL)
+                            if links_number != 0 {
+                                UpdateDB().updateLinks(name: linkName, url: linkURL)
+                            } else {
+                                CreateDB().addLink(name: linkName, url: linkURL)
+                            }
                             linkCreated.toggle()
                         }) {
                             Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
@@ -48,8 +54,8 @@ struct LinkForm: View {
         }
 }
 
-struct LinkForm_Previews: PreviewProvider {
-    static var previews: some View {
-        LinkForm()
-    }
-}
+//struct LinkForm_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LinkForm()
+//    }
+//}

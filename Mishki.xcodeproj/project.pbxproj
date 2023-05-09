@@ -162,8 +162,8 @@
 			children = (
 				61A0E8192A0A0E1E00FE474D /* Onboarding */,
 				61A0E7FF2A09D0D500FE474D /* HomePage.swift */,
-				61A0E80E2A09E16100FE474D /* FormSelection.swift */,
 				61A0E8102A09F78200FE474D /* ProductForm.swift */,
+				61A0E80E2A09E16100FE474D /* FormSelection.swift */,
 				61A0E8122A09F78900FE474D /* LinkForm.swift */,
 				61A0E8152A0A051300FE474D /* SettingsPage.swift */,
 				61A0E8672A0A44DC00FE474D /* ImagePicker.swift */,
