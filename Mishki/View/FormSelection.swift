@@ -48,9 +48,9 @@ struct FormSelection: View {
                     .navigationDestination(isPresented: $productFormShown) {
                         ProductForm()
                     }
-//                    .navigationDestination(isPresented: $formShown) {
-//                        FormSelection()
-//                    }
+                    .navigationDestination(isPresented: $linkFormShown) {
+                        LinkForm()
+                    }
                 }
         }
     }

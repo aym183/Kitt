@@ -14,6 +14,7 @@
 		61A0E80F2A09E16100FE474D /* FormSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E80E2A09E16100FE474D /* FormSelection.swift */; };
 		61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8102A09F78200FE474D /* ProductForm.swift */; };
 		61A0E8132A09F78900FE474D /* LinkForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8122A09F78900FE474D /* LinkForm.swift */; };
+		61A0E8162A0A051300FE474D /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8152A0A051300FE474D /* SettingsPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		61A0E80E2A09E16100FE474D /* FormSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSelection.swift; sourceTree = "<group>"; };
 		61A0E8102A09F78200FE474D /* ProductForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductForm.swift; sourceTree = "<group>"; };
 		61A0E8122A09F78900FE474D /* LinkForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkForm.swift; sourceTree = "<group>"; };
+		61A0E8152A0A051300FE474D /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				61A0E80E2A09E16100FE474D /* FormSelection.swift */,
 				61A0E8102A09F78200FE474D /* ProductForm.swift */,
 				61A0E8122A09F78900FE474D /* LinkForm.swift */,
+				61A0E8152A0A051300FE474D /* SettingsPage.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 				61A0E8132A09F78900FE474D /* LinkForm.swift in Sources */,
 				61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */,
 				61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */,
+				61A0E8162A0A051300FE474D /* SettingsPage.swift in Sources */,
 				61A0E7FE2A09D0D500FE474D /* MishkiApp.swift in Sources */,
 				61A0E80F2A09E16100FE474D /* FormSelection.swift in Sources */,
 			);
