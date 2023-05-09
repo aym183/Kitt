@@ -46,7 +46,7 @@ class ReadDB : ObservableObject {
         ref.whereField(FieldPath.documentID(), isEqualTo: products)
             .getDocuments { (snapshot, error) in
                 if let error = error {
-                    print("Error getting email in getLinks: \(error.localizedDescription)")
+                    print("Error getting email in getProducts: \(error.localizedDescription)")
                 } else {
                     for document in snapshot!.documents {
                         for documentData in document.data().values {

@@ -14,9 +14,11 @@ struct HomePage: View {
     @AppStorage("username") var userName: String = ""
     @StateObject var readData = ReadDB()
     @State var linksNumber = 0
+    @State var productsNumber = 0
     
     var body: some View {
         var noOfLinks = readData.links?.count ?? 0
+        var noOfProducts = readData.products?.count ?? 0
         GeometryReader { geometry in
                 ZStack {
                     Color(.white).ignoresSafeArea()
@@ -63,6 +65,7 @@ struct HomePage: View {
                         HStack {
                             Button(action: {
                                 linksNumber = noOfLinks
+                                productsNumber = noOfProducts
                                 formShown.toggle()
                             }) {
                                 HStack(spacing: 6) {
@@ -126,7 +129,7 @@ struct HomePage: View {
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .navigationDestination(isPresented: $formShown) {
-                        FormSelection(links_number: linksNumber)
+                        FormSelection(links_number: linksNumber, products_number: productsNumber)
                     }
                     .navigationDestination(isPresented: $settingsShown) {
                         SettingsPage()
@@ -135,6 +138,7 @@ struct HomePage: View {
                     .padding(.top, 30)
                     .onAppear {
                         readData.getLinks()
+                        readData.getProducts()
                     }
                 }
         }
