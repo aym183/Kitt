@@ -33,7 +33,6 @@ struct HomePage: View {
                                         )
                                     }
                                 }
-                                .foregroundColor(.black)
                                 .font(Font.system(size: 13))
                                 .padding(.leading, 10).padding(.top, 0.5)
                                 .fontWeight(.bold)
@@ -42,7 +41,7 @@ struct HomePage: View {
                             Spacer()
                             
                             Button(action: {}) {
-                                Image(systemName: "person.circle").font(Font.system(size: 60)).foregroundColor(.black)
+                                Image(systemName: "person.circle").font(Font.system(size: 60))
                             }
                         }
                         .padding(.horizontal, 10)
@@ -59,9 +58,6 @@ struct HomePage: View {
                             Spacer()
                         }
                         .padding(.horizontal, 10).padding(.top)
-                        .navigationDestination(isPresented: $formShown) {
-                            FormSelection()
-                        }
                         
                         
                         Spacer()
@@ -79,6 +75,11 @@ struct HomePage: View {
                         }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                    .navigationDestination(isPresented: $formShown) {
+                        FormSelection()
+                    }
+                    .foregroundColor(.black)
+                    .padding(.top, 30)
                 }
             }
         }

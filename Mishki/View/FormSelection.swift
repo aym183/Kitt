@@ -8,8 +8,37 @@
 import SwiftUI
 
 struct FormSelection: View {
+    var emojis = ["😎", "❤️"]
+    var labels = ["New Product", "New Link"]
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader { geometry in
+            NavigationStack {
+                ZStack {
+                    Color(.white).ignoresSafeArea()
+                    VStack {
+                        Text("What would you like to add \nto your shop?").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical).kerning(1.5)
+                        
+                        ForEach(0..<2) { index in
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-60, height: 70).foregroundColor(.gray).opacity(0.2)
+                                
+                                HStack {
+                                    Button(action: {}) {
+                                        Text("\(emojis[index]) \(labels[index])").foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 30)
+                                        Spacer()
+                                    }
+                                }
+                            }
+                            .padding(.top,10)
+                        }
+                        
+                        Spacer()
+                    }
+                    .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                    }
+                    .foregroundColor(.black)
+                }
+        }
     }
 }
 
