@@ -87,6 +87,49 @@ struct HomePage: View {
                             Spacer()
                         } else {
                             ScrollView {
+                                ForEach(0..<noOfProducts, id: \.self) { index in
+                                    HStack {
+                                        ZStack {
+                                            HStack {
+                                                RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-150, height: 100).foregroundColor(.gray).opacity(0.2).padding(.leading, 10)
+                                                Spacer()
+                                            }
+                                            
+                                            HStack {
+                                                VStack(alignment: .leading) {
+                                                    Text( readData.products![index]["name"]!).font(Font.system(size: 15)).fontWeight(.medium)
+                                                    
+                                                    Text("\(readData.products![index]["price"]!) AED").font(Font.system(size: 15)).fontWeight(.heavy).padding(.top, 5)
+                                                }
+                                                .padding(.leading, 30)
+                                                Spacer()
+                                            }
+                                        }
+                                        .padding(.top,10)
+                                        .id(index)
+                                        .multilineTextAlignment(.leading)
+                                        
+                                        HStack(spacing: 25) {
+                                            Button(action: {}) {
+                                                Image(systemName: "pencil").background(
+                                                    Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
+                                                )
+                                            }
+                                            
+                                            Button(action: {}) {
+                                                Image(systemName: "trash").background(
+                                                    Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
+                                                )
+                                            }
+                                        }
+                                        .font(Font.system(size: 13))
+                                        .padding(.top, 5).padding(.trailing)
+                                        .fontWeight(.bold)
+                                    }
+                                }
+                                .padding(.top, 10)
+                                
+                                
                                 ForEach(0..<noOfLinks, id: \.self) { index in
                                     HStack {
                                         ZStack {
@@ -123,7 +166,6 @@ struct HomePage: View {
                                     }
                                 }
                             }
-                            .padding(.top, 10)
                             
                         }
                     }
