@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsPage: View {
-    var labels = ["Total Sales", "Payment Details", "Change username", "Change profile image", "Help", "Refer a friend"]
+    var labels = ["Total Sales", "Payment Details", "Change username", "Change profile image", "Change bio", "Help", "Refer a friend"]
     var body: some View {
         GeometryReader { geometry in
                 ZStack {
@@ -21,8 +21,8 @@ struct SettingsPage: View {
                         
                         Spacer()
                         
-                        VStack {
-                            ForEach(0..<6) { index in
+                        ScrollView(.vertical) {
+                            ForEach(0..<7) { index in
                                 Button(action: {}) {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10)
