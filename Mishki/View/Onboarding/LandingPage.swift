@@ -25,6 +25,7 @@ struct LandingPage: View {
 
 struct LandingContent: View {
     @State var createAccountSheet = false
+    @State var homePageShown = false
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
@@ -57,11 +58,14 @@ struct LandingContent: View {
                         .cornerRadius(50)
                         .padding(.horizontal, 50).padding(.bottom)
                         .sheet(isPresented: $createAccountSheet) {
-                            CreateAccountForm(createAccountSheet: $createAccountSheet).presentationDetents([.height(500)])
+                            CreateAccountForm(createAccountSheet: $createAccountSheet, homePageShown: $homePageShown).presentationDetents([.height(500)])
                         }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
+                    .navigationDestination(isPresented: $homePageShown) {
+                        HomePage().navigationBarHidden(true)
+                    }
                 }
             }
         }

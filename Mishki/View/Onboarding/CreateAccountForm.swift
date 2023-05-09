@@ -13,6 +13,7 @@ struct CreateAccountForm: View {
     @State var confirmPassword = ""
     @Binding var createAccountSheet: Bool
     @State var showProfileCreation = false
+    @Binding var homePageShown: Bool
     
     var body: some View {
         GeometryReader { geometry in
@@ -57,7 +58,7 @@ struct CreateAccountForm: View {
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $showProfileCreation) {
-                        UserDetails().navigationBarHidden(true)
+                        UserDetails(homePageShown: $homePageShown, createAccountSheet: $createAccountSheet).navigationBarHidden(true)
                     }
                 }
             }

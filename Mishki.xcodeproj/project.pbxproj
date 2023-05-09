@@ -18,6 +18,7 @@
 		61A0E8182A0A09F000FE474D /* LandingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8172A0A09F000FE474D /* LandingPage.swift */; };
 		61A0E81B2A0A0E3700FE474D /* CreateAccountForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E81A2A0A0E3600FE474D /* CreateAccountForm.swift */; };
 		61A0E81D2A0A121E00FE474D /* UserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E81C2A0A121E00FE474D /* UserDetails.swift */; };
+		61A0E81F2A0A15DC00FE474D /* UploadProfileImageForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E81E2A0A15DC00FE474D /* UploadProfileImageForm.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		61A0E8172A0A09F000FE474D /* LandingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingPage.swift; sourceTree = "<group>"; };
 		61A0E81A2A0A0E3600FE474D /* CreateAccountForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountForm.swift; sourceTree = "<group>"; };
 		61A0E81C2A0A121E00FE474D /* UserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetails.swift; sourceTree = "<group>"; };
+		61A0E81E2A0A15DC00FE474D /* UploadProfileImageForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProfileImageForm.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				61A0E8172A0A09F000FE474D /* LandingPage.swift */,
 				61A0E81A2A0A0E3600FE474D /* CreateAccountForm.swift */,
 				61A0E81C2A0A121E00FE474D /* UserDetails.swift */,
+				61A0E81E2A0A15DC00FE474D /* UploadProfileImageForm.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 				61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */,
 				61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */,
 				61A0E8162A0A051300FE474D /* SettingsPage.swift in Sources */,
+				61A0E81F2A0A15DC00FE474D /* UploadProfileImageForm.swift in Sources */,
 				61A0E7FE2A09D0D500FE474D /* MishkiApp.swift in Sources */,
 				61A0E80F2A09E16100FE474D /* FormSelection.swift in Sources */,
 				61A0E81B2A0A0E3700FE474D /* CreateAccountForm.swift in Sources */,

@@ -9,6 +9,10 @@ import SwiftUI
 
 struct UserDetails: View {
     @State var username = ""
+    @State var profileImageUploadShown = false
+    @Binding var homePageShown: Bool
+    @Binding var createAccountSheet: Bool
+    
     var body: some View {
         GeometryReader { geometry in
             NavigationStack {
@@ -30,7 +34,7 @@ struct UserDetails: View {
                         }
                         .padding(.top).padding(.leading, 5)
                         
-                        Button(action: {}) {
+                        Button(action: { profileImageUploadShown.toggle() }) {
                             HStack {
                                 Text("Create")
                             }
@@ -48,14 +52,17 @@ struct UserDetails: View {
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
                     .padding(.top, 30)
+                    .navigationDestination(isPresented: $profileImageUploadShown) {
+                        UploadProfileImageForm(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet).navigationBarHidden(true)
+                    }
                 }
             }
         }
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserDetails()
-    }
-}
+//struct SwiftUIView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UserDetails()
+//    }
+//}
