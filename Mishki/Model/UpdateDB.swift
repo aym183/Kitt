@@ -52,7 +52,43 @@ class UpdateDB : ObservableObject {
             print("Link Updated!")
         }
         }
+    }
+    
+    func updateCreatedLink(old_url: String, new_url: String, old_name: String, new_name: String) {
+        print(old_url)
+        print(new_url)
+        print(old_name)
+        print(new_name)
+        @AppStorage("links") var links: String = ""
+        let db = Firestore.firestore()
+        let ref = db.collection("links")
+        var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
         
+        ref.whereField(FieldPath.documentID(), isEqualTo: links)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error finding product to delete: \(error.localizedDescription)")
+                } else {
+                    for document in snapshot!.documents {
+                        for documentData in document.data() {
+                            if let valueDict = documentData.value as? [String: String] {
+                                if valueDict["name"] == old_name && valueDict["url"] == old_url {
+                                    temp_entries[documentData.key] = ["name": new_name, "url": new_url, "time_created": TimeData().getPresentDateTime()]
+                                } else {
+                                    temp_entries[documentData.key] = valueDict
+                                }
+                            }
+                        }
+                        ref.document(document.documentID).setData(temp_entries) { error in
+                            if let error = error {
+                                print("Error updating created link: \(error.localizedDescription)")
+                            } else {
+                                print("Updated Created Link successfully")
+                            }
+                        }
+                    }
+                }
+            }
     }
     
     func updateProducts(image: UIImage, name: String, description: String, price: String) {

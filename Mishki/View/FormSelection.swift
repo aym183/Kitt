@@ -58,7 +58,7 @@ struct FormSelection: View {
                         ProductForm(productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: products_number, ifEdit: false)
                     }
                     .navigationDestination(isPresented: $linkFormShown) {
-                        LinkForm(linkName: $linkName, linkURL: $linkURL, ifEdit: false, links_number:  links_number)
+                        LinkForm(oldName: $linkName, oldURL: $linkURL, linkName: $linkName, linkURL: $linkURL, ifEdit: false, links_number:  links_number)
                     }
         }
     }

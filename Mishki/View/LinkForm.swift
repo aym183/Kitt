@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LinkForm: View {
+    @Binding var oldName: String
+    @Binding var oldURL: String
     @Binding var linkName: String
     @Binding var linkURL: String
     @State var linkCreated = false
@@ -39,7 +41,9 @@ struct LinkForm: View {
                         
                         Button(action: {
                             if ifEdit {
-                               print("Edit")
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    UpdateDB().updateCreatedLink(old_url: oldURL, new_url: linkURL, old_name: oldName, new_name: linkName)
+                                }
                             } else {
                                 DispatchQueue.global(qos: .userInteractive).async {
                                     if links_number != 0 {
@@ -66,6 +70,10 @@ struct LinkForm: View {
                         HomePage(isShownHomePage: true, isShownProductCreated: false).navigationBarHidden(true)
                     }
                     
+                }
+                .onAppear {
+                    print(oldURL)
+                    print(oldName)
                 }
         }
         }

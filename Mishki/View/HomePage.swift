@@ -18,6 +18,8 @@ struct HomePage: View {
     @State var productDesc = ""
     @State var productPrice = ""
     @State var image: UIImage?
+    @State var oldName = ""
+    @State var oldURL = ""
     @State var linkName = ""
     @State var linkURL = ""
     @State var linksNumber = 0
@@ -207,6 +209,8 @@ struct HomePage: View {
                                             Button(action: {
                                                 linkName = readData.links![index]["name"]!
                                                 linkURL = readData.links![index]["url"]!
+                                                oldName = readData.links![index]["name"]!
+                                                oldURL = readData.links![index]["url"]!
                                                 linkEditShown.toggle()
                                                 
                                             }) {
@@ -277,7 +281,7 @@ struct HomePage: View {
                     ProductForm(productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: productsNumber, ifEdit: true).presentationDetents([.height(800)])
                 }
                 .sheet(isPresented: $linkEditShown) {
-                    LinkForm(linkName: $linkName, linkURL: $linkURL, ifEdit: true, links_number: linksNumber).presentationDetents([.height(500)])
+                    LinkForm(oldName: $oldName, oldURL: $oldURL, linkName: $linkName, linkURL: $linkURL, ifEdit: true, links_number: linksNumber).presentationDetents([.height(500)])
                 }
         }
     }
