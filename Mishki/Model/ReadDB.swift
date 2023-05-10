@@ -26,13 +26,17 @@ class ReadDB : ObservableObject {
                 print("Error getting profile image: \(error)")
             } else {
                 for document in snapshot!.documents {
-                    let storageRef = Storage.storage().reference()
-                    let fileRef = storageRef.child(String(describing: document.data()["profile_image"]))
-                    
-                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                        if error == nil && data != nil {
-                            if let image = UIImage(data: data!) {
-                                self.profile_image = image
+                    if document.data()["profile_image"] != nil {
+                        let storageRef = Storage.storage().reference()
+                        let fileRef = storageRef.child(String(describing: document.data()["profile_image"]!))
+                        
+                        fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                            if error == nil && data != nil {
+                                if let image = UIImage(data: data!) {
+                                    self.profile_image = image
+                                }
+                            } else {
+                                print(error)
                             }
                         }
                     }

@@ -95,7 +95,7 @@ struct HomePage: View {
                                                 Spacer()
                                             }
                                             
-                                            VStack() {
+                                            VStack {
                                                 Image("ShowPreview").resizable().frame(width: geometry.size.width-152, height: 160).cornerRadius(10).scaledToFit().padding(.trailing, 21)
                                                 
                                                 HStack {
@@ -187,9 +187,9 @@ struct HomePage: View {
                     .padding(.top, 30)
                     .onAppear {
                         DispatchQueue.global(qos: .userInteractive).async {
+                            readData.getProfileImage()
                             readData.getLinks()
                             readData.getProducts()
-                            readData.getProfileImage()
                         }
                     }
                 }
