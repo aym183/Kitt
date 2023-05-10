@@ -14,6 +14,10 @@ struct HomePage: View {
     @State var isShownProductCreated: Bool?
     @AppStorage("username") var userName: String = ""
     @StateObject var readData = ReadDB()
+    @State var oldProductName = ""
+    @State var oldProductDesc = ""
+    @State var oldProductPrice = ""
+    @State var oldImage: UIImage?
     @State var productName = ""
     @State var productDesc = ""
     @State var productPrice = ""
@@ -29,6 +33,7 @@ struct HomePage: View {
     @State var profile_image: UIImage?
     @State var productEditShown = false
     @State var linkEditShown = false
+
     
     var body: some View {
         var noOfLinks = readData.links?.count ?? 0
@@ -156,7 +161,11 @@ struct HomePage: View {
                                                 Button(action: {
                                                     productName = readData.products![index]["name"]!
                                                     productDesc = readData.products![index]["description"]!
-                                                    productPrice = "\(readData.products![index]["price"]!) AED"
+                                                    productPrice = "\(readData.products![index]["price"]!)"
+                                                    oldProductName = readData.products![index]["name"]!
+                                                    oldProductDesc = readData.products![index]["description"]!
+                                                    oldProductPrice = "\(readData.products![index]["price"]!)"
+                                                    oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
                                                     image = readData.loadProductImage(key: readData.products![index]["image"]!)
                                                     productEditShown.toggle()
                                                     
@@ -251,7 +260,7 @@ struct HomePage: View {
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .onAppear {
-                        print("HI here")
+                        print("I AM HERE")
                         DispatchQueue.global(qos: .userInteractive).async {
                             readData.getLinks()
                             readData.getProducts()
@@ -277,8 +286,8 @@ struct HomePage: View {
                     .opacity(isShownHomePage ? 0 : 1)
                     .opacity(isShownProductCreated! ? 0 : 1)
                 }
-                .sheet(isPresented: $productEditShown) {
-                    ProductForm(productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: productsNumber, ifEdit: true).presentationDetents([.height(800)])
+                .navigationDestination(isPresented: $productEditShown) {
+                    ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: productsNumber, ifEdit: true, readData: readData).presentationDetents([.height(800)])
                 }
                 .sheet(isPresented: $linkEditShown) {
                     LinkForm(oldName: $oldName, oldURL: $oldURL, linkName: $linkName, linkURL: $linkURL, ifEdit: true, links_number: linksNumber, linkEditShown: $linkEditShown, readData: readData).presentationDetents([.height(500)])

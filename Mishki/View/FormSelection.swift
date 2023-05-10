@@ -17,6 +17,10 @@ struct FormSelection: View {
     @State var linkURL = ""
     var links_number: Int
     var products_number: Int
+    @State var oldProductName = ""
+    @State var oldProductDesc = ""
+    @State var oldProductPrice = ""
+    @State var oldImage: UIImage?
     @State var productName = ""
     @State var productDesc = ""
     @State var productPrice = ""
@@ -58,7 +62,7 @@ struct FormSelection: View {
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $productFormShown) {
 //                        ProductForm(products_number: products_number)
-                        ProductForm(productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: products_number, ifEdit: false)
+                        ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: products_number, ifEdit: false, readData: readData)
                     }
                     .navigationDestination(isPresented: $linkFormShown) {
                         LinkForm(oldName: $linkName, oldURL: $linkURL, linkName: $linkName, linkURL: $linkURL, ifEdit: false, links_number:  links_number, linkEditShown: $linkEditShown, readData: readData)

@@ -55,10 +55,6 @@ class UpdateDB : ObservableObject {
     }
     
     func updateCreatedLink(old_url: String, new_url: String, old_name: String, new_name: String, completion: @escaping (String?) -> Void) {
-        print(old_url)
-        print(new_url)
-        print(old_name)
-        print(new_name)
         @AppStorage("links") var links: String = ""
         let db = Firestore.firestore()
         let ref = db.collection("links")
@@ -67,12 +63,12 @@ class UpdateDB : ObservableObject {
         ref.whereField(FieldPath.documentID(), isEqualTo: links)
             .getDocuments { (snapshot, error) in
                 if let error = error {
-                    print("Error finding product to delete: \(error.localizedDescription)")
+                    print("Error finding link to update: \(error.localizedDescription)")
                 } else {
                     for document in snapshot!.documents {
                         for documentData in document.data() {
                             if let valueDict = documentData.value as? [String: String] {
-                                if valueDict["name"] == old_name && valueDict["url"] == old_url {
+                                if valueDict["name"] != new_name || valueDict["url"] != new_url {
                                     temp_entries[documentData.key] = ["name": new_name, "url": new_url, "time_created": TimeData().getPresentDateTime()]
                                 } else {
                                     temp_entries[documentData.key] = valueDict
@@ -84,6 +80,60 @@ class UpdateDB : ObservableObject {
                                 print("Error updating created link: \(error.localizedDescription)")
                             } else {
                                 print("Updated Created Link successfully")
+                                completion("Successful")
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    
+    func updateCreatedProduct(data: [String: Any], old_image: UIImage, new_image: UIImage, completion: @escaping (String?) -> Void) {
+        @AppStorage("products") var products: String = ""
+        let db = Firestore.firestore()
+        let ref = db.collection("products")
+        let randomID = UUID().uuidString
+        let path = "product_images/\(randomID).jpg"
+        var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
+        
+        let imageData = new_image.jpegData(compressionQuality: 0.8)
+
+        guard imageData != nil else {
+            return
+        }
+        
+        UserDefaults.standard.set(new_image.jpegData(compressionQuality: 0.8), forKey: path)
+        
+        ref.whereField(FieldPath.documentID(), isEqualTo: products)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error finding product to update: \(error.localizedDescription)")
+                } else {
+                    for document in snapshot!.documents {
+                        for documentData in document.data() {
+                            if let valueDict = documentData.value as? [String: String] {
+
+                                if valueDict["name"] != String(describing: data["productName"]!) || valueDict["price"] != String(describing: data["oldProductPrice"]!) || valueDict["description"] != String(describing: data["oldProductDesc"]!) || old_image != new_image {
+                                    
+                                        temp_entries[documentData.key] = ["name": String(describing: data["productName"]!), "description": String(describing: data["productDesc"]!), "time_created": TimeData().getPresentDateTime(), "price": String(describing: data["productPrice"]!), "image": path]
+
+                                        DispatchQueue.global(qos: .background).async {
+                                            let storage = Storage.storage().reference()
+                                            let fileRef = storage.child("product_images/\(randomID).jpg")
+                                            let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+                                            }
+                                        }
+
+                                } else {
+                                    temp_entries[documentData.key] = valueDict
+                                }
+                            }
+                        }
+                        ref.document(document.documentID).setData(temp_entries) { error in
+                            if let error = error {
+                                print("Error updating created product: \(error.localizedDescription)")
+                            } else {
+                                print("Updated Created Product successfully")
                                 completion("Successful")
                             }
                         }

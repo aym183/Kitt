@@ -8,15 +8,21 @@
 import SwiftUI
 
 struct ProductForm: View {
+    @Binding var oldProductName: String
+    @Binding var oldProductDesc: String
+    @Binding var oldProductPrice: String
+    @Binding var oldImage: UIImage?
+    
     @Binding var productName: String
     @Binding var productDesc: String
     @Binding var productPrice: String
+    @Binding var image: UIImage?
     @State var uploadFile = ""
     @State var showImagePicker = false
-    @Binding var image: UIImage?
     @State var productCreated = false
     var products_number: Int
     @State var ifEdit: Bool
+    @ObservedObject var readData: ReadDB
     
     var body: some View {
         GeometryReader { geometry in
@@ -87,7 +93,15 @@ struct ProductForm: View {
                         
                         Button(action: {
                             if ifEdit {
-                                
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    if let image = self.image {
+                                        UpdateDB().updateCreatedProduct(data: ["oldProductName": oldProductName, "oldProductDesc": oldProductDesc, "oldProductPrice": oldProductPrice, "productName": productName, "productDesc": productDesc, "productPrice": productPrice], old_image: oldImage!, new_image: image) { response in
+                                            if response == "Successful" {
+                                                productCreated.toggle()
+                                            }
+                                        }
+                                    }
+                                }
                             } else {
                                 DispatchQueue.global(qos: .userInteractive).async {
                                     if products_number != 0 {
