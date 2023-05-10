@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct ProductForm: View {
-    @State var productName = ""
-    @State var productDesc = ""
-    @State var productPrice = ""
+    @Binding var productName: String
+    @Binding var productDesc: String
+    @Binding var productPrice: String
     @State var uploadFile = ""
     @State var showImagePicker = false
-    @State var image: UIImage?
+    @Binding var image: UIImage?
     @State var productCreated = false
     var products_number: Int
+    @State var ifEdit: Bool
     
     var body: some View {
         GeometryReader { geometry in
@@ -23,7 +24,11 @@ struct ProductForm: View {
                     Color(.white).ignoresSafeArea()
                     VStack {
                         HStack {
-                            Text("New Product").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                            if ifEdit {
+                                Text("Edit Product").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                            } else {
+                                Text("New Product").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                            }
                             
                             Spacer()
                         }
@@ -81,20 +86,28 @@ struct ProductForm: View {
                         Spacer()
                         
                         Button(action: {
-                            DispatchQueue.global(qos: .userInteractive).async {
-                                if products_number != 0 {
-                                    if let image = self.image {
-                                        UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice)
+                            if ifEdit {
+                                
+                            } else {
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    if products_number != 0 {
+                                        if let image = self.image {
+                                            UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice)
+                                        }
+                                    } else {
+                                        if let image = self.image {
+                                            CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice)
+                                        }
                                     }
-                                } else {
-                                    if let image = self.image {
-                                        CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice)
-                                    }
+                                    productCreated.toggle()
                                 }
-                                productCreated.toggle()
                             }
                         }) {
-                            Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
+                            if ifEdit {
+                                Text("Update").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
+                            } else {
+                                Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
+                            }
                         }
                         .padding(.bottom)
                         

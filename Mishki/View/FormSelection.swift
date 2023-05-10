@@ -16,6 +16,10 @@ struct FormSelection: View {
     @State var linkURL = ""
     var links_number: Int
     var products_number: Int
+    @State var productName = ""
+    @State var productDesc = ""
+    @State var productPrice = ""
+    @State var image: UIImage?
     
     var body: some View {
         GeometryReader { geometry in
@@ -50,7 +54,8 @@ struct FormSelection: View {
                     }
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $productFormShown) {
-                        ProductForm(products_number: products_number)
+//                        ProductForm(products_number: products_number)
+                        ProductForm(productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: products_number, ifEdit: false)
                     }
                     .navigationDestination(isPresented: $linkFormShown) {
                         LinkForm(linkName: $linkName, linkURL: $linkURL, ifEdit: false, links_number:  links_number)

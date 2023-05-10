@@ -14,6 +14,10 @@ struct HomePage: View {
     @State var isShownProductCreated: Bool?
     @AppStorage("username") var userName: String = ""
     @StateObject var readData = ReadDB()
+    @State var productName = ""
+    @State var productDesc = ""
+    @State var productPrice = ""
+    @State var image: UIImage?
     @State var linkName = ""
     @State var linkURL = ""
     @State var linksNumber = 0
@@ -147,7 +151,14 @@ struct HomePage: View {
                                             .multilineTextAlignment(.leading)
                                             
                                             HStack(spacing: 25) {
-                                                Button(action: { productEditShown.toggle() }) {
+                                                Button(action: {
+                                                    productName = readData.products![index]["name"]!
+                                                    productDesc = readData.products![index]["description"]!
+                                                    productPrice = "\(readData.products![index]["price"]!) AED"
+                                                    image = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                    productEditShown.toggle()
+                                                    
+                                                }) {
                                                     Image(systemName: "pencil").background(
                                                         Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
                                                     )
@@ -263,7 +274,7 @@ struct HomePage: View {
                     .opacity(isShownProductCreated! ? 0 : 1)
                 }
                 .sheet(isPresented: $productEditShown) {
-                    ProductForm(products_number: productsNumber).presentationDetents([.height(800)])
+                    ProductForm(productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: productsNumber, ifEdit: true).presentationDetents([.height(800)])
                 }
                 .sheet(isPresented: $linkEditShown) {
                     LinkForm(linkName: $linkName, linkURL: $linkURL, ifEdit: true, links_number: linksNumber).presentationDetents([.height(500)])
