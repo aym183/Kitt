@@ -22,7 +22,7 @@ struct MishkiApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
-            LandingPage()
+            LandingPage().preferredColorScheme(.dark)
         }
     }
 }

@@ -55,6 +55,7 @@
 		61A0E86A2A0A491A00FE474D /* UpdateDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8692A0A491A00FE474D /* UpdateDB.swift */; };
 		61A0E86C2A0A4A5F00FE474D /* ReadDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E86B2A0A4A5F00FE474D /* ReadDB.swift */; };
 		61A60C572A0B91E2006B7984 /* DeleteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A60C562A0B91E2006B7984 /* DeleteDB.swift */; };
+		61A60C5A2A0BEE83006B7984 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61A60C592A0BEE83006B7984 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 		61A0E86B2A0A4A5F00FE474D /* ReadDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDB.swift; sourceTree = "<group>"; };
 		61A60C552A0B7ACF006B7984 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		61A60C562A0B91E2006B7984 /* DeleteDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDB.swift; sourceTree = "<group>"; };
+		61A60C592A0BEE83006B7984 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 		61A0E80B2A09D43600FE474D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				61A60C582A0BEE16006B7984 /* Launch Screen */,
 				61A0E8192A0A0E1E00FE474D /* Onboarding */,
 				61A0E7FF2A09D0D500FE474D /* HomePage.swift */,
 				61A0E8102A09F78200FE474D /* ProductForm.swift */,
@@ -211,6 +214,14 @@
 				61A0E8632A0A416F00FE474D /* TimeData.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		61A60C582A0BEE16006B7984 /* Launch Screen */ = {
+			isa = PBXGroup;
+			children = (
+				61A60C592A0BEE83006B7984 /* LaunchScreen.storyboard */,
+			);
+			path = "Launch Screen";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -306,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61A0E8052A09D0D600FE474D /* Preview Assets.xcassets in Resources */,
+				61A60C5A2A0BEE83006B7984 /* LaunchScreen.storyboard in Resources */,
 				61A0E8022A09D0D600FE474D /* Assets.xcassets in Resources */,
 				61A0E85D2A0A2D0800FE474D /* GoogleService-Info.plist in Resources */,
 			);
@@ -460,6 +472,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mishki/Preview Content\"";
@@ -472,6 +485,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -496,6 +510,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mishki/Preview Content\"";
@@ -508,6 +523,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
