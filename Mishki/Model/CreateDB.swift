@@ -62,17 +62,29 @@ class CreateDB : ObservableObject {
         }
     }
     
-    func addProducts(image: String, name: String, description: String, price: String) {
+    func addProducts(image: UIImage, name: String, description: String, price: String) {
         @AppStorage("products") var products: String = ""
         
+        let storage = Storage.storage().reference()
+        let imageData = image.jpegData(compressionQuality: 0.8)
+
+        guard imageData != nil else {
+            return
+        }
         let db = Firestore.firestore()
         let ref = db.collection("products")
         var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
         
+        let randomID = UUID().uuidString
+        let path = "product_images/\(randomID).jpg"
+        let fileRef = storage.child("product_images/\(randomID).jpg")
+        let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+        }
+        
         var documentData = [String: Any]()
         var fieldID = ref.document()
-        documentData[fieldID.documentID] = ["name": name, "image": image, "time_created": presentDateTime, "description": description, "price": price]
+        documentData[fieldID.documentID] = ["name": name, "image": path, "time_created": presentDateTime, "description": description, "price": price]
         
         docID.setData(documentData) { error in
            if let error = error {
@@ -95,8 +107,9 @@ class CreateDB : ObservableObject {
             return
         }
         
-        let path = "profile_images/\(UUID().uuidString).jpg"
-        let fileRef = storage.child("profile_images/\(UUID().uuidString).jpg")
+        let randomID = UUID().uuidString
+        let path = "profile_images/\(randomID).jpg"
+        let fileRef = storage.child("profile_images/\(randomID).jpg")
         let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
         }
         
@@ -113,20 +126,6 @@ class CreateDB : ObservableObject {
                 let docRef = collectionRef.document(document.documentID)
                 docRef.updateData(["profile_image": path])
             }
-        }
-    }
-    
-    func uploadProductImage(image: UIImage) {
-        let storage = Storage.storage().reference()
-        let imageData = image.jpegData(compressionQuality: 0.8)
-
-        guard imageData != nil else {
-            return
-        }
-        
-        let fileRef = storage.child("product_images/\(UUID().uuidString).jpg")
-        let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
-            
         }
     }
     

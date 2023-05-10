@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Firebase
+import FirebaseStorage
 
 class UpdateDB : ObservableObject {
     
@@ -54,17 +55,30 @@ class UpdateDB : ObservableObject {
         
     }
     
-    func updateProducts(image: String, name: String, description: String, price: String) {
+    func updateProducts(image: UIImage, name: String, description: String, price: String) {
         @AppStorage("products") var products: String = ""
+        
+        let storage = Storage.storage().reference()
+        let imageData = image.jpegData(compressionQuality: 0.8)
+
+        guard imageData != nil else {
+            return
+        }
         
         let db = Firestore.firestore()
         let ref = db.collection("products")
         var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
         
+        let randomID = UUID().uuidString
+        let path = "product_images/\(randomID).jpg"
+        let fileRef = storage.child("product_images/\(randomID).jpg")
+        let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+        }
+        
         var documentData = [String: Any]()
         var fieldID = ref.document()
-        documentData[fieldID.documentID] = ["name": name, "image": image, "time_created": presentDateTime, "description": description, "price": price]
+        documentData[fieldID.documentID] = ["image": path, "name": name, "time_created": presentDateTime, "description": description, "price": price]
         
         docID.updateData(documentData) { error in
         if let error = error {

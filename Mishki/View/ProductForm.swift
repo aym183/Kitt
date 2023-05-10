@@ -84,13 +84,11 @@ struct ProductForm: View {
                             DispatchQueue.global(qos: .userInteractive).async {
                                 if products_number != 0 {
                                     if let image = self.image {
-                                        UpdateDB().updateProducts(image: String(describing: image), name: productName, description: productDesc, price: productPrice)
-                                        CreateDB().uploadProductImage(image: image)
+                                        UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice)
                                     }
                                 } else {
                                     if let image = self.image {
-                                        CreateDB().addProducts(image: String(describing: image), name: productName, description: productDesc, price: productPrice)
-                                        CreateDB().uploadProductImage(image: image)
+                                        CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice)
                                     }
                                 }
                             }
