@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct LinkForm: View {
-    @State var linkName = ""
-    @State var linkURL = ""
+    @Binding var linkName: String
+    @Binding var linkURL: String
     @State var linkCreated = false
+    @State var ifEdit: Bool
     var links_number: Int
     
     var body: some View {
@@ -19,7 +20,12 @@ struct LinkForm: View {
                     Color(.white).ignoresSafeArea()
                     VStack {
                         HStack {
-                            Text("New Link").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                            if ifEdit {
+                                Text("Edit Link").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                            } else {
+                                Text("New Link").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                            }
+                            
                             
                             Spacer()
                         }
@@ -32,14 +38,19 @@ struct LinkForm: View {
                         Spacer()
                         
                         Button(action: {
-                            DispatchQueue.global(qos: .userInteractive).async {
-                                if links_number != 0 {
-                                    UpdateDB().updateLinks(name: linkName, url: linkURL)
-                                } else {
-                                    CreateDB().addLink(name: linkName, url: linkURL)
+                            if ifEdit {
+                               print("Edit")
+                            } else {
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    if links_number != 0 {
+                                        UpdateDB().updateLinks(name: linkName, url: linkURL)
+                                    } else {
+                                        CreateDB().addLink(name: linkName, url: linkURL)
+                                    }
                                 }
+                                linkCreated.toggle()
                             }
-                            linkCreated.toggle()
+                           
                         }) {
                             Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
                         }

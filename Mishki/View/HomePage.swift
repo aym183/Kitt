@@ -14,12 +14,15 @@ struct HomePage: View {
     @State var isShownProductCreated: Bool?
     @AppStorage("username") var userName: String = ""
     @StateObject var readData = ReadDB()
+    @State var linkName = ""
+    @State var linkURL = ""
     @State var linksNumber = 0
     @State var productsNumber = 0
     @State var productIndex = 0
     @State var linkIndex = 0
     @State var profile_image: UIImage?
-    
+    @State var productEditShown = false
+    @State var linkEditShown = false
     
     var body: some View {
         var noOfLinks = readData.links?.count ?? 0
@@ -144,7 +147,7 @@ struct HomePage: View {
                                             .multilineTextAlignment(.leading)
                                             
                                             HStack(spacing: 25) {
-                                                Button(action: {}) {
+                                                Button(action: { productEditShown.toggle() }) {
                                                     Image(systemName: "pencil").background(
                                                         Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
                                                     )
@@ -190,7 +193,12 @@ struct HomePage: View {
                                         .multilineTextAlignment(.leading)
                                         
                                         HStack(spacing: 25) {
-                                            Button(action: {}) {
+                                            Button(action: {
+                                                linkName = readData.links![index]["name"]!
+                                                linkURL = readData.links![index]["url"]!
+                                                linkEditShown.toggle()
+                                                
+                                            }) {
                                                 Image(systemName: "pencil").background(
                                                     Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
                                                 )
@@ -253,6 +261,12 @@ struct HomePage: View {
                     }
                     .opacity(isShownHomePage ? 0 : 1)
                     .opacity(isShownProductCreated! ? 0 : 1)
+                }
+                .sheet(isPresented: $productEditShown) {
+                    ProductForm(products_number: productsNumber).presentationDetents([.height(800)])
+                }
+                .sheet(isPresented: $linkEditShown) {
+                    LinkForm(linkName: $linkName, linkURL: $linkURL, ifEdit: true, links_number: linksNumber).presentationDetents([.height(500)])
                 }
         }
     }

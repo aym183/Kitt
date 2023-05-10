@@ -12,6 +12,8 @@ struct FormSelection: View {
     var labels = ["New Product", "New Link"]
     @State var productFormShown = false
     @State var linkFormShown = false
+    @State var linkName = ""
+    @State var linkURL = ""
     var links_number: Int
     var products_number: Int
     
@@ -51,7 +53,7 @@ struct FormSelection: View {
                         ProductForm(products_number: products_number)
                     }
                     .navigationDestination(isPresented: $linkFormShown) {
-                        LinkForm(links_number: links_number)
+                        LinkForm(linkName: $linkName, linkURL: $linkURL, ifEdit: false, links_number:  links_number)
                     }
         }
     }
