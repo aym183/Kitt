@@ -11,8 +11,35 @@ import Firebase
 
 class DeleteDB : ObservableObject {
     
-    func deleteLink() {
+    func deleteLink(name: String, url: String) {
+        @AppStorage("links") var links: String = ""
+        let db = Firestore.firestore()
+        let ref = db.collection("links")
+        var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
         
+        ref.whereField(FieldPath.documentID(), isEqualTo: links)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error finding product to delete: \(error.localizedDescription)")
+                } else {
+                    for document in snapshot!.documents {
+                        for documentData in document.data() {
+                            if let valueDict = documentData.value as? [String: String] {
+                                if valueDict["name"] != name && valueDict["url"] != url {
+                                    temp_entries[documentData.key] = valueDict
+                                }
+                            }
+                        }
+                        ref.document(document.documentID).setData(temp_entries) { error in
+                            if let error = error {
+                                print("Error deleting link: \(error.localizedDescription)")
+                            } else {
+                                print("Link deleted successfully")
+                            }
+                        }
+                    }
+                }
+            }
     }
     
     func deleteProduct(image: String) {

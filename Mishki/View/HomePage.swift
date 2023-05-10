@@ -199,6 +199,7 @@ struct HomePage: View {
                                             Button(action: {
                                                 linkIndex = index
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                    DeleteDB().deleteLink(name: readData.links![index]["name"]!, url: readData.links![index]["url"]!)
                                                         readData.links?.remove(at: linkIndex as Int)
                                                 }
                                             }) {
