@@ -154,6 +154,7 @@ struct HomePage: View {
                                                     productIndex = index
                                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                                         readData.products?.remove(at: productIndex)
+                                                        DeleteDB().deleteProduct(image: readData.products![index]["image"]!)
                                                     }
                                                 }) {
                                                     Image(systemName: "trash").background(
@@ -198,7 +199,7 @@ struct HomePage: View {
                                             Button(action: {
                                                 linkIndex = index
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                    readData.links?.remove(at: linkIndex)
+                                                        readData.links?.remove(at: linkIndex as Int)
                                                 }
                                             }) {
                                                 Image(systemName: "trash").background(
@@ -213,8 +214,7 @@ struct HomePage: View {
                                     .id(index)
                                 }
                             }
-                            
-                            
+                            .padding(.top)
                         }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
