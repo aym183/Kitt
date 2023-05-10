@@ -15,6 +15,7 @@ class ReadDB : ObservableObject {
     @Published var links: [[String: String]]? = []
     @Published var products: [[String: String]]? = []
     @Published var profile_image: UIImage? = nil
+    @Published var product_images: [UIImage?] = []
     
     func getProfileImage() {
         let db = Firestore.firestore()
@@ -92,9 +93,36 @@ class ReadDB : ObservableObject {
                 }
                 self.products = temp_products
                 if self.products != [] {
+                    self.getProductImages()
                     self.sortProductsArray()
                 }
             }
+    }
+    
+    func getProductImages() {
+        var temp_products_images = UserDefaults.standard.array(forKey: "myKey") as? [UIImage?] ?? []
+        
+        for product in self.products! {
+            if product["image"] != nil {
+                let storageRef = Storage.storage().reference()
+                let fileRef = storageRef.child(String(describing: product["image"]!))
+            
+                fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                    if error == nil && data != nil {
+                        if let image = UIImage(data: data!) {
+                            temp_products_images.append(image)
+                            if temp_products_images.count == self.products?.count {
+                                self.product_images = temp_products_images
+                            }
+                        }
+                    } else {
+                        print(error)
+                    }
+                }
+//                self.product_images = temp_products_images
+//                print("Product Images are \(self.product_images)")
+            }
+        }
     }
     
     func sortProductsArray() {

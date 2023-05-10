@@ -100,54 +100,57 @@ struct HomePage: View {
                             Spacer()
                         } else {
                             ScrollView {
-                                ForEach(0..<noOfProducts, id: \.self) { index in
-                                    HStack {
-                                        ZStack {
-                                            HStack {
-                                                RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-150, height: 240).foregroundColor(.gray).opacity(0.2).padding(.leading, 10)
-                                                Spacer()
-                                            }
-                                            
-                                            VStack {
-                                                Image("ShowPreview").resizable().frame(width: geometry.size.width-152, height: 160).cornerRadius(10).scaledToFit().padding(.trailing, 21)
-                                                
+                                if readData.product_images != [] {
+                                    ForEach(0..<noOfProducts, id: \.self) { index in
+                                        HStack {
+                                            ZStack {
                                                 HStack {
-                                                    VStack(alignment: .leading) {
-                                                        Spacer()
-                                                        Text( readData.products![index]["name"]!).font(Font.system(size: 15)).fontWeight(.medium)
-                                                        
-                                                        Text("\(readData.products![index]["price"]!) AED").font(Font.system(size: 15)).fontWeight(.heavy).padding(.top, -2)
-                                                    }
-                                                    .padding(.leading, 22).padding(.bottom, 5)
+                                                    RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-150, height: 240).foregroundColor(.gray).opacity(0.2).padding(.leading, 10)
                                                     Spacer()
                                                 }
+                                                
+                                                VStack {
+                                                    Image(uiImage: readData.product_images[index]!).resizable().frame(width: geometry.size.width-152, height: 160).cornerRadius(10).scaledToFit().padding(.trailing, 21)
+                                                    
+                                                    HStack {
+                                                        VStack(alignment: .leading) {
+                                                            Spacer()
+                                                            Text( readData.products![index]["name"]!).font(Font.system(size: 15)).fontWeight(.medium)
+                                                            
+                                                            Text("\(readData.products![index]["price"]!) AED").font(Font.system(size: 15)).fontWeight(.heavy).padding(.top, -2)
+                                                        }
+                                                        .padding(.leading, 22).padding(.bottom, 5)
+                                                        Spacer()
+                                                    }
+                                                }
+                                                
+                                                
                                             }
+                                            .padding(.top,10)
+                                            .id(index)
+                                            .multilineTextAlignment(.leading)
                                             
-                                            
+                                            HStack(spacing: 25) {
+                                                Button(action: {}) {
+                                                    Image(systemName: "pencil").background(
+                                                        Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
+                                                    )
+                                                }
+                                                
+                                                Button(action: {}) {
+                                                    Image(systemName: "trash").background(
+                                                        Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
+                                                    )
+                                                }
+                                            }
+                                            .font(Font.system(size: 13))
+                                            .padding(.top, 5).padding(.trailing)
+                                            .fontWeight(.bold)
                                         }
-                                        .padding(.top,10)
-                                        .id(index)
-                                        .multilineTextAlignment(.leading)
-                                        
-                                        HStack(spacing: 25) {
-                                            Button(action: {}) {
-                                                Image(systemName: "pencil").background(
-                                                    Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
-                                                )
-                                            }
-                                            
-                                            Button(action: {}) {
-                                                Image(systemName: "trash").background(
-                                                    Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
-                                                )
-                                            }
-                                        }
-                                        .font(Font.system(size: 13))
-                                        .padding(.top, 5).padding(.trailing)
-                                        .fontWeight(.bold)
                                     }
+                                    .padding(.top, 10)
+                                    
                                 }
-                                .padding(.top, 10)
                                 
                                 
                                 ForEach(0..<noOfLinks, id: \.self) { index in
@@ -187,6 +190,7 @@ struct HomePage: View {
                                 }
                             }
                             
+                            
                         }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
@@ -203,6 +207,11 @@ struct HomePage: View {
                             readData.getProfileImage()
                             readData.getLinks()
                             readData.getProducts()
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                                print(readData.products)
+                                print(readData.product_images)
+                            }
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 withAnimation(.easeOut(duration: 0.5)) {
