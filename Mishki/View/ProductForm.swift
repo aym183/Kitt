@@ -84,21 +84,14 @@ struct ProductForm: View {
                             DispatchQueue.global(qos: .userInteractive).async {
                                 if products_number != 0 {
                                     if let image = self.image {
-                                        UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice) { response in
-                                            if response == "Image uploaded successfully" {
-                                                productCreated.toggle()
-                                            }
-                                        }
+                                        UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice)
                                     }
                                 } else {
                                     if let image = self.image {
-                                        CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice) { response in
-                                            if response == "Image uploaded successfully" {
-                                                productCreated.toggle()
-                                            }
-                                        }
+                                        CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice)
                                     }
                                 }
+                                productCreated.toggle()
                             }
                         }) {
                             Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)

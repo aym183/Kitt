@@ -55,7 +55,7 @@ class UpdateDB : ObservableObject {
         
     }
     
-    func updateProducts(image: UIImage, name: String, description: String, price: String, completion: @escaping (String?) -> Void) {
+    func updateProducts(image: UIImage, name: String, description: String, price: String) {
         @AppStorage("products") var products: String = ""
         
         let storage = Storage.storage().reference()
@@ -77,9 +77,7 @@ class UpdateDB : ObservableObject {
         let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
         }
         
-        uploadTask.observe(.success) { snapshot in
-            completion("Image uploaded successfully")
-        }
+        UserDefaults.standard.set(image.jpegData(compressionQuality: 0.8), forKey: path)
         
         var documentData = [String: Any]()
         var fieldID = ref.document()

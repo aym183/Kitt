@@ -66,7 +66,7 @@ class CreateDB : ObservableObject {
     }
     
     
-    func addProducts(image: UIImage, name: String, description: String, price: String, completion: @escaping (String?) -> Void) {
+    func addProducts(image: UIImage, name: String, description: String, price: String) {
         @AppStorage("products") var products: String = ""
         
         let storage = Storage.storage().reference()
@@ -85,6 +85,8 @@ class CreateDB : ObservableObject {
         let fileRef = storage.child("product_images/\(randomID).jpg")
         let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
         }
+        
+        UserDefaults.standard.set(image.jpegData(compressionQuality: 0.8), forKey: path)
         
         var documentData = [String: Any]()
         var fieldID = ref.document()

@@ -212,9 +212,8 @@ struct HomePage: View {
                                     profile_image = response!
                                 }
                             }
-//                            readData.getLinks()
-//                            readData.getProducts()
-                        
+                            readData.getLinks()
+                            readData.getProducts()
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 withAnimation(.easeOut(duration: 0.5)) {

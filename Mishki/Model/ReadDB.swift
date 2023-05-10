@@ -77,37 +77,21 @@ class ReadDB : ObservableObject {
                 completion(cachedImage)
                 return
         }
-//
-//        let db = Firestore.firestore()
-//        let collectionRef = db.collection("users")
-//        @AppStorage("username") var userName: String = ""
-//
-//        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (snapshot, error) in
-//            if let error = error {
-//                print("Error getting profile image: \(error)")
-//            } else {
-//                for document in snapshot!.documents {
-//                    if document.data()["profile_image"] != nil {
-//                        let storageRef = Storage.storage().reference()
-//                        let fileRef = storageRef.child(String(describing: document.data()["profile_image"]!))
-//
-//                        fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-//                            guard let imageData = data else {
-//                                completion(nil)
-//                                return
-//                            }
-//                            let loadedImage = UIImage(data: imageData)
-//
-//                            UserDefaults.standard.set(imageData, forKey: "profile_image")
-//                            completion(loadedImage)
-//
-//                        }
-//                    }
-//                }
-//            }
-//        }
-        
     }
+    
+    func loadProductImage() {
+        
+        var temp_images = UserDefaults.standard.array(forKey: "myKey") as? [UIImage] ?? []
+        
+        for product in self.products! {
+            if let imageData = UserDefaults.standard.data(forKey: product["image"]!), let cachedImage = UIImage(data: imageData)  {
+                temp_images.append(cachedImage)
+            }
+        }
+        self.product_images = temp_images
+        print("all product images loaded")
+    }
+    
     
     
     func getProducts() {
@@ -174,6 +158,7 @@ class ReadDB : ObservableObject {
             }
         })
         self.products = sortedArray
+        self.loadProductImage()
     }
     
     func sortLinksArray() {
