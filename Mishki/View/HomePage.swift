@@ -16,6 +16,8 @@ struct HomePage: View {
     @StateObject var readData = ReadDB()
     @State var linksNumber = 0
     @State var productsNumber = 0
+    @State var productIndex = 0
+    @State var linkIndex = 0
     @State var profile_image: UIImage?
     
     
@@ -139,7 +141,6 @@ struct HomePage: View {
                                                 
                                             }
                                             .padding(.top,10)
-                                            .id(index)
                                             .multilineTextAlignment(.leading)
                                             
                                             HStack(spacing: 25) {
@@ -149,16 +150,22 @@ struct HomePage: View {
                                                     )
                                                 }
                                                 
-                                                Button(action: {}) {
+                                                Button(action: {
+                                                    productIndex = index
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                        readData.products?.remove(at: productIndex)
+                                                    }
+                                                }) {
                                                     Image(systemName: "trash").background(
                                                         Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
-                                                    )
+                                                    ).foregroundColor(.red)
                                                 }
                                             }
                                             .font(Font.system(size: 13))
                                             .padding(.top, 5).padding(.trailing)
                                             .fontWeight(.bold)
                                         }
+                                        .id(index)
                                     }
                                     .padding(.top, 10)
                                     
@@ -179,7 +186,6 @@ struct HomePage: View {
                                             }
                                         }
                                         .padding(.top,10)
-                                        .id(index)
                                         .multilineTextAlignment(.leading)
                                         
                                         HStack(spacing: 25) {
@@ -189,16 +195,22 @@ struct HomePage: View {
                                                 )
                                             }
                                             
-                                            Button(action: {}) {
+                                            Button(action: {
+                                                linkIndex = index
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                    readData.links?.remove(at: linkIndex)
+                                                }
+                                            }) {
                                                 Image(systemName: "trash").background(
                                                     Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
-                                                )
+                                                ).foregroundColor(.red)
                                             }
                                         }
                                         .font(Font.system(size: 13))
                                         .padding(.top, 5).padding(.trailing)
                                         .fontWeight(.bold)
                                     }
+                                    .id(index)
                                 }
                             }
                             
