@@ -10,6 +10,7 @@ import SwiftUI
 struct HomePage: View {
     @State var formShown = false
     @State var settingsShown = false
+    @State var isShownHomePage: Bool
     @AppStorage("profile_image") var profileImage: String = ""
     @AppStorage("username") var userName: String = ""
     @StateObject var readData = ReadDB()
@@ -22,6 +23,18 @@ struct HomePage: View {
         GeometryReader { geometry in
                 ZStack {
                     Color(.white).ignoresSafeArea()
+                    
+                    if isShownHomePage {
+                        VStack {
+                            ProgressView()
+                                .scaleEffect(1.75)
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
+                            
+                            Text("Getting Mishki Ready! 🥳").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                        }
+                    }
+                    
+                    
                     VStack {
                         HStack {
                             VStack(alignment: .leading) {
@@ -190,15 +203,22 @@ struct HomePage: View {
                             readData.getProfileImage()
                             readData.getLinks()
                             readData.getProducts()
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                withAnimation(.easeOut(duration: 0.5)) {
+                                    isShownHomePage = false
+                                }
+                            }
                         }
                     }
+                    .opacity(isShownHomePage ? 0 : 1)
                 }
         }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomePage()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomePage()
+//    }
+//}
