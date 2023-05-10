@@ -12,6 +12,7 @@ struct FormSelection: View {
     var labels = ["New Product", "New Link"]
     @State var productFormShown = false
     @State var linkFormShown = false
+    @State var linkEditShown = false
     @State var linkName = ""
     @State var linkURL = ""
     var links_number: Int
@@ -20,6 +21,8 @@ struct FormSelection: View {
     @State var productDesc = ""
     @State var productPrice = ""
     @State var image: UIImage?
+    @ObservedObject var readData: ReadDB
+    
     
     var body: some View {
         GeometryReader { geometry in
@@ -58,7 +61,7 @@ struct FormSelection: View {
                         ProductForm(productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: products_number, ifEdit: false)
                     }
                     .navigationDestination(isPresented: $linkFormShown) {
-                        LinkForm(oldName: $linkName, oldURL: $linkURL, linkName: $linkName, linkURL: $linkURL, ifEdit: false, links_number:  links_number)
+                        LinkForm(oldName: $linkName, oldURL: $linkURL, linkName: $linkName, linkURL: $linkURL, ifEdit: false, links_number:  links_number, linkEditShown: $linkEditShown, readData: readData)
                     }
         }
     }

@@ -243,7 +243,7 @@ struct HomePage: View {
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .navigationDestination(isPresented: $formShown) {
-                        FormSelection(links_number: linksNumber, products_number: productsNumber)
+                        FormSelection(links_number: linksNumber, products_number: productsNumber, readData: readData)
                     }
                     .navigationDestination(isPresented: $settingsShown) {
                         SettingsPage()
@@ -281,7 +281,7 @@ struct HomePage: View {
                     ProductForm(productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: productsNumber, ifEdit: true).presentationDetents([.height(800)])
                 }
                 .sheet(isPresented: $linkEditShown) {
-                    LinkForm(oldName: $oldName, oldURL: $oldURL, linkName: $linkName, linkURL: $linkURL, ifEdit: true, links_number: linksNumber).presentationDetents([.height(500)])
+                    LinkForm(oldName: $oldName, oldURL: $oldURL, linkName: $linkName, linkURL: $linkURL, ifEdit: true, links_number: linksNumber, linkEditShown: $linkEditShown, readData: readData).presentationDetents([.height(500)])
                 }
         }
     }

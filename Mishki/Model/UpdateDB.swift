@@ -54,7 +54,7 @@ class UpdateDB : ObservableObject {
         }
     }
     
-    func updateCreatedLink(old_url: String, new_url: String, old_name: String, new_name: String) {
+    func updateCreatedLink(old_url: String, new_url: String, old_name: String, new_name: String, completion: @escaping (String?) -> Void) {
         print(old_url)
         print(new_url)
         print(old_name)
@@ -84,6 +84,7 @@ class UpdateDB : ObservableObject {
                                 print("Error updating created link: \(error.localizedDescription)")
                             } else {
                                 print("Updated Created Link successfully")
+                                completion("Successful")
                             }
                         }
                     }

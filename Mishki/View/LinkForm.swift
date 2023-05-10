@@ -15,6 +15,8 @@ struct LinkForm: View {
     @State var linkCreated = false
     @State var ifEdit: Bool
     var links_number: Int
+    @Binding var linkEditShown: Bool
+    @ObservedObject var readData: ReadDB
     
     var body: some View {
         GeometryReader { geometry in
@@ -42,8 +44,13 @@ struct LinkForm: View {
                         Button(action: {
                             if ifEdit {
                                 DispatchQueue.global(qos: .userInteractive).async {
-                                    UpdateDB().updateCreatedLink(old_url: oldURL, new_url: linkURL, old_name: oldName, new_name: linkName)
+                                    UpdateDB().updateCreatedLink(old_url: oldURL, new_url: linkURL, old_name: oldName, new_name: linkName) { response in
+                                        if response == "Successful" {
+                                            readData.getLinks()
+                                        }
+                                    }
                                 }
+                                linkEditShown.toggle()
                             } else {
                                 DispatchQueue.global(qos: .userInteractive).async {
                                     if links_number != 0 {
