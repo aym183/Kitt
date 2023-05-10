@@ -11,7 +11,8 @@ struct HomePage: View {
     @State var formShown = false
     @State var settingsShown = false
     @State var isShownHomePage: Bool
-    @State var isShownProductCreated: Bool?
+    @State var isShownProductCreated: Bool
+    @State var isShownLinkCreated: Bool
     @AppStorage("username") var userName: String = ""
     @StateObject var readData = ReadDB()
     @State var oldProductName = ""
@@ -52,7 +53,17 @@ struct HomePage: View {
                         }
                     }
                     
-                    if isShownProductCreated! {
+                    if isShownLinkCreated {
+                        VStack {
+                            ProgressView()
+                                .scaleEffect(1.75)
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
+                            
+                            Text("Creating your link!").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                        }
+                    }
+                    
+                    if isShownProductCreated {
                         VStack {
                             ProgressView()
                                 .scaleEffect(1.75)
@@ -273,6 +284,7 @@ struct HomePage: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 withAnimation(.easeOut(duration: 0.5)) {
                                     isShownHomePage = false
+                                    isShownLinkCreated = false
                                 }
                             }
                             
@@ -284,7 +296,8 @@ struct HomePage: View {
                         }
                     }
                     .opacity(isShownHomePage ? 0 : 1)
-                    .opacity(isShownProductCreated! ? 0 : 1)
+                    .opacity(isShownProductCreated ? 0 : 1)
+                    .opacity(isShownLinkCreated ? 0 : 1)
                 }
                 .navigationDestination(isPresented: $productEditShown) {
                     ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: productsNumber, ifEdit: true, readData: readData).presentationDetents([.height(800)])

@@ -42,7 +42,7 @@ struct CreateAccountForm: View {
                         
                         Text("By continuing you agree to our Terms of Service.\nOpenrack services are subject to our Privacy Policy.")
                             .font(.footnote).fontWeight(.semibold)
-                            .padding(.top).padding(.leading, 5)
+                            .padding(.top).padding(.horizontal, 5)
                             .opacity(0.7)
                         
                         

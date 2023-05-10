@@ -74,7 +74,7 @@ struct LinkForm: View {
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $linkCreated) {
-                        HomePage(isShownHomePage: true, isShownProductCreated: false).navigationBarHidden(true)
+                        HomePage(isShownHomePage: false, isShownProductCreated: false, isShownLinkCreated: true).navigationBarHidden(true)
                     }
                     
                 }

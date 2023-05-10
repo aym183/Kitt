@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Firebase
+import FirebaseFirestore
 import FirebaseStorage
 
 class UpdateDB : ObservableObject {
@@ -68,7 +69,7 @@ class UpdateDB : ObservableObject {
                     for document in snapshot!.documents {
                         for documentData in document.data() {
                             if let valueDict = documentData.value as? [String: String] {
-                                if valueDict["name"] != new_name || valueDict["url"] != new_url {
+                                if valueDict["name"] == old_name && valueDict["url"] == old_url {
                                     temp_entries[documentData.key] = ["name": new_name, "url": new_url, "time_created": TimeData().getPresentDateTime()]
                                 } else {
                                     temp_entries[documentData.key] = valueDict
@@ -113,7 +114,7 @@ class UpdateDB : ObservableObject {
                         for documentData in document.data() {
                             if let valueDict = documentData.value as? [String: String] {
 
-                                if valueDict["name"] != String(describing: data["productName"]!) || valueDict["price"] != String(describing: data["oldProductPrice"]!) || valueDict["description"] != String(describing: data["oldProductDesc"]!) || old_image != new_image {
+                                if valueDict["name"] == String(describing: data["oldProductName"]!) && valueDict["price"] == String(describing: data["oldProductPrice"]!) && valueDict["description"] == String(describing: data["oldProductDesc"]!) {
                                     
                                         temp_entries[documentData.key] = ["name": String(describing: data["productName"]!), "description": String(describing: data["productDesc"]!), "time_created": TimeData().getPresentDateTime(), "price": String(describing: data["productPrice"]!), "image": path]
 
