@@ -84,15 +84,22 @@ struct ProductForm: View {
                             DispatchQueue.global(qos: .userInteractive).async {
                                 if products_number != 0 {
                                     if let image = self.image {
-                                        UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice)
+                                        UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice) { response in
+                                            if response == "Image uploaded successfully" {
+                                                productCreated.toggle()
+                                            }
+                                        }
                                     }
                                 } else {
                                     if let image = self.image {
-                                        CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice)
+                                        CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice) { response in
+                                            if response == "Image uploaded successfully" {
+                                                productCreated.toggle()
+                                            }
+                                        }
                                     }
                                 }
                             }
-                            productCreated.toggle()
                         }) {
                             Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
                         }
@@ -106,7 +113,7 @@ struct ProductForm: View {
                         ImagePicker(image: $image)
                     }
                     .navigationDestination(isPresented: $productCreated) {
-                        HomePage(isShownHomePage: false).navigationBarHidden(true)
+                        HomePage(isShownHomePage: true).navigationBarHidden(true)
                     }
             }
     }

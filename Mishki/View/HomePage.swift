@@ -99,7 +99,7 @@ struct HomePage: View {
                             Text("No products or links added yet.").fontWeight(.semibold)
                             Spacer()
                         } else {
-                            ScrollView {
+                            ScrollView(showsIndicators: false) {
                                 if readData.product_images != [] {
                                     ForEach(0..<noOfProducts, id: \.self) { index in
                                         HStack {
@@ -203,6 +203,7 @@ struct HomePage: View {
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .onAppear {
+                        print("HI here")
                         DispatchQueue.global(qos: .userInteractive).async {
                             readData.getProfileImage()
                             readData.getLinks()
