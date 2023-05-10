@@ -153,8 +153,8 @@ struct HomePage: View {
                                                 Button(action: {
                                                     productIndex = index
                                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                        DeleteDB().deleteProduct(image: readData.products![productIndex]["image"]!)
                                                         readData.products?.remove(at: productIndex)
-                                                        DeleteDB().deleteProduct(image: readData.products![index]["image"]!)
                                                     }
                                                 }) {
                                                     Image(systemName: "trash").background(

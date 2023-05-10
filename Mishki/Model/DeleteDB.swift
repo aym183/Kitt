@@ -19,6 +19,7 @@ class DeleteDB : ObservableObject {
         @AppStorage("products") var products: String = ""
         let db = Firestore.firestore()
         let ref = db.collection("products")
+        var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
         
         ref.whereField(FieldPath.documentID(), isEqualTo: products)
             .getDocuments { (snapshot, error) in
@@ -26,19 +27,20 @@ class DeleteDB : ObservableObject {
                     print("Error finding product to delete: \(error.localizedDescription)")
                 } else {
                     for document in snapshot!.documents {
-                        for documentData in document.data().keys {
-                            print(documentData)
-//                            if let valueDict = documentData as? [String: String], let dict_image = valueDict["image"] {
-//                                if dict_image == image {
-//                                    db.collection("products").document(document.documentID).delete() { error in
-//                                        if let error = error {
-//                                            print("Error removing document: \(error)")
-//                                        } else {
-//                                            print("Document successfully removed!")
-//                                        }
-//                                    }
-//                                }
-//                            }
+                        for documentData in document.data() {
+                            if let valueDict = documentData.value as? [String: String], let dict_image = valueDict["image"] {
+                                if dict_image != image {
+                                    temp_entries[documentData.key] = valueDict
+                                }
+                            }
+                        }
+                        ref.document(document.documentID).setData(temp_entries) { error in
+                            if let error = error {
+                                print("Error deleting product: \(error.localizedDescription)")
+                            } else {
+                                print("Product deleted successfully")
+                                UserDefaults.standard.removeObject(forKey: image)
+                            }
                         }
                     }
                 }
@@ -46,3 +48,12 @@ class DeleteDB : ObservableObject {
     }
     
 }
+
+//                                    UserDefaults.standard.removeObject(forKey: image)
+//                                    db.collection("products").document(document.documentID).delete() { error in
+//                                        if let error = error {
+//                                            print("Error removing document: \(error)")
+//                                        } else {
+//                                            print("Document successfully removed!")
+//                                        }
+//                                    }
