@@ -16,7 +16,7 @@ struct LandingPage: View {
             ZStack {
                 VStack {
                     if Auth.auth().currentUser != nil {
-                        HomePage(isShownHomePage: true)
+                        HomePage(isShownHomePage: true, isShownProductCreated: false)
                     } else {
                         LandingContent()
                     }
@@ -63,7 +63,7 @@ struct LandingContent: View {
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $homePageShown) {
-                        HomePage(isShownHomePage: true).navigationBarHidden(true)
+                        HomePage(isShownHomePage: true, isShownProductCreated: false).navigationBarHidden(true)
                     }
                 }
             }

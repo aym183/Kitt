@@ -11,6 +11,7 @@ struct HomePage: View {
     @State var formShown = false
     @State var settingsShown = false
     @State var isShownHomePage: Bool
+    @State var isShownProductCreated: Bool?
     @AppStorage("username") var userName: String = ""
     @StateObject var readData = ReadDB()
     @State var linksNumber = 0
@@ -32,6 +33,16 @@ struct HomePage: View {
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
                             Text("Getting Mishki Ready! 🥳").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                        }
+                    }
+                    
+                    if isShownProductCreated! {
+                        VStack {
+                            ProgressView()
+                                .scaleEffect(1.75)
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
+                            
+                            Text("Creating your product!").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -101,7 +112,7 @@ struct HomePage: View {
                             Spacer()
                         } else {
                             ScrollView(showsIndicators: false) {
-                                if readData.product_images != [] {
+//                                if readData.product_images != [] {
                                     ForEach(0..<noOfProducts, id: \.self) { index in
                                         HStack {
                                             ZStack {
@@ -111,7 +122,7 @@ struct HomePage: View {
                                                 }
                                                 
                                                 VStack {
-                                                    Image(uiImage: readData.product_images[index]!).resizable().frame(width: geometry.size.width-152, height: 160).cornerRadius(10).scaledToFit().padding(.trailing, 21)
+                                                    Image(uiImage: readData.loadProductImage(key: readData.products![index]["image"]!)).resizable().frame(width: geometry.size.width-152, height: 160).cornerRadius(10).scaledToFit().padding(.trailing, 21)
                                                     
                                                     HStack {
                                                         VStack(alignment: .leading) {
@@ -151,7 +162,7 @@ struct HomePage: View {
                                     }
                                     .padding(.top, 10)
                                     
-                                }
+//                                }
                                 
                                 
                                 ForEach(0..<noOfLinks, id: \.self) { index in
@@ -206,23 +217,29 @@ struct HomePage: View {
                     .onAppear {
                         print("HI here")
                         DispatchQueue.global(qos: .userInteractive).async {
-//                            readData.getProfileImage()
+                            readData.getLinks()
+                            readData.getProducts()
                             readData.loadProfileImage() { response in
                                 if response != nil {
                                     profile_image = response!
                                 }
                             }
-                            readData.getLinks()
-                            readData.getProducts()
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 withAnimation(.easeOut(duration: 0.5)) {
                                     isShownHomePage = false
                                 }
                             }
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                withAnimation(.easeOut(duration: 0.5)) {
+                                    isShownProductCreated = false
+                                }
+                            }
                         }
                     }
                     .opacity(isShownHomePage ? 0 : 1)
+                    .opacity(isShownProductCreated! ? 0 : 1)
                 }
         }
     }

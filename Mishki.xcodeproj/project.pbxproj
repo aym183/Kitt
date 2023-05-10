@@ -77,6 +77,7 @@
 		61A0E8672A0A44DC00FE474D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		61A0E8692A0A491A00FE474D /* UpdateDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDB.swift; sourceTree = "<group>"; };
 		61A0E86B2A0A4A5F00FE474D /* ReadDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDB.swift; sourceTree = "<group>"; };
+		61A60C552A0B7ACF006B7984 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +138,7 @@
 		61A0E7FC2A09D0D500FE474D /* Mishki */ = {
 			isa = PBXGroup;
 			children = (
+				61A60C552A0B7ACF006B7984 /* Info.plist */,
 				61A0E8622A0A415700FE474D /* Utility */,
 				61A0E85C2A0A2D0800FE474D /* GoogleService-Info.plist */,
 				61A0E80D2A09D43F00FE474D /* ViewModel */,
@@ -460,6 +462,7 @@
 				DEVELOPMENT_TEAM = 29VBPZUJ23;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mishki/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Mishki;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -495,6 +498,7 @@
 				DEVELOPMENT_TEAM = 29VBPZUJ23;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mishki/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Mishki;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

@@ -58,7 +58,6 @@ class UpdateDB : ObservableObject {
     func updateProducts(image: UIImage, name: String, description: String, price: String) {
         @AppStorage("products") var products: String = ""
         
-        let storage = Storage.storage().reference()
         let imageData = image.jpegData(compressionQuality: 0.8)
 
         guard imageData != nil else {
@@ -69,12 +68,14 @@ class UpdateDB : ObservableObject {
         let ref = db.collection("products")
         var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
-        
-        
         let randomID = UUID().uuidString
         let path = "product_images/\(randomID).jpg"
-        let fileRef = storage.child("product_images/\(randomID).jpg")
-        let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+        
+        DispatchQueue.global(qos: .background).async {
+            let storage = Storage.storage().reference()
+            let fileRef = storage.child("product_images/\(randomID).jpg")
+            let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+            }
         }
         
         UserDefaults.standard.set(image.jpegData(compressionQuality: 0.8), forKey: path)

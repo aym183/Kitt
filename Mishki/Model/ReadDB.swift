@@ -79,17 +79,21 @@ class ReadDB : ObservableObject {
         }
     }
     
-    func loadProductImage() {
+    func loadProductImage(key: String) -> UIImage {
+        let imageData = UserDefaults.standard.data(forKey: key)
+        let cachedImage = UIImage(data: imageData!)
+        return cachedImage!
         
-        var temp_images = UserDefaults.standard.array(forKey: "myKey") as? [UIImage] ?? []
         
-        for product in self.products! {
-            if let imageData = UserDefaults.standard.data(forKey: product["image"]!), let cachedImage = UIImage(data: imageData)  {
-                temp_images.append(cachedImage)
-            }
-        }
-        self.product_images = temp_images
-        print("all product images loaded")
+//        var temp_images = UserDefaults.standard.array(forKey: "myKey") as? [UIImage] ?? []
+        
+//        for product in self.products! {
+//            if let imageData = UserDefaults.standard.data(forKey: product["image"]!), let cachedImage = UIImage(data: imageData)  {
+//                temp_images.append(cachedImage)
+//            }
+//        }
+//        self.product_images = temp_images
+//        print("all product images loaded")
     }
     
     
@@ -158,7 +162,7 @@ class ReadDB : ObservableObject {
             }
         })
         self.products = sortedArray
-        self.loadProductImage()
+//        self.loadProductImage()
     }
     
     func sortLinksArray() {
