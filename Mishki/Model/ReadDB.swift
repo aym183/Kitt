@@ -61,6 +61,9 @@ class ReadDB : ObservableObject {
                     }
                 }
                 self.links = temp_links
+                if self.links != [] {
+                    self.sortLinksArray()
+                }
             }
     }
     
@@ -85,12 +88,12 @@ class ReadDB : ObservableObject {
                 }
                 self.products = temp_products
                 if self.products != [] {
-                    self.sortArray()
+                    self.sortProductsArray()
                 }
             }
     }
     
-    func sortArray() {
+    func sortProductsArray() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
@@ -102,5 +105,19 @@ class ReadDB : ObservableObject {
             }
         })
         self.products = sortedArray
+    }
+    
+    func sortLinksArray() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let sortedArray = self.links!.sorted(by: { dict1, dict2 in
+            if let date1 = formatter.date(from: dict1["time_created"]!), let date2 = formatter.date(from: dict2["time_created"]!) {
+                return date1.compare(date2) == .orderedAscending
+            } else {
+                return false
+            }
+        })
+        self.links = sortedArray
     }
 }
