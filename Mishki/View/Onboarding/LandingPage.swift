@@ -15,11 +15,11 @@ struct LandingPage: View {
         NavigationStack {
             ZStack {
                 VStack {
-//                    if Auth.auth().currentUser != nil {
-//                        HomePage()
-//                    } else {
+                    if Auth.auth().currentUser != nil {
+                        HomePage()
+                    } else {
                         LandingContent()
-//                    }
+                    }
                 }
             }
         }

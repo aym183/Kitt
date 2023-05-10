@@ -49,15 +49,15 @@ struct HomePage: View {
                             
                             Button(action: {settingsShown.toggle()}) {
                                 
-                                //                                if let data = profileImage.data(using: .utf8), let image = UIImage(data: data) {
-                                //                                    Image(uiImage: image)
-                                //                                        .resizable()
-                                //                                        .scaledToFill()
-                                //                                        .frame(width: 80, height: 80)
-                                //                                        .cornerRadius(50)
-                                //                                } else {
-                                Image(systemName: "person.circle").font(Font.system(size: 60))
-                                //                                }
+                                if readData.profile_image != nil {
+                                    Image(uiImage: readData.profile_image!)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 80, height: 80)
+                                        .cornerRadius(50)
+                                } else {
+                                    Image(systemName: "person.circle").font(Font.system(size: 60))
+                                }
                             }
                         }
                         .padding(.horizontal, 10)
@@ -186,8 +186,11 @@ struct HomePage: View {
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .onAppear {
-                        readData.getLinks()
-                        readData.getProducts()
+                        DispatchQueue.global(qos: .userInteractive).async {
+                            readData.getLinks()
+                            readData.getProducts()
+                            readData.getProfileImage()
+                        }
                     }
                 }
         }

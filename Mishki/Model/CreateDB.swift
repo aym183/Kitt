@@ -24,7 +24,8 @@ class CreateDB : ObservableObject {
             "stripe_customer_id": "",
             "stripe_payment_method": "",
             "links": docRef,
-            "products": docRef
+            "products": docRef,
+            "profile_image": ""
         ]
         
         ref.addDocument(data: data) { error in
