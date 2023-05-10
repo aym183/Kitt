@@ -84,6 +84,10 @@ class CreateDB : ObservableObject {
     }
     
     func uploadProfileImage(image: UIImage) {
+        let db = Firestore.firestore()
+        let collectionRef = db.collection("users")
+        @AppStorage("username") var userName: String = ""
+        
         let storage = Storage.storage().reference()
         let imageData = image.jpegData(compressionQuality: 0.8)
 
@@ -91,13 +95,39 @@ class CreateDB : ObservableObject {
             return
         }
         
+        let path = "profile_images/\(UUID().uuidString).jpg"
         let fileRef = storage.child("profile_images/\(UUID().uuidString).jpg")
         let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+        }
+        
+        
+        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error uploading Image: \(error)")
+            } else {
+                guard let document = querySnapshot?.documents.first else {
+                    print("No documents found")
+                    return
+                }
             
+                let docRef = collectionRef.document(document.documentID)
+                docRef.updateData(["profile_image": path])
+            }
         }
     }
     
     func uploadProductImage(image: UIImage) {
+        let storage = Storage.storage().reference()
+        let imageData = image.jpegData(compressionQuality: 0.8)
+
+        guard imageData != nil else {
+            return
+        }
+        
+        let fileRef = storage.child("product_images/\(UUID().uuidString).jpg")
+        let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+            
+        }
     }
     
 }

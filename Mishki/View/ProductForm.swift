@@ -85,10 +85,12 @@ struct ProductForm: View {
                                 if products_number != 0 {
                                     if let image = self.image {
                                         UpdateDB().updateProducts(image: String(describing: image), name: productName, description: productDesc, price: productPrice)
+                                        CreateDB().uploadProductImage(image: image)
                                     }
                                 } else {
                                     if let image = self.image {
                                         CreateDB().addProducts(image: String(describing: image), name: productName, description: productDesc, price: productPrice)
+                                        CreateDB().uploadProductImage(image: image)
                                     }
                                 }
                             }

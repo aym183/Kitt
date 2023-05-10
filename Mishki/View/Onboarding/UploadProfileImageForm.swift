@@ -54,7 +54,6 @@ struct UploadProfileImageForm: View {
                             Button(action: {
                                 if let image = self.image {
                                     DispatchQueue.global(qos: .userInteractive).async {
-                                        UpdateDB().updateImage(image: image)
                                         CreateDB().uploadProfileImage(image: image)
                                     }
                                     createAccountSheet.toggle()
