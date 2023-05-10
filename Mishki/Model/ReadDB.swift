@@ -17,34 +17,34 @@ class ReadDB : ObservableObject {
     @Published var profile_image: UIImage? = nil
     @Published var product_images: [UIImage?] = []
     
-    func getProfileImage() {
-        let db = Firestore.firestore()
-        let collectionRef = db.collection("users")
-        @AppStorage("username") var userName: String = ""
-        
-        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error getting profile image: \(error)")
-            } else {
-                for document in snapshot!.documents {
-                    if document.data()["profile_image"] != nil {
-                        let storageRef = Storage.storage().reference()
-                        let fileRef = storageRef.child(String(describing: document.data()["profile_image"]!))
-                        
-                        fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                            if error == nil && data != nil {
-                                if let image = UIImage(data: data!) {
-                                    self.profile_image = image
-                                }
-                            } else {
-                                print(error)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    func getProfileImage() {
+//        let db = Firestore.firestore()
+//        let collectionRef = db.collection("users")
+//        @AppStorage("username") var userName: String = ""
+//
+//        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (snapshot, error) in
+//            if let error = error {
+//                print("Error getting profile image: \(error)")
+//            } else {
+//                for document in snapshot!.documents {
+//                    if document.data()["profile_image"] != nil {
+//                        let storageRef = Storage.storage().reference()
+//                        let fileRef = storageRef.child(String(describing: document.data()["profile_image"]!))
+//
+//                        fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+//                            if error == nil && data != nil {
+//                                if let image = UIImage(data: data!) {
+//                                    self.profile_image = image
+//                                }
+//                            } else {
+//                                print(error)
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     func getLinks() {
         @AppStorage("links") var links: String = ""
@@ -72,6 +72,44 @@ class ReadDB : ObservableObject {
             }
     }
     
+    func loadProfileImage(completion: @escaping (UIImage?) -> Void) {
+        if let imageData = UserDefaults.standard.data(forKey: "profile_image"), let cachedImage = UIImage(data: imageData)  {
+                completion(cachedImage)
+                return
+        }
+//
+//        let db = Firestore.firestore()
+//        let collectionRef = db.collection("users")
+//        @AppStorage("username") var userName: String = ""
+//
+//        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (snapshot, error) in
+//            if let error = error {
+//                print("Error getting profile image: \(error)")
+//            } else {
+//                for document in snapshot!.documents {
+//                    if document.data()["profile_image"] != nil {
+//                        let storageRef = Storage.storage().reference()
+//                        let fileRef = storageRef.child(String(describing: document.data()["profile_image"]!))
+//
+//                        fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+//                            guard let imageData = data else {
+//                                completion(nil)
+//                                return
+//                            }
+//                            let loadedImage = UIImage(data: imageData)
+//
+//                            UserDefaults.standard.set(imageData, forKey: "profile_image")
+//                            completion(loadedImage)
+//
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        
+    }
+    
+    
     func getProducts() {
         @AppStorage("products") var products: String = ""
         let db = Firestore.firestore()
@@ -88,29 +126,34 @@ class ReadDB : ObservableObject {
                         for documentData in document.data().values {
                             if let valueDict = documentData as? [String: String] {
                                 temp_products.append(valueDict)
-                                if valueDict["image"] != nil {
-                                    let storageRef = Storage.storage().reference()
-                                    let fileRef = storageRef.child(String(describing: valueDict["image"]!))
-                                
-                                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                                        if error == nil && data != nil {
-                                            if let image = UIImage(data: data!) {
-                                                temp_products_images.append(image)
-                                                if temp_products_images.count == self.products?.count {
-                                                    self.product_images = temp_products_images
-                                                }
-                                            }
-                                        } else {
-                                            print(error)
-                                        }
-                                    }
-                    //                self.product_images = temp_products_images
-                    //                print("Product Images are \(self.product_images)")
-                                }
+//                                if valueDict["image"] != nil {
+//                                    let storageRef = Storage.storage().reference()
+//                                    let fileRef = storageRef.child(String(describing: valueDict["image"]!))
+//
+//                                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+//                                        if error == nil && data != nil {
+//                                            if let image = UIImage(data: data!) {
+//                                                temp_products_images.append(image)
+//
+//
+//
+//                                                if temp_products_images.count == self.products?.count {
+//                                                    self.product_images = temp_products_images
+//                                                }
+//                                            }
+//                                        } else {
+//                                            print(error)
+//                                        }
+//                                    }
+//                    //                self.product_images = temp_products_images
+//                    //                print("Product Images are \(self.product_images)")
+//                                }
                             }
                         }
                     }
                 }
+                
+                // Fix image positioning
                 self.products = temp_products
                 if self.products != [] {
                     self.sortProductsArray()

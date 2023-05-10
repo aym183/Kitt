@@ -11,11 +11,12 @@ struct HomePage: View {
     @State var formShown = false
     @State var settingsShown = false
     @State var isShownHomePage: Bool
-    @AppStorage("profile_image") var profileImage: String = ""
     @AppStorage("username") var userName: String = ""
     @StateObject var readData = ReadDB()
     @State var linksNumber = 0
     @State var productsNumber = 0
+    @State var profile_image: UIImage?
+    
     
     var body: some View {
         var noOfLinks = readData.links?.count ?? 0
@@ -62,8 +63,8 @@ struct HomePage: View {
                             
                             Button(action: {settingsShown.toggle()}) {
                                 
-                                if readData.profile_image != nil {
-                                    Image(uiImage: readData.profile_image!)
+                                if profile_image != nil {
+                                    Image(uiImage: profile_image!)
                                         .resizable()
                                         .scaledToFill()
                                         .frame(width: 80, height: 80)
@@ -205,14 +206,15 @@ struct HomePage: View {
                     .onAppear {
                         print("HI here")
                         DispatchQueue.global(qos: .userInteractive).async {
-                            readData.getProfileImage()
-                            readData.getLinks()
-                            readData.getProducts()
-                            
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                                print(readData.products)
-                                print(readData.product_images)
+//                            readData.getProfileImage()
+                            readData.loadProfileImage() { response in
+                                if response != nil {
+                                    profile_image = response!
+                                }
                             }
+//                            readData.getLinks()
+//                            readData.getProducts()
+                        
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 withAnimation(.easeOut(duration: 0.5)) {

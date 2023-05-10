@@ -12,6 +12,8 @@ import FirebaseStorage
 
 class CreateDB : ObservableObject {
     
+    let imageCache = NSCache<NSString, UIImage>()
+    
     func addUser(email: String, username: String, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         let ref = db.collection("users")
@@ -63,6 +65,7 @@ class CreateDB : ObservableObject {
         }
     }
     
+    
     func addProducts(image: UIImage, name: String, description: String, price: String, completion: @escaping (String?) -> Void) {
         @AppStorage("products") var products: String = ""
         
@@ -83,10 +86,6 @@ class CreateDB : ObservableObject {
         let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
         }
         
-        uploadTask.observe(.success) { snapshot in
-            completion("Image uploaded successfully")
-        }
-        
         var documentData = [String: Any]()
         var fieldID = ref.document()
         documentData[fieldID.documentID] = ["name": name, "image": path, "time_created": presentDateTime, "description": description, "price": price]
@@ -100,7 +99,7 @@ class CreateDB : ObservableObject {
         }
     }
     
-    func uploadProfileImage(image: UIImage) {
+    func uploadProfileImage(image: UIImage, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         let collectionRef = db.collection("users")
         @AppStorage("username") var userName: String = ""
@@ -115,8 +114,12 @@ class CreateDB : ObservableObject {
         let randomID = UUID().uuidString
         let path = "profile_images/\(randomID).jpg"
         let fileRef = storage.child("profile_images/\(randomID).jpg")
+        
         let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
         }
+        
+        UserDefaults.standard.set(image.jpegData(compressionQuality: 0.8), forKey: "profile_image")
+        completion("Cached")
         
         
         collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in

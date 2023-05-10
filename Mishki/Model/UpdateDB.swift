@@ -70,6 +70,7 @@ class UpdateDB : ObservableObject {
         var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
         
+        
         let randomID = UUID().uuidString
         let path = "product_images/\(randomID).jpg"
         let fileRef = storage.child("product_images/\(randomID).jpg")

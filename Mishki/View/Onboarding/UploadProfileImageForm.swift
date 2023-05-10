@@ -54,10 +54,13 @@ struct UploadProfileImageForm: View {
                             Button(action: {
                                 if let image = self.image {
                                     DispatchQueue.global(qos: .userInteractive).async {
-                                        CreateDB().uploadProfileImage(image: image)
+                                        CreateDB().uploadProfileImage(image: image) { response in
+                                            if response == "Cached" {
+                                                createAccountSheet.toggle()
+                                                homePageShown.toggle()
+                                            }
+                                        }
                                     }
-                                    createAccountSheet.toggle()
-                                    homePageShown.toggle()
                                 } else {
                                     print("No image uploaded")
                                 }
