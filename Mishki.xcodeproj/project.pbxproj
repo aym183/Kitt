@@ -55,7 +55,7 @@
 		61A0E86A2A0A491A00FE474D /* UpdateDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E8692A0A491A00FE474D /* UpdateDB.swift */; };
 		61A0E86C2A0A4A5F00FE474D /* ReadDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E86B2A0A4A5F00FE474D /* ReadDB.swift */; };
 		61A60C572A0B91E2006B7984 /* DeleteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A60C562A0B91E2006B7984 /* DeleteDB.swift */; };
-		61A60C5A2A0BEE83006B7984 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61A60C592A0BEE83006B7984 /* LaunchScreen.storyboard */; };
+		61A60C5C2A0CAC07006B7984 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61A60C5B2A0CAC07006B7984 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,7 +81,7 @@
 		61A0E86B2A0A4A5F00FE474D /* ReadDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDB.swift; sourceTree = "<group>"; };
 		61A60C552A0B7ACF006B7984 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		61A60C562A0B91E2006B7984 /* DeleteDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDB.swift; sourceTree = "<group>"; };
-		61A60C592A0BEE83006B7984 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		61A60C5B2A0CAC07006B7984 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ../../../../openrack/openrack/LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,7 +219,7 @@
 		61A60C582A0BEE16006B7984 /* Launch Screen */ = {
 			isa = PBXGroup;
 			children = (
-				61A60C592A0BEE83006B7984 /* LaunchScreen.storyboard */,
+				61A60C5B2A0CAC07006B7984 /* LaunchScreen.storyboard */,
 			);
 			path = "Launch Screen";
 			sourceTree = "<group>";
@@ -317,8 +317,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				61A0E8052A09D0D600FE474D /* Preview Assets.xcassets in Resources */,
-				61A60C5A2A0BEE83006B7984 /* LaunchScreen.storyboard in Resources */,
 				61A0E8022A09D0D600FE474D /* Assets.xcassets in Resources */,
+				61A60C5C2A0CAC07006B7984 /* LaunchScreen.storyboard in Resources */,
 				61A0E85D2A0A2D0800FE474D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
