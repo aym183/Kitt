@@ -4,7 +4,7 @@ function getLinks() {
         username: 'aym1302'
     };
 
-    fetch('https://plastic-forest-gallon.glitch.me/get-details', 
+    fetch('https://mishki.glitch.me/get-details', 
     { method: 'POST',
       headers: {
         'Content-Type': 'application/json'
