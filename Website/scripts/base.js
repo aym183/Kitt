@@ -12,23 +12,21 @@ function addProducts(num) {
     //   productsList.appendChild(a);
     // }
 
-
-    const url = 'https://plastic-forest-gallon.glitch.me/get-payment-details'; // replace with your endpoint URL
-
     const data = {
-    name: 'John Doe',
-    age: 30,
-    email: 'john@example.com'
-    }; // replace with your data object
+        username: 'aali183'
+      };
 
-    fetch(url, {
-    method: 'POST',
-    headers: {
+    fetch('https://plastic-forest-gallon.glitch.me/get-details', 
+    { method: 'POST',
+      headers: {
         'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-    })
+      },
+      body: JSON.stringify(data)
+}
+    )
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+	    console.log(data);
+    })
     .catch(error => console.error(error));
 }
