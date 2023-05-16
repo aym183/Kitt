@@ -85,14 +85,10 @@ a {
 }
 
 .profile-image {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     margin-top: 30px;
-}
-
-.profile-view {
-    background-color: red;
 }
 
 .product-image {
