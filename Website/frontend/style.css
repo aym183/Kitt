@@ -15,7 +15,7 @@ html, body {
 }
 
 p {
-    font-size: 20px;
+    font-size: 15px;
 }
 
 footer {
@@ -28,12 +28,12 @@ footer {
 
 }
 
-.links, .products {
+.links {
     border-radius: 10px;
     height: 75px;
-    width: 450px;
-    color: white;
-    background-color: black;
+    width: 400px;
+    color: black;
+    background-color: #F2F2F2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,14 +41,56 @@ footer {
     margin-bottom: 15px; 
 }
 
+.products {
+    border-radius: 10px;
+    height: 320px;
+    width: 400px;
+    color: black;
+    background-color: #F2F2F2;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    margin-bottom: 15px;
+    flex-direction: column;
+}
+
+.product-description {
+    letter-spacing: 0.1em;
+    margin-left: 20px;
+}
+
+.product-horizontal-row {
+    margin-left: 50px;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+}
+
+button {
+    height: 40px;
+    width: 150px;
+    color: white;
+    background-color: black;
+    border-radius: 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 a {
     text-decoration: none;
 }
 
-img {
+.profile-image {
     max-width: 130px;
     max-height: 350px;
     border-radius: 50%;
+}
+
+.product-image {
+    width: 400px;
+    height: 200px;
+    border-radius: 10px;
 }
 
 body {

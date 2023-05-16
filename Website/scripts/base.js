@@ -20,7 +20,7 @@ function getLinks() {
             a.setAttribute("href", data.links[i][1]);
             var div = document.createElement("div");
             div.setAttribute("class", "links");
-            var p = document.createElement("p");
+            var p = document.createElement("h3");
             p.innerHTML = data.links[i][0];
             div.appendChild(p);
             a.appendChild(div);
