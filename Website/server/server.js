@@ -1,14 +1,15 @@
-function addProducts(num) {
-    var productsList = document.getElementsByClassName("links-list")[0];
-    for (var i = 0; i < num; i++) {
-      var a = document.createElement("a");
-      a.setAttribute("href", "https://www.google.com");
-      var div = document.createElement("div");
-      div.setAttribute("class", "links");
-      var p = document.createElement("p");
-      p.innerHTML = "Test Link";
-      div.appendChild(p);
-      a.appendChild(div);
-      productsList.appendChild(a);
-    }
-  }
+const express = require("express");
+const app = express();
+
+app.use(express.static("public"));
+app.use(express.json());
+
+app.get("/get-details", async (req, res) => {
+  const items = req.body;
+  console.log(items)
+    res.send({
+        response: items   
+    });
+});
+
+app.listen(8080, () => console.log("Node server listening on port 8080!"));
