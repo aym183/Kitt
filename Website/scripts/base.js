@@ -1,20 +1,8 @@
-function addProducts(num) {
-    // var productsList = document.getElementsByClassName("links-list")[0];
-    // for (var i = 0; i < num; i++) {
-    //   var a = document.createElement("a");
-    //   a.setAttribute("href", "https://www.google.com");
-    //   var div = document.createElement("div");
-    //   div.setAttribute("class", "links");
-    //   var p = document.createElement("p");
-    //   p.innerHTML = "Test Link";
-    //   div.appendChild(p);
-    //   a.appendChild(div);
-    //   productsList.appendChild(a);
-    // }
+function getLinks() {
 
     const data = {
-        username: 'aali183'
-      };
+        username: 'aym1302'
+    };
 
     fetch('https://plastic-forest-gallon.glitch.me/get-details', 
     { method: 'POST',
@@ -22,11 +10,23 @@ function addProducts(num) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-}
+    }
     )
     .then(response => response.json())
     .then(data => {
-	    console.log(data);
+        var productsList = document.getElementsByClassName("links-list")[0];
+        for (var i = 0; i < data.links.length; i++) {
+            var a = document.createElement("a");
+            a.setAttribute("href", data.links[i][1]);
+            var div = document.createElement("div");
+            div.setAttribute("class", "links");
+            var p = document.createElement("p");
+            p.innerHTML = data.links[i][0];
+            div.appendChild(p);
+            a.appendChild(div);
+            productsList.appendChild(a);
+        }
     })
     .catch(error => console.error(error));
+
 }
