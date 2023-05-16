@@ -15,6 +15,18 @@ function getLinks() {
     .then(response => response.json())
     .then(data => {
         console.log(data)
+
+        var profileView = document.querySelector('.profile-view');
+        var profileImage = document.createElement('img');
+        profileImage.classList.add('profile-image');
+        profileImage.src = data.profile_image;
+        profileImage.alt = 'profile image';
+        profileView.appendChild(profileImage);
+
+        var username = document.createElement('h1');
+        username.textContent = '@aali183';
+        profileView.appendChild(username);
+
         var linksList = document.getElementsByClassName("links-list")[0];
         for (var i = 0; i < data.links.length; i++) {
             var a = document.createElement("a");
