@@ -70,24 +70,24 @@ struct ProductForm: View {
                         
                         TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                         
-                        Button(action: {}) {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.gray)
-                                    .opacity(0.2)
-                                    .frame(height: 60)
-                                    .padding(.top,10)
-                                HStack {
-                                    Image(systemName: "plus")
-                                    Text("Upload File")
-                                    Spacer()
-                                }
-                                .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.04))
-                                .fontWeight(.semibold)
-                                .padding(.leading).padding(.top, 5)
-                            }
-                            .frame(width: geometry.size.width-70)
-                        }
+//                        Button(action: {}) {
+//                            ZStack {
+//                                RoundedRectangle(cornerRadius: 10)
+//                                    .fill(.gray)
+//                                    .opacity(0.2)
+//                                    .frame(height: 60)
+//                                    .padding(.top,10)
+//                                HStack {
+//                                    Image(systemName: "plus")
+//                                    Text("Upload File")
+//                                    Spacer()
+//                                }
+//                                .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.04))
+//                                .fontWeight(.semibold)
+//                                .padding(.leading).padding(.top, 5)
+//                            }
+//                            .frame(width: geometry.size.width-70)
+//                        }
                         
                         Spacer()
                         
