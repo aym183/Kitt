@@ -92,6 +92,10 @@ app.get("/:username", async (req, res) => {
       responseArr.push(doc.data());
     });
     
+    if (responseArr.length == 0) {
+      res.render("error")
+    }
+
     const [linksResponse, productsResponse, profileImageResponse] = await Promise.all([
       getLinks(responseArr[0].links),
       getProducts(responseArr[0].products),
@@ -100,8 +104,7 @@ app.get("/:username", async (req, res) => {
     // var linksResponse = await getLinks(responseArr[0].links)
     // var productsResponse = await getLinks(responseArr[0].links)
                                        
-   
-    res.render("index", { links: linksResponse, products: productsResponse, profile_image: profileImageResponse });
+    res.render("index", { username: responseArr[0].username, links: linksResponse, products: productsResponse, profile_image: profileImageResponse });
   } catch(error) {
     console.log(error)
   }
@@ -147,4 +150,4 @@ app.post('/get-details', async (req, res) => {
 });
 
 
-app.listen(8094, () => console.log("Node server listening on port 8094!"));
+app.listen(8096, () => console.log("Node server listening on port 8096!"));
