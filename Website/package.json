@@ -11,6 +11,7 @@
         "@fastify/static": "^6.10.1",
         "@fastify/view": "^7.4.1",
         "cors": "^2.8.5",
+        "ejs": "^3.1.9",
         "express": "^4.18.2",
         "fastify": "^4.17.0",
         "firebase-admin": "^11.8.0",
