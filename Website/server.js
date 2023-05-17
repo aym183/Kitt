@@ -79,12 +79,13 @@ const getImageFromPath = async (path) => {
   }
 }
 
-app.get("/index.html", async (req, res) => {
-  // const filePath = path.join(__dirname, 'index.html');
-  // res.sendFile(filePath);
+app.get("/:username", async (req, res) => {
+  const username = req.params.username; // extract the username from the URL
+  // console.log(`The user entered: ${username}`);
+
   try {
     const userRef = db.collection("users");
-    const response = await userRef.where("username", "==", "aym1302").get();
+    const response = await userRef.where("username", "==", username).get();
     let responseArr = []
     
     response.forEach(doc => {
@@ -106,6 +107,13 @@ app.get("/index.html", async (req, res) => {
   }
 
 });
+
+// app.get("/index.html", async (req, res) => {
+//   // const filePath = path.join(__dirname, 'index.html');
+//   // res.sendFile(filePath);
+
+
+// });
 
 app.post('/get-details', async (req, res) => {
   
@@ -139,4 +147,4 @@ app.post('/get-details', async (req, res) => {
 });
 
 
-app.listen(8091, () => console.log("Node server listening on port 8091!"));
+app.listen(8094, () => console.log("Node server listening on port 8094!"));
