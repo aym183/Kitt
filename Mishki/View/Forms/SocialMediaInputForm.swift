@@ -77,25 +77,10 @@ struct SocialMediaInput: View {
                             Spacer()
                             
                             Button(action: {
-                                //                            if ifEdit {
-                                //                                DispatchQueue.global(qos: .userInteractive).async {
-                                //                                    UpdateDB().updateCreatedLink(old_url: oldURL, new_url: linkURL, old_name: oldName, new_name: linkName) { response in
-                                //                                        if response == "Successful" {
-                                //                                            readData.getLinks()
-                                //                                        }
-                                //                                    }
-                                //                                }
-                                //                                linkEditShown.toggle()
-                                //                            } else {
-                                //                                DispatchQueue.global(qos: .userInteractive).async {
-                                //                                    if links_number != 0 {
-                                //                                        UpdateDB().updateLinks(name: linkName, url: linkURL)
-                                //                                    } else {
-                                //                                        CreateDB().addLink(name: linkName, url: linkURL)
-                                //                                    }
-                                //                                }
-                                //                                linkCreated.toggle()
-                                //                            }
+                              DispatchQueue.global(qos: .userInteractive).async {
+                                  UpdateDB().updateSocials(instagram: igUsername, tiktok: tiktokUsername, facebook: fbUsername, youtube: ytChannel, website: webAddress)
+                                  linkAdded.toggle()
+                              }
                                 
                             }) {
                                 Text("Update").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
@@ -105,7 +90,7 @@ struct SocialMediaInput: View {
                         .frame(width: geometry.size.width-40, height: geometry.size.height-15)
                         .foregroundColor(.black)
                         .navigationDestination(isPresented: $linkAdded) {
-                            HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: true).navigationBarHidden(true)
+                            HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                         }
 //                    }
                     

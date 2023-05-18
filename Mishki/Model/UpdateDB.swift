@@ -42,7 +42,7 @@ class UpdateDB : ObservableObject {
         
         collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
             if let error = error {
-                print("Error updating Image: \(error)")
+                print("Error updating Bio: \(error)")
             } else {
                 guard let document = querySnapshot?.documents.first else {
                     print("No documents found")
@@ -64,7 +64,7 @@ class UpdateDB : ObservableObject {
         
         collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
             if let error = error {
-                print("Error updating Image: \(error)")
+                print("Error updating Full Name: \(error)")
             } else {
                 guard let document = querySnapshot?.documents.first else {
                     print("No documents found")
@@ -340,6 +340,26 @@ class UpdateDB : ObservableObject {
            } else {
                print("Class added successfully!")
            }
+        }
+    }
+    
+    func updateSocials(instagram: String, tiktok: String, facebook: String, youtube: String, website: String) {
+        let db = Firestore.firestore()
+        let collectionRef = db.collection("users")
+        @AppStorage("username") var userName: String = ""
+        
+        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error updating Socials: \(error)")
+            } else {
+                guard let document = querySnapshot?.documents.first else {
+                    print("No documents found")
+                    return
+                }
+            
+                let docRef = collectionRef.document(document.documentID)
+                docRef.updateData(["instagram": instagram, "tiktok": tiktok, "facebook": facebook, "youtube": youtube, "website": website])
+            }
         }
     }
 }
