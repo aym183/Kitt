@@ -338,9 +338,9 @@ struct HomePage: View {
                                                     HStack {
                                                         VStack(alignment: .leading) {
                                                             Spacer()
-                                                            Text( readData.products![index]["name"]!).font(Font.system(size: 15)).fontWeight(.medium)
+                                                            Text( readData.products![index]["name"]!).font(Font.system(size: 17)).fontWeight(.heavy)
                                                             
-                                                            Text("\(readData.products![index]["price"]!) AED").font(Font.system(size: 15)).fontWeight(.heavy).padding(.top, -2)
+                                                            Text("\(readData.products![index]["price"]!) AED").font(Font.system(size: 15)).fontWeight(.medium).padding(.top, -2)
                                                         }
                                                         .padding(.leading, 15).padding(.bottom, 10)
                                                         Spacer()
