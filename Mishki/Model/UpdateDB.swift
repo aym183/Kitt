@@ -57,6 +57,51 @@ class UpdateDB : ObservableObject {
         }
     }
     
+    func updateFullName(fullName: String, completion: @escaping (String?) -> Void) {
+        let db = Firestore.firestore()
+        let collectionRef = db.collection("users")
+        @AppStorage("username") var userName: String = ""
+        
+        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error updating Image: \(error)")
+            } else {
+                guard let document = querySnapshot?.documents.first else {
+                    print("No documents found")
+                    return
+                }
+            
+                let docRef = collectionRef.document(document.documentID)
+                docRef.updateData(["full_name": fullName])
+                UserDefaults.standard.set(fullName, forKey: "full_name")
+                completion("Successful")
+            }
+        }
+    }
+    
+    func updateUserDetails(fullName: String, bioText: String, completion: @escaping (String?) -> Void) {
+        let db = Firestore.firestore()
+        let collectionRef = db.collection("users")
+        @AppStorage("username") var userName: String = ""
+        
+        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error updating Image: \(error)")
+            } else {
+                guard let document = querySnapshot?.documents.first else {
+                    print("No documents found")
+                    return
+                }
+            
+                let docRef = collectionRef.document(document.documentID)
+                docRef.updateData(["full_name": fullName, "bio": bioText])
+                UserDefaults.standard.set(fullName, forKey: "full_name")
+                UserDefaults.standard.set(bioText, forKey: "bio")
+                completion("Successful")
+            }
+        }
+    }
+    
     func updateLinks(name: String, url: String) {
         @AppStorage("links") var links: String = ""
         

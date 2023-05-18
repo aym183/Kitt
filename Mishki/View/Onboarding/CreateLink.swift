@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-struct UserDetails: View {
+struct CreateLink: View {
     @State var username = ""
-    @State var bio = ""
-    @State var profileImageUploadShown = false
+    @State var profileDetailsShown = false
     @Binding var homePageShown: Bool
     @Binding var createAccountSheet: Bool
     @Binding var email: String
     var areAllFieldsEmpty: Bool {
-        return username.isEmpty || bio.isEmpty
+        return username.isEmpty
     }
     
     var body: some View {
@@ -24,7 +23,7 @@ struct UserDetails: View {
                     Color(.white).ignoresSafeArea()
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("Create Profile")
+                            Text("Create Your Link")
                             Spacer()
                         }
                         .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
@@ -32,7 +31,7 @@ struct UserDetails: View {
                         
                         TextField("", text: $username, prompt: Text("Username").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
                         
-                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
+//                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
                         
                         VStack {
                             Text("Your new page will be available under ") + Text("kitt.bio/\(username == "" ? "username":username)").fontWeight(.bold)
@@ -42,9 +41,9 @@ struct UserDetails: View {
                         
                         Button(action: {
                             DispatchQueue.global(qos: .userInteractive).async {
-                                CreateDB().addUser(email: email, username: username, bio: bio) { response in
+                                CreateDB().addUser(email: email, username: username) { response in
                                     if response == "User Added" {
-                                        profileImageUploadShown.toggle()
+                                        profileDetailsShown.toggle()
                                     } else {
                                         print("Unsuccessful user added")
                                     }
@@ -69,8 +68,8 @@ struct UserDetails: View {
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
                     .padding(.top, 30)
-                    .navigationDestination(isPresented: $profileImageUploadShown) {
-                        UploadProfileImageForm(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet).navigationBarHidden(true)
+                    .navigationDestination(isPresented: $profileDetailsShown) {
+                        CreateProfile(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: $email).navigationBarHidden(true)
                     }
                 }
             
