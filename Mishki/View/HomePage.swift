@@ -306,7 +306,7 @@ struct HomePage: View {
                         FormSelection(links_number: linksNumber, products_number: productsNumber, readData: readData)
                     }
                     .navigationDestination(isPresented: $settingsShown) {
-                        SettingsPage()
+                        SettingsPage(readData: readData, profile_image: profile_image, username: userName)
                     }
                     .foregroundColor(.black)
                     .padding(.top, 30)

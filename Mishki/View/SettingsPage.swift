@@ -9,13 +9,28 @@ import SwiftUI
 
 struct SettingsPage: View {
     var labels = ["Change profile picture", "Change name", "Change bio", "Help" , "Refer a friend"]
+    @ObservedObject var readData: ReadDB
+    var profile_image: UIImage?
+    var username: String
+    
     var body: some View {
         GeometryReader { geometry in
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack {
-                        Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
-                        Text("Imad Ali").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold).padding(.top, -12)
+                        if profile_image != nil {
+                            Image(uiImage: profile_image!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 100, height: 100)
+                                .cornerRadius(50)
+                        } else {
+                            Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
+                        }
+                        
+//                        Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
+                        
+                        Text(username).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold).padding(.top, -10)
                         
                         Text("fitness trainer and wellness coach,\n living in Dubai").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.semibold).opacity(0.5).multilineTextAlignment(.center)
                         
@@ -44,7 +59,7 @@ struct SettingsPage: View {
                             }
                             HStack {
                                 Spacer()
-                                Image("LaunchSets").resizable().frame(width: 50, height: 40).cornerRadius(10).padding(.top, 10).padding(.leading, -8)
+                                Image("LaunchSets").resizable().frame(width: 60, height: 50).cornerRadius(10).padding(.top, 10).padding(.leading, -8)
                                 Spacer()
                             }
                             .padding(.top)
@@ -57,9 +72,9 @@ struct SettingsPage: View {
         }
     }
 }
-
-struct SettingsPage_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsPage()
-    }
-}
+//
+//struct SettingsPage_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SettingsPage()
+//    }
+//}
