@@ -27,6 +27,20 @@ struct FormSelection: View {
     @State var productDesc = ""
     @State var productPrice = ""
     @State var image: UIImage?
+    @State var oldClassName = ""
+    @State var oldClassDesc = ""
+    @State var oldClassPrice = ""
+    @State var oldClassSeats = ""
+    @State var oldClassLocation = ""
+    @State var oldClassDuration = ""
+    @State var oldClassImage: UIImage?
+    @State var className = ""
+    @State var classDesc = ""
+    @State var classDuration = ""
+    @State var classPrice = ""
+    @State var classSeats = ""
+    @State var classLocation = ""
+    @State var classImage: UIImage?
     @ObservedObject var readData: ReadDB
     
     
@@ -69,7 +83,7 @@ struct FormSelection: View {
                         ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: products_number, ifEdit: false, readData: readData)
                     }
                     .navigationDestination(isPresented: $classFormShown) {
-                        ClassForm(classes_number: classes_number)
+                        ClassForm(oldClassName: $oldClassName, oldClassDesc: $oldClassDesc, oldClassPrice: $oldClassPrice, oldClassDuration: $oldClassDuration, oldClassSeats: $oldClassSeats, oldClassLocation: $oldClassLocation, oldImage: $oldClassImage, className: $className, classDesc: $classDesc, classDuration: $classDuration, classPrice: $classPrice, classSeats: $classSeats, classLocation: $classLocation, image: $classImage, classes_number: classes_number, ifEdit: false)
                     }
                     .navigationDestination(isPresented: $linkFormShown) {
                         LinkForm(oldName: $linkName, oldURL: $linkURL, linkName: $linkName, linkURL: $linkURL, ifEdit: false, links_number:  links_number, linkEditShown: $linkEditShown, readData: readData)

@@ -211,6 +211,60 @@ class UpdateDB : ObservableObject {
             }
     }
     
+    func updateCreatedClasses(data: [String: Any], old_image: UIImage, new_image: UIImage, completion: @escaping (String?) -> Void) {
+        @AppStorage("classes") var classes: String = ""
+        let db = Firestore.firestore()
+        let ref = db.collection("classes")
+        let randomID = UUID().uuidString
+        let path = "classes_images/\(randomID).jpg"
+        var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
+        
+        let imageData = new_image.jpegData(compressionQuality: 0.8)
+
+        guard imageData != nil else {
+            return
+        }
+        
+        UserDefaults.standard.set(new_image.jpegData(compressionQuality: 0.8), forKey: path)
+        
+        ref.whereField(FieldPath.documentID(), isEqualTo: classes)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error finding class to update: \(error.localizedDescription)")
+                } else {
+                    for document in snapshot!.documents {
+                        for documentData in document.data() {
+                            if let valueDict = documentData.value as? [String: String] {
+
+                                if valueDict["name"] == String(describing: data["oldClassName"]!) && valueDict["price"] == String(describing: data["oldClassPrice"]!) && valueDict["description"] == String(describing: data["oldClassDesc"]!) {
+                                    
+                                    temp_entries[documentData.key] = ["name": String(describing: data["className"]!), "description": String(describing: data["classDesc"]!), "time_created": TimeData().getPresentDateTime(), "price": String(describing: data["classPrice"]!), "image": path, "duration": String(describing: data["classDuration"]!), "seats": String(describing: data["classSeats"]!), "location": String(describing: data["classLocation"]!)]
+
+                                        DispatchQueue.global(qos: .background).async {
+                                            let storage = Storage.storage().reference()
+                                            let fileRef = storage.child("classes_images/\(randomID).jpg")
+                                            let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+                                            }
+                                        }
+
+                                } else {
+                                    temp_entries[documentData.key] = valueDict
+                                }
+                            }
+                        }
+                        ref.document(document.documentID).setData(temp_entries) { error in
+                            if let error = error {
+                                print("Error updating created classes: \(error.localizedDescription)")
+                            } else {
+                                print("Updated Created Classes successfully")
+                                completion("Successful")
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    
     func updateProducts(image: UIImage, name: String, description: String, price: String) {
         @AppStorage("products") var products: String = ""
         

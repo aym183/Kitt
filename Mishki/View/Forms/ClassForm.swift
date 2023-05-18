@@ -8,16 +8,27 @@
 import SwiftUI
 
 struct ClassForm: View {
-    @State var className = ""
-    @State var classDesc = ""
-    @State var classDuration = ""
-    @State var classPrice = ""
-    @State var classSeats = ""
-    @State var classLocation = ""
-    @State var image: UIImage?
+
     @State var showImagePicker = false
     @State var classCreated = false
+    
+    @Binding var oldClassName: String
+    @Binding var oldClassDesc: String
+    @Binding var oldClassPrice: String
+    @Binding var oldClassDuration: String
+    @Binding var oldClassSeats: String
+    @Binding var oldClassLocation: String
+    @Binding var oldImage: UIImage?
+    
+    @Binding var className: String
+    @Binding var classDesc: String
+    @Binding var classDuration: String
+    @Binding var classPrice: String
+    @Binding var classSeats: String
+    @Binding var classLocation: String
+    @Binding var image: UIImage?
     var classes_number: Int
+    @State var ifEdit: Bool
     
     var body: some View {
         GeometryReader { geometry in
@@ -26,11 +37,11 @@ struct ClassForm: View {
                     ScrollView(showsIndicators: false) {
                         VStack {
                             HStack {
-                                //                            if ifEdit {
-                                //                                Text("Edit Product").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
-                                //                            } else {
-                                Text("New Class Booking").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
-                                //                            }
+                                if ifEdit {
+                                    Text("Edit Class Booking").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                                } else {
+                                    Text("New Class Booking").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                                }
                                 
                                 Spacer()
                             }
@@ -74,41 +85,39 @@ struct ClassForm: View {
                             
                                                         
                             Button(action: {
-                                //                            if ifEdit {
-                                //                                DispatchQueue.global(qos: .userInteractive).async {
-                                //                                    if let image = self.image {
-                                //                                        UpdateDB().updateCreatedProduct(data: ["oldProductName": oldProductName, "oldProductDesc": oldProductDesc, "oldProductPrice": oldProductPrice, "productName": productName, "productDesc": productDesc, "productPrice": productPrice], old_image: oldImage!, new_image: image) { response in
-                                //                                            if response == "Successful" {
-                                //                                                productCreated.toggle()
-                                //                                            }
-                                //                                        }
-                                //                                    }
-                                //                                }
-                                //                            } else {
-                                
-                                
-                                
-                                DispatchQueue.global(qos: .userInteractive).async {
-                                    if classes_number != 0 {
+                                if ifEdit {
+                                    DispatchQueue.global(qos: .userInteractive).async {
                                         if let image = self.image {
-                                            UpdateDB().updateClasses(image: image, name: className, description: classDesc, price: classPrice, duration: classDuration, seats: classSeats, location: classLocation)
-                                        }
-                                    } else {
-                                        if let image = self.image {
-                                            CreateDB().addClasses(image: image, name: className, description: classDesc, price: classPrice, duration: classDuration, seats: classSeats, location: classLocation)
+                                            UpdateDB().updateCreatedClasses(data: ["oldClassName": oldClassName, "oldClassDesc": oldClassDesc, "oldClassPrice": oldClassPrice, "oldClassDuration": oldClassDuration, "oldClassSeats": oldClassSeats, "oldClassLocation": oldClassLocation, "className": className, "classDesc": classDesc, "classDuration": classDuration, "classPrice": classPrice, "classSeats": classSeats, "classLocation": classLocation], old_image: oldImage!, new_image: image) { response in
+                                                if response == "Successful" {
+                                                    classCreated.toggle()
+                                                }
+                                            }
                                         }
                                     }
-                                    classCreated.toggle()
+                                } else {
+                                                                
+                                    DispatchQueue.global(qos: .userInteractive).async {
+                                        if classes_number != 0 {
+                                            if let image = self.image {
+                                                UpdateDB().updateClasses(image: image, name: className, description: classDesc, price: classPrice, duration: classDuration, seats: classSeats, location: classLocation)
+                                            }
+                                        } else {
+                                            if let image = self.image {
+                                                CreateDB().addClasses(image: image, name: className, description: classDesc, price: classPrice, duration: classDuration, seats: classSeats, location: classLocation)
+                                            }
+                                        }
+                                        classCreated.toggle()
+                                    }
+                                                                
+                                                                
                                 }
-                                
-                                
-//                                                            }
                             }) {
-                                //                            if ifEdit {
-                                //                                Text("Update").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
-                                //                            } else {
-                                Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy).padding(.top)
-                                //                            }
+                                if ifEdit {
+                                    Text("Update").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
+                                } else {
+                                    Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy).padding(.top)
+                                }
                             }
                             .padding(.bottom)
                             

@@ -12,7 +12,6 @@ struct ProductForm: View {
     @Binding var oldProductDesc: String
     @Binding var oldProductPrice: String
     @Binding var oldImage: UIImage?
-    
     @Binding var productName: String
     @Binding var productDesc: String
     @Binding var productPrice: String
