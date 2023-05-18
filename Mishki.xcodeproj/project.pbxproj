@@ -11,6 +11,7 @@
 		6166874F2A15FB2A0016A549 /* ChangeBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166874E2A15FB2A0016A549 /* ChangeBio.swift */; };
 		616687512A161E900016A549 /* CreateProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616687502A161E900016A549 /* CreateProfile.swift */; };
 		616687542A1622EA0016A549 /* ClassForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616687532A1622EA0016A549 /* ClassForm.swift */; };
+		616687562A1654660016A549 /* SocialMediaInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616687552A1654660016A549 /* SocialMediaInputForm.swift */; };
 		61A0E7FE2A09D0D500FE474D /* MishkiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FD2A09D0D500FE474D /* MishkiApp.swift */; };
 		61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FF2A09D0D500FE474D /* HomePage.swift */; };
 		61A0E8022A09D0D600FE474D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61A0E8012A09D0D600FE474D /* Assets.xcassets */; };
@@ -67,6 +68,7 @@
 		6166874E2A15FB2A0016A549 /* ChangeBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBio.swift; sourceTree = "<group>"; };
 		616687502A161E900016A549 /* CreateProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfile.swift; sourceTree = "<group>"; };
 		616687532A1622EA0016A549 /* ClassForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassForm.swift; sourceTree = "<group>"; };
+		616687552A1654660016A549 /* SocialMediaInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaInputForm.swift; sourceTree = "<group>"; };
 		61A0E7FA2A09D0D500FE474D /* Mishki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mishki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61A0E7FD2A09D0D500FE474D /* MishkiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MishkiApp.swift; sourceTree = "<group>"; };
 		61A0E7FF2A09D0D500FE474D /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		616687522A1622D90016A549 /* Forms */ = {
 			isa = PBXGroup;
 			children = (
+				616687552A1654660016A549 /* SocialMediaInputForm.swift */,
 				61A0E8122A09F78900FE474D /* LinkForm.swift */,
 				61A0E8102A09F78200FE474D /* ProductForm.swift */,
 				616687532A1622EA0016A549 /* ClassForm.swift */,
@@ -366,6 +369,7 @@
 				61A0E81D2A0A121E00FE474D /* CreateLink.swift in Sources */,
 				616687542A1622EA0016A549 /* ClassForm.swift in Sources */,
 				61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */,
+				616687562A1654660016A549 /* SocialMediaInputForm.swift in Sources */,
 				61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */,
 				61A0E8162A0A051300FE474D /* SettingsPage.swift in Sources */,
 				61A0E81F2A0A15DC00FE474D /* UploadProfileImageForm.swift in Sources */,
