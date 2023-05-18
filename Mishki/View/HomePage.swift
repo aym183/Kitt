@@ -169,20 +169,33 @@ struct HomePage: View {
                                                     HStack {
                                                         Spacer()
                                                         Button(action: {
-                                                                                                           productName = readData.products![index]["name"]!
-                                                                                                           productDesc = readData.products![index]["description"]!
-                                                                                                           productPrice = "\(readData.products![index]["price"]!)"
-                                                                                                           oldProductName = readData.products![index]["name"]!
-                                                                                                           oldProductDesc = readData.products![index]["description"]!
-                                                                                                           oldProductPrice = "\(readData.products![index]["price"]!)"
-                                                                                                           oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
-                                                                                                           image = readData.loadProductImage(key: readData.products![index]["image"]!)
-                                                                                                           productEditShown.toggle()
+                                                            productName = readData.products![index]["name"]!
+                                                            productDesc = readData.products![index]["description"]!
+                                                            productPrice = "\(readData.products![index]["price"]!)"
+                                                            oldProductName = readData.products![index]["name"]!
+                                                            oldProductDesc = readData.products![index]["description"]!
+                                                            oldProductPrice = "\(readData.products![index]["price"]!)"
+                                                            oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                            image = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                            productEditShown.toggle()
                                                        
                                                         }) {
-                                                            Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding([.top, .trailing])
+                                                            Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.top).padding(.trailing, 10).fontWeight(.bold)
                                                         }
-                                                    }
+                                                        
+                                                        Button(action: {
+                                                            productIndex = index
+                                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                                DeleteDB().deleteProduct(image: readData.products![productIndex]["image"]!)
+                                                                readData.products?.remove(at: productIndex)
+                                                            }
+                                                        }) {
+                                                            Image(systemName: "trash").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).foregroundColor(.red).padding([.top, .trailing]).fontWeight(.bold)
+                                                        }
+//                                                    .font(Font.system(size: 13))
+//                                                    .padding(.top, 5).padding(.trailing)
+//                                                    .fontWeight(.bold)
+                                                }
                                                     HStack {
                                                         VStack(alignment: .leading) {
                                                             Spacer()
@@ -260,7 +273,18 @@ struct HomePage: View {
                                                     linkEditShown.toggle()
                                                 
                                                 }) {
-                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8))
+                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold).padding(.trailing, 10)
+                                                }
+                                                
+                                                Button(action: {
+                                                    linkIndex = index
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                        DeleteDB().deleteLink(name: readData.links![index]["name"]!, url: readData.links![index]["url"]!)
+                                                        readData.links?.remove(at: linkIndex as Int)
+                                                    }
+                                                }) {
+                                                    Image(systemName: "trash").background(
+                                                        Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).foregroundColor(.red).fontWeight(.bold)
                                                 }
                                             }
                                             .padding(.trailing)

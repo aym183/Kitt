@@ -35,7 +35,7 @@ struct SettingsPage: View {
                         
                         Text(username).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.09)).fontWeight(.semibold).padding(.top, -8)
                         
-                        Text(bio).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.semibold).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 10)
+                        Text(bio).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.semibold).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 10).padding(.bottom)
                         
                         Spacer()
                         
