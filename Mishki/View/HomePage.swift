@@ -54,6 +54,7 @@ struct HomePage: View {
     @State var productEditShown = false
     @State var classEditShown = false
     @State var linkEditShown = false
+    @State var socialsEditShown = false
 
     
     var body: some View {
@@ -186,6 +187,25 @@ struct HomePage: View {
                             ScrollView(showsIndicators: false) {
 //                                if readData.product_images != [] {
                                 
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-70, height: 60).foregroundColor(.gray).opacity(0.2)
+                                    
+                                    HStack {
+                                        Text("😎  Your Social Links").foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 22)
+                                        
+                                        Spacer()
+                                        
+                                        Button(action: { socialsEditShown.toggle() }) {
+                                            Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
+//                                                .padding(.trailing, 10)
+                                        }
+                                    }
+                                    .padding(.trailing)
+                                }
+                                .padding(.horizontal).padding(.trailing, 10)
+                                .multilineTextAlignment(.leading)
+                                
+                                
                                 ForEach(0..<noOfClasses, id: \.self) { index in
                                     HStack {
                                         ZStack {
@@ -258,14 +278,14 @@ struct HomePage: View {
                                                         .font(Font.system(size: 15))
                                                         .padding(.bottom)
                                                     }
-                                                    .padding(.horizontal, 10).padding(.top, -10)
+                                                    .padding(.leading, 15).padding(.top, -10)
 //                                                    Spacer()
 //                                                }
 //                                                .frame(width: geometry.size.width-100, height: 100).padding(.leading)
                                             }
                                         }
                                         .padding(.top,10)
-                                        .padding(.horizontal)
+                                        .padding(.horizontal).padding(.trailing, 10)
                                         .multilineTextAlignment(.leading)
 
                                     }
@@ -330,7 +350,7 @@ struct HomePage: View {
                                                 
                                             }
                                             .padding(.top,10)
-                                            .padding(.horizontal)
+                                            .padding(.horizontal).padding(.trailing, 10)
                                             .multilineTextAlignment(.leading)
                                             
 //                                            HStack(spacing: 25) {
@@ -392,7 +412,7 @@ struct HomePage: View {
                                                     linkEditShown.toggle()
                                                 
                                                 }) {
-                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold).padding(.trailing, 10)
+                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
                                                 }
                                                 
 //                                                Button(action: {
@@ -408,7 +428,7 @@ struct HomePage: View {
                                             }
                                             .padding(.trailing)
                                         }
-                                        .padding(.horizontal)
+                                        .padding(.horizontal).padding(.trailing, 10)
                                         .multilineTextAlignment(.leading)
                                         
 //                                        HStack(spacing: 25) {
@@ -460,6 +480,9 @@ struct HomePage: View {
                         }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                    .navigationDestination(isPresented: $socialsEditShown) {
+                        SocialMediaInput()
+                    }
                     .navigationDestination(isPresented: $formShown) {
                         FormSelection(links_number: linksNumber, products_number: productsNumber, classes_number: classesNumber, readData: readData)
                     }
