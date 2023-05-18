@@ -66,7 +66,7 @@ struct ProductForm: View {
                         
                         TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top).disableAutocorrection(true).autocapitalization(.none)
                         
-                        TextField("", text: $productDesc, prompt: Text("Product Description").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $productDesc, prompt: Text("Product Description").foregroundColor(.black), axis: .vertical).padding(.top, -55).padding(.horizontal).frame(width: geometry.size.width-70, height: 140).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none)
                         
                         TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                         
@@ -144,3 +144,4 @@ struct ProductForm: View {
 //        ProductForm()
 //    }
 //}
+

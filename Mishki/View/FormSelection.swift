@@ -47,7 +47,7 @@ struct FormSelection: View {
                                             linkFormShown.toggle()
                                         }
                                     }) {
-                                        Text("\(emojis[index]) \(labels[index])").foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 30)
+                                        Text("\(emojis[index])  \(labels[index])").foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 30).kerning(1.2)
                                         Spacer()
                                     }
                                 }
