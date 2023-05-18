@@ -81,7 +81,10 @@ struct HomePage: View {
                                 Text("kitt.bio/\(userName)").font(Font.system(size: 20)).fontWeight(.bold)
                                 
                                 HStack(spacing: 25) {
-                                    Button(action: {}) {
+                                    Button(action: {
+                                        let pasteboard = UIPasteboard.general
+                                        pasteboard.string = "kitt.bio/\(userName)"
+                                    }) {
                                         Image(systemName: "doc").background(
                                             Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
                                         )
