@@ -12,6 +12,7 @@ struct HomePage: View {
     @State var settingsShown = false
     @State var isShownHomePage: Bool
     @State var isChangesMade: Bool
+    @State var isShownClassCreated: Bool
     @State var isShownProductCreated: Bool
     @State var isShownLinkCreated: Bool
     @AppStorage("username") var userName: String = ""
@@ -31,6 +32,7 @@ struct HomePage: View {
     @State var linkURL = ""
     @State var linksNumber = 0
     @State var productsNumber = 0
+    @State var classesNumber = 0
     @State var productIndex = 0
     @State var linkIndex = 0
     @State var profile_image: UIImage?
@@ -41,6 +43,7 @@ struct HomePage: View {
     var body: some View {
         var noOfLinks = readData.links?.count ?? 0
         var noOfProducts = readData.products?.count ?? 0
+        var noOfClasses = readData.classes?.count ?? 0
         GeometryReader { geometry in
                 ZStack {
                     Color(.white).ignoresSafeArea()
@@ -72,6 +75,16 @@ struct HomePage: View {
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
                             Text("Creating your link!").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                        }
+                    }
+                    
+                    if isShownClassCreated {
+                        VStack {
+                            ProgressView()
+                                .scaleEffect(1.75)
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
+                            
+                            Text("Creating your class!").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -133,6 +146,7 @@ struct HomePage: View {
                             Button(action: {
                                 linksNumber = noOfLinks
                                 productsNumber = noOfProducts
+                                classesNumber = noOfClasses
                                 formShown.toggle()
                             }) {
                                 HStack(spacing: 6) {
@@ -155,6 +169,86 @@ struct HomePage: View {
                         } else {
                             ScrollView(showsIndicators: false) {
 //                                if readData.product_images != [] {
+                                
+                                ForEach(0..<noOfClasses, id: \.self) { index in
+                                    HStack {
+                                        ZStack {
+                                            
+                                            RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-70, height: 310).foregroundColor(.gray).opacity(0.2)
+                                                Spacer()
+                                            
+                                            Image(uiImage: readData.loadProductImage(key: readData.classes![index]["image"]!)).resizable().frame(width: geometry.size.width-70, height: 170).cornerRadius(10).scaledToFit().padding(.top, -150)
+                                            
+                                            
+                                            VStack(alignment: .leading) {
+                                                HStack {
+                                                    Spacer()
+                                                    Button(action: {
+//                                                        productName = readData.products![index]["name"]!
+//                                                        productDesc = readData.products![index]["description"]!
+//                                                        productPrice = "\(readData.products![index]["price"]!)"
+//                                                        oldProductName = readData.products![index]["name"]!
+//                                                        oldProductDesc = readData.products![index]["description"]!
+//                                                        oldProductPrice = "\(readData.products![index]["price"]!)"
+//                                                        oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
+//                                                        image = readData.loadProductImage(key: readData.products![index]["image"]!)
+//                                                        productEditShown.toggle()
+                                                   
+                                                    }) {
+                                                        Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.top).padding(.trailing, 10).fontWeight(.bold)
+                                                    }
+                                                    
+                                                    Button(action: {
+//                                                        productIndex = index
+//                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                                                            DeleteDB().deleteProduct(image: readData.products![productIndex]["image"]!)
+//                                                            readData.products?.remove(at: productIndex)
+//                                                        }
+                                                    }) {
+                                                        Image(systemName: "trash").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).foregroundColor(.red).padding([.top, .trailing]).fontWeight(.bold)
+                                                    }
+//                                                    .font(Font.system(size: 13))
+//                                                    .padding(.top, 5).padding(.trailing)
+//                                                    .fontWeight(.bold)
+                                            }
+                                                
+                                            Spacer()
+//                                                HStack {
+                                                    VStack(alignment: .leading) {
+                                                        
+                                                        Text(readData.classes![index]["name"]!).font(Font.system(size: 17)).fontWeight(.heavy).padding(.bottom, 5)
+                                                        
+                                                        Text("\(readData.classes![index]["price"]!) AED").font(Font.system(size: 15)).fontWeight(.medium).padding(.top, -2).padding(.bottom, 5)
+                                                        
+                                                        HStack {
+                                                            Image(systemName: "clock")
+                                                            Text("\(readData.classes![index]["duration"]!) mins").padding(.leading, 2)
+                                                        }
+                                                        .font(Font.system(size: 15))
+                                                        .padding(.bottom, 2)
+                                                        
+                                                        HStack {
+                                                            Image(systemName: "mappin")
+                                                            Text("\(readData.classes![index]["location"]!)").padding(.leading, 5)
+                                                        }
+                                                        .font(Font.system(size: 15))
+                                                        .padding(.bottom)
+                                                    }
+                                                    .padding(.horizontal, 10).padding(.top, -10)
+//                                                    Spacer()
+//                                                }
+//                                                .frame(width: geometry.size.width-100, height: 100).padding(.leading)
+                                            }
+                                        }
+                                        .padding(.top,10)
+                                        .padding(.horizontal)
+                                        .multilineTextAlignment(.leading)
+
+                                    }
+                                    .id(index)
+                                }
+                                .padding(.top, 10)
+                                
                                     ForEach(0..<noOfProducts, id: \.self) { index in
                                         HStack {
                                             ZStack {
@@ -342,7 +436,7 @@ struct HomePage: View {
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .navigationDestination(isPresented: $formShown) {
-                        FormSelection(links_number: linksNumber, products_number: productsNumber, readData: readData)
+                        FormSelection(links_number: linksNumber, products_number: productsNumber, classes_number: classesNumber, readData: readData)
                     }
                     .navigationDestination(isPresented: $settingsShown) {
                         SettingsPage(readData: readData, profile_image: profile_image, username: userName, bio: bioText)
@@ -353,6 +447,7 @@ struct HomePage: View {
                         DispatchQueue.global(qos: .userInteractive).async {
                             readData.getLinks()
                             readData.getProducts()
+                            readData.getClasses()
                             readData.loadProfileImage() { response in
                                 if response != nil {
                                     profile_image = response!
@@ -370,6 +465,7 @@ struct HomePage: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                                 withAnimation(.easeOut(duration: 0.5)) {
                                     isShownProductCreated = false
+                                    isShownClassCreated = false
                                 }
                             }
                         }
@@ -377,6 +473,7 @@ struct HomePage: View {
                     .opacity(isShownHomePage ? 0 : 1)
                     .opacity(isShownProductCreated ? 0 : 1)
                     .opacity(isShownLinkCreated ? 0 : 1)
+                    .opacity(isShownClassCreated ? 0 : 1)
                     .opacity(isChangesMade ? 0 : 1)
                 }
                 .navigationDestination(isPresented: $productEditShown) {

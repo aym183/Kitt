@@ -249,4 +249,43 @@ class UpdateDB : ObservableObject {
         }
         
     }
+    
+    func updateClasses(image: UIImage, name: String, description: String, price: String, duration: String, seats: String, location: String) {
+        @AppStorage("classes") var classes: String = ""
+        
+        let imageData = image.jpegData(compressionQuality: 0.8)
+
+        guard imageData != nil else {
+            return
+        }
+        let db = Firestore.firestore()
+        let ref = db.collection("classes")
+        var docID = ref.document(classes)
+        var presentDateTime = TimeData().getPresentDateTime()
+        let randomID = UUID().uuidString
+        let path = "classes_images/\(randomID).jpg"
+        
+        
+        DispatchQueue.global(qos: .background).async {
+            let storage = Storage.storage().reference()
+            let fileRef = storage.child("classes_images/\(randomID).jpg")
+            let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+            }
+        }
+        
+       
+        UserDefaults.standard.set(image.jpegData(compressionQuality: 0.8), forKey: path)
+        
+        var documentData = [String: Any]()
+        var fieldID = ref.document()
+        documentData[fieldID.documentID] = ["name": name, "image": path, "time_created": presentDateTime, "description": description, "price": price, "duration": duration, "seats": seats, "location": location]
+        
+        docID.updateData(documentData) { error in
+           if let error = error {
+               print("Error adding class: \(error.localizedDescription)")
+           } else {
+               print("Class added successfully!")
+           }
+        }
+    }
 }

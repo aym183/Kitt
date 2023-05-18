@@ -17,6 +17,7 @@ struct ClassForm: View {
     @State var image: UIImage?
     @State var showImagePicker = false
     @State var classCreated = false
+    var classes_number: Int
     
     var body: some View {
         GeometryReader { geometry in
@@ -67,6 +68,8 @@ struct ClassForm: View {
                             
                             TextField("", text: $classSeats, prompt: Text("Seats Available").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                             
+                            TextField("", text: $classPrice, prompt: Text("Price (AED)").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
+                            
                             TextField("", text: $classLocation, prompt: Text("Location").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                             
                                                         
@@ -82,19 +85,24 @@ struct ClassForm: View {
                                 //                                    }
                                 //                                }
                                 //                            } else {
-                                //                                DispatchQueue.global(qos: .userInteractive).async {
-                                //                                    if products_number != 0 {
-                                //                                        if let image = self.image {
-                                //                                            UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice)
-                                //                                        }
-                                //                                    } else {
-                                //                                        if let image = self.image {
-                                //                                            CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice)
-                                //                                        }
-                                //                                    }
-                                //                                    productCreated.toggle()
-                                //                                }
-                                //                            }
+                                
+                                
+                                
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    if classes_number != 0 {
+                                        if let image = self.image {
+                                            UpdateDB().updateClasses(image: image, name: className, description: classDesc, price: classPrice, duration: classDuration, seats: classSeats, location: classLocation)
+                                        }
+                                    } else {
+                                        if let image = self.image {
+                                            CreateDB().addClasses(image: image, name: className, description: classDesc, price: classPrice, duration: classDuration, seats: classSeats, location: classLocation)
+                                        }
+                                    }
+                                    classCreated.toggle()
+                                }
+                                
+                                
+//                                                            }
                             }) {
                                 //                            if ifEdit {
                                 //                                Text("Update").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
@@ -115,14 +123,14 @@ struct ClassForm: View {
                         ImagePicker(image: $image)
                     }
                     .navigationDestination(isPresented: $classCreated) {
-                        HomePage(isShownHomePage: false, isChangesMade: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                        HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: true, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                     }
             }
     }
 }
 
-struct ClassForm_Previews: PreviewProvider {
-    static var previews: some View {
-        ClassForm()
-    }
-}
+//struct ClassForm_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ClassForm()
+//    }
+//}

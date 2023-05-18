@@ -72,7 +72,7 @@ struct ChangeProfilePicture: View {
                             ImagePicker(image: $image)
                         }
                         .navigationDestination(isPresented: $profileImageChanged) {
-                            HomePage(isShownHomePage: false, isChangesMade: true, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                            HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                         }
                     }
                     

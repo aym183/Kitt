@@ -133,7 +133,7 @@ struct ProductForm: View {
                         ImagePicker(image: $image)
                     }
                     .navigationDestination(isPresented: $productCreated) {
-                        HomePage(isShownHomePage: false, isChangesMade: false, isShownProductCreated: true, isShownLinkCreated: false).navigationBarHidden(true)
+                        HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: true, isShownLinkCreated: false).navigationBarHidden(true)
                     }
             }
     }

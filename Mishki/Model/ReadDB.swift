@@ -14,8 +14,10 @@ class ReadDB : ObservableObject {
     
     @Published var links: [[String: String]]? = []
     @Published var products: [[String: String]]? = []
+    @Published var classes: [[String: String]]? = []
     @Published var profile_image: UIImage? = nil
     @Published var product_images: [UIImage?] = []
+    @Published var classes_images: [UIImage?] = []
     
 //    func getProfileImage() {
 //        let db = Firestore.firestore()
@@ -68,6 +70,35 @@ class ReadDB : ObservableObject {
                 self.links = temp_links
                 if self.links != [] {
                     self.sortLinksArray()
+                }
+            }
+    }
+    
+    func getClasses() {
+        @AppStorage("classes") var classes: String = ""
+        let db = Firestore.firestore()
+        let ref = db.collection("classes")
+        var temp_classes = UserDefaults.standard.array(forKey: "myKey") as? [[String:String]] ?? []
+        var temp_classes_images = UserDefaults.standard.array(forKey: "myKey") as? [UIImage?] ?? []
+        
+        ref.whereField(FieldPath.documentID(), isEqualTo: classes)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error getting email in getClasses: \(error.localizedDescription)")
+                } else {
+                    for document in snapshot!.documents {
+                        for documentData in document.data().values {
+                            if let valueDict = documentData as? [String: String] {
+                                temp_classes.append(valueDict)
+                            }
+                        }
+                    }
+                }
+                
+                // Fix image positioning
+                self.classes = temp_classes
+                if self.classes != [] {
+                    self.sortClassesArray()
                 }
             }
     }
@@ -162,6 +193,21 @@ class ReadDB : ObservableObject {
             }
         })
         self.products = sortedArray
+//        self.loadProductImage()
+    }
+    
+    func sortClassesArray() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let sortedArray = self.classes!.sorted(by: { dict1, dict2 in
+            if let date1 = formatter.date(from: dict1["time_created"]!), let date2 = formatter.date(from: dict2["time_created"]!) {
+                return date1.compare(date2) == .orderedAscending
+            } else {
+                return false
+            }
+        })
+        self.classes = sortedArray
 //        self.loadProductImage()
     }
     
