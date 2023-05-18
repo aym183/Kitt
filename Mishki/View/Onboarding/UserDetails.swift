@@ -9,12 +9,13 @@ import SwiftUI
 
 struct UserDetails: View {
     @State var username = ""
+    @State var bio = ""
     @State var profileImageUploadShown = false
     @Binding var homePageShown: Bool
     @Binding var createAccountSheet: Bool
     @Binding var email: String
     var areAllFieldsEmpty: Bool {
-        return username.isEmpty
+        return username.isEmpty || bio.isEmpty
     }
     
     var body: some View {
@@ -31,14 +32,17 @@ struct UserDetails: View {
                         
                         TextField("", text: $username, prompt: Text("Username").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
                         
+                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
+                        
                         VStack {
                             Text("Your new page will be available under ") + Text("kitt.bio/\(username == "" ? "username":username)").fontWeight(.bold)
                         }
                         .padding(.top).padding(.leading, 5)
                         
+                        
                         Button(action: {
                             DispatchQueue.global(qos: .userInteractive).async {
-                                CreateDB().addUser(email: email, username: username) { response in
+                                CreateDB().addUser(email: email, username: username, bio: bio) { response in
                                     if response == "User Added" {
                                         profileImageUploadShown.toggle()
                                     } else {

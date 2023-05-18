@@ -14,7 +14,7 @@ class CreateDB : ObservableObject {
     
     let imageCache = NSCache<NSString, UIImage>()
     
-    func addUser(email: String, username: String, completion: @escaping (String?) -> Void) {
+    func addUser(email: String, username: String, bio: String, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         let ref = db.collection("users")
         var docRef = ref.document().documentID
@@ -23,6 +23,7 @@ class CreateDB : ObservableObject {
             "date_created": TimeData().getPresentDateTime(),
             "email": email,
             "username": username,
+            "bio": bio,
             "stripe_customer_id": "",
             "stripe_payment_method": "",
             "links": docRef,
@@ -37,6 +38,7 @@ class CreateDB : ObservableObject {
             } else {
                 print("User added")
                 UserDefaults.standard.set(username, forKey: "username")
+                UserDefaults.standard.set(bio, forKey: "bio")
                 UserDefaults.standard.set(docRef, forKey: "links")
                 UserDefaults.standard.set(docRef, forKey: "products")
                 completion("User Added")

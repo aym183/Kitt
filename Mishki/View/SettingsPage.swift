@@ -12,6 +12,7 @@ struct SettingsPage: View {
     @ObservedObject var readData: ReadDB
     var profile_image: UIImage?
     var username: String
+    var bio: String
     
     var body: some View {
         GeometryReader { geometry in
@@ -32,7 +33,7 @@ struct SettingsPage: View {
                         
                         Text(username).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold).padding(.top, -10)
                         
-                        Text("fitness trainer and wellness coach,\n living in Dubai").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.semibold).opacity(0.5).multilineTextAlignment(.center)
+                        Text(bio).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.semibold).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 10)
                         
                         Spacer()
                         
