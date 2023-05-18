@@ -21,7 +21,7 @@ struct SettingsPage: View {
                         
                         Spacer()
                         
-                        ScrollView(.vertical) {
+//                        ScrollView(.vertical) {
                             ForEach(0..<5) { index in
                                 Button(action: {}) {
                                     ZStack {
@@ -48,7 +48,7 @@ struct SettingsPage: View {
                                 Spacer()
                             }
                             .padding(.top)
-                        }
+//                        }
                         .padding(.bottom)
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
