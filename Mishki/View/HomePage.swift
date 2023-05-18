@@ -134,7 +134,7 @@ struct HomePage: View {
                         
                         Spacer()
                         
-                        if readData.links == nil {
+                        if readData.links == nil && readData.products == nil{
                             Text("No products or links added yet.").fontWeight(.semibold)
                             Spacer()
                         } else {
@@ -257,13 +257,20 @@ struct HomePage: View {
                                     }
                                     .id(index)
                                 }
+                                
+//                                HStack {
+//                                    Spacer()
+//                                    Text("Made with")
+//                                        .font(.footnote).fontWeight(.semibold)
+//                                        .padding(.top).padding(.horizontal, 5)
+//                                        .opacity(0.7)
+//                                    Image("LaunchSets").resizable().frame(width: 50, height: 40).cornerRadius(10).padding(.top, 10).padding(.leading, -8)
+//                                    Spacer()
+//                                }
+//                                .padding(.top)
                             }
                             .padding(.top)
                         }
-                        
-//                        HStack {
-//
-//                        }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .navigationDestination(isPresented: $formShown) {
