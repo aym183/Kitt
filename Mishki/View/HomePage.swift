@@ -49,7 +49,7 @@ struct HomePage: View {
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
-                            Text("Getting Mishki Ready! 🥳").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            Text("Getting Kitt Ready! 🥳").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -260,6 +260,10 @@ struct HomePage: View {
                             }
                             .padding(.top)
                         }
+                        
+//                        HStack {
+//
+//                        }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .navigationDestination(isPresented: $formShown) {
@@ -271,7 +275,6 @@ struct HomePage: View {
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .onAppear {
-                        print("I AM HERE")
                         DispatchQueue.global(qos: .userInteractive).async {
                             readData.getLinks()
                             readData.getProducts()

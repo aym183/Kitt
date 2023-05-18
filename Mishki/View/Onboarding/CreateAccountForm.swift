@@ -40,7 +40,7 @@ struct CreateAccountForm: View {
                         
                         SecureField("", text: $confirmPassword, prompt: Text("Confirm Password").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
                         
-                        Text("By continuing you agree to our Terms of Service.\nOpenrack services are subject to our Privacy Policy.")
+                        Text("By continuing you agree to our Terms of Service.\nKitt services are subject to our Privacy Policy.")
                             .font(.footnote).fontWeight(.semibold)
                             .padding(.top).padding(.horizontal, 5)
                             .opacity(0.7)

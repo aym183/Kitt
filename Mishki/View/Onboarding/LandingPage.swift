@@ -35,7 +35,7 @@ struct LandingContent: View {
                     Color(.white).ignoresSafeArea()
                     VStack{
                         
-                        Text("Mishki").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.2)).fontWeight(.heavy)
+                        Text("Kitt").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.2)).fontWeight(.heavy)
                             .foregroundColor(.black)
                             .padding(.top, 120)
                             .padding(.horizontal, 10)
