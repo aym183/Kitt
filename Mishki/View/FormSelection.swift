@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct FormSelection: View {
-    var emojis = ["😎", "❤️"]
-    var labels = ["New Product", "New Link"]
+    var emojis = ["😎", "🧘‍♀️", "❤️"]
+    var labels = ["New Product", "New Class Booking", "New Link"]
     @State var productFormShown = false
     @State var linkFormShown = false
     @State var linkEditShown = false
@@ -35,7 +35,7 @@ struct FormSelection: View {
                     VStack {
                         Text("What would you like to add \nto your shop?").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical).kerning(1.5)
                         
-                        ForEach(0..<2) { index in
+                        ForEach(0..<3) { index in
                             ZStack {
                                 RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-60, height: 70).foregroundColor(.gray).opacity(0.2)
                                 
@@ -43,7 +43,7 @@ struct FormSelection: View {
                                     Button(action: {
                                         if index == 0 {
                                             productFormShown.toggle()
-                                        } else {
+                                        } else if index == 2 {
                                             linkFormShown.toggle()
                                         }
                                     }) {
