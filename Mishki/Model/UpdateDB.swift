@@ -13,7 +13,7 @@ import FirebaseStorage
 
 class UpdateDB : ObservableObject {
     
-    func updateImage(image: UIImage) {
+    func updateImage(image: UIImage, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         let collectionRef = db.collection("users")
         @AppStorage("username") var userName: String = ""
@@ -30,6 +30,7 @@ class UpdateDB : ObservableObject {
                 let docRef = collectionRef.document(document.documentID)
                 docRef.updateData(["profile_image": String(describing: image)])
                 UserDefaults.standard.set(String(describing: image), forKey: "profile_image")
+                completion("Successful")
             }
         }
     }

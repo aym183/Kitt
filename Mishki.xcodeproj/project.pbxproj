@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6166874D2A15F37D0016A549 /* ChangeProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166874C2A15F37D0016A549 /* ChangeProfilePicture.swift */; };
 		61A0E7FE2A09D0D500FE474D /* MishkiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FD2A09D0D500FE474D /* MishkiApp.swift */; };
 		61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FF2A09D0D500FE474D /* HomePage.swift */; };
 		61A0E8022A09D0D600FE474D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61A0E8012A09D0D600FE474D /* Assets.xcassets */; };
@@ -59,6 +60,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6166874C2A15F37D0016A549 /* ChangeProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfilePicture.swift; sourceTree = "<group>"; };
 		61A0E7FA2A09D0D500FE474D /* Mishki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mishki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61A0E7FD2A09D0D500FE474D /* MishkiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MishkiApp.swift; sourceTree = "<group>"; };
 		61A0E7FF2A09D0D500FE474D /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
@@ -123,6 +125,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6166874B2A15F36A0016A549 /* Edit Views */ = {
+			isa = PBXGroup;
+			children = (
+				6166874C2A15F37D0016A549 /* ChangeProfilePicture.swift */,
+			);
+			path = "Edit Views";
+			sourceTree = "<group>";
+		};
 		61A0E7F12A09D0D500FE474D = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +176,7 @@
 		61A0E80B2A09D43600FE474D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6166874B2A15F36A0016A549 /* Edit Views */,
 				61A60C582A0BEE16006B7984 /* Launch Screen */,
 				61A0E8192A0A0E1E00FE474D /* Onboarding */,
 				61A0E7FF2A09D0D500FE474D /* HomePage.swift */,
@@ -334,6 +345,7 @@
 				61A0E8132A09F78900FE474D /* LinkForm.swift in Sources */,
 				61A0E8642A0A416F00FE474D /* TimeData.swift in Sources */,
 				61A0E8682A0A44DC00FE474D /* ImagePicker.swift in Sources */,
+				6166874D2A15F37D0016A549 /* ChangeProfilePicture.swift in Sources */,
 				61A0E81D2A0A121E00FE474D /* UserDetails.swift in Sources */,
 				61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */,
 				61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */,

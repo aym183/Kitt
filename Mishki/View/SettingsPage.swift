@@ -13,6 +13,7 @@ struct SettingsPage: View {
     var profile_image: UIImage?
     var username: String
     var bio: String
+    @State var profileImageChange = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -23,15 +24,15 @@ struct SettingsPage: View {
                             Image(uiImage: profile_image!)
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 100, height: 100)
-                                .cornerRadius(50)
+                                .frame(width: 130, height: 130)
+                                .cornerRadius(80)
                         } else {
                             Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
                         }
                         
 //                        Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
                         
-                        Text(username).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold).padding(.top, -10)
+                        Text(username).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.09)).fontWeight(.semibold).padding(.top, -8)
                         
                         Text(bio).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.semibold).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 10)
                         
@@ -39,7 +40,11 @@ struct SettingsPage: View {
                         
 //                        ScrollView(.vertical) {
                             ForEach(0..<5) { index in
-                                Button(action: {}) {
+                                Button(action: {
+                                    if index == 0 {
+                                        profileImageChange.toggle()
+                                    }
+                                }) {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10)
                                             .fill(.gray)
@@ -58,6 +63,7 @@ struct SettingsPage: View {
                                     .frame(width: geometry.size.width-70)
                                 }
                             }
+                        
                             HStack {
                                 Spacer()
                                 Image("LaunchSets").resizable().frame(width: 60, height: 50).cornerRadius(10).padding(.top, 10).padding(.leading, -8)
@@ -69,6 +75,9 @@ struct SettingsPage: View {
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
+                    .navigationDestination(isPresented: $profileImageChange) {
+                        ChangeProfilePicture()
+                    }
                 }
         }
     }

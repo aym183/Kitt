@@ -11,6 +11,7 @@ struct HomePage: View {
     @State var formShown = false
     @State var settingsShown = false
     @State var isShownHomePage: Bool
+    @State var isChangesMade: Bool
     @State var isShownProductCreated: Bool
     @State var isShownLinkCreated: Bool
     @AppStorage("username") var userName: String = ""
@@ -51,6 +52,16 @@ struct HomePage: View {
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
                             Text("Getting Kitt Ready! 🥳").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                        }
+                    }
+                    
+                    if isChangesMade {
+                        VStack {
+                            ProgressView()
+                                .scaleEffect(1.75)
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
+                            
+                            Text("Implementing Changes...").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -328,6 +339,7 @@ struct HomePage: View {
                                 withAnimation(.easeOut(duration: 0.5)) {
                                     isShownHomePage = false
                                     isShownLinkCreated = false
+                                    isChangesMade = false
                                 }
                             }
                             
@@ -341,6 +353,7 @@ struct HomePage: View {
                     .opacity(isShownHomePage ? 0 : 1)
                     .opacity(isShownProductCreated ? 0 : 1)
                     .opacity(isShownLinkCreated ? 0 : 1)
+                    .opacity(isChangesMade ? 0 : 1)
                 }
                 .navigationDestination(isPresented: $productEditShown) {
                     ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: productsNumber, ifEdit: true, readData: readData).presentationDetents([.height(800)])
