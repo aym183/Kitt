@@ -27,6 +27,7 @@ class CreateDB : ObservableObject {
             "stripe_payment_method": "",
             "links": docRef,
             "products": docRef,
+            "classes": docRef,
             "profile_image": ""
         ]
         
@@ -37,9 +38,9 @@ class CreateDB : ObservableObject {
             } else {
                 print("User added")
                 UserDefaults.standard.set(username, forKey: "username")
-//                UserDefaults.standard.set(bio, forKey: "bio")
                 UserDefaults.standard.set(docRef, forKey: "links")
                 UserDefaults.standard.set(docRef, forKey: "products")
+                UserDefaults.standard.set(docRef, forKey: "classes")
                 completion("User Added")
             }
         }

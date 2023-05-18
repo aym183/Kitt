@@ -11,6 +11,7 @@ struct FormSelection: View {
     var emojis = ["😎", "🧘‍♀️", "❤️"]
     var labels = ["New Product", "New Class Booking", "New Link"]
     @State var productFormShown = false
+    @State var classFormShown = false
     @State var linkFormShown = false
     @State var linkEditShown = false
     @State var linkName = ""
@@ -43,6 +44,8 @@ struct FormSelection: View {
                                     Button(action: {
                                         if index == 0 {
                                             productFormShown.toggle()
+                                        } else if index == 1{
+                                            classFormShown.toggle()
                                         } else if index == 2 {
                                             linkFormShown.toggle()
                                         }
@@ -63,6 +66,9 @@ struct FormSelection: View {
                     .navigationDestination(isPresented: $productFormShown) {
 //                        ProductForm(products_number: products_number)
                         ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: products_number, ifEdit: false, readData: readData)
+                    }
+                    .navigationDestination(isPresented: $classFormShown) {
+                        ClassForm()
                     }
                     .navigationDestination(isPresented: $linkFormShown) {
                         LinkForm(oldName: $linkName, oldURL: $linkURL, linkName: $linkName, linkURL: $linkURL, ifEdit: false, links_number:  links_number, linkEditShown: $linkEditShown, readData: readData)
