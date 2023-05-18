@@ -143,14 +143,31 @@ struct HomePage: View {
                                     ForEach(0..<noOfProducts, id: \.self) { index in
                                         HStack {
                                             ZStack {
-                                                HStack {
-                                                    RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-150, height: 240).foregroundColor(.gray).opacity(0.2).padding(.leading, 10)
+                                                
+                                                RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-70, height: 270).foregroundColor(.gray).opacity(0.2)
                                                     Spacer()
-                                                }
+                                                
+                                                Image(uiImage: readData.loadProductImage(key: readData.products![index]["image"]!)).resizable().frame(width: geometry.size.width-70, height: 190).cornerRadius(10).scaledToFit().padding(.top, -75)
+                                                
                                                 
                                                 VStack {
-                                                    Image(uiImage: readData.loadProductImage(key: readData.products![index]["image"]!)).resizable().frame(width: geometry.size.width-152, height: 160).cornerRadius(10).scaledToFit().padding(.trailing, 21)
-                                                    
+                                                    HStack {
+                                                        Spacer()
+                                                        Button(action: {
+                                                                                                           productName = readData.products![index]["name"]!
+                                                                                                           productDesc = readData.products![index]["description"]!
+                                                                                                           productPrice = "\(readData.products![index]["price"]!)"
+                                                                                                           oldProductName = readData.products![index]["name"]!
+                                                                                                           oldProductDesc = readData.products![index]["description"]!
+                                                                                                           oldProductPrice = "\(readData.products![index]["price"]!)"
+                                                                                                           oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                                                                           image = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                                                                           productEditShown.toggle()
+                                                       
+                                                        }) {
+                                                            Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding([.top, .trailing])
+                                                        }
+                                                    }
                                                     HStack {
                                                         VStack(alignment: .leading) {
                                                             Spacer()
@@ -158,7 +175,7 @@ struct HomePage: View {
                                                             
                                                             Text("\(readData.products![index]["price"]!) AED").font(Font.system(size: 15)).fontWeight(.heavy).padding(.top, -2)
                                                         }
-                                                        .padding(.leading, 22).padding(.bottom, 5)
+                                                        .padding(.leading, 15).padding(.bottom, 10)
                                                         Spacer()
                                                     }
                                                 }
@@ -166,41 +183,42 @@ struct HomePage: View {
                                                 
                                             }
                                             .padding(.top,10)
+                                            .padding(.horizontal)
                                             .multilineTextAlignment(.leading)
                                             
-                                            HStack(spacing: 25) {
-                                                Button(action: {
-                                                    productName = readData.products![index]["name"]!
-                                                    productDesc = readData.products![index]["description"]!
-                                                    productPrice = "\(readData.products![index]["price"]!)"
-                                                    oldProductName = readData.products![index]["name"]!
-                                                    oldProductDesc = readData.products![index]["description"]!
-                                                    oldProductPrice = "\(readData.products![index]["price"]!)"
-                                                    oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
-                                                    image = readData.loadProductImage(key: readData.products![index]["image"]!)
-                                                    productEditShown.toggle()
-                                                    
-                                                }) {
-                                                    Image(systemName: "pencil").background(
-                                                        Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
-                                                    )
-                                                }
-                                                
-                                                Button(action: {
-                                                    productIndex = index
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                        DeleteDB().deleteProduct(image: readData.products![productIndex]["image"]!)
-                                                        readData.products?.remove(at: productIndex)
-                                                    }
-                                                }) {
-                                                    Image(systemName: "trash").background(
-                                                        Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
-                                                    ).foregroundColor(.red)
-                                                }
-                                            }
-                                            .font(Font.system(size: 13))
-                                            .padding(.top, 5).padding(.trailing)
-                                            .fontWeight(.bold)
+//                                            HStack(spacing: 25) {
+//                                                Button(action: {
+//                                                    productName = readData.products![index]["name"]!
+//                                                    productDesc = readData.products![index]["description"]!
+//                                                    productPrice = "\(readData.products![index]["price"]!)"
+//                                                    oldProductName = readData.products![index]["name"]!
+//                                                    oldProductDesc = readData.products![index]["description"]!
+//                                                    oldProductPrice = "\(readData.products![index]["price"]!)"
+//                                                    oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
+//                                                    image = readData.loadProductImage(key: readData.products![index]["image"]!)
+//                                                    productEditShown.toggle()
+//
+//                                                }) {
+//                                                    Image(systemName: "pencil").background(
+//                                                        Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
+//                                                    )
+//                                                }
+//
+//                                                Button(action: {
+//                                                    productIndex = index
+//                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                                                        DeleteDB().deleteProduct(image: readData.products![productIndex]["image"]!)
+//                                                        readData.products?.remove(at: productIndex)
+//                                                    }
+//                                                }) {
+//                                                    Image(systemName: "trash").background(
+//                                                        Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
+//                                                    ).foregroundColor(.red)
+//                                                }
+//                                            }
+//                                            .font(Font.system(size: 13))
+//                                            .padding(.top, 5).padding(.trailing)
+//                                            .fontWeight(.bold)
                                         }
                                         .id(index)
                                     }
@@ -210,53 +228,64 @@ struct HomePage: View {
                                 
                                 
                                 ForEach(0..<noOfLinks, id: \.self) { index in
-                                    HStack {
+//                                    HStack {
                                         ZStack {
-                                            HStack {
-                                                RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-150, height: 60).foregroundColor(.gray).opacity(0.2).padding(.leading, 10)
-                                                Spacer()
-                                            }
+                                                RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-70, height: 60).foregroundColor(.gray).opacity(0.2)
                                             
                                             HStack {
                                                 Text( readData.links![index]["name"]!).foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 22)
+                                                
                                                 Spacer()
+                                                
+                                                Button(action: {
+                                                    linkName = readData.links![index]["name"]!
+                                                    linkURL = readData.links![index]["url"]!
+                                                    oldName = readData.links![index]["name"]!
+                                                    oldURL = readData.links![index]["url"]!
+                                                    linkEditShown.toggle()
+                                                
+                                                }) {
+                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8))
+                                                }
                                             }
+                                            .padding(.trailing)
                                         }
-                                        .padding(.top,10)
+                                        .padding(.horizontal)
                                         .multilineTextAlignment(.leading)
                                         
-                                        HStack(spacing: 25) {
-                                            Button(action: {
-                                                linkName = readData.links![index]["name"]!
-                                                linkURL = readData.links![index]["url"]!
-                                                oldName = readData.links![index]["name"]!
-                                                oldURL = readData.links![index]["url"]!
-                                                linkEditShown.toggle()
-                                                
-                                            }) {
-                                                Image(systemName: "pencil").background(
-                                                    Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
-                                                )
-                                            }
-                                            
-                                            Button(action: {
-                                                linkIndex = index
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                    DeleteDB().deleteLink(name: readData.links![index]["name"]!, url: readData.links![index]["url"]!)
-                                                        readData.links?.remove(at: linkIndex as Int)
-                                                }
-                                            }) {
-                                                Image(systemName: "trash").background(
-                                                    Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
-                                                ).foregroundColor(.red)
-                                            }
-                                        }
-                                        .font(Font.system(size: 13))
-                                        .padding(.top, 5).padding(.trailing)
-                                        .fontWeight(.bold)
-                                    }
+//                                        HStack(spacing: 25) {
+//                                            Button(action: {
+//                                                linkName = readData.links![index]["name"]!
+//                                                linkURL = readData.links![index]["url"]!
+//                                                oldName = readData.links![index]["name"]!
+//                                                oldURL = readData.links![index]["url"]!
+//                                                linkEditShown.toggle()
+//
+//                                            }) {
+//                                                Image(systemName: "pencil").background(
+//                                                    Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
+//                                                )
+//                                            }
+//
+//                                            Button(action: {
+//                                                linkIndex = index
+//                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                                                    DeleteDB().deleteLink(name: readData.links![index]["name"]!, url: readData.links![index]["url"]!)
+//                                                        readData.links?.remove(at: linkIndex as Int)
+//                                                }
+//                                            }) {
+//                                                Image(systemName: "trash").background(
+//                                                    Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
+//                                                ).foregroundColor(.red)
+//                                            }
+//                                        }
+//                                        .font(Font.system(size: 13))
+//                                        .padding(.top, 5).padding(.trailing)
+//                                        .fontWeight(.bold)
+//                                    }
                                     .id(index)
                                 }
+                                .padding(.top,10)
                                 
 //                                HStack {
 //                                    Spacer()
