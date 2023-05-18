@@ -77,7 +77,7 @@ struct HomePage: View {
                     VStack {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text("mishki.shop/\(userName)").font(Font.system(size: 20)).fontWeight(.bold)
+                                Text("kitt.bio/\(userName)").font(Font.system(size: 20)).fontWeight(.bold)
                                 
                                 HStack(spacing: 25) {
                                     Button(action: {}) {
