@@ -28,7 +28,12 @@ class CreateDB : ObservableObject {
             "links": docRef,
             "products": docRef,
             "classes": docRef,
-            "profile_image": ""
+            "profile_image": "",
+            "instagram": "",
+            "tiktok": "",
+            "facebook": "",
+            "youtube": "",
+            "website": ""
         ]
         
         ref.addDocument(data: data) { error in
