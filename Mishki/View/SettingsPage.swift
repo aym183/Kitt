@@ -14,6 +14,7 @@ struct SettingsPage: View {
     var username: String
     var bio: String
     @State var profileImageChange = false
+    @State var bioChange = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -43,6 +44,8 @@ struct SettingsPage: View {
                                 Button(action: {
                                     if index == 0 {
                                         profileImageChange.toggle()
+                                    } else if index == 2 {
+                                        bioChange.toggle()
                                     }
                                 }) {
                                     ZStack {
@@ -77,6 +80,9 @@ struct SettingsPage: View {
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $profileImageChange) {
                         ChangeProfilePicture()
+                    }
+                    .navigationDestination(isPresented: $bioChange) {
+                        ChangeBio()
                     }
                 }
         }

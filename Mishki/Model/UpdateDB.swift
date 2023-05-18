@@ -35,6 +35,28 @@ class UpdateDB : ObservableObject {
         }
     }
     
+    func updateBio(bioText: String, completion: @escaping (String?) -> Void) {
+        let db = Firestore.firestore()
+        let collectionRef = db.collection("users")
+        @AppStorage("username") var userName: String = ""
+        
+        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error updating Image: \(error)")
+            } else {
+                guard let document = querySnapshot?.documents.first else {
+                    print("No documents found")
+                    return
+                }
+            
+                let docRef = collectionRef.document(document.documentID)
+                docRef.updateData(["bio": bioText])
+                UserDefaults.standard.set(bioText, forKey: "bio")
+                completion("Successful")
+            }
+        }
+    }
+    
     func updateLinks(name: String, url: String) {
         @AppStorage("links") var links: String = ""
         
