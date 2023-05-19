@@ -11,9 +11,10 @@ struct SettingsPage: View {
     var labels = ["Change profile picture", "Change name", "Change bio", "Help" , "Refer a friend"]
     @ObservedObject var readData: ReadDB
     var profile_image: UIImage?
-    var username: String
+    var name: String
     var bio: String
     @State var profileImageChange = false
+    @State var profileNameChange = false
     @State var bioChange = false
     
     var body: some View {
@@ -33,7 +34,7 @@ struct SettingsPage: View {
                         
 //                        Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
                         
-                        Text(username).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.09)).fontWeight(.semibold).padding(.top, -8)
+                        Text(name).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.09)).fontWeight(.semibold).padding(.top, -8)
                         
                         Text(bio).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.semibold).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 10).padding(.bottom)
                         
@@ -44,6 +45,8 @@ struct SettingsPage: View {
                                 Button(action: {
                                     if index == 0 {
                                         profileImageChange.toggle()
+                                    } else if index == 1 {
+                                        profileNameChange.toggle()
                                     } else if index == 2 {
                                         bioChange.toggle()
                                     }
@@ -80,6 +83,9 @@ struct SettingsPage: View {
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $profileImageChange) {
                         ChangeProfilePicture()
+                    }
+                    .navigationDestination(isPresented: $profileNameChange) {
+                        ChangeName()
                     }
                     .navigationDestination(isPresented: $bioChange) {
                         ChangeBio()

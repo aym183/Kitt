@@ -41,7 +41,6 @@ class CreateDB : ObservableObject {
                 print("Error adding user: \(error.localizedDescription)")
                 completion("Error")
             } else {
-                print("User added")
                 UserDefaults.standard.set(username, forKey: "username")
                 UserDefaults.standard.set(docRef, forKey: "links")
                 UserDefaults.standard.set(docRef, forKey: "products")

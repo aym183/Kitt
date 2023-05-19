@@ -16,6 +16,7 @@ struct HomePage: View {
     @State var isShownProductCreated: Bool
     @State var isShownLinkCreated: Bool
     @AppStorage("username") var userName: String = ""
+    @AppStorage("full_name") var fullName: String = ""
     @AppStorage("bio") var bioText: String = ""
     @StateObject var readData = ReadDB()
     @State var oldProductName = ""
@@ -487,7 +488,7 @@ struct HomePage: View {
                         FormSelection(links_number: linksNumber, products_number: productsNumber, classes_number: classesNumber, readData: readData)
                     }
                     .navigationDestination(isPresented: $settingsShown) {
-                        SettingsPage(readData: readData, profile_image: profile_image, username: userName, bio: bioText)
+                        SettingsPage(readData: readData, profile_image: profile_image, name: fullName, bio: bioText)
                     }
                     .foregroundColor(.black)
                     .padding(.top, 30)
