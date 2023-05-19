@@ -13,6 +13,7 @@ struct SettingsPage: View {
     var profile_image: UIImage?
     var name: String
     var bio: String
+    let phoneNumber = "+971506194984"
     @State var profileImageChange = false
     @State var profileNameChange = false
     @State var bioChange = false
@@ -49,6 +50,10 @@ struct SettingsPage: View {
                                         profileNameChange.toggle()
                                     } else if index == 2 {
                                         bioChange.toggle()
+                                    } else if index == 3 {
+                                        if let whatsappURL = URL(string: "https://wa.me/\(phoneNumber)") {
+                                            UIApplication.shared.open(whatsappURL)
+                                        }
                                     }
                                 }) {
                                     ZStack {
