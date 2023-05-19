@@ -190,7 +190,7 @@ struct HomePage: View {
 //                                if readData.product_images != [] {
                                 
                                 ZStack {
-                                    RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-70, height: 60).foregroundColor(.gray).opacity(0.2)
+                                    RoundedRectangle(cornerRadius: 10).fill(.gray).opacity(0.2).frame(width: geometry.size.width-70, height: 60)
                                     
                                     HStack {
                                         Text("😎  Your Social Links").foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 22)
@@ -211,7 +211,7 @@ struct HomePage: View {
                                 ForEach(0..<noOfClasses, id: \.self) { index in
                                     HStack {
                                         ZStack {
-                                            RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-70, height: 310).foregroundColor(.gray).opacity(0.2)
+                                            RoundedRectangle(cornerRadius: 10).fill(.gray).opacity(0.2).frame(width: geometry.size.width-70, height: 310)
                                                 Spacer()
                                             
                                             Image(uiImage: readData.loadProductImage(key: readData.classes![index]["image"]!)).resizable().frame(width: geometry.size.width-70, height: 170).cornerRadius(10).scaledToFit().padding(.top, -150)
@@ -300,7 +300,7 @@ struct HomePage: View {
                                         HStack {
                                             ZStack {
                                                 
-                                                RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-70, height: 270).foregroundColor(.gray).opacity(0.2)
+                                                RoundedRectangle(cornerRadius: 10).fill(.gray).opacity(0.2).frame(width: geometry.size.width-70, height: 270)
                                                     Spacer()
                                                 
                                                 Image(uiImage: readData.loadProductImage(key: readData.products![index]["image"]!)).resizable().frame(width: geometry.size.width-70, height: 190).cornerRadius(10).scaledToFit().padding(.top, -75)
@@ -401,7 +401,7 @@ struct HomePage: View {
                                 ForEach(0..<noOfLinks, id: \.self) { index in
 //                                    HStack {
                                         ZStack {
-                                                RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-70, height: 60).foregroundColor(.gray).opacity(0.2)
+                                                RoundedRectangle(cornerRadius: 10).fill(.gray).opacity(0.2).frame(width: geometry.size.width-70, height: 60)
                                             
                                             HStack {
                                                 Text( readData.links![index]["name"]!).foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 22)

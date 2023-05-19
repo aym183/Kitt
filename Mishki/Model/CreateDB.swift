@@ -46,6 +46,10 @@ class CreateDB : ObservableObject {
                 UserDefaults.standard.set(docRef, forKey: "links")
                 UserDefaults.standard.set(docRef, forKey: "products")
                 UserDefaults.standard.set(docRef, forKey: "classes")
+                UserDefaults.standard.set("", forKey: "tiktok")
+                UserDefaults.standard.set("", forKey: "facebook")
+                UserDefaults.standard.set("", forKey: "youtube")
+                UserDefaults.standard.set("", forKey: "instagram")
                 completion("User Added")
             }
         }
