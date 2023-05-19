@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import Firebase
 import FirebaseAuth
 import _AuthenticationServices_SwiftUI
+import GoogleSignIn
 
 struct LandingPage: View {
     @AppStorage("username") var userName: String = ""
@@ -16,11 +18,11 @@ struct LandingPage: View {
         NavigationStack {
             ZStack {
                 VStack {
-//                    if Auth.auth().currentUser != nil {
-//                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
-//                    } else {
+                    if Auth.auth().currentUser != nil {
+                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
+                    } else {
                         LandingContent()
-//                    }
+                    }
                 }
             }
         }
@@ -47,7 +49,42 @@ struct LandingContent: View {
                         
                         Spacer()
                         
-                        Button(action: {}) {
+                        Button(action: {
+                            guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+
+                            // Create Google Sign In configuration object.
+                            let config = GIDConfiguration(clientID: clientID)
+                            GIDSignIn.sharedInstance.configuration = config
+
+                            // Start the sign in flow!
+                            GIDSignIn.sharedInstance.signIn(withPresenting: getRootViewController()) { result, error in
+                              guard error == nil else {
+                                // ...
+                                  return
+                              }
+
+                              guard let user = result?.user,
+                                let idToken = user.idToken?.tokenString
+                              else {
+                                // ...
+                                  return
+                              }
+
+                              let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                                             accessToken: user.accessToken.tokenString)
+                                
+                            Task {
+                                  do {
+                                    let result = try await Auth.auth().signIn(with: credential)
+                                      createLinkSheet.toggle()
+                                  }
+                                  catch {
+                                    print("Error authenticating: \(error.localizedDescription)")
+                                  }
+                                }
+                              // ...
+                            }
+                        }) {
                             HStack {
                                 Image("Google").foregroundColor(.white)
                                 Text("Sign in with Google")

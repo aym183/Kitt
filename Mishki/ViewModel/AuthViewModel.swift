@@ -6,14 +6,19 @@
 //
 
 import Foundation
+import SwiftUI
+import Firebase
 import FirebaseAuth
+import FirebaseCore
 import AuthenticationServices
 import CryptoKit
+import GoogleSignIn
+import GoogleSignInSwift
 
 class AuthViewModel : ObservableObject {
     let auth = Auth.auth()
     fileprivate var currentNonce: String?
-    
+
     func signUp(email: String, password: String, completion: @escaping (String?) -> Void) {
         auth.createUser(withEmail: email, password: password) { result, error in
             if error != nil {
@@ -36,6 +41,10 @@ class AuthViewModel : ObservableObject {
             }
         }
     }
+    
+//    func signUpWithGoogle() {
+//        
+//    }
     
     func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {
         request.requestedScopes = [.email]
