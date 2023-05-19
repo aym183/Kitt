@@ -18,11 +18,11 @@ struct LandingPage: View {
         NavigationStack {
             ZStack {
                 VStack {
-                    if Auth.auth().currentUser != nil {
-                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
-                    } else {
+//                    if Auth.auth().currentUser != nil {
+//                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
+//                    } else {
                         LandingContent()
-                    }
+//                    }
                 }
             }
         }
@@ -40,11 +40,12 @@ struct LandingContent: View {
                     Color(.white).ignoresSafeArea()
                     VStack{
                         
-                        Text("Kitt").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.2)).fontWeight(.heavy)
+//                        Text("Kitt")
+                        Image("HeaderText")
+                            .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.15))
                             .foregroundColor(.black)
-                            .padding(.top, 120)
+                            .padding(.top, 50)
                             .padding(.horizontal, 10)
-                            .kerning(2.5)
                         
                         
                         Spacer()

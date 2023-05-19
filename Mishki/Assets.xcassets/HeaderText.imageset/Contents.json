@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Kitt app logo-3.png",
+      "filename" : "Kitt app logo non corner-1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Kitt app logo-3@2x.png",
+      "filename" : "Kitt app logo non corner-1@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Kitt app logo-3@3x.png",
+      "filename" : "Kitt app logo non corner-1@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
