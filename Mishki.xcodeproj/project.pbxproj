@@ -71,6 +71,7 @@
 		616687532A1622EA0016A549 /* ClassForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassForm.swift; sourceTree = "<group>"; };
 		616687552A1654660016A549 /* SocialMediaInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaInputForm.swift; sourceTree = "<group>"; };
 		616687572A171E110016A549 /* ChangeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeName.swift; sourceTree = "<group>"; };
+		616687592A1746650016A549 /* Mishki.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mishki.entitlements; sourceTree = "<group>"; };
 		61A0E7FA2A09D0D500FE474D /* Mishki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mishki.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61A0E7FD2A09D0D500FE474D /* MishkiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MishkiApp.swift; sourceTree = "<group>"; };
 		61A0E7FF2A09D0D500FE474D /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
@@ -175,6 +176,7 @@
 		61A0E7FC2A09D0D500FE474D /* Mishki */ = {
 			isa = PBXGroup;
 			children = (
+				616687592A1746650016A549 /* Mishki.entitlements */,
 				61A60C552A0B7ACF006B7984 /* Info.plist */,
 				61A0E8622A0A415700FE474D /* Utility */,
 				61A0E85C2A0A2D0800FE474D /* GoogleService-Info.plist */,
@@ -513,6 +515,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = Mishki/Mishki.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mishki/Preview Content\"";
@@ -551,6 +554,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_ENTITLEMENTS = Mishki/Mishki.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mishki/Preview Content\"";

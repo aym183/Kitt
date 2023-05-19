@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import _AuthenticationServices_SwiftUI
 
 struct LandingPage: View {
     @AppStorage("username") var userName: String = ""
@@ -15,11 +16,11 @@ struct LandingPage: View {
         NavigationStack {
             ZStack {
                 VStack {
-                    if Auth.auth().currentUser != nil {
-                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
-                    } else {
+//                    if Auth.auth().currentUser != nil {
+//                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
+//                    } else {
                         LandingContent()
-                    }
+//                    }
                 }
             }
         }
@@ -29,6 +30,7 @@ struct LandingPage: View {
 struct LandingContent: View {
     @State var createAccountSheet = false
     @State var homePageShown = false
+    var authVM = AuthViewModel()
     var body: some View {
             GeometryReader { geometry in
                 ZStack {
@@ -43,6 +45,15 @@ struct LandingContent: View {
                         
                         
                         Spacer()
+                        
+                        SignInWithAppleButton { request in
+                            authVM.handleSignInWithAppleRequest(request)
+                        } onCompletion: { result in
+                            authVM.handleSignInWithAppleCompletion(result)
+                        }
+                        .frame(width: 300, height: 55)
+                        .cornerRadius(50)
+                        .padding(.horizontal, 50)
                         
                         Button(action: { createAccountSheet.toggle() }) {
                             HStack {
