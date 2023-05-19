@@ -47,6 +47,19 @@ struct LandingContent: View {
                         
                         Spacer()
                         
+                        Button(action: {}) {
+                            HStack {
+                                Image("Google").foregroundColor(.white)
+                                Text("Sign in with Google")
+                            }
+                            .font(Font.system(size: 20))
+                            .fontWeight(.medium)
+                            .frame(width: 300, height: 55)
+                            .background(Color.black).foregroundColor(Color.white)
+                            .cornerRadius(50)
+                        }
+                        .padding(.horizontal, 50).padding(.bottom, 5)
+                        
                         SignInWithAppleButton { request in
                             authVM.handleSignInWithAppleRequest(request)
                         } onCompletion: { result in
