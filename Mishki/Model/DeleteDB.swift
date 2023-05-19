@@ -76,13 +76,36 @@ class DeleteDB : ObservableObject {
             }
     }
     
+    func deleteClass(image: String, completion: @escaping (String?) -> Void) {
+        @AppStorage("classes") var classes: String = ""
+        let db = Firestore.firestore()
+        let ref = db.collection("classes")
+        var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
+        
+        ref.whereField(FieldPath.documentID(), isEqualTo: classes)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error finding class to delete: \(error.localizedDescription)")
+                } else {
+                    for document in snapshot!.documents {
+                        for documentData in document.data() {
+                            if let valueDict = documentData.value as? [String: String], let dict_image = valueDict["image"] {
+                                if dict_image != image {
+                                    temp_entries[documentData.key] = valueDict
+                                }
+                            }
+                        }
+                        ref.document(document.documentID).setData(temp_entries) { error in
+                            if let error = error {
+                                print("Error deleting class: \(error.localizedDescription)")
+                            } else {
+                                completion("Deleted")
+                                UserDefaults.standard.removeObject(forKey: image)
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    
 }
-
-//                                    UserDefaults.standard.removeObject(forKey: image)
-//                                    db.collection("products").document(document.documentID).delete() { error in
-//                                        if let error = error {
-//                                            print("Error removing document: \(error)")
-//                                        } else {
-//                                            print("Document successfully removed!")
-//                                        }
-//                                    }

@@ -80,17 +80,18 @@ struct ProductForm: View {
                                         
                                     }
                                 } else {
-                                    ZStack {
-                                        Button(action: { showImagePicker.toggle() }) {
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .fill(Color("TextField"))
-                                                .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
+                                    Button(action: { showImagePicker.toggle() }) {
+                                        ZStack {
                                             
-                                            VStack {
-                                                Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
-                                                Text("Add cover image").padding(.top,5).fontWeight(.semibold)
-                                            }
-                                            .opacity(0.5)
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .fill(Color("TextField"))
+                                                    .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
+                                                
+                                                VStack {
+                                                    Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
+                                                    Text("Add cover image").padding(.top,5).fontWeight(.semibold)
+                                                }
+                                                .opacity(0.5)
                                         }
                                     }
                                 }
