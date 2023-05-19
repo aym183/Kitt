@@ -14,6 +14,7 @@ struct CreateAccountForm: View {
     @Binding var createAccountSheet: Bool
     @State var showProfileCreation = false
     @Binding var homePageShown: Bool
+    @Binding var createLinkSheet: Bool
     var areAllFieldsEmpty: Bool {
         return email.isEmpty || password.isEmpty || confirmPassword.isEmpty
     }
@@ -74,7 +75,7 @@ struct CreateAccountForm: View {
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $showProfileCreation) {
-                        CreateLink(homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: $email).navigationBarHidden(true)
+                        CreateLink(homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: email, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
                     }
                 }
             }

@@ -55,8 +55,8 @@ struct ChangeName: View {
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChangeName()
-    }
-}
+//struct SwiftUIView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ChangeName()
+//    }
+//}

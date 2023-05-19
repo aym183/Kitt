@@ -12,13 +12,15 @@ struct CreateLink: View {
     @State var profileDetailsShown = false
     @Binding var homePageShown: Bool
     @Binding var createAccountSheet: Bool
-    @Binding var email: String
+    var email: String
+    @Binding var createLinkSheet: Bool
     var areAllFieldsEmpty: Bool {
         return username.isEmpty
     }
     
     var body: some View {
         GeometryReader { geometry in
+            NavigationStack {
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack(alignment: .leading) {
@@ -31,7 +33,7 @@ struct CreateLink: View {
                         
                         TextField("", text: $username, prompt: Text("Username").foregroundColor(.gray)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
                         
-//                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
+                        //                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
                         
                         VStack {
                             Text("Your new page will be available under ") + Text("kitt.bio/\(username == "" ? "username":username)").fontWeight(.bold)
@@ -43,6 +45,7 @@ struct CreateLink: View {
                             DispatchQueue.global(qos: .userInteractive).async {
                                 CreateDB().addUser(email: email, username: username) { response in
                                     if response == "User Added" {
+                                        print("It works")
                                         profileDetailsShown.toggle()
                                     } else {
                                         print("Unsuccessful user added")
@@ -63,16 +66,17 @@ struct CreateLink: View {
                         .disabled(areAllFieldsEmpty)
                         
                         Spacer()
-
+                        
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .navigationDestination(isPresented: $profileDetailsShown) {
-                        CreateProfile(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: $email).navigationBarHidden(true)
+                        CreateProfile(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: email, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
                     }
                 }
-            
+                
+            }
         }
     }
 }

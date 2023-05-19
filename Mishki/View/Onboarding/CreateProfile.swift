@@ -14,7 +14,8 @@ struct CreateProfile: View {
     @State var profileImageUploadShown = false
     @Binding var homePageShown: Bool
     @Binding var createAccountSheet: Bool
-    @Binding var email: String
+    var email: String
+    @Binding var createLinkSheet: Bool
     var areAllFieldsEmpty: Bool {
         return fullName.isEmpty || bio.isEmpty
     }
@@ -65,7 +66,7 @@ struct CreateProfile: View {
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .navigationDestination(isPresented: $profileImageUploadShown) {
-                        UploadProfileImageForm(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet).navigationBarHidden(true)
+                        UploadProfileImageForm(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
                     }
                 }
             

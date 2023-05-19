@@ -13,6 +13,7 @@ struct UploadProfileImageForm: View {
     @Binding var createAccountSheet: Bool
     @State var showImagePicker = false
     @State var image: UIImage?
+    @Binding var createLinkSheet: Bool
     
     var body: some View {
         GeometryReader { geometry in
@@ -56,7 +57,12 @@ struct UploadProfileImageForm: View {
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         CreateDB().uploadProfileImage(image: image) { response in
                                             if response == "Cached" {
-                                                createAccountSheet.toggle()
+                                                if createAccountSheet == true {
+                                                    createAccountSheet.toggle()
+                                                }
+                                                if createLinkSheet == true {
+                                                    createLinkSheet.toggle()
+                                                }
                                                 homePageShown.toggle()
                                             }
                                         }
@@ -78,7 +84,12 @@ struct UploadProfileImageForm: View {
                             .padding(.top)
                             
                             Button(action: {
-                                createAccountSheet.toggle()
+                                if createAccountSheet == true {
+                                    createAccountSheet.toggle()
+                                }
+                                if createLinkSheet == true {
+                                    createLinkSheet.toggle()
+                                }
                                 homePageShown.toggle()
                                 }) {
                                 Text("I'll do it later").font(Font.system(size: 20))

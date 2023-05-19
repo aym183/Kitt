@@ -48,7 +48,7 @@ class AuthViewModel : ObservableObject {
         }
     }
     
-    func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>) {
+    func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>, completion: @escaping (String?) -> Void) {
         if case .failure(let failure) = result {
           print(failure.localizedDescription)
         }
@@ -74,6 +74,7 @@ class AuthViewModel : ObservableObject {
             Task {
               do {
                 let result = try await Auth.auth().signIn(with: credential)
+                completion("Success")
 //                await updateDisplayName(for: result.user, with: appleIDCredential)
               }
               catch {

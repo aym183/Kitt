@@ -29,6 +29,7 @@ struct LandingPage: View {
 
 struct LandingContent: View {
     @State var createAccountSheet = false
+    @State var createLinkSheet = false
     @State var homePageShown = false
     var authVM = AuthViewModel()
     var body: some View {
@@ -49,7 +50,11 @@ struct LandingContent: View {
                         SignInWithAppleButton { request in
                             authVM.handleSignInWithAppleRequest(request)
                         } onCompletion: { result in
-                            authVM.handleSignInWithAppleCompletion(result)
+                            authVM.handleSignInWithAppleCompletion(result) { response in
+                                if response == "Success" {
+                                    createLinkSheet.toggle()
+                                }
+                            }
                         }
                         .frame(width: 300, height: 55)
                         .cornerRadius(50)
@@ -68,7 +73,10 @@ struct LandingContent: View {
                         }
                         .padding(.horizontal, 50).padding(.bottom)
                         .sheet(isPresented: $createAccountSheet) {
-                            CreateAccountForm(createAccountSheet: $createAccountSheet, homePageShown: $homePageShown).presentationDetents([.height(500)])
+                            CreateAccountForm(createAccountSheet: $createAccountSheet, homePageShown: $homePageShown, createLinkSheet: $createLinkSheet).presentationDetents([.height(500)])
+                        }
+                        .sheet(isPresented: $createLinkSheet) {
+                            CreateLink(homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: (Auth.auth().currentUser?.email)!, createLinkSheet: $createLinkSheet).presentationDetents([.height(500)])
                         }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
