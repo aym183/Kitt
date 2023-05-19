@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import SwiftUI
 import FirebaseStorage
+import FirebaseFirestore
 
 class ReadDB : ObservableObject {
     

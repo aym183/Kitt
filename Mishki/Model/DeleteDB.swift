@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Firebase
+import FirebaseFirestore
 
 class DeleteDB : ObservableObject {
     
@@ -42,7 +43,7 @@ class DeleteDB : ObservableObject {
             }
     }
     
-    func deleteProduct(image: String) {
+    func deleteProduct(image: String, completion: @escaping (String?) -> Void) {
         @AppStorage("products") var products: String = ""
         let db = Firestore.firestore()
         let ref = db.collection("products")
@@ -65,7 +66,7 @@ class DeleteDB : ObservableObject {
                             if let error = error {
                                 print("Error deleting product: \(error.localizedDescription)")
                             } else {
-                                print("Product deleted successfully")
+                                completion("Deleted")
                                 UserDefaults.standard.removeObject(forKey: image)
                             }
                         }

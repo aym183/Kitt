@@ -308,6 +308,7 @@ struct HomePage: View {
                                                     HStack {
                                                         Spacer()
                                                         Button(action: {
+                                                            productIndex = index
                                                             productName = readData.products![index]["name"]!
                                                             productDesc = readData.products![index]["description"]!
                                                             productPrice = "\(readData.products![index]["price"]!)"
@@ -526,7 +527,7 @@ struct HomePage: View {
                     .opacity(isChangesMade ? 0 : 1)
                 }
                 .navigationDestination(isPresented: $productEditShown) {
-                    ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: productsNumber, ifEdit: true, readData: readData)
+                    ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: productsNumber, ifEdit: true, productIndex: productIndex, readData: readData)
                 }
                 .navigationDestination(isPresented: $classEditShown) {
                     ClassForm(oldClassName: $oldClassName, oldClassDesc: $oldClassDesc, oldClassPrice: $oldClassPrice, oldClassDuration: $oldClassDuration, oldClassSeats: $oldClassSeats, oldClassLocation: $oldClassLocation, oldImage: $oldClassImage, className: $className, classDesc: $classDesc, classDuration: $classDuration, classPrice: $classPrice, classSeats: $classSeats, classLocation: $classLocation, image: $classImage, classes_number: classesNumber, ifEdit: true)

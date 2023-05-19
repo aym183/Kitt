@@ -19,8 +19,10 @@ struct ProductForm: View {
     @State var uploadFile = ""
     @State var showImagePicker = false
     @State var productCreated = false
+    @State var productDeleted = false
     var products_number: Int
     @State var ifEdit: Bool
+    @State var productIndex: Int?
     @ObservedObject var readData: ReadDB
     
     var body: some View {
@@ -28,14 +30,31 @@ struct ProductForm: View {
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack {
-                        HStack {
+                        HStack() {
                             if ifEdit {
                                 Text("Edit Product").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    DispatchQueue.global(qos: .userInteractive).async {
+                                        DeleteDB().deleteProduct(image: readData.products![productIndex!]["image"]!) { response in
+                                            if response == "Deleted" {
+                                                readData.products?.remove(at: productIndex!)
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                    productDeleted.toggle()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }) {
+                                    Image(systemName: "trash").background(Circle().fill(.gray).frame(width: 30, height: 30).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing).padding(.vertical)
+                                }
                             } else {
                                 Text("New Product").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                                
+                                Spacer()
                             }
-                            
-                            Spacer()
                         }
                         .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                         
@@ -132,6 +151,9 @@ struct ProductForm: View {
                     }
                     .navigationDestination(isPresented: $productCreated) {
                         HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: true, isShownLinkCreated: false).navigationBarHidden(true)
+                    }
+                    .navigationDestination(isPresented: $productDeleted) {
+                        HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                     }
             }
     }
