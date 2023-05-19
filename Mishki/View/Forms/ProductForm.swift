@@ -59,14 +59,15 @@ struct ProductForm: View {
                         .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                         
                        
-                            ZStack {
+//                            ZStack {
                                 if let image = self.image {
-                                    Image(uiImage: image)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
-                                        .cornerRadius(10)
-                                    
+                                    ZStack {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
+                                            .cornerRadius(10)
+                                        
                                         VStack {
                                             HStack {
                                                 Spacer()
@@ -76,22 +77,24 @@ struct ProductForm: View {
                                             }
                                             Spacer()
                                         }
-                                    
-                                    
-                                } else {
-                                    Button(action: { showImagePicker.toggle() }) {
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(Color("TextField"))
-                                            .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
                                         
-                                        VStack {
-                                            Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
-                                            Text("Add cover image").padding(.top,5).fontWeight(.semibold)
+                                    }
+                                } else {
+                                    ZStack {
+                                        Button(action: { showImagePicker.toggle() }) {
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .fill(Color("TextField"))
+                                                .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
+                                            
+                                            VStack {
+                                                Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
+                                                Text("Add cover image").padding(.top,5).fontWeight(.semibold)
+                                            }
+                                            .opacity(0.5)
                                         }
-                                        .opacity(0.5)
                                     }
                                 }
-                            }
+//                            }
                             
 //                        }
                         

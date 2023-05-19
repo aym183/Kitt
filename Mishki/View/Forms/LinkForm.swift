@@ -15,7 +15,9 @@ struct LinkForm: View {
     @State var linkCreated = false
     @State var ifEdit: Bool
     var links_number: Int
+    @State var linkDeleted = false
     @Binding var linkEditShown: Bool
+    @State var linkIndex: Int?
     @ObservedObject var readData: ReadDB
     
     var body: some View {
@@ -26,12 +28,29 @@ struct LinkForm: View {
                         HStack {
                             if ifEdit {
                                 Text("Edit Link").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    DispatchQueue.global(qos: .userInteractive).async {
+                                        DeleteDB().deleteLink(name: readData.links![linkIndex!]["name"]!, url: readData.links![linkIndex!]["url"]!) { response in
+                                            if response == "Deleted" {
+                                                readData.links?.remove(at: linkIndex!)
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                    linkDeleted.toggle()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }) {
+                                    Image(systemName: "trash").background(Circle().fill(.gray).frame(width: 30, height: 30).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing).padding(.vertical)
+                                }
+                                
                             } else {
                                 Text("New Link").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                                
+                                Spacer()
                             }
-                            
-                            
-                            Spacer()
                         }
                         .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                         
@@ -50,7 +69,8 @@ struct LinkForm: View {
                                         }
                                     }
                                 }
-                                linkEditShown.toggle()
+                                linkDeleted.toggle()
+//                                linkEditShown.toggle()
                             } else {
                                 DispatchQueue.global(qos: .userInteractive).async {
                                     if links_number != 0 {
@@ -75,6 +95,9 @@ struct LinkForm: View {
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $linkCreated) {
                         HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: true).navigationBarHidden(true)
+                    }
+                    .navigationDestination(isPresented: $linkDeleted) {
+                        HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                     }
                     
                 }

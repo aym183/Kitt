@@ -12,7 +12,7 @@ import FirebaseFirestore
 
 class DeleteDB : ObservableObject {
     
-    func deleteLink(name: String, url: String) {
+    func deleteLink(name: String, url: String, completion: @escaping (String?) -> Void) {
         @AppStorage("links") var links: String = ""
         let db = Firestore.firestore()
         let ref = db.collection("links")
@@ -36,6 +36,7 @@ class DeleteDB : ObservableObject {
                                 print("Error deleting link: \(error.localizedDescription)")
                             } else {
                                 print("Link deleted successfully")
+                                completion("Deleted")
                             }
                         }
                     }

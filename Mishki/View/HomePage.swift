@@ -407,6 +407,7 @@ struct HomePage: View {
                                                 Spacer()
                                                 
                                                 Button(action: {
+                                                    linkIndex = index
                                                     linkName = readData.links![index]["name"]!
                                                     linkURL = readData.links![index]["url"]!
                                                     oldName = readData.links![index]["name"]!
@@ -532,8 +533,8 @@ struct HomePage: View {
                 .navigationDestination(isPresented: $classEditShown) {
                     ClassForm(oldClassName: $oldClassName, oldClassDesc: $oldClassDesc, oldClassPrice: $oldClassPrice, oldClassDuration: $oldClassDuration, oldClassSeats: $oldClassSeats, oldClassLocation: $oldClassLocation, oldImage: $oldClassImage, className: $className, classDesc: $classDesc, classDuration: $classDuration, classPrice: $classPrice, classSeats: $classSeats, classLocation: $classLocation, image: $classImage, classes_number: classesNumber, ifEdit: true)
                 }
-                .sheet(isPresented: $linkEditShown) {
-                    LinkForm(oldName: $oldName, oldURL: $oldURL, linkName: $linkName, linkURL: $linkURL, ifEdit: true, links_number: linksNumber, linkEditShown: $linkEditShown, readData: readData).presentationDetents([.height(500)])
+                .navigationDestination(isPresented: $linkEditShown) {
+                    LinkForm(oldName: $oldName, oldURL: $oldURL, linkName: $linkName, linkURL: $linkURL, ifEdit: true, links_number: linksNumber, linkEditShown: $linkEditShown, linkIndex: linkIndex, readData: readData).presentationDetents([.height(500)])
                 }
         }
     }
