@@ -18,6 +18,10 @@ struct SettingsPage: View {
     @State var profileNameChange = false
     @State var bioChange = false
     
+    // REPLACE WITH APP URL
+    let linkURL = URL(string: "https://example.com")!
+    
+    
     var body: some View {
         GeometryReader { geometry in
                 ZStack {
@@ -54,6 +58,9 @@ struct SettingsPage: View {
                                         if let whatsappURL = URL(string: "https://wa.me/\(phoneNumber)") {
                                             UIApplication.shared.open(whatsappURL)
                                         }
+                                    } else {
+                                        let activityViewController = UIActivityViewController(activityItems: [linkURL], applicationActivities: nil)
+                                        UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
                                     }
                                 }) {
                                     ZStack {
