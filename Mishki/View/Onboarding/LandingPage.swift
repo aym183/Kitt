@@ -59,15 +59,16 @@ struct LandingContent: View {
                         .frame(width: 300, height: 55)
                         .cornerRadius(50)
                         .padding(.horizontal, 50)
+                        .padding(.bottom, 5)
                         
                         Button(action: { createAccountSheet.toggle() }) {
                             HStack {
-                                Text("Get Started")
-                                Image(systemName: "arrow.forward")
+                                Image(systemName: "envelope.fill").foregroundColor(.white)
+                                Text("Sign in with Email")
                             }
-                            .font(Font.system(size: 25))
-                            .fontWeight(.semibold)
-                            .frame(width: 300, height: 70)
+                            .font(Font.system(size: 20))
+                            .fontWeight(.medium)
+                            .frame(width: 300, height: 55)
                             .background(Color.black).foregroundColor(Color.white)
                             .cornerRadius(50)
                         }
