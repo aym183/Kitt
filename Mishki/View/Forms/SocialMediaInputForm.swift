@@ -9,12 +9,16 @@ import SwiftUI
 
 struct SocialMediaInput: View {
     @State var linkAdded = false
-    @State var igUsername = ""
-    @State var tiktokUsername = ""
-    @State var fbUsername = ""
-    @State var ytChannel = ""
-    @State var webAddress = ""
-    @State var email = ""
+//    @State var igUsername = ""
+//    @State var tiktokUsername = ""
+//    @State var fbUsername = ""
+//    @State var ytChannel = ""
+//    @State var webAddress = ""
+    @AppStorage("instagram") var igUsername: String = ""
+    @AppStorage("tiktok") var tiktokUsername: String = ""
+    @AppStorage("facebook") var fbUsername: String = ""
+    @AppStorage("youtube") var ytChannel: String = ""
+    @AppStorage("website") var webAddress: String = ""
     
     var body: some View {
         GeometryReader { geometry in
@@ -26,9 +30,9 @@ struct SocialMediaInput: View {
                                 
 //                            .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                             
-                            Text("These will appear at the top of your profile. If you choose not to add any of the given usernames,\njust skip them.").foregroundColor(.gray)
+                            Text("These will appear at the top of your profile. If you choose not to add any of the given usernames, just skip them.").foregroundColor(.gray)
                                 .font(.footnote).fontWeight(.semibold)
-                                .padding(.top).padding(.horizontal, 15).padding(.top, -20)
+                                .padding(.top).padding(.leading, 14).padding(.trailing, 10).padding(.top, -20)
                             
 
                             HStack {

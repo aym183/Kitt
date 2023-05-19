@@ -359,6 +359,11 @@ class UpdateDB : ObservableObject {
             
                 let docRef = collectionRef.document(document.documentID)
                 docRef.updateData(["instagram": instagram, "tiktok": tiktok, "facebook": facebook, "youtube": youtube, "website": website])
+                UserDefaults.standard.set(instagram, forKey: "instagram")
+                UserDefaults.standard.set(tiktok, forKey: "tiktok")
+                UserDefaults.standard.set(facebook, forKey: "facebook")
+                UserDefaults.standard.set(youtube, forKey: "youtube")
+                UserDefaults.standard.set(website, forKey: "website")
             }
         }
     }
