@@ -57,8 +57,7 @@ struct ClassForm: View {
                                             .cornerRadius(10)
                                     } else {
                                         RoundedRectangle(cornerRadius: 10)
-                                            .fill(.gray)
-                                            .opacity(0.2)
+                                            .fill(Color("TextField"))
                                             .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
                                         
                                         VStack {
@@ -71,17 +70,17 @@ struct ClassForm: View {
                                 
                             }
                             
-                            TextField("", text: $className, prompt: Text("Class Name").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top).disableAutocorrection(true).autocapitalization(.none)
+                            TextField("", text: $className, prompt: Text("Class Name").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top).disableAutocorrection(true).autocapitalization(.none)
                             
-                            TextField("", text: $classDesc, prompt: Text("Class Description").foregroundColor(.black), axis: .vertical).padding(.top, -55).padding(.horizontal).frame(width: geometry.size.width-70, height: 140).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none)
+                            TextField("", text: $classDesc, prompt: Text("Class Description").foregroundColor(.gray), axis: .vertical).padding(.top, -55).padding(.horizontal).frame(width: geometry.size.width-70, height: 140).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none)
                             
-                            TextField("", text: $classDuration, prompt: Text("Class Duration (minutes)").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
+                            TextField("", text: $classDuration, prompt: Text("Class Duration (minutes)").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                             
-                            TextField("", text: $classSeats, prompt: Text("Seats Available").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
+                            TextField("", text: $classSeats, prompt: Text("Seats Available").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                             
-                            TextField("", text: $classPrice, prompt: Text("Price (AED)").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
+                            TextField("", text: $classPrice, prompt: Text("Price (AED)").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                             
-                            TextField("", text: $classLocation, prompt: Text("Location").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
+                            TextField("", text: $classLocation, prompt: Text("Location").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                             
                                                         
                             Button(action: {

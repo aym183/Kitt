@@ -34,8 +34,7 @@ struct ChangeProfilePicture: View {
                                         .cornerRadius(10)
                                 } else {
                                     RoundedRectangle(cornerRadius: 10)
-                                        .fill(.gray)
-                                        .opacity(0.2)
+                                        .fill(Color("TextField"))
                                         .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
                                     VStack {
                                         Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
@@ -60,7 +59,7 @@ struct ChangeProfilePicture: View {
                                     }
                                 }
                         }) {
-                                Text("Confirm").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
+                                Text("Update").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
                         }
                         .padding(.bottom)
                         

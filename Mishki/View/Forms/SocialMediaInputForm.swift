@@ -37,7 +37,6 @@ struct SocialMediaInput: View {
                                 TextField("", text: $igUsername, prompt: Text("Instagram username").foregroundColor(.gray)).padding().frame(width: geometry.size.width-120, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
                             }
                             .frame(height: 60).background(Color("TextField")).cornerRadius(10).padding(.top, 10)
-
                             HStack {
                                 Image("TikTok").frame(width: 50, height: 60).background(Color("TextField")).cornerRadius(10).padding(.trailing, -10)
 

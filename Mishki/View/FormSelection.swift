@@ -53,7 +53,9 @@ struct FormSelection: View {
                         
                         ForEach(0..<3) { index in
                             ZStack {
-                                RoundedRectangle(cornerRadius: 10).frame(width: geometry.size.width-60, height: 70).foregroundColor(.gray).opacity(0.2)
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color("TextField"))
+                                    .frame(width: geometry.size.width-60, height: 70)
                                 
                                 HStack {
                                     Button(action: {

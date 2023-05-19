@@ -35,9 +35,9 @@ struct LinkForm: View {
                         }
                         .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                         
-                        TextField("", text: $linkName, prompt: Text("Link Name").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $linkName, prompt: Text("Link Name").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none)
                         
-                        TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                         
                         Spacer()
                         

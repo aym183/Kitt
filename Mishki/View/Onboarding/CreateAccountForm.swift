@@ -34,11 +34,11 @@ struct CreateAccountForm: View {
                         .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
                         .frame(width: geometry.size.width-40)
                         
-                        TextField("", text: $email, prompt: Text("Email").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $email, prompt: Text("Email").foregroundColor(.gray)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
                         
-                        SecureField("", text: $password, prompt: Text("Password").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
+                        SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
                         
-                        SecureField("", text: $confirmPassword, prompt: Text("Confirm Password").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
+                        SecureField("", text: $confirmPassword, prompt: Text("Confirm Password").foregroundColor(.gray)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
                         
                         Text("By continuing you agree to our Terms of Service.\nKitt services are subject to our Privacy Policy.")
                             .font(.footnote).fontWeight(.semibold)

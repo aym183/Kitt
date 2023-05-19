@@ -233,8 +233,8 @@
 				61A0E8172A0A09F000FE474D /* LandingPage.swift */,
 				61A0E81A2A0A0E3600FE474D /* CreateAccountForm.swift */,
 				61A0E81C2A0A121E00FE474D /* CreateLink.swift */,
-				61A0E81E2A0A15DC00FE474D /* UploadProfileImageForm.swift */,
 				616687502A161E900016A549 /* CreateProfile.swift */,
+				61A0E81E2A0A15DC00FE474D /* UploadProfileImageForm.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";

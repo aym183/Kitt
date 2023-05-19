@@ -24,7 +24,7 @@ struct ChangeBio: View {
                             }
                             
                         
-                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.black)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
                         
                         Spacer()
                         
@@ -37,7 +37,7 @@ struct ChangeBio: View {
                                     }
                                 }
                         }) {
-                                Text("Confirm").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
+                                Text("Update").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
                         }
                         .padding(.bottom)
                         
