@@ -109,30 +109,32 @@ struct ProductForm: View {
                         
                         TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
                         
-                        Button(action: {
-                            document_picker_bool.toggle()
-                        }) {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.gray)
-                                    .opacity(0.2)
-                                    .frame(height: 60)
-                                    .padding(.bottom, 5)
-                                HStack {
-                                    if let url = selectedPDF {
-                                        let filename = url.lastPathComponent
-                                        Text(filename)
-                                    } else {
-                                        Image(systemName: "plus")
-                                        Text("Upload PDF")
+                        if !ifEdit {
+                            Button(action: {
+                                document_picker_bool.toggle()
+                            }) {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(.gray)
+                                        .opacity(0.2)
+                                        .frame(height: 60)
+                                        .padding(.bottom, 5)
+                                    HStack {
+                                        if let url = selectedPDF {
+                                            let filename = url.lastPathComponent
+                                            Text(filename)
+                                        } else {
+                                            Image(systemName: "plus")
+                                            Text("Upload PDF")
+                                        }
+                                        Spacer()
                                     }
-                                    Spacer()
+                                    .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.04))
+                                    .fontWeight(.semibold)
+                                    .padding(.leading)
                                 }
-                                .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.04))
-                                .fontWeight(.semibold)
-                                .padding(.leading)
+                                .frame(width: geometry.size.width-70)
                             }
-                            .frame(width: geometry.size.width-70)
                         }
                         
                         Spacer()

@@ -108,6 +108,7 @@ class CreateDB : ObservableObject {
         
        
         UserDefaults.standard.set(image.jpegData(compressionQuality: 0.8), forKey: path)
+        UserDefaults.standard.set(file.lastPathComponent, forKey: filePath)
         
         var documentData = [String: Any]()
         var fieldID = ref.document()
