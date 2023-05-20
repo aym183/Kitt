@@ -119,8 +119,13 @@ struct ProductForm: View {
                                     .frame(height: 60)
                                     .padding(.bottom, 5)
                                 HStack {
-                                    Image(systemName: "plus")
-                                    Text("Upload PDF")
+                                    if let url = selectedPDF {
+                                        let filename = url.lastPathComponent
+                                        Text(filename)
+                                    } else {
+                                        Image(systemName: "plus")
+                                        Text("Upload PDF")
+                                    }
                                     Spacer()
                                 }
                                 .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.04))
