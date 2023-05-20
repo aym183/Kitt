@@ -266,7 +266,7 @@ class UpdateDB : ObservableObject {
             }
     }
     
-    func updateProducts(image: UIImage, name: String, description: String, price: String) {
+    func updateProducts(image: UIImage, name: String, description: String, price: String, file: URL) {
         @AppStorage("products") var products: String = ""
         
         let imageData = image.jpegData(compressionQuality: 0.8)
@@ -281,11 +281,16 @@ class UpdateDB : ObservableObject {
         var presentDateTime = TimeData().getPresentDateTime()
         let randomID = UUID().uuidString
         let path = "product_images/\(randomID).jpg"
+        let filePath = "product_files/\(randomID).pdf"
         
         DispatchQueue.global(qos: .background).async {
             let storage = Storage.storage().reference()
             let fileRef = storage.child("product_images/\(randomID).jpg")
             let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+            }
+            
+            let productFileRef = storage.child("product_files/\(randomID).pdf")
+            let productFileUpload = productFileRef.putFile(from: file, metadata: nil) { metadata, error in
             }
         }
         
@@ -293,7 +298,7 @@ class UpdateDB : ObservableObject {
         
         var documentData = [String: Any]()
         var fieldID = ref.document()
-        documentData[fieldID.documentID] = ["image": path, "name": name, "time_created": presentDateTime, "description": description, "price": price]
+        documentData[fieldID.documentID] = ["image": path, "name": name, "time_created": presentDateTime, "description": description, "price": price, "file": filePath]
         
         docID.updateData(documentData) { error in
         if let error = error {

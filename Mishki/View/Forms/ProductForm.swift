@@ -150,9 +150,9 @@ struct ProductForm: View {
                                 }
                             } else {
                                 DispatchQueue.global(qos: .userInteractive).async {
-                                    if products_number != 0 {
+                                    if products_number != 0, let pdf = selectedPDF {
                                         if let image = self.image {
-                                            UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice)
+                                            UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf)
                                         }
                                     } else {
                                         if let image = self.image, let pdf = selectedPDF {
