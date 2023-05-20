@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import MobileCoreServices
+import UniformTypeIdentifiers
 
 struct ProductForm: View {
     @Binding var oldProductName: String
@@ -20,10 +22,12 @@ struct ProductForm: View {
     @State var showImagePicker = false
     @State var productCreated = false
     @State var productDeleted = false
+    @State var document_picker_bool = false
     var products_number: Int
     @State var ifEdit: Bool
     @State var productIndex: Int?
     @ObservedObject var readData: ReadDB
+    @State var selectedPDF: URL?
     
     var body: some View {
         GeometryReader { geometry in
@@ -99,30 +103,32 @@ struct ProductForm: View {
                             
 //                        }
                         
-                        TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
                         
-                        TextField("", text: $productDesc, prompt: Text("Product Description").foregroundColor(.gray), axis: .vertical).padding(.top, -55).padding(.horizontal).frame(width: geometry.size.width-70, height: 140).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $productDesc, prompt: Text("Product Description").foregroundColor(.gray), axis: .vertical).padding(.top, -55).padding(.horizontal).frame(width: geometry.size.width-70, height: 140).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
                         
-                        TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
                         
-//                        Button(action: {}) {
-//                            ZStack {
-//                                RoundedRectangle(cornerRadius: 10)
-//                                    .fill(.gray)
-//                                    .opacity(0.2)
-//                                    .frame(height: 60)
-//                                    .padding(.top,10)
-//                                HStack {
-//                                    Image(systemName: "plus")
-//                                    Text("Upload File")
-//                                    Spacer()
-//                                }
-//                                .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.04))
-//                                .fontWeight(.semibold)
-//                                .padding(.leading).padding(.top, 5)
-//                            }
-//                            .frame(width: geometry.size.width-70)
-//                        }
+                        Button(action: {
+                            document_picker_bool.toggle()
+                        }) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.gray)
+                                    .opacity(0.2)
+                                    .frame(height: 60)
+                                    .padding(.bottom, 5)
+                                HStack {
+                                    Image(systemName: "plus")
+                                    Text("Upload PDF")
+                                    Spacer()
+                                }
+                                .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.04))
+                                .fontWeight(.semibold)
+                                .padding(.leading)
+                            }
+                            .frame(width: geometry.size.width-70)
+                        }
                         
                         Spacer()
                         
@@ -144,8 +150,8 @@ struct ProductForm: View {
                                             UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice)
                                         }
                                     } else {
-                                        if let image = self.image {
-                                            CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice)
+                                        if let image = self.image, let pdf = selectedPDF {
+                                            CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf)
                                         }
                                     }
                                     productCreated.toggle()
@@ -167,6 +173,9 @@ struct ProductForm: View {
                     .sheet(isPresented: $showImagePicker) {
                         ImagePicker(image: $image)
                     }
+                    .sheet(isPresented: $document_picker_bool) {
+                        DocumentPicker(selectedURL: $selectedPDF)
+                    }
                     .navigationDestination(isPresented: $productCreated) {
                         HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: true, isShownLinkCreated: false).navigationBarHidden(true)
                     }
@@ -176,6 +185,42 @@ struct ProductForm: View {
             }
     }
 }
+
+struct DocumentPicker: UIViewControllerRepresentable {
+    
+        @Binding var selectedURL: URL?
+    
+        func makeCoordinator() -> DocumentPicker.Coordinator {
+            Coordinator(selectedURL: $selectedURL)
+        }
+        
+        func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
+            let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.data], asCopy: true)
+            picker.allowsMultipleSelection = false
+            picker.delegate = context.coordinator
+            return picker
+        }
+        
+        func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {
+            // No update needed
+        }
+        
+        class Coordinator: NSObject, UIDocumentPickerDelegate {
+            
+            @Binding var selectedURL: URL?
+            
+            init(selectedURL: Binding<URL?>) {
+                _selectedURL = selectedURL
+            }
+            
+            func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+                if let url = urls.first {
+                    selectedURL = url
+                }
+            }
+        }
+}
+
 
 //struct ProductForm_Previews: PreviewProvider {
 //    static var previews: some View {

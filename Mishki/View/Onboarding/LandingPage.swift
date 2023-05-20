@@ -42,10 +42,10 @@ struct LandingContent: View {
                         
 //                        Text("Kitt")
                         Image("HeaderText")
-                            .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.15))
+                            .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1))
                             .foregroundColor(.black)
                             .padding(.top, 50)
-                            .padding(.horizontal, 10)
+                            .padding(.horizontal)
                         
                         
                         Spacer()
