@@ -48,6 +48,7 @@ class CreateDB : ObservableObject {
                 UserDefaults.standard.set(docRef, forKey: "classes")
                 UserDefaults.standard.set("", forKey: "tiktok")
                 UserDefaults.standard.set("", forKey: "facebook")
+                UserDefaults.standard.set("", forKey: "website")
                 UserDefaults.standard.set("", forKey: "youtube")
                 UserDefaults.standard.set("", forKey: "instagram")
                 UserDefaults.standard.set(nil, forKey: "profile_image")
@@ -99,10 +100,16 @@ class CreateDB : ObservableObject {
             let storage = Storage.storage().reference()
             let fileRef = storage.child("product_images/\(randomID).jpg")
             let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+                if let error = error {
+                    print("Error uploading product image \(error.localizedDescription)")
+                }
             }
             
             let productFileRef = storage.child("product_files/\(randomID).pdf")
             let productFileUpload = productFileRef.putFile(from: file, metadata: nil) { metadata, error in
+                if let error = error {
+                    print("Error uploading product file \(error.localizedDescription)")
+                }
             }
         }
         
@@ -143,6 +150,9 @@ class CreateDB : ObservableObject {
             let storage = Storage.storage().reference()
             let fileRef = storage.child("classes_images/\(randomID).jpg")
             let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+                if let error = error {
+                    print("Error uploading classes image \(error.localizedDescription)")
+                }
             }
         }
         
@@ -181,7 +191,11 @@ class CreateDB : ObservableObject {
             let storage = Storage.storage().reference()
             let fileRef = storage.child("profile_images/\(randomID).jpg")
             let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+                if let error = error {
+                    print("Error uploading profile image \(error.localizedDescription)")
+                }
             }
+            print("File added to profile image")
         }
         
         
