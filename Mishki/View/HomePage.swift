@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct HomePage: View {
     @State var formShown = false
@@ -41,7 +42,6 @@ struct HomePage: View {
     @State var classSeats = ""
     @State var classLocation = ""
     @State var classImage: UIImage?
-    
     @State var oldName = ""
     @State var oldURL = ""
     @State var linkName = ""
@@ -133,7 +133,17 @@ struct HomePage: View {
                                         )
                                     }
                                     
-                                    Button(action: {}) {
+                                    Button(action: {
+                                        guard let url = URL(string: "https://kitt.bio/\(userName)") else {
+                                            return
+                                        }
+                                        
+                                        guard UIApplication.shared.canOpenURL(url) else {
+                                            return
+                                        }
+                                        
+                                        UIApplication.shared.open(url)
+                                    }) {
                                         Image(systemName: "arrow.up.forward").background(
                                             Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
                                         )
