@@ -73,7 +73,7 @@ struct HomePage: View {
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
-                            Text("Getting Kitt Ready! 🥳").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            Text("Getting Kitt Ready! 🥳").font(Font.custom("Avenir-Black", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -83,7 +83,7 @@ struct HomePage: View {
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
-                            Text("Implementing Changes...").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            Text("Implementing Changes...").font(Font.custom("Avenir-Black", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -93,7 +93,7 @@ struct HomePage: View {
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
-                            Text("Creating your link!").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            Text("Creating your link!").font(Font.custom("Avenir-Black", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -103,7 +103,7 @@ struct HomePage: View {
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
-                            Text("Creating your class!").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            Text("Creating your class!").font(Font.custom("Avenir-Black", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -113,7 +113,7 @@ struct HomePage: View {
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
-                            Text("Creating your product!").font(Font.system(size: 20)).fontWeight(.semibold).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            Text("Creating your product!").font(Font.custom("Avenir-Black", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -121,7 +121,7 @@ struct HomePage: View {
                     VStack {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text("kitt.bio/\(userName)").font(Font.system(size: 20)).fontWeight(.bold)
+                                Text("kitt.bio/\(userName)").font(Font.custom("Avenir-Black", size: 20))
                                 
                                 HStack(spacing: 25) {
                                     Button(action: {
