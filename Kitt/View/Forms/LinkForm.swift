@@ -27,10 +27,10 @@ struct LinkForm: View {
                     VStack {
                         HStack {
                             if ifEdit {
-                                Text("Edit Link").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
-                                
+                                Text("Edit Link").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical)
+
                                 Spacer()
-                                
+
                                 Button(action: {
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         DeleteDB().deleteLink(name: readData.links![linkIndex!]["name"]!, url: readData.links![linkIndex!]["url"]!) { response in
@@ -43,20 +43,20 @@ struct LinkForm: View {
                                         }
                                     }
                                 }) {
-                                    Image(systemName: "trash").background(Circle().fill(.gray).frame(width: 30, height: 30).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing).padding(.vertical)
+                                    Image(systemName: "trash").background(Circle().fill(.gray).frame(width: 30, height: 30).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing, 25).padding(.vertical)
                                 }
-                                
+
                             } else {
-                                Text("New Link").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
+                                Text("New Link").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical)
                                 
                                 Spacer()
                             }
                         }
                         .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                         
-                        TextField("", text: $linkName, prompt: Text("Link Name").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $linkName, prompt: Text("Link Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none)
                         
-                        TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                         
                         Spacer()
                         
@@ -70,7 +70,7 @@ struct LinkForm: View {
                                     }
                                 }
                                 linkDeleted.toggle()
-//                                linkEditShown.toggle()
+                                linkEditShown.toggle()
                             } else {
                                 DispatchQueue.global(qos: .userInteractive).async {
                                     if links_number != 0 {
@@ -84,13 +84,14 @@ struct LinkForm: View {
                            
                         }) {
                             if ifEdit {
-                                Text("Update").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
+                                Text("Update").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.black).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
                             } else {
-                                Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
+                                Text("Add").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.black).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
                             }
                         }
                         .padding(.bottom)
                     }
+                    .padding(.top, -5)
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $linkCreated) {
@@ -100,10 +101,6 @@ struct LinkForm: View {
                         HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                     }
                     
-                }
-                .onAppear {
-                    print(oldURL)
-                    print(oldName)
                 }
         }
         }
