@@ -25,18 +25,17 @@ struct CreateLink: View {
                     Color(.white).ignoresSafeArea()
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("Create Your Link")
+                            Text("Create Your Link").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.08))
                             Spacer()
                         }
-                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
                         .frame(width: geometry.size.width-40)
                         
-                        TextField("", text: $username, prompt: Text("Username").foregroundColor(.gray)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
+                        TextField("", text: $username, prompt: Text("Username").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                         
                         //                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
                         
                         VStack {
-                            Text("Your new page will be available under ") + Text("kitt.bio/\(username == "" ? "username":username)").fontWeight(.bold)
+                            Text("Your new page will be available under ").font(Font.custom("Avenir-Medium", size: 18)) + Text("kitt.bio/\(username == "" ? "username":username)").font(Font.custom("Avenir-Medium", size: 18)).fontWeight(.bold)
                         }
                         .padding(.top).padding(.leading, 5)
                         
@@ -54,10 +53,8 @@ struct CreateLink: View {
                             }
                         }) {
                             HStack {
-                                Text("Create")
+                                Text("Create").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06))
                             }
-                            .font(Font.system(size: 25))
-                            .fontWeight(.semibold)
                             .frame(width: 200, height: 70)
                             .background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white)
                             .cornerRadius(50)
@@ -80,9 +77,3 @@ struct CreateLink: View {
         }
     }
 }
-
-//struct SwiftUIView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UserDetails()
-//    }
-//}

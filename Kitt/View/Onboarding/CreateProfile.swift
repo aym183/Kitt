@@ -26,16 +26,16 @@ struct CreateProfile: View {
                     Color(.white).ignoresSafeArea()
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("Create Profile")
+                            Text("Create Profile").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.08))
                             Spacer()
                         }
-                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
+//                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
                         .frame(width: geometry.size.width-40)
                         
                         
-                        TextField("", text: $fullName, prompt: Text("Full Name").foregroundColor(.gray)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
+                        TextField("", text: $fullName, prompt: Text("Full Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                         
-                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.gray)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
+                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                         
                         
                         Button(action: {
@@ -48,10 +48,10 @@ struct CreateProfile: View {
                             }
                         }) {
                             HStack {
-                                Text("Create")
+                                Text("Create").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06))
                             }
-                            .font(Font.system(size: 25))
-                            .fontWeight(.semibold)
+//                            .font(Font.system(size: 25))
+//                            .fontWeight(.semibold)
                             .frame(width: 200, height: 70)
                             .background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white)
                             .cornerRadius(50)

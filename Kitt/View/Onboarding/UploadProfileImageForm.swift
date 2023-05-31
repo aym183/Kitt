@@ -21,13 +21,14 @@ struct UploadProfileImageForm: View {
                     Color(.white).ignoresSafeArea()
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("Pick a profile image")
+                            Text("Pick a profile image").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.08))
                             Spacer()
                         }
-                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
+                        .padding(.bottom, 2)
+//                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
                         .frame(width: geometry.size.width-40)
                         
-                        Text("Select an image to use as your profile \npicture. It will show up on your page.").padding(.top).padding(.leading, 5)
+                        Text("Select an image to use as your profile \npicture. It will show up on your page.").font(Font.custom("Avenir-Medium", size: 18)).padding(.leading, 2)
                         
                         HStack {
                             Button(action: {showImagePicker.toggle()}) {
@@ -44,8 +45,7 @@ struct UploadProfileImageForm: View {
                                     }
                                 }
                             }
-                            
-                            Text("@\(username)").padding(.leading, 30).fontWeight(.bold).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.060)).opacity(0.7)
+                            Text("@\(username)").padding(.leading, 30).font(Font.custom("Avenir-Medium", size: 30)).fontWeight(.bold)
                             Spacer()
                         }
                         .frame(width: geometry.size.width-60, height: 75)
@@ -73,10 +73,8 @@ struct UploadProfileImageForm: View {
                                 
                             }) {
                                 HStack {
-                                    Text("Confirm")
+                                    Text("Confirm").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06))
                                 }
-                                .font(Font.system(size: 25))
-                                .fontWeight(.semibold)
                                 .frame(width: 200, height: 70)
                                 .background(Color.black).foregroundColor(Color.white)
                                 .cornerRadius(50)
@@ -92,8 +90,7 @@ struct UploadProfileImageForm: View {
                                 }
                                 homePageShown.toggle()
                                 }) {
-                                Text("I'll do it later").font(Font.system(size: 20))
-                                    .fontWeight(.semibold).padding([.top, .leading])
+                                Text("I'll do it later").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.055)).padding([.top, .leading])
                             }
                         }
                         
@@ -110,9 +107,9 @@ struct UploadProfileImageForm: View {
         }
     }
 }
-
+//
 //struct UploadImageForm_Previews: PreviewProvider {
 //    static var previews: some View {
-//        UploadProfileImageForm(username: "aali183")
+//        UploadProfileImageForm()
 //    }
 //}

@@ -26,26 +26,24 @@ struct CreateAccountForm: View {
                     Color(.white).ignoresSafeArea()
                     VStack(alignment: .leading) {
                         HStack {
-                            Text("Create Account")
+                            Text("Create Account").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.08))
                             Spacer()
                             Button(action: { createAccountSheet.toggle() }) {
                                 Image(systemName: "xmark.circle.fill")
                             }
                         }
-                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
                         .frame(width: geometry.size.width-40)
                         
-                        TextField("", text: $email, prompt: Text("Email").foregroundColor(.gray)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $email, prompt: Text("Email").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                         
-                        SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
+                        SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                         
-                        SecureField("", text: $confirmPassword, prompt: Text("Confirm Password").foregroundColor(.gray)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none)
+                        SecureField("", text: $confirmPassword, prompt: Text("Confirm Password").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                         
                         Text("By continuing you agree to our Terms of Service.\nKitt services are subject to our Privacy Policy.")
-                            .font(.footnote).fontWeight(.semibold)
-                            .padding(.top)
-                            .padding(.leading, 5)
-                            .opacity(0.7)
+                            .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5)
+                            .frame(width: geometry.size.width-40, height: 40)
+                            .padding(.top, 10).padding(.leading, -15)
                         
                         
                         Button(action: {
@@ -61,19 +59,20 @@ struct CreateAccountForm: View {
                             
                         }) {
                             HStack {
-                                Text("Sign Up")
+                                Text("Sign Up").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06))
                             }
-                            .font(Font.system(size: 25))
-                            .fontWeight(.semibold)
+//                            .font(Font.system(size: 25))
+//                            .fontWeight(.semibold)
                             .frame(width: 200, height: 70)
                             .background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white)
                             .cornerRadius(50)
                         }
-                        .padding(.top)
+                        .padding([.vertical])
                         .disabled(areAllFieldsEmpty)
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
+                    .padding(.top, 30)
                     .navigationDestination(isPresented: $showProfileCreation) {
                         CreateLink(homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: email, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
                     }
@@ -85,6 +84,6 @@ struct CreateAccountForm: View {
 
 //struct CreateAccountForm_Previews: PreviewProvider {
 //    static var previews: some View {
-//        CreateAccountForm(, createAccountSheet: <#Binding<Bool>#>)
+//        CreateAccountForm()
 //    }
 //}
