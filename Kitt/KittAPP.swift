@@ -23,7 +23,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 
 @main
-struct MishkiApp: App {
+struct KittAPP: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {

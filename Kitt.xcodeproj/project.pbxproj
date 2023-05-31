@@ -16,7 +16,7 @@
 		6166875C2A1787390016A549 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6166875B2A1787390016A549 /* GoogleSignIn */; };
 		6166875E2A1787390016A549 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6166875D2A1787390016A549 /* GoogleSignInSwift */; };
 		616687602A178CF20016A549 /* +View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166875F2A178CF20016A549 /* +View.swift */; };
-		61A0E7FE2A09D0D500FE474D /* MishkiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FD2A09D0D500FE474D /* MishkiApp.swift */; };
+		61A0E7FE2A09D0D500FE474D /* KittAPP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FD2A09D0D500FE474D /* KittAPP.swift */; };
 		61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FF2A09D0D500FE474D /* HomePage.swift */; };
 		61A0E8022A09D0D600FE474D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61A0E8012A09D0D600FE474D /* Assets.xcassets */; };
 		61A0E8052A09D0D600FE474D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61A0E8042A09D0D600FE474D /* Preview Assets.xcassets */; };
@@ -74,10 +74,10 @@
 		616687532A1622EA0016A549 /* ClassForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassForm.swift; sourceTree = "<group>"; };
 		616687552A1654660016A549 /* SocialMediaInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaInputForm.swift; sourceTree = "<group>"; };
 		616687572A171E110016A549 /* ChangeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeName.swift; sourceTree = "<group>"; };
-		616687592A1746650016A549 /* Mishki.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mishki.entitlements; sourceTree = "<group>"; };
+		616687592A1746650016A549 /* Kitt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kitt.entitlements; sourceTree = "<group>"; };
 		6166875F2A178CF20016A549 /* +View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+View.swift"; sourceTree = "<group>"; };
-		61A0E7FA2A09D0D500FE474D /* Mishki.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mishki.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		61A0E7FD2A09D0D500FE474D /* MishkiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MishkiApp.swift; sourceTree = "<group>"; };
+		61A0E7FA2A09D0D500FE474D /* Kitt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kitt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		61A0E7FD2A09D0D500FE474D /* KittAPP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KittAPP.swift; sourceTree = "<group>"; };
 		61A0E7FF2A09D0D500FE474D /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		61A0E8012A09D0D600FE474D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61A0E8042A09D0D600FE474D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 		61A0E7F12A09D0D500FE474D = {
 			isa = PBXGroup;
 			children = (
-				61A0E7FC2A09D0D500FE474D /* Mishki */,
+				61A0E7FC2A09D0D500FE474D /* Kitt */,
 				61A0E7FB2A09D0D500FE474D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -174,26 +174,26 @@
 		61A0E7FB2A09D0D500FE474D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				61A0E7FA2A09D0D500FE474D /* Mishki.app */,
+				61A0E7FA2A09D0D500FE474D /* Kitt.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		61A0E7FC2A09D0D500FE474D /* Mishki */ = {
+		61A0E7FC2A09D0D500FE474D /* Kitt */ = {
 			isa = PBXGroup;
 			children = (
-				616687592A1746650016A549 /* Mishki.entitlements */,
+				616687592A1746650016A549 /* Kitt.entitlements */,
 				61A60C552A0B7ACF006B7984 /* Info.plist */,
 				61A0E8622A0A415700FE474D /* Utility */,
 				61A0E85C2A0A2D0800FE474D /* GoogleService-Info.plist */,
 				61A0E80D2A09D43F00FE474D /* ViewModel */,
 				61A0E80C2A09D43B00FE474D /* Model */,
 				61A0E80B2A09D43600FE474D /* View */,
-				61A0E7FD2A09D0D500FE474D /* MishkiApp.swift */,
+				61A0E7FD2A09D0D500FE474D /* KittAPP.swift */,
 				61A0E8012A09D0D600FE474D /* Assets.xcassets */,
 				61A0E8032A09D0D600FE474D /* Preview Content */,
 			);
-			path = Mishki;
+			path = Kitt;
 			sourceTree = "<group>";
 		};
 		61A0E8032A09D0D600FE474D /* Preview Content */ = {
@@ -270,9 +270,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		61A0E7F92A09D0D500FE474D /* Mishki */ = {
+		61A0E7F92A09D0D500FE474D /* Kitt */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 61A0E8082A09D0D600FE474D /* Build configuration list for PBXNativeTarget "Mishki" */;
+			buildConfigurationList = 61A0E8082A09D0D600FE474D /* Build configuration list for PBXNativeTarget "Kitt" */;
 			buildPhases = (
 				61A0E7F62A09D0D500FE474D /* Sources */,
 				61A0E7F72A09D0D500FE474D /* Frameworks */,
@@ -282,7 +282,7 @@
 			);
 			dependencies = (
 			);
-			name = Mishki;
+			name = Kitt;
 			packageProductDependencies = (
 				61A0E8212A0A2B4900FE474D /* SPAlert */,
 				61A0E8242A0A2C1900FE474D /* FirebaseAnalytics */,
@@ -316,7 +316,7 @@
 				6166875D2A1787390016A549 /* GoogleSignInSwift */,
 			);
 			productName = Mishki;
-			productReference = 61A0E7FA2A09D0D500FE474D /* Mishki.app */;
+			productReference = 61A0E7FA2A09D0D500FE474D /* Kitt.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -334,7 +334,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 61A0E7F52A09D0D500FE474D /* Build configuration list for PBXProject "Mishki" */;
+			buildConfigurationList = 61A0E7F52A09D0D500FE474D /* Build configuration list for PBXProject "Kitt" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -352,7 +352,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				61A0E7F92A09D0D500FE474D /* Mishki */,
+				61A0E7F92A09D0D500FE474D /* Kitt */,
 			);
 		};
 /* End PBXProject section */
@@ -391,7 +391,7 @@
 				61A0E81F2A0A15DC00FE474D /* UploadProfileImageForm.swift in Sources */,
 				61A0E86C2A0A4A5F00FE474D /* ReadDB.swift in Sources */,
 				61A0E85F2A0A2F4100FE474D /* AuthViewModel.swift in Sources */,
-				61A0E7FE2A09D0D500FE474D /* MishkiApp.swift in Sources */,
+				61A0E7FE2A09D0D500FE474D /* KittAPP.swift in Sources */,
 				61A60C572A0B91E2006B7984 /* DeleteDB.swift in Sources */,
 				61A0E80F2A09E16100FE474D /* FormSelection.swift in Sources */,
 				616687512A161E900016A549 /* CreateProfile.swift in Sources */,
@@ -527,14 +527,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
-				CODE_SIGN_ENTITLEMENTS = Mishki/Mishki.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Kitt/Kitt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Mishki/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Kitt/Preview Content\"";
 				DEVELOPMENT_TEAM = 29VBPZUJ23;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Mishki/Info.plist;
+				INFOPLIST_FILE = Kitt/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Kitt;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -567,14 +567,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
-				CODE_SIGN_ENTITLEMENTS = Mishki/Mishki.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Kitt/Kitt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Mishki/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Kitt/Preview Content\"";
 				DEVELOPMENT_TEAM = 29VBPZUJ23;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Mishki/Info.plist;
+				INFOPLIST_FILE = Kitt/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Kitt;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -603,7 +603,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		61A0E7F52A09D0D500FE474D /* Build configuration list for PBXProject "Mishki" */ = {
+		61A0E7F52A09D0D500FE474D /* Build configuration list for PBXProject "Kitt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61A0E8062A09D0D600FE474D /* Debug */,
@@ -612,7 +612,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		61A0E8082A09D0D600FE474D /* Build configuration list for PBXNativeTarget "Mishki" */ = {
+		61A0E8082A09D0D600FE474D /* Build configuration list for PBXNativeTarget "Kitt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61A0E8092A09D0D600FE474D /* Debug */,
