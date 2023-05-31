@@ -36,10 +36,10 @@ struct ProductForm: View {
                     VStack {
                         HStack() {
                             if ifEdit {
-                                Text("Edit Product").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
-                                
+                                Text("Edit Product").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical)
+
                                 Spacer()
-                                
+
                                 Button(action: {
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         DeleteDB().deleteProduct(image: readData.products![productIndex!]["image"]!) { response in
@@ -55,15 +55,15 @@ struct ProductForm: View {
                                     Image(systemName: "trash").background(Circle().fill(.gray).frame(width: 30, height: 30).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing).padding(.vertical)
                                 }
                             } else {
-                                Text("New Product").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
-                                
+                                Text("New Product").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).padding(.vertical).multilineTextAlignment(.leading)
+//
                                 Spacer()
                             }
                         }
-                        .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
+                        .padding(.leading, 15).padding(.bottom, -5).padding(.top, -5)
                         
                        
-//                            ZStack {
+                            ZStack {
                                 if let image = self.image {
                                     ZStack {
                                         Image(uiImage: image)
@@ -71,17 +71,17 @@ struct ProductForm: View {
                                             .scaledToFill()
                                             .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
                                             .cornerRadius(10)
-                                        
+
                                         VStack {
                                             HStack {
                                                 Spacer()
                                                 Button(action: { showImagePicker.toggle() }) {
-                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding([.top, .trailing], 30).fontWeight(.bold)
+                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing, 30).padding(.top, 50).fontWeight(.bold)
                                                 }
                                             }
                                             Spacer()
                                         }
-                                        
+
                                     }
                                 } else {
                                     Button(action: { showImagePicker.toggle() }) {
@@ -93,21 +93,21 @@ struct ProductForm: View {
                                                 
                                                 VStack {
                                                     Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
-                                                    Text("Add cover image").padding(.top,5).fontWeight(.semibold)
+                                                    Text("Add cover image").font(Font.custom("Avenir-Black", size: 16))
                                                 }
-                                                .opacity(0.5)
+                                                .foregroundColor(.gray)
                                         }
                                     }
                                 }
 //                            }
                             
-//                        }
+                        }
                         
-                        TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
                         
-                        TextField("", text: $productDesc, prompt: Text("Product Description").foregroundColor(.gray), axis: .vertical).padding(.top, -55).padding(.horizontal).frame(width: geometry.size.width-70, height: 140).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $productDesc, prompt:Text("Product Description").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16)), axis: .vertical).padding(.top, -55).padding(.horizontal).frame(width: geometry.size.width-70, height: 140).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
                         
-                        TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
                         
                         if !ifEdit {
                             Button(action: {
@@ -115,8 +115,7 @@ struct ProductForm: View {
                             }) {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 10)
-                                        .fill(.gray)
-                                        .opacity(0.2)
+                                        .fill(Color("TextField"))
                                         .frame(height: 60)
                                         .padding(.bottom, 5)
                                     HStack {
@@ -124,8 +123,8 @@ struct ProductForm: View {
                                             let filename = url.lastPathComponent
                                             Text(filename)
                                         } else {
-                                            Image(systemName: "plus")
-                                            Text("Upload PDF")
+                                            Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.05)).fontWeight(.heavy).foregroundColor(.gray)
+                                            Text("Upload PDF").font(Font.custom("Avenir-Black", size: 16)).foregroundColor(.gray).fontWeight(.black)
                                         }
                                         Spacer()
                                     }
@@ -166,14 +165,15 @@ struct ProductForm: View {
                             }
                         }) {
                             if ifEdit {
-                                Text("Update").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
+                                Text("Update").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.black).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
                             } else {
-                                Text("Add").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
+                                Text("Add").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.black).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
                             }
                         }
                         .padding(.bottom)
                         
                     }
+                    .padding(.top, -10)
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     }
                     .foregroundColor(.black)
@@ -227,11 +227,3 @@ struct DocumentPicker: UIViewControllerRepresentable {
             }
         }
 }
-
-
-//struct ProductForm_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProductForm()
-//    }
-//}
-

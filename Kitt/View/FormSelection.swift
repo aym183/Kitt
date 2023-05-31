@@ -50,7 +50,10 @@ struct FormSelection: View {
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack {
-                        Text("What would you like to add \nto your shop?").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical).kerning(1.5)
+//                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06))
+                        
+                        Text("What would you like to add\nto your shop?").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).padding(.vertical)
+                            .padding(.leading, -25)
                         
                         ForEach(0..<2) { index in
                             ZStack {
@@ -66,11 +69,12 @@ struct FormSelection: View {
 //                                            classFormShown.toggle()
                                             linkFormShown.toggle()
                                         }
-//                                        else if index == 2 {
-//                                            linkFormShown.toggle()
-//                                        }
+                                        else if index == 2 {
+                                            linkFormShown.toggle()
+                                        }
                                     }) {
-                                        Text("\(emojis[index])  \(labels[index])").foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 30).kerning(1.2)
+                                        Text("\(emojis[index])  \(labels[index])").foregroundColor(.black).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.04))
+                                            .fontWeight(.medium).padding(.leading, 30)
                                         Spacer()
                                     }
                                 }
