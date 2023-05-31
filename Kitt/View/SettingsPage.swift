@@ -26,22 +26,29 @@ struct SettingsPage: View {
         GeometryReader { geometry in
                 ZStack {
                     Color(.white).ignoresSafeArea()
-                    VStack {
+                    VStack(alignment: .center) {
                         if profile_image != nil {
-                            Image(uiImage: profile_image!)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 130, height: 130)
-                                .cornerRadius(80)
+                            ZStack {
+                                Image(uiImage: profile_image!)
+                                    .resizable()
+                                    .scaledToFill()
+                            }
+                            .frame(width: 145, height: 145)
+                            .cornerRadius(100)
+                            
+//                                .frame(width: 130, height: 130)
+//
                         } else {
                             Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
                         }
                         
 //                        Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
-                        
-                        Text(name).font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.09)).padding(.top, -8)
-                        
-                        Text(bio).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 70).padding(.bottom)
+                        VStack(alignment: .center) {
+                            Text(name).font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.09)).padding(.top, -8)
+                            
+                            Text(bio).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 70).padding(.bottom)
+                            
+                        }
                         
                         Spacer()
                         
@@ -83,7 +90,12 @@ struct SettingsPage: View {
                         
                             HStack {
                                 Spacer()
-                                Image("LaunchSets").resizable().frame(width: 70, height: 50).cornerRadius(10).padding(.top, 10).padding(.leading, -8)
+                                ZStack {
+                                    Image("LaunchSets").resizable().scaledToFill()
+                                }
+                                .frame(width: 70, height: 50)
+                                .cornerRadius(10).padding(.vertical, 10)
+                                
                                 Spacer()
                             }
 //                            .padding(.top)
