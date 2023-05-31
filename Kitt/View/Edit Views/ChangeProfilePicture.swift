@@ -18,7 +18,7 @@ struct ChangeProfilePicture: View {
                     Color(.white).ignoresSafeArea()
                     VStack{
                         HStack {
-                            Text("Change Profile Picture").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical).padding(.leading)
+                            Text("Change Profile Picture").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical).padding(.leading)
                             
                             Spacer()
                             }
@@ -30,12 +30,12 @@ struct ChangeProfilePicture: View {
                                     Image(uiImage: image)
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
+                                        .frame(width: geometry.size.width-70, height: geometry.size.height - 450)
                                         .cornerRadius(10)
                                 } else {
                                     RoundedRectangle(cornerRadius: 10)
                                         .fill(Color("TextField"))
-                                        .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
+                                        .frame(width: geometry.size.width-70, height: geometry.size.height - 450)
                                     VStack {
                                         Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
                                         Text("Add cover image").padding(.top,5).fontWeight(.semibold)

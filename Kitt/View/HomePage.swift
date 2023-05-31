@@ -209,10 +209,11 @@ struct HomePage: View {
 //                                if readData.product_images != [] {
                                 
                                 ZStack {
-                                    RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-60, height: 70)
+                                    RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 70)
                                     
                                     HStack {
-                                        Text("😎  Your Social Links").foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 22)
+                                        Text("😎").padding(.leading, 20)
+                                        Text("Your Social Links").foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15))
                                         
                                         Spacer()
                                         
@@ -223,7 +224,7 @@ struct HomePage: View {
                                     }
                                     .padding(.trailing)
                                 }
-                                .padding(.horizontal).padding(.trailing, 10)
+                                .padding(.horizontal)
                                 .multilineTextAlignment(.leading)
                                 
                                 
@@ -319,7 +320,7 @@ struct HomePage: View {
 //                                        HStack {
                                             ZStack {
                                                 
-                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-60, height: 100)
+                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 100)
                                                 
                                                 HStack {
                                                     ZStack {
@@ -330,8 +331,7 @@ struct HomePage: View {
                                                     
                                                     
                                                     VStack(alignment: .leading) {
-//                                                        readData.products![index]["name"]!
-                                                        Text("Yoga Level 1 Guide, for beginners and novices").font(Font.custom("Avenir-Black", size: 15))
+                                                        Text("\(readData.products![index]["name"]!)").font(Font.custom("Avenir-Black", size: 15))
                                                         
                                                         Spacer()
                                                         
@@ -354,9 +354,10 @@ struct HomePage: View {
                                                                 productEditShown.toggle()
                                                                 
                                                             }) {
-                                                                Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing).fontWeight(.bold)
+                                                                Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing, 5).fontWeight(.bold)
                                                             }
                                                         }
+                                                        .padding(.trailing, 10)
 //                                                        .padding(.leading, 10)
 //                                                        HStack {
 //                                                            VStack(alignment: .leading) {
@@ -373,7 +374,7 @@ struct HomePage: View {
                                                 
                                             }
 //                                            .padding(.top,10)
-                                            .padding(.horizontal).padding(.trailing, 10)
+                                            .padding(.horizontal)
                                             .multilineTextAlignment(.leading)
                                             .id(index)
                                             
@@ -388,10 +389,10 @@ struct HomePage: View {
                                 ForEach(0..<noOfLinks, id: \.self) { index in
 //                                    HStack {
                                         ZStack {
-                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-60, height: 70)
+                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 70)
                                             
                                             HStack {
-                                                Text( readData.links![index]["name"]!).foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 22)
+                                                Text(readData.links![index]["name"]!).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15)).padding(.leading, 20)
                                                 
                                                 Spacer()
                                                 
@@ -420,7 +421,7 @@ struct HomePage: View {
                                             }
                                             .padding(.trailing)
                                         }
-                                        .padding(.horizontal).padding(.trailing, 10)
+                                        .padding(.horizontal)
                                         .multilineTextAlignment(.leading)
                                         
 //                                        HStack(spacing: 25) {
@@ -455,7 +456,7 @@ struct HomePage: View {
 //                                    }
                                     .id(index)
                                 }
-//                                .padding(.top,10)
+                                .padding(.top,5)
                                 
 //                                HStack {
 //                                    Spacer()
