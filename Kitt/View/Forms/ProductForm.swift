@@ -103,11 +103,11 @@ struct ProductForm: View {
                             
                         }
                         
-                        TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                         
-                        TextField("", text: $productDesc, prompt:Text("Product Description").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16)), axis: .vertical).padding(.top, -55).padding(.horizontal).frame(width: geometry.size.width-70, height: 140).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $productDesc, prompt:Text("Product Description").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16)), axis: .vertical).padding(.top, -55).padding(.horizontal).frame(width: geometry.size.width-70, height: 140).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                         
-                        TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
+                        TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                         
                         if !ifEdit {
                             Button(action: {
@@ -121,7 +121,7 @@ struct ProductForm: View {
                                     HStack {
                                         if let url = selectedPDF {
                                             let filename = url.lastPathComponent
-                                            Text(filename)
+                                            Text(filename).font(Font.custom("Avenir-Medium", size: 16))
                                         } else {
                                             Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.05)).fontWeight(.heavy).foregroundColor(.gray)
                                             Text("Upload PDF").font(Font.custom("Avenir-Black", size: 16)).foregroundColor(.gray).fontWeight(.black)
@@ -165,9 +165,9 @@ struct ProductForm: View {
                             }
                         }) {
                             if ifEdit {
-                                Text("Update").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.black).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
+                                Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
                             } else {
-                                Text("Add").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.black).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
+                                Text("Add").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
                             }
                         }
                         .padding(.bottom)

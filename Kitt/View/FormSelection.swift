@@ -53,7 +53,7 @@ struct FormSelection: View {
 //                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06))
                         
                         Text("What would you like to add\nto your shop?").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).padding(.vertical)
-                            .padding(.leading, -25)
+                            .padding(.leading, -20)
                         
                         ForEach(0..<2) { index in
                             ZStack {

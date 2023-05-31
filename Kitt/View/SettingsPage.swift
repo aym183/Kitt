@@ -39,9 +39,9 @@ struct SettingsPage: View {
                         
 //                        Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
                         
-                        Text(name).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.09)).fontWeight(.semibold).padding(.top, -8)
+                        Text(name).font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.09)).padding(.top, -8)
                         
-                        Text(bio).font(.system(size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.semibold).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 10).padding(.bottom)
+                        Text(bio).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 70).padding(.bottom)
                         
                         Spacer()
                         
@@ -67,29 +67,28 @@ struct SettingsPage: View {
                                         RoundedRectangle(cornerRadius: 10)
                                             .fill(.gray)
                                             .opacity(0.2)
-                                            .frame(height: 60)
-                                            .padding(.top,10)
+                                            .frame(height: 64)
+                                            .padding(.top, 5)
                                         HStack {
-                                            Text(labels[index])
+                                            Text(labels[index]).font(Font.custom("Avenir-Medium", size: 18))
                                             Spacer()
                                             Image(systemName: "arrow.right")
                                         }
-                                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.04))
                                         .fontWeight(.semibold)
-                                        .padding(.horizontal).padding(.top, 5)
+                                        .padding(.horizontal, 28).padding(.top, 5)
                                     }
-                                    .frame(width: geometry.size.width-70)
+                                    .frame(width: geometry.size.width-80)
                                 }
                             }
                         
                             HStack {
                                 Spacer()
-                                Image("LaunchSets").resizable().frame(width: 60, height: 50).cornerRadius(10).padding(.top, 10).padding(.leading, -8)
+                                Image("LaunchSets").resizable().frame(width: 70, height: 50).cornerRadius(10).padding(.top, 10).padding(.leading, -8)
                                 Spacer()
                             }
-                            .padding(.top)
+//                            .padding(.top)
 //                        }
-                        .padding(.bottom)
+//                        .padding(.bottom)
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
@@ -106,7 +105,7 @@ struct SettingsPage: View {
         }
     }
 }
-//
+////
 //struct SettingsPage_Previews: PreviewProvider {
 //    static var previews: some View {
 //        SettingsPage()
