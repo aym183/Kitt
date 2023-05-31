@@ -38,7 +38,7 @@ struct ChangeProfilePicture: View {
                                         .frame(width: geometry.size.width-70, height: geometry.size.height - 450)
                                     VStack {
                                         Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
-                                        Text("Add cover image").padding(.top,5).fontWeight(.semibold)
+                                        Text("Add profile image").padding(.top,5).fontWeight(.semibold)
                                     }
                                     .opacity(0.5)
                                 }
