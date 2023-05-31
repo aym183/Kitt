@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct FormSelection: View {
-    var emojis = ["😎", "🧘‍♀️", "❤️"]
-    var labels = ["New Product", "New Class Booking", "New Link"]
+    var emojis = ["😎", "❤️"]
+//    "🧘‍♀️", , "New Class Booking"
+    var labels = ["New Product", "New Link"]
     @State var productFormShown = false
     @State var classFormShown = false
     @State var linkFormShown = false
@@ -51,7 +52,7 @@ struct FormSelection: View {
                     VStack {
                         Text("What would you like to add \nto your shop?").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical).kerning(1.5)
                         
-                        ForEach(0..<3) { index in
+                        ForEach(0..<2) { index in
                             ZStack {
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(Color("TextField"))
@@ -62,10 +63,12 @@ struct FormSelection: View {
                                         if index == 0 {
                                             productFormShown.toggle()
                                         } else if index == 1{
-                                            classFormShown.toggle()
-                                        } else if index == 2 {
+//                                            classFormShown.toggle()
                                             linkFormShown.toggle()
                                         }
+//                                        else if index == 2 {
+//                                            linkFormShown.toggle()
+//                                        }
                                     }) {
                                         Text("\(emojis[index])  \(labels[index])").foregroundColor(.black).font(Font.system(size: 15)).fontWeight(.medium).padding(.leading, 30).kerning(1.2)
                                         Spacer()
@@ -84,9 +87,9 @@ struct FormSelection: View {
 //                        ProductForm(products_number: products_number)
                         ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: products_number, ifEdit: false, readData: readData)
                     }
-                    .navigationDestination(isPresented: $classFormShown) {
-                        ClassForm(oldClassName: $oldClassName, oldClassDesc: $oldClassDesc, oldClassPrice: $oldClassPrice, oldClassDuration: $oldClassDuration, oldClassSeats: $oldClassSeats, oldClassLocation: $oldClassLocation, oldImage: $oldClassImage, className: $className, classDesc: $classDesc, classDuration: $classDuration, classPrice: $classPrice, classSeats: $classSeats, classLocation: $classLocation, image: $classImage, classes_number: classes_number, ifEdit: false, readData: readData)
-                    }
+//                    .navigationDestination(isPresented: $classFormShown) {
+//                        ClassForm(oldClassName: $oldClassName, oldClassDesc: $oldClassDesc, oldClassPrice: $oldClassPrice, oldClassDuration: $oldClassDuration, oldClassSeats: $oldClassSeats, oldClassLocation: $oldClassLocation, oldImage: $oldClassImage, className: $className, classDesc: $classDesc, classDuration: $classDuration, classPrice: $classPrice, classSeats: $classSeats, classLocation: $classLocation, image: $classImage, classes_number: classes_number, ifEdit: false, readData: readData)
+//                    }
                     .navigationDestination(isPresented: $linkFormShown) {
                         LinkForm(oldName: $linkName, oldURL: $linkURL, linkName: $linkName, linkURL: $linkURL, ifEdit: false, links_number:  links_number, linkEditShown: $linkEditShown, readData: readData)
                     }
