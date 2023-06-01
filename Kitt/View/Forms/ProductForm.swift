@@ -76,7 +76,7 @@ struct ProductForm: View {
                                             HStack {
                                                 Spacer()
                                                 Button(action: { showImagePicker.toggle() }) {
-                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing).padding(.top).fontWeight(.bold)
+                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing, 30).padding(.top).fontWeight(.bold)
                                                 }
                                             }
                                             Spacer()

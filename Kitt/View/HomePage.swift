@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UIKit
+import SPAlert
 
 struct HomePage: View {
     @State var formShown = false
@@ -57,6 +58,7 @@ struct HomePage: View {
     @State var classEditShown = false
     @State var linkEditShown = false
     @State var socialsEditShown = false
+    @State var showingAlert = false
 
     
     var body: some View {
@@ -127,11 +129,18 @@ struct HomePage: View {
                                     Button(action: {
                                         let pasteboard = UIPasteboard.general
                                         pasteboard.string = "kitt.bio/\(userName)"
+                                        showingAlert.toggle()
                                     }) {
                                         Image(systemName: "doc").background(
                                             Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
                                         )
                                     }
+                                    .SPAlert(
+                                        isPresent: $showingAlert,
+                                        message: "Link copied to clipboard",
+                                        duration: 1,
+                                        haptic: .success
+                                    )
                                     
                                     Button(action: {
                                         guard let url = URL(string: "https://kitt.bio/\(userName)") else {
