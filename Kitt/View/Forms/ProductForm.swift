@@ -8,6 +8,7 @@
 import SwiftUI
 import MobileCoreServices
 import UniformTypeIdentifiers
+import UIKit
 
 struct ProductForm: View {
     @Binding var oldProductName: String
@@ -71,12 +72,13 @@ struct ProductForm: View {
                                         Image(uiImage: image)
                                             .resizable()
                                             .scaledToFill()
+                                            .frame(width: geometry.size.width-70, height: geometry.size.height - 450)
                                         
                                         VStack {
                                             HStack {
                                                 Spacer()
                                                 Button(action: { showImagePicker.toggle() }) {
-                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing, 30).padding(.top).fontWeight(.bold)
+                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing).padding(.top).fontWeight(.bold)
                                                 }
                                             }
                                             Spacer()
@@ -108,12 +110,37 @@ struct ProductForm: View {
                             
                             TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                                 .onChange(of: self.productName, perform: { value in
-                                       if value.count > 50 {
-                                           self.productName = String(value.prefix(50))
+                                       if value.count > 65 {
+                                           self.productName = String(value.prefix(65))
                                       }
                                   })
                             
-                            TextField("", text: $productDesc, prompt:Text("Product Description").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16)), axis: .vertical).padding(.top, -55).padding(.horizontal).frame(width: geometry.size.width-70, height: 140).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                            ZStack(alignment: .topLeading) {
+                                
+                                TextEditor(text: $productDesc)
+                                    .navigationTitle("Product Description")
+                                    .scrollContentBackground(.hidden)
+                                    .padding(12)
+                                    .frame(width: geometry.size.width-70, height: 140)
+                                    .background(Color("TextField"))
+                                    .cornerRadius(10)
+                                    .disableAutocorrection(true)
+                                    .autocapitalization(.none)
+                                    .font(Font.custom("Avenir-Medium", size: 16))
+                                
+                                if productDesc.count == 0 {
+                                    Text("Product Description")
+                                        .foregroundColor(.gray)
+                                        .font(Font.custom("Avenir-Black", size: 16))
+                                        .padding([.top, .leading])
+                                }
+                            }
+                                //                                .font(Font.custom("Avenir-Medium", size: 16))
+                                //                                    .focused($productDesc, equals: true)
+                                
+//                            TextField("", text: $productDesc, prompt:Text("Product Description").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16)), axis: .vertical).padding(.top, -55).padding(.horizontal).frame(width: geometry.size.width-70, height: 140).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none)
+//                                .font(Font.custom("Avenir-Medium", size: 16))
+//                                    .focused($productDesc, equals: true)
                             
                             TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                             

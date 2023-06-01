@@ -228,7 +228,7 @@ struct HomePage: View {
                                         
                                         Button(action: { socialsEditShown.toggle() }) {
                                             Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
-//                                                .padding(.trailing, 10)
+                                                .padding(.trailing, 5)
                                         }
                                     }
                                     .padding(.trailing)
@@ -329,13 +329,13 @@ struct HomePage: View {
 //                                        HStack {
                                             ZStack {
                                                 
-                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 100)
+                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 110)
                                                 
                                                 HStack {
                                                     ZStack {
                                                         Image(uiImage: readData.loadProductImage(key: readData.products![index]["image"]!)).resizable().scaledToFill()
                                                     }
-                                                    .frame(width: 100, height: 100)
+                                                    .frame(width: 110, height: 110)
                                                     .cornerRadius(10)
                                                     
                                                     
@@ -376,7 +376,7 @@ struct HomePage: View {
 //                                                            Spacer()
 //                                                        }
                                                     }
-                                                    .padding(.leading, 10)
+                                                    .padding(.horizontal, 5)
                                                     .padding(.vertical, 10)
                                                     
                                                 }
@@ -416,6 +416,7 @@ struct HomePage: View {
                                                 }) {
                                                     Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
                                                 }
+                                                .padding(.trailing, 5)
                                                 
 //                                                Button(action: {
 //                                                    linkIndex = index
