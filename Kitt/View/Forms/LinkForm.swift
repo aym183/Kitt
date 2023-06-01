@@ -55,6 +55,11 @@ struct LinkForm: View {
                         .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                         
                         TextField("", text: $linkName, prompt: Text("Link Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                            .onChange(of: self.linkName, perform: { value in
+                                   if value.count > 35 {
+                                       self.linkName = String(value.prefix(35))
+                                  }
+                              })
                         
                         TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                         
