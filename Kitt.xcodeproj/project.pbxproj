@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		61005E222A272BA500980B40 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 61005E212A272BA500980B40 /* SVGKit */; };
 		61005E242A272BA500980B40 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 61005E232A272BA500980B40 /* SVGKitSwift */; };
+		61615EA72A29FE1C00A23710 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 61615EA62A29FE1C00A23710 /* CropViewController */; };
+		61615EA92A29FE1C00A23710 /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 61615EA82A29FE1C00A23710 /* TOCropViewController */; };
 		6166874D2A15F37D0016A549 /* ChangeProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166874C2A15F37D0016A549 /* ChangeProfilePicture.swift */; };
 		6166874F2A15FB2A0016A549 /* ChangeBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166874E2A15FB2A0016A549 /* ChangeBio.swift */; };
 		616687512A161E900016A549 /* CreateProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616687502A161E900016A549 /* CreateProfile.swift */; };
@@ -125,6 +127,7 @@
 				61A0E8272A0A2C1900FE474D /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				61A0E82D2A0A2C1900FE474D /* FirebaseAppCheck in Frameworks */,
 				61005E242A272BA500980B40 /* SVGKitSwift in Frameworks */,
+				61615EA72A29FE1C00A23710 /* CropViewController in Frameworks */,
 				6166875E2A1787390016A549 /* GoogleSignInSwift in Frameworks */,
 				61A0E8512A0A2C1E00FE474D /* FirebasePerformance in Frameworks */,
 				61A0E8472A0A2C1C00FE474D /* FirebaseInAppMessaging-Beta in Frameworks */,
@@ -133,6 +136,7 @@
 				61A0E84B2A0A2C1D00FE474D /* FirebaseInstallations in Frameworks */,
 				61A0E8532A0A2C1F00FE474D /* FirebaseRemoteConfig in Frameworks */,
 				61A0E8572A0A2C2000FE474D /* FirebaseStorage in Frameworks */,
+				61615EA92A29FE1C00A23710 /* TOCropViewController in Frameworks */,
 				61A0E8372A0A2C1A00FE474D /* FirebaseDatabase in Frameworks */,
 				61A0E8592A0A2C2000FE474D /* FirebaseStorageCombine-Community in Frameworks */,
 				61A0E8222A0A2B4900FE474D /* SPAlert in Frameworks */,
@@ -320,6 +324,8 @@
 				6166875D2A1787390016A549 /* GoogleSignInSwift */,
 				61005E212A272BA500980B40 /* SVGKit */,
 				61005E232A272BA500980B40 /* SVGKitSwift */,
+				61615EA62A29FE1C00A23710 /* CropViewController */,
+				61615EA82A29FE1C00A23710 /* TOCropViewController */,
 			);
 			productName = Mishki;
 			productReference = 61A0E7FA2A09D0D500FE474D /* Kitt.app */;
@@ -354,6 +360,7 @@
 				61A0E8232A0A2C1800FE474D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				6166875A2A1787380016A549 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				61005E202A272BA500980B40 /* XCRemoteSwiftPackageReference "SVGKit" */,
+				61615EA52A29FE1C00A23710 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 			);
 			productRefGroup = 61A0E7FB2A09D0D500FE474D /* Products */;
 			projectDirPath = "";
@@ -544,6 +551,7 @@
 				INFOPLIST_FILE = Kitt/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Kitt;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to select photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -584,6 +592,7 @@
 				INFOPLIST_FILE = Kitt/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Kitt;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to select photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -639,6 +648,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		61615EA52A29FE1C00A23710 /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TimOliver/TOCropViewController";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		6166875A2A1787380016A549 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -675,6 +692,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 61005E202A272BA500980B40 /* XCRemoteSwiftPackageReference "SVGKit" */;
 			productName = SVGKitSwift;
+		};
+		61615EA62A29FE1C00A23710 /* CropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61615EA52A29FE1C00A23710 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = CropViewController;
+		};
+		61615EA82A29FE1C00A23710 /* TOCropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 61615EA52A29FE1C00A23710 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = TOCropViewController;
 		};
 		6166875B2A1787390016A549 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;

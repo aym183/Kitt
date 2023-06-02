@@ -190,7 +190,36 @@ class UpdateDB : ObservableObject {
                                         DispatchQueue.global(qos: .background).async {
                                             let storage = Storage.storage().reference()
                                             let fileRef = storage.child("product_images/\(randomID).jpg")
-                                            let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+                                            
+                                            let sideLength = min(new_image.size.width, new_image.size.height)
+                                            let sourceSize = new_image.size
+                                            let xOffset = (sourceSize.width - sideLength) / 2.0
+                                            let yOffset = (sourceSize.height - sideLength) / 2.0
+
+                                            let cropRect = CGRect(
+                                                x: xOffset,
+                                                y: yOffset,
+                                                width: sideLength,
+                                                height: sideLength
+                                            ).integral
+                                            
+                                            // Center crop the image
+                                            let sourceCGImage = new_image.cgImage!
+                                            let croppedCGImage = sourceCGImage.cropping(
+                                                to: cropRect
+                                            )!
+                                            let croppedImage = UIImage(cgImage: croppedCGImage)
+
+                                            // Convert the UIImage to data
+                                            guard let croppedImageData = croppedImage.jpegData(compressionQuality: 0.8) else {
+                                                print("Error converting cropped image to JPEG data")
+                                                return
+                                            }
+                                            
+                                            let uploadTask = fileRef.putData(croppedImageData, metadata: nil) { metadata, error in
+                                                    if let error = error {
+                                                        print("Error uploading product image \(error.localizedDescription)")
+                                                    }
                                             }
                                         }
 
@@ -286,7 +315,36 @@ class UpdateDB : ObservableObject {
         DispatchQueue.global(qos: .background).async {
             let storage = Storage.storage().reference()
             let fileRef = storage.child("product_images/\(randomID).jpg")
-            let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+            
+            let sideLength = min(image.size.width, image.size.height)
+            let sourceSize = image.size
+            let xOffset = (sourceSize.width - sideLength) / 2.0
+            let yOffset = (sourceSize.height - sideLength) / 2.0
+
+            let cropRect = CGRect(
+                x: xOffset,
+                y: yOffset,
+                width: sideLength,
+                height: sideLength
+            ).integral
+            
+            // Center crop the image
+            let sourceCGImage = image.cgImage!
+            let croppedCGImage = sourceCGImage.cropping(
+                to: cropRect
+            )!
+            let croppedImage = UIImage(cgImage: croppedCGImage)
+
+            // Convert the UIImage to data
+            guard let croppedImageData = croppedImage.jpegData(compressionQuality: 0.8) else {
+                print("Error converting cropped image to JPEG data")
+                return
+            }
+            
+            let uploadTask = fileRef.putData(croppedImageData, metadata: nil) { metadata, error in
+                    if let error = error {
+                        print("Error uploading product image \(error.localizedDescription)")
+                    }
             }
             
             let productFileRef = storage.child("product_files/\(randomID).pdf")

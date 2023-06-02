@@ -109,13 +109,57 @@ class CreateDB : ObservableObject {
         
         
         DispatchQueue.global(qos: .background).async {
+            
+            //            let width = image.size.width
+            //            let height = image.size.height
+            //            let size = width
+            //            let x = (width - size) / 2
+            //            let y = (height - size) / 2
+            //            let frame = CGRect(x: x, y: y, width: size, height: size)
+
             let storage = Storage.storage().reference()
             let fileRef = storage.child("product_images/\(randomID).jpg")
-            let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
-                if let error = error {
-                    print("Error uploading product image \(error.localizedDescription)")
-                }
+            
+            let sideLength = min(image.size.width, image.size.height)
+
+            let sourceSize = image.size
+            let xOffset = (sourceSize.width - sideLength) / 2.0
+            let yOffset = (sourceSize.height - sideLength) / 2.0
+
+            let cropRect = CGRect(
+                x: xOffset,
+                y: yOffset,
+                width: sideLength,
+                height: sideLength
+            ).integral
+            
+            // Center crop the image
+            let sourceCGImage = image.cgImage!
+            let croppedCGImage = sourceCGImage.cropping(
+                to: cropRect
+            )!
+            let croppedImage = UIImage(cgImage: croppedCGImage)
+
+            // Convert the UIImage to data
+            guard let croppedImageData = croppedImage.jpegData(compressionQuality: 0.8) else {
+                print("Error converting cropped image to JPEG data")
+                return
             }
+
+//            if let croppedImage = UIGraphicsGetImageFromCurrentImageContext() {
+
+            let uploadTask = fileRef.putData(croppedImageData, metadata: nil) { metadata, error in
+                    if let error = error {
+                        print("Error uploading product image \(error.localizedDescription)")
+                    }
+            }
+//            }
+            
+//            let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+//                if let error = error {
+//                    print("Error uploading product image \(error.localizedDescription)")
+//                }
+//            }
             
             let productFileRef = storage.child("product_files/\(randomID).pdf")
             let productFileUpload = productFileRef.putFile(from: file, metadata: nil) { metadata, error in
