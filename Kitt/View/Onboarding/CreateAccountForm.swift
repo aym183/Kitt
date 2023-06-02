@@ -108,6 +108,7 @@ struct CreateAccountForm: View {
                     title: "Error",
                     message: alertText,
                     duration: 2,
+                    dismissOnTap: true,
                     preset: .custom(UIImage(systemName: "exclamationmark")!),
                     haptic: .error
                 )

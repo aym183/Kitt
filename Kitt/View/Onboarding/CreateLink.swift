@@ -12,6 +12,8 @@ struct CreateLink: View {
     @State var profileDetailsShown = false
     @Binding var homePageShown: Bool
     @Binding var createAccountSheet: Bool
+    @State var alertText = ""
+    @State var alertShown = false
     var email: String
     @Binding var createLinkSheet: Bool
     var areAllFieldsEmpty: Bool {
@@ -44,10 +46,10 @@ struct CreateLink: View {
                             DispatchQueue.global(qos: .userInteractive).async {
                                 CreateDB().addUser(email: email, username: username) { response in
                                     if response == "User Added" {
-                                        print("It works")
                                         profileDetailsShown.toggle()
-                                    } else {
-                                        print("Unsuccessful user added")
+                                    } else if response == "Username already exists" {
+                                        alertText = response!
+                                        alertShown.toggle()
                                     }
                                 }
                             }
@@ -72,7 +74,15 @@ struct CreateLink: View {
                         CreateProfile(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: email, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
                     }
                 }
-                
+                .SPAlert(
+                    isPresent: $alertShown,
+                    title: "Error",
+                    message: alertText,
+                    duration: 2,
+                    dismissOnTap: true,
+                    preset: .custom(UIImage(systemName: "exclamationmark")!),
+                    haptic: .error
+                )
             }
         }
     }

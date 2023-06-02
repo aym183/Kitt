@@ -18,41 +18,53 @@ class CreateDB : ObservableObject {
     func addUser(email: String, username: String, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         let ref = db.collection("users")
-        var docRef = ref.document().documentID
         
-        let data: [String: Any] = [
-            "date_created": TimeData().getPresentDateTime(),
-            "email": email,
-            "username": username,
-            "stripe_customer_id": "",
-            "stripe_payment_method": "",
-            "links": docRef,
-            "products": docRef,
-            "classes": docRef,
-            "profile_image": "",
-            "instagram": "",
-            "tiktok": "",
-            "facebook": "",
-            "youtube": "",
-            "website": ""
-        ]
-        
-        ref.addDocument(data: data) { error in
+        ref.whereField("username", isEqualTo: username).getDocuments { (snapshot, error) in
             if let error = error {
-                print("Error adding user: \(error.localizedDescription)")
-                completion("Error")
+                print("Error checking username: \(error.localizedDescription)")
+                return
+            }
+            
+            if let documents = snapshot?.documents, !documents.isEmpty {
+                // Username is already in use
+                completion("Username already exists")
             } else {
-                UserDefaults.standard.set(username, forKey: "username")
-                UserDefaults.standard.set(docRef, forKey: "links")
-                UserDefaults.standard.set(docRef, forKey: "products")
-                UserDefaults.standard.set(docRef, forKey: "classes")
-                UserDefaults.standard.set("", forKey: "tiktok")
-                UserDefaults.standard.set("", forKey: "facebook")
-                UserDefaults.standard.set("", forKey: "website")
-                UserDefaults.standard.set("", forKey: "youtube")
-                UserDefaults.standard.set("", forKey: "instagram")
-                UserDefaults.standard.set(nil, forKey: "profile_image")
-                completion("User Added")
+                let docRef = ref.document().documentID
+                let data: [String: Any] = [
+                    "date_created": TimeData().getPresentDateTime(),
+                    "email": email,
+                    "username": username,
+                    "stripe_customer_id": "",
+                    "stripe_payment_method": "",
+                    "links": docRef,
+                    "products": docRef,
+                    "classes": docRef,
+                    "profile_image": "",
+                    "instagram": "",
+                    "tiktok": "",
+                    "facebook": "",
+                    "youtube": "",
+                    "website": ""
+                ]
+                
+                ref.addDocument(data: data) { error in
+                    if let error = error {
+                        print("Error adding user: \(error.localizedDescription)")
+                        completion("Error")
+                    } else {
+                        UserDefaults.standard.set(username, forKey: "username")
+                        UserDefaults.standard.set(docRef, forKey: "links")
+                        UserDefaults.standard.set(docRef, forKey: "products")
+                        UserDefaults.standard.set(docRef, forKey: "classes")
+                        UserDefaults.standard.set("", forKey: "tiktok")
+                        UserDefaults.standard.set("", forKey: "facebook")
+                        UserDefaults.standard.set("", forKey: "website")
+                        UserDefaults.standard.set("", forKey: "youtube")
+                        UserDefaults.standard.set("", forKey: "instagram")
+                        UserDefaults.standard.set(nil, forKey: "profile_image")
+                        completion("User Added")
+                    }
+                }
             }
         }
     }
