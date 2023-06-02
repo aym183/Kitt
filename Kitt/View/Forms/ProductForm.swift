@@ -30,6 +30,13 @@ struct ProductForm: View {
     @State var productIndex: Int?
     @ObservedObject var readData: ReadDB
     @State var selectedPDF: URL?
+    var areAllFieldsEmpty: Bool {
+        if ifEdit {
+            return productName.isEmpty || productDesc.isEmpty || productPrice.isEmpty || image == nil
+        } else {
+            return productName.isEmpty || productDesc.isEmpty || productPrice.isEmpty || image == nil || selectedPDF == nil
+        }
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -142,7 +149,7 @@ struct ProductForm: View {
 //                                .font(Font.custom("Avenir-Medium", size: 16))
 //                                    .focused($productDesc, equals: true)
                             
-                            TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                            TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16)).keyboardType(.decimalPad)
                             
                             if !ifEdit {
                                 Button(action: {
@@ -200,13 +207,13 @@ struct ProductForm: View {
                                 }
                             }) {
                                 if ifEdit {
-                                    Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
+                                    Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
                                 } else {
-                                    Text("Add").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
+                                    Text("Add").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
                                 }
                             }
                             .padding(.bottom)
-                            
+                            .disabled(areAllFieldsEmpty)
                         }
                         
                     }
