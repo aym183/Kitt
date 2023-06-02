@@ -205,7 +205,7 @@ struct HomePage: View {
                             
                             Spacer()
                         }
-                        .padding(.horizontal, 5).padding(.top)
+                        .padding(.horizontal, 5).padding(.top, -5)
                         
                         
                         Spacer()

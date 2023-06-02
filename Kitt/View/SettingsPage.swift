@@ -46,9 +46,10 @@ struct SettingsPage: View {
                         VStack(alignment: .center) {
                             Text(name).font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.09)).padding(.top, -8)
                             
-                            Text(bio).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 70).padding(.bottom)
+                            Text(bio).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 50).padding(.bottom)
                             
                         }
+                        .frame(width: geometry.size.width-100, height: 100)
                         
                         Spacer()
                         
