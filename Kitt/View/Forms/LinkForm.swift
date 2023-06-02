@@ -19,6 +19,10 @@ struct LinkForm: View {
     @Binding var linkEditShown: Bool
     @State var linkIndex: Int?
     @ObservedObject var readData: ReadDB
+    @State var isURLValid: Bool = true
+    var areAllFieldsEmpty: Bool {
+        return linkName.isEmpty || linkURL.isEmpty || !isURLValid
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -62,6 +66,17 @@ struct LinkForm: View {
                               })
                         
                         TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                            .onChange(of: linkURL) { newValue in
+                                validateURL()
+                            }
+                        
+                        if !isURLValid {
+                            HStack {
+                                Spacer()
+                                Text("Invalid URL").foregroundColor(.red).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.bold)
+                            }
+                            .padding(.trailing, 15)
+                        }
                         
                         Spacer()
                         
@@ -89,16 +104,17 @@ struct LinkForm: View {
                            
                         }) {
                             if ifEdit {
-                                Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
+                                Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
                             } else {
-                                Text("Add").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
+                                Text("Add").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
                             }
                         }
                         .padding(.bottom)
+                        .disabled(areAllFieldsEmpty)
                     }
+                    .foregroundColor(.black)
                     .padding(.top, -5)
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
-                    .foregroundColor(.black)
                     .navigationDestination(isPresented: $linkCreated) {
                         HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: true).navigationBarHidden(true)
                     }
@@ -108,6 +124,11 @@ struct LinkForm: View {
                     
                 }
         }
+        }
+        private func validateURL() {
+            let urlRegex = "^https://[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+            let urlPredicate = NSPredicate(format: "SELF MATCHES %@", urlRegex)
+            isURLValid = urlPredicate.evaluate(with: linkURL)
         }
 }
 
