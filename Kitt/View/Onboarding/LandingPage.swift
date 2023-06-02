@@ -18,11 +18,11 @@ struct LandingPage: View {
         NavigationStack {
             ZStack {
                 VStack {
-                    if Auth.auth().currentUser != nil {
-                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
-                    } else {
+//                    if Auth.auth().currentUser != nil {
+//                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
+//                    } else {
                         LandingContent()
-                    }
+//                    }
                 }
             }
         }
