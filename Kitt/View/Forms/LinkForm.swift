@@ -66,17 +66,17 @@ struct LinkForm: View {
                               })
                         
                         TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
-                            .onChange(of: linkURL) { newValue in
-                                validateURL()
-                            }
+//                            .onChange(of: linkURL) { newValue in
+//                                validateURL()
+//                            }
                         
-                        if !isURLValid {
-                            HStack {
-                                Spacer()
-                                Text("Invalid URL").foregroundColor(.red).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.bold)
-                            }
-                            .padding(.trailing, 15)
-                        }
+//                        if !isURLValid {
+//                            HStack {
+//                                Spacer()
+//                                Text("Invalid URL").foregroundColor(.red).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.bold)
+//                            }
+//                            .padding(.trailing, 15)
+//                        }
                         
                         Spacer()
                         
@@ -125,11 +125,11 @@ struct LinkForm: View {
                 }
         }
         }
-        private func validateURL() {
-            let urlRegex = "^https://[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-            let urlPredicate = NSPredicate(format: "SELF MATCHES %@", urlRegex)
-            isURLValid = urlPredicate.evaluate(with: linkURL)
-        }
+//        private func validateURL() {
+//            let urlRegex = "^https://[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+//            let urlPredicate = NSPredicate(format: "SELF MATCHES %@", urlRegex)
+//            isURLValid = urlPredicate.evaluate(with: linkURL)
+//        }
 }
 
 //struct LinkForm_Previews: PreviewProvider {

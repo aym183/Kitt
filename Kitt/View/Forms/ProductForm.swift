@@ -117,18 +117,17 @@ struct ProductForm: View {
                             
                             TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                                 .onChange(of: self.productName, perform: { value in
-                                       if value.count > 65 {
-                                           self.productName = String(value.prefix(65))
+                                       if value.count > 55 {
+                                           self.productName = String(value.prefix(55))
                                       }
                                   })
                             
                             ZStack(alignment: .topLeading) {
                                 
                                 TextEditor(text: $productDesc)
-                                    .navigationTitle("Product Description")
-                                    .scrollContentBackground(.hidden)
-                                    .padding(12)
+                                    .padding([.horizontal, .bottom], 12).padding(.top, 5)
                                     .frame(width: geometry.size.width-70, height: 140)
+                                    .scrollContentBackground(.hidden)
                                     .background(Color("TextField"))
                                     .cornerRadius(10)
                                     .disableAutocorrection(true)
@@ -219,6 +218,14 @@ struct ProductForm: View {
                     }
                     .padding(.top, -5)
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                    }
+                    .onAppear {
+                        if !ifEdit {
+                            productName = ""
+                            productDesc = ""
+                            image = nil
+                            selectedPDF = nil
+                        }
                     }
                     .foregroundColor(.black)
                     .sheet(isPresented: $showImagePicker) {
