@@ -32,8 +32,9 @@ struct SettingsPage: View {
                                     .resizable()
                                     .scaledToFill()
                             }
-                            .frame(width: 145, height: 145)
+                            .frame(width: 110, height: 110)
                             .cornerRadius(100)
+                            .padding(.top, 10)
                             
 //                                .frame(width: 130, height: 130)
 //

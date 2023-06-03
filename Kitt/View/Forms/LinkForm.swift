@@ -22,7 +22,7 @@ struct LinkForm: View {
     @State var isURLValid: Bool = true
     @State var isShowingHint = false
     var areAllFieldsEmpty: Bool {
-        return linkName.isEmpty || linkURL.isEmpty || !isURLValid
+        return linkName.isEmpty || linkURL.isEmpty
     }
     
     var body: some View {
@@ -70,10 +70,11 @@ struct LinkForm: View {
                         .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                         
                         if isShowingHint {
-                            CardView(hint: "Please enter URL in the format 'xyz.com' or 'https://xyz.com' or 'www.xyz.com'.")
+                            CardView(hint: "Please enter URL in the format 'xyz.com' or starting with 'https://' or 'www.'")
                                 .transition(.scale)
                                 .padding(.top, -18)
-                                .padding(.leading, 80)
+                                .padding(.leading, 110)
+//                                .cornerRadius(10, corners: [.topRight, .bottomRight, .bottomLeft])
                         }
                         
                         
@@ -159,9 +160,8 @@ struct CardView: View {
         RoundedRectangle(cornerRadius: 10)
             .fill(Color("TextField"))
             .foregroundColor(.white)
-            .frame(width: 150, height: 70)
+            .frame(width: 180, height: 70)
             .overlay(Text(hint).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 12)).padding(10))
-            .cornerRadius(10, corners: [.topRight, .bottomRight, .bottomLeft])
     }
 }
 

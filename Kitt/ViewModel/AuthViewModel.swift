@@ -51,7 +51,6 @@ class AuthViewModel : ObservableObject {
         randomNonceString() { response in
             if response != nil {
                 self.currentNonce = response!
-                print("NONCE IS \(self.currentNonce)")
                 request.nonce = self.sha256(response!)
             }
         }
@@ -63,7 +62,6 @@ class AuthViewModel : ObservableObject {
         }
         else if case .success(let authorization) = result {
           if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-              print("NONCE IS \(self.currentNonce)")
               guard let nonce = self.currentNonce else {
               print("Invalid state: a login callback was received, but no login request was sent.")
               return

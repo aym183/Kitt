@@ -75,7 +75,7 @@ struct HomePage: View {
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
-                            Text("Getting Kitt Ready! 🥳").font(Font.custom("Avenir-Black", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            Text("Getting Kitt Ready! 🥳").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -85,7 +85,7 @@ struct HomePage: View {
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
-                            Text("Implementing Changes...").font(Font.custom("Avenir-Black", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            Text("Implementing Changes...").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -95,7 +95,7 @@ struct HomePage: View {
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
-                            Text("Creating your link!").font(Font.custom("Avenir-Black", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            Text("Creating your link!").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -105,7 +105,7 @@ struct HomePage: View {
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
-                            Text("Creating your class!").font(Font.custom("Avenir-Black", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            Text("Creating your class!").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -115,7 +115,7 @@ struct HomePage: View {
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
                             
-                            Text("Creating your product!").font(Font.custom("Avenir-Black", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            Text("Creating your product!").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
                     
@@ -382,6 +382,7 @@ struct HomePage: View {
                                                 }
                                                 
                                             }
+                                            .padding(.bottom, 5)
 //                                            .padding(.top,10)
                                             .padding(.horizontal)
                                             .multilineTextAlignment(.leading)
@@ -466,7 +467,7 @@ struct HomePage: View {
 //                                    }
                                     .id(index)
                                 }
-                                .padding(.top,5)
+//                                .padding(.top,5)
                                 
 //                                HStack {
 //                                    Spacer()

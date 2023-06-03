@@ -11,6 +11,9 @@ struct ChangeProfilePicture: View {
     @State var image: UIImage?
     @State var showImagePicker = false
     @State var profileImageChanged = false
+    var areAllFieldsEmpty: Bool {
+        image == nil
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -59,9 +62,10 @@ struct ChangeProfilePicture: View {
                                     }
                                 }
                         }) {
-                                Text("Update").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
+                                Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
                         }
                         .padding(.bottom)
+                        .disabled(areAllFieldsEmpty)
                         
                         }
                         .frame(width: geometry.size.width-40, height: geometry.size.height-20)

@@ -15,6 +15,5 @@ class TimeData : ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let dateString = dateFormatter.string(from: currentDate)
         return dateString
-    }
-    
+    } 
 }
