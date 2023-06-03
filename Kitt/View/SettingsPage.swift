@@ -18,8 +18,7 @@ struct SettingsPage: View {
     @State var profileNameChange = false
     @State var bioChange = false
     
-    // REPLACE WITH APP URL
-    let linkURL = URL(string: "https://example.com")!
+    let linkURL = URL(string: "https://kitt.bio")!
     
     
     var body: some View {
@@ -67,7 +66,8 @@ struct SettingsPage: View {
                                             UIApplication.shared.open(whatsappURL)
                                         }
                                     } else {
-                                        let activityViewController = UIActivityViewController(activityItems: [linkURL], applicationActivities: nil)
+                                        let message = "Hey! Check out Kitt to start selling products and services from your Instagram link in bio.\n"
+                                        let activityViewController = UIActivityViewController(activityItems: [message, linkURL], applicationActivities: nil)
                                         UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
                                     }
                                 }) {

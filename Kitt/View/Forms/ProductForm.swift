@@ -62,7 +62,8 @@ struct ProductForm: View {
                                             }
                                         }
                                     }) {
-                                        Image(systemName: "trash").background(Circle().fill(.gray).frame(width: 40, height: 40).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing, 30).padding(.vertical)
+                                        Image(systemName: "trash").font(.system(size: 25)).background(Circle().fill(.gray).frame(width: 45, height: 45).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing, 25).padding(.vertical)
+//                                        Image(systemName: "trash").background(Circle().fill(.gray).frame(width: 40, height: 40).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing, 30).padding(.vertical)
                                     }
                                 } else {
                                     Text("New Product").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).padding(.vertical).multilineTextAlignment(.leading)
@@ -238,7 +239,7 @@ struct ProductForm: View {
                         HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: true, isShownLinkCreated: false).navigationBarHidden(true)
                     }
                     .navigationDestination(isPresented: $productDeleted) {
-                        HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                        HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                     }
             }
     }

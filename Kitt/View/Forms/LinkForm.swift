@@ -20,6 +20,7 @@ struct LinkForm: View {
     @State var linkIndex: Int?
     @ObservedObject var readData: ReadDB
     @State var isURLValid: Bool = true
+    @State var isShowingHint = false
     var areAllFieldsEmpty: Bool {
         return linkName.isEmpty || linkURL.isEmpty || !isURLValid
     }
@@ -47,16 +48,34 @@ struct LinkForm: View {
                                         }
                                     }
                                 }) {
-                                    Image(systemName: "trash").background(Circle().fill(.gray).frame(width: 40, height: 40).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing, 25).padding(.vertical)
+                                    Image(systemName: "trash").font(.system(size: 25)).background(Circle().fill(.gray).frame(width: 45, height: 45).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing, 25).padding(.vertical)
                                 }
 
                             } else {
                                 Text("New Link").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical)
                                 
+                                Button(action: {
+                                    withAnimation(.easeOut(duration: 0.5)) {
+                                        isShowingHint.toggle()
+                                    }
+                                    }) {
+                                    Image(systemName: "questionmark")
+                                        .background(Circle().fill(.gray).font(.system(size: 12)).frame(width: 25, height: 25).opacity(0.3))
+                                        .foregroundColor(.black).fontWeight(.bold).padding(.vertical)
+                                        .fontWeight(.semibold).padding(.leading, 10).padding(.top, -5)
+                                }
                                 Spacer()
                             }
                         }
                         .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
+                        
+                        if isShowingHint {
+                            CardView(hint: "Please enter URL in the format 'xyz.com' or 'https://xyz.com' or 'www.xyz.com'.")
+                                .transition(.scale)
+                                .padding(.top, -18)
+                                .padding(.leading, 80)
+                        }
+                        
                         
                         TextField("", text: $linkName, prompt: Text("Link Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                             .onChange(of: self.linkName, perform: { value in
@@ -125,11 +144,52 @@ struct LinkForm: View {
                 }
         }
         }
+    
 //        private func validateURL() {
 //            let urlRegex = "^https://[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
 //            let urlPredicate = NSPredicate(format: "SELF MATCHES %@", urlRegex)
 //            isURLValid = urlPredicate.evaluate(with: linkURL)
 //        }
+}
+
+struct CardView: View {
+    let hint: String
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 10)
+            .fill(Color("TextField"))
+            .foregroundColor(.white)
+            .frame(width: 150, height: 70)
+            .overlay(Text(hint).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 12)).padding(10))
+            .cornerRadius(10, corners: [.topRight, .bottomRight, .bottomLeft])
+    }
+}
+
+struct CornerRadiusStyle: ViewModifier {
+    var radius: CGFloat
+    var corners: UIRectCorner
+    
+    struct CornerRadiusShape: Shape {
+
+        var radius = CGFloat.infinity
+        var corners = UIRectCorner.allCorners
+
+        func path(in rect: CGRect) -> Path {
+            let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+            return Path(path.cgPath)
+        }
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .clipShape(CornerRadiusShape(radius: radius, corners: corners))
+    }
+}
+
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        ModifiedContent(content: self, modifier: CornerRadiusStyle(radius: radius, corners: corners))
+    }
 }
 
 //struct LinkForm_Previews: PreviewProvider {
