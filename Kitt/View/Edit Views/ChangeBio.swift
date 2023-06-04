@@ -51,7 +51,7 @@ struct ChangeBio: View {
                         }
                         .foregroundColor(.black)
                         .navigationDestination(isPresented: $profileBioChanged) {
-                            HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                            HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                         }
                         .onAppear {
                             bio = bioText

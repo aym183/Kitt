@@ -44,13 +44,13 @@ struct SettingsPage: View {
                         
 //                        Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
                         VStack(alignment: .center) {
-                            Text(name).font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.09)).padding(.top, -8)
+                            Text(name).font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.08)).padding(.top, -8).multilineTextAlignment(.center)
+//                                .padding(.horizontal, 50)
                             
                             Text(bio).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 50).padding(.bottom)
                             
                         }
-                        .frame(width: geometry.size.width-100, height: 100)
-                        
+                        .frame(width: geometry.size.width-50, height: 100)
                         Spacer()
                         
 //                        ScrollView(.vertical) {
@@ -118,6 +118,22 @@ struct SettingsPage: View {
                 }
         }
     }
+    
+//    func calculateFontSize(geometry: GeometryProxy, text: String) -> CGFloat {
+//        let maxLengthFactor: CGFloat = 0.1
+//        let maxWidthFactor: CGFloat = 0.2
+//
+//        let maxLength = geometry.size.width * maxLengthFactor
+//        let maxWidth = geometry.size.width * maxWidthFactor
+//
+//        let lengthMultiplier = min(1.0, CGFloat(text.count) / maxLength)
+//        let widthMultiplier = min(1.0, geometry.size.width / maxWidth)
+//
+//        let fontSizeMultiplier = min(lengthMultiplier, widthMultiplier)
+//
+//        return geometry.size.width * fontSizeMultiplier
+//    }
+
 }
 ////
 //struct SettingsPage_Previews: PreviewProvider {
