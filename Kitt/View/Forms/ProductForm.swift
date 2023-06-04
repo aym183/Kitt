@@ -30,7 +30,6 @@ struct ProductForm: View {
     @State var productIndex: Int?
     @ObservedObject var readData: ReadDB
     @State var selectedPDF: URL?
-    @State var nameCounter = 55
     var areAllFieldsEmpty: Bool {
         if ifEdit {
             return productName.isEmpty || productDesc.isEmpty || productPrice.isEmpty || image == nil
@@ -121,9 +120,7 @@ struct ProductForm: View {
                                 TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                                         .onChange(of: self.productName, perform: { value in
                                                if value.count > 55 {
-                                                   self.productName = String(value.prefix(nameCounter))
-                                               } else {
-                                                   nameCounter = value.count
+                                                   self.productName = String(value.prefix(55))
                                                }
                                           })
                                 

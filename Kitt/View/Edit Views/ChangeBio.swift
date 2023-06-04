@@ -24,12 +24,34 @@ struct ChangeBio: View {
                             }
                             
                         
-                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
-                            .onChange(of: self.bio, perform: { value in
-                                   if value.count > 50 {
-                                       self.bio = String(value.prefix(50))
-                                  }
-                              })
+                        ZStack {
+                            TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                                .onChange(of: self.bio, perform: { value in
+                                       if value.count > 50 {
+                                           self.bio = String(value.prefix(50))
+                                      }
+                                  })
+                            
+                            if bio.count > 0 {
+                                HStack {
+                                    Spacer()
+                                    
+                                    if bio.count > 40 {
+                                        Text("\(bio.count)")
+                                            .foregroundColor(.red)
+                                            .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
+                                            .fontWeight(.bold)
+                                    } else {
+                                        Text("\(bio.count)")
+                                            .foregroundColor(.black)
+                                            .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
+                                            .fontWeight(.bold)
+                                    }
+                                }
+                                .padding(.trailing, 30)
+                            }
+                        }
+                     
                         
                         Spacer()
                         

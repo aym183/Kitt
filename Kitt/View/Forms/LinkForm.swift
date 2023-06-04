@@ -77,13 +77,34 @@ struct LinkForm: View {
 //                                .cornerRadius(10, corners: [.topRight, .bottomRight, .bottomLeft])
                         }
                         
+                        ZStack {
+                            TextField("", text: $linkName, prompt: Text("Link Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                                .onChange(of: self.linkName, perform: { value in
+                                       if value.count > 35 {
+                                           self.linkName = String(value.prefix(35))
+                                      }
+                                  })
+                            
+                            if linkName.count > 0 {
+                                HStack {
+                                    Spacer()
+                                    
+                                    if linkName.count > 25 {
+                                        Text("\(linkName.count)")
+                                            .foregroundColor(.red)
+                                            .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
+                                            .fontWeight(.bold)
+                                    } else {
+                                        Text("\(linkName.count)")
+                                            .foregroundColor(.black)
+                                            .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
+                                            .fontWeight(.bold)
+                                    }
+                                }
+                                .padding(.trailing, 30).padding(.top, 10)
+                        }
+                        }
                         
-                        TextField("", text: $linkName, prompt: Text("Link Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
-                            .onChange(of: self.linkName, perform: { value in
-                                   if value.count > 35 {
-                                       self.linkName = String(value.prefix(35))
-                                  }
-                              })
                         
                         TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
 //                            .onChange(of: linkURL) { newValue in
