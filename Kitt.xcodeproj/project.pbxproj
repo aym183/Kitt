@@ -11,6 +11,7 @@
 		61005E242A272BA500980B40 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 61005E232A272BA500980B40 /* SVGKitSwift */; };
 		61615EA72A29FE1C00A23710 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 61615EA62A29FE1C00A23710 /* CropViewController */; };
 		61615EA92A29FE1C00A23710 /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 61615EA82A29FE1C00A23710 /* TOCropViewController */; };
+		61615EAB2A2F7F9F00A23710 /* TotalSales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61615EAA2A2F7F9F00A23710 /* TotalSales.swift */; };
 		6166874D2A15F37D0016A549 /* ChangeProfilePicture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166874C2A15F37D0016A549 /* ChangeProfilePicture.swift */; };
 		6166874F2A15FB2A0016A549 /* ChangeBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166874E2A15FB2A0016A549 /* ChangeBio.swift */; };
 		616687512A161E900016A549 /* CreateProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616687502A161E900016A549 /* CreateProfile.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		61615EAA2A2F7F9F00A23710 /* TotalSales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalSales.swift; sourceTree = "<group>"; };
 		6166874C2A15F37D0016A549 /* ChangeProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfilePicture.swift; sourceTree = "<group>"; };
 		6166874E2A15FB2A0016A549 /* ChangeBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBio.swift; sourceTree = "<group>"; };
 		616687502A161E900016A549 /* CreateProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfile.swift; sourceTree = "<group>"; };
@@ -150,14 +152,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6166874B2A15F36A0016A549 /* Edit Views */ = {
+		6166874B2A15F36A0016A549 /* Settings Views */ = {
 			isa = PBXGroup;
 			children = (
 				6166874C2A15F37D0016A549 /* ChangeProfilePicture.swift */,
 				6166874E2A15FB2A0016A549 /* ChangeBio.swift */,
 				616687572A171E110016A549 /* ChangeName.swift */,
+				61615EAA2A2F7F9F00A23710 /* TotalSales.swift */,
 			);
-			path = "Edit Views";
+			path = "Settings Views";
 			sourceTree = "<group>";
 		};
 		616687522A1622D90016A549 /* Forms */ = {
@@ -216,7 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				616687522A1622D90016A549 /* Forms */,
-				6166874B2A15F36A0016A549 /* Edit Views */,
+				6166874B2A15F36A0016A549 /* Settings Views */,
 				61A60C582A0BEE16006B7984 /* Launch Screen */,
 				61A0E8192A0A0E1E00FE474D /* Onboarding */,
 				61A0E7FF2A09D0D500FE474D /* HomePage.swift */,
@@ -400,6 +403,7 @@
 				616687542A1622EA0016A549 /* ClassForm.swift in Sources */,
 				61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */,
 				616687562A1654660016A549 /* SocialMediaInputForm.swift in Sources */,
+				61615EAB2A2F7F9F00A23710 /* TotalSales.swift in Sources */,
 				61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */,
 				61A0E8162A0A051300FE474D /* SettingsPage.swift in Sources */,
 				61A0E81F2A0A15DC00FE474D /* UploadProfileImageForm.swift in Sources */,

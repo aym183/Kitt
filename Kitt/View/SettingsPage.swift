@@ -53,8 +53,29 @@ struct SettingsPage: View {
                         .frame(width: geometry.size.width-50, height: 100)
                         Spacer()
                         
-//                        ScrollView(.vertical) {
+                        ScrollView(.vertical, showsIndicators: true) {
+                            Button(action: {}) {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(.gray)
+                                        .opacity(0.2)
+                                        .frame(height: 64)
+                                        .padding(.top, 5)
+                                    HStack {
+                                        Text("Total Sales").font(Font.custom("Avenir-Medium", size: 18))
+                                        Spacer()
+                                        Image(systemName: "arrow.right")
+                                    }
+                                    .fontWeight(.semibold)
+                                    .padding(.horizontal, 28).padding(.top, 5)
+                                }
+                                .frame(width: geometry.size.width-80)
+                                .padding(.bottom, 30)
+                            }
+                            
                             ForEach(0..<5) { index in
+                                
+                                
                                 Button(action: {
                                     if index == 0 {
                                         profileImageChange.toggle()
@@ -101,8 +122,8 @@ struct SettingsPage: View {
                                 Spacer()
                             }
 //                            .padding(.top)
-//                        }
-//                        .padding(.bottom)
+                        }
+                        .padding(.bottom).padding(.top, -10)
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
