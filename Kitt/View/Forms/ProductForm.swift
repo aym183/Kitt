@@ -202,9 +202,7 @@ struct ProductForm: View {
                             }
                             
                             if !ifEdit {
-                                Button(action: {
-                                    document_picker_bool.toggle()
-                                }) {
+                                Button(action: { document_picker_bool.toggle() }) {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10)
                                             .fill(Color("TextField"))
@@ -304,7 +302,7 @@ struct DocumentPicker: UIViewControllerRepresentable {
         }
         
         func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
-            let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.data], asCopy: true)
+            let picker = UIDocumentPickerViewController(forOpeningContentTypes: [UTType.pdf], asCopy: true)
             picker.allowsMultipleSelection = false
             picker.delegate = context.coordinator
             return picker
