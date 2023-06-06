@@ -24,6 +24,10 @@ struct FormSelection: View {
     @State var oldProductDesc = ""
     @State var oldProductPrice = ""
     @State var oldImage: UIImage?
+    @State var oldFileName = ""
+    @State var oldFile = ""
+    @State var file = ""
+    @State var fileName = ""
     @State var productName = ""
     @State var productDesc = ""
     @State var productPrice = ""
@@ -89,7 +93,7 @@ struct FormSelection: View {
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $productFormShown) {
 //                        ProductForm(products_number: products_number)
-                        ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: products_number, ifEdit: false, readData: readData)
+                        ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, oldFile: $oldFile, oldFileName: $oldFileName, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, file: $file, fileName: $fileName, products_number: products_number, ifEdit: false, readData: readData)
                     }
 //                    .navigationDestination(isPresented: $classFormShown) {
 //                        ClassForm(oldClassName: $oldClassName, oldClassDesc: $oldClassDesc, oldClassPrice: $oldClassPrice, oldClassDuration: $oldClassDuration, oldClassSeats: $oldClassSeats, oldClassLocation: $oldClassLocation, oldImage: $oldClassImage, className: $className, classDesc: $classDesc, classDuration: $classDuration, classPrice: $classPrice, classSeats: $classSeats, classLocation: $classLocation, image: $classImage, classes_number: classes_number, ifEdit: false, readData: readData)

@@ -15,10 +15,14 @@ struct ProductForm: View {
     @Binding var oldProductDesc: String
     @Binding var oldProductPrice: String
     @Binding var oldImage: UIImage?
+    @Binding var oldFile: String
+    @Binding var oldFileName: String
     @Binding var productName: String
     @Binding var productDesc: String
     @Binding var productPrice: String
     @Binding var image: UIImage?
+    @Binding var file: String
+    @Binding var fileName: String
     @State var isShowingHint = false
     @State var charLimit = false
     @State var uploadFile = ""
@@ -31,6 +35,7 @@ struct ProductForm: View {
     @State var productIndex: Int?
     @ObservedObject var readData: ReadDB
     @State var selectedPDF: URL?
+    
     var areAllFieldsEmpty: Bool {
         if ifEdit {
             return productName.isEmpty || productDesc.isEmpty || productPrice.isEmpty || image == nil
@@ -90,7 +95,7 @@ struct ProductForm: View {
                                 ProductCardView(hint: "Please upload product images taken in landscape for optimal appearance")
                                     .transition(.scale)
                                     .padding(.top, -18)
-                                    .padding(.leading, 150)
+                                    .padding(.trailing, -165)
                                     .padding(.bottom, 5)
     //                                .cornerRadius(10, corners: [.topRight, .bottomRight, .bottomLeft])
                             }
@@ -201,8 +206,12 @@ struct ProductForm: View {
                                 TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16)).keyboardType(.decimalPad).padding(.top, -5)
                             }
                             
-                            if !ifEdit {
-                                Button(action: { document_picker_bool.toggle() }) {
+//                            if !ifEdit {
+                                Button(action: {
+                                    if fileName != "" {} else {
+                                        document_picker_bool.toggle()
+                                    }
+                                        }) {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10)
                                             .fill(Color("TextField"))
@@ -210,29 +219,50 @@ struct ProductForm: View {
                                             .padding(.bottom, 5)
                                         HStack {
                                             if let url = selectedPDF {
-                                                let filename = url.lastPathComponent
-                                                Text(filename).font(Font.custom("Avenir-Medium", size: 16))
+                                                Text(url.lastPathComponent).font(Font.custom("Avenir-Medium", size: 16)).multilineTextAlignment(.leading)
+                                                
+                                                Spacer()
+                                                Button(action: { document_picker_bool.toggle() }) {
+                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28)).fontWeight(.bold)
+                                                }
+                                                .padding(.trailing)
+                                                
                                             } else {
-                                                Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.05)).fontWeight(.heavy).foregroundColor(.gray)
-                                                Text("Upload PDF").font(Font.custom("Avenir-Black", size: 16)).foregroundColor(.gray).fontWeight(.black)
+                                                if fileName != "" {
+                                                    Text(fileName).font(Font.custom("Avenir-Black", size: 16)).foregroundColor(.gray).fontWeight(.black).multilineTextAlignment(.leading)
+                                                    
+                                                    Spacer()
+                                                    Button(action: { document_picker_bool.toggle() }) {
+                                                        Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28)).fontWeight(.bold)
+                                                    }
+                                                    .padding(.trailing)
+                                                    
+                                                } else {
+                                                    Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.05)).fontWeight(.heavy).foregroundColor(.gray)
+    //
+                                                    Text("Upload PDF").font(Font.custom("Avenir-Black", size: 16)).foregroundColor(.gray).fontWeight(.black)
+                                                    
+                                                    Spacer()
+                                                    
+                                                }
                                             }
-                                            Spacer()
+//                                            Spacer()
                                         }
                                         .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.04))
                                         .fontWeight(.semibold)
-                                        .padding(.leading)
+                                        .padding(.leading).padding(.top, -5)
                                     }
                                     .frame(width: geometry.size.width-70)
                                 }
-                            }
+//                            }
                             
                             Spacer()
                             
                             Button(action: {
                                 if ifEdit {
                                     DispatchQueue.global(qos: .userInteractive).async {
-                                        if let image = self.image {
-                                            UpdateDB().updateCreatedProduct(data: ["oldProductName": oldProductName, "oldProductDesc": oldProductDesc, "oldProductPrice": oldProductPrice, "productName": productName, "productDesc": productDesc, "productPrice": productPrice], old_image: oldImage!, new_image: image) { response in
+                                        if let image = self.image, let pdf = selectedPDF {
+                                            UpdateDB().updateCreatedProduct(data: ["oldProductName": oldProductName, "oldProductDesc": oldProductDesc, "oldProductPrice": oldProductPrice, "productName": productName, "productDesc": productDesc, "productPrice": productPrice, "old_file_name": oldFileName, "new_file_name": pdf.lastPathComponent], old_image: oldImage!, new_image: image, new_file: pdf) { response in
                                                 if response == "Successful" {
                                                     productCreated.toggle()
                                                 }
@@ -243,11 +273,11 @@ struct ProductForm: View {
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         if products_number != 0, let pdf = selectedPDF {
                                             if let image = self.image {
-                                                UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf)
+                                                UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf, file_name: selectedPDF!.lastPathComponent)
                                             }
                                         } else {
                                             if let image = self.image, let pdf = selectedPDF {
-                                                CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf)
+                                                CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf, file_name: selectedPDF!.lastPathComponent)
                                             }
                                         }
                                         productCreated.toggle()
@@ -284,7 +314,11 @@ struct ProductForm: View {
                         DocumentPicker(selectedURL: $selectedPDF)
                     }
                     .navigationDestination(isPresented: $productCreated) {
-                        HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: true, isShownLinkCreated: false).navigationBarHidden(true)
+                        if ifEdit {
+                            HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                        } else {
+                            HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: true, isShownLinkCreated: false).navigationBarHidden(true)
+                        }
                     }
                     .navigationDestination(isPresented: $productDeleted) {
                         HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
@@ -335,7 +369,7 @@ struct ProductCardView: View {
         RoundedRectangle(cornerRadius: 10)
             .fill(Color("TextField"))
             .foregroundColor(.white)
-            .frame(width: 165, height: 70)
+            .frame(width: 140, height: 90)
             .overlay(Text(hint).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 12)).padding(10))
     }
 }

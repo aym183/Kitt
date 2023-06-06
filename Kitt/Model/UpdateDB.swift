@@ -158,12 +158,14 @@ class UpdateDB : ObservableObject {
             }
     }
     
-    func updateCreatedProduct(data: [String: Any], old_image: UIImage, new_image: UIImage, completion: @escaping (String?) -> Void) {
+    func updateCreatedProduct(data: [String: Any], old_image: UIImage, new_image: UIImage, new_file: URL, completion: @escaping (String?) -> Void) {
         @AppStorage("products") var products: String = ""
         let db = Firestore.firestore()
         let ref = db.collection("products")
         let randomID = UUID().uuidString
         let path = "product_images/\(randomID).jpg"
+        let filePath = "product_files/\(randomID).pdf"
+        
         var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
         
         let imageData = new_image.jpegData(compressionQuality: 0.8)
@@ -185,7 +187,7 @@ class UpdateDB : ObservableObject {
 
                                 if valueDict["name"] == String(describing: data["oldProductName"]!) && valueDict["price"] == String(describing: data["oldProductPrice"]!) && valueDict["description"] == String(describing: data["oldProductDesc"]!) {
                                     
-                                        temp_entries[documentData.key] = ["name": String(describing: data["productName"]!), "description": String(describing: data["productDesc"]!), "time_created": TimeData().getPresentDateTime(), "price": String(describing: data["productPrice"]!), "image": path]
+                                    temp_entries[documentData.key] = ["name": String(describing: data["productName"]!), "description": String(describing: data["productDesc"]!), "time_created": TimeData().getPresentDateTime(), "price": String(describing: data["productPrice"]!), "image": path, "file": filePath, "file_name": String(describing: data["new_file_name"]!)]
 
                                         DispatchQueue.global(qos: .background).async {
                                             let storage = Storage.storage().reference()
@@ -220,6 +222,13 @@ class UpdateDB : ObservableObject {
                                                     if let error = error {
                                                         print("Error uploading product image \(error.localizedDescription)")
                                                     }
+                                            }
+                                            
+                                            let productFileRef = storage.child("product_files/\(randomID).pdf")
+                                            let productFileUpload = productFileRef.putFile(from: new_file, metadata: nil) { metadata, error in
+                                                if let error = error {
+                                                    print("Error uploading product file \(error.localizedDescription)")
+                                                }
                                             }
                                         }
 
@@ -295,7 +304,7 @@ class UpdateDB : ObservableObject {
             }
     }
     
-    func updateProducts(image: UIImage, name: String, description: String, price: String, file: URL) {
+    func updateProducts(image: UIImage, name: String, description: String, price: String, file: URL, file_name: String) {
         @AppStorage("products") var products: String = ""
         
         let imageData = image.jpegData(compressionQuality: 0.8)
@@ -357,7 +366,7 @@ class UpdateDB : ObservableObject {
         
         var documentData = [String: Any]()
         var fieldID = ref.document()
-        documentData[fieldID.documentID] = ["image": path, "name": name, "time_created": presentDateTime, "description": description, "price": price, "file": filePath]
+        documentData[fieldID.documentID] = ["image": path, "name": name, "time_created": presentDateTime, "description": description, "price": price, "file": filePath, "file_name": file_name]
         
         docID.updateData(documentData) { error in
         if let error = error {

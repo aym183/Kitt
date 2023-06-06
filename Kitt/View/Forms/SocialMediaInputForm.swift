@@ -9,11 +9,6 @@ import SwiftUI
 
 struct SocialMediaInput: View {
     @State var linkAdded = false
-//    @State var igUsername = ""
-//    @State var tiktokUsername = ""
-//    @State var fbUsername = ""
-//    @State var ytChannel = ""
-//    @State var webAddress = ""
     @AppStorage("instagram") var igUsername: String = ""
     @AppStorage("tiktok") var tiktokUsername: String = ""
     @AppStorage("facebook") var fbUsername: String = ""

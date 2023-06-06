@@ -91,7 +91,7 @@ class CreateDB : ObservableObject {
     }
     
     
-    func addProducts(image: UIImage, name: String, description: String, price: String, file: URL) {
+    func addProducts(image: UIImage, name: String, description: String, price: String, file: URL, file_name: String) {
         @AppStorage("products") var products: String = ""
         
         let imageData = image.jpegData(compressionQuality: 0.8)
@@ -175,7 +175,7 @@ class CreateDB : ObservableObject {
         
         var documentData = [String: Any]()
         var fieldID = ref.document()
-        documentData[fieldID.documentID] = ["name": name, "image": path, "time_created": presentDateTime, "description": description, "price": price, "file": filePath]
+        documentData[fieldID.documentID] = ["name": name, "image": path, "time_created": presentDateTime, "description": description, "price": price, "file": filePath, "file_name": file_name]
         
         docID.setData(documentData) { error in
            if let error = error {

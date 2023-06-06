@@ -25,6 +25,10 @@ struct HomePage: View {
     @State var oldProductDesc = ""
     @State var oldProductPrice = ""
     @State var oldImage: UIImage?
+    @State var oldFileName = ""
+    @State var oldFile = ""
+    @State var file = ""
+    @State var fileName = ""
     @State var productName = ""
     @State var productDesc = ""
     @State var productPrice = ""
@@ -355,6 +359,12 @@ struct HomePage: View {
                                                                 productName = readData.products![index]["name"]!
                                                                 productDesc = readData.products![index]["description"]!
                                                                 productPrice = "\(readData.products![index]["price"]!)"
+                                                                fileName = readData.products![index]["file_name"]!
+                                                                file = readData.products![index]["file"]!
+                                                                
+                                                                oldFile = readData.products![index]["file"]!
+                                                                oldFileName = readData.products![index]["file_name"]!
+                                                                
                                                                 oldProductName = readData.products![index]["name"]!
                                                                 oldProductDesc = readData.products![index]["description"]!
                                                                 oldProductPrice = "\(readData.products![index]["price"]!)"
@@ -480,7 +490,7 @@ struct HomePage: View {
 //                                }
 //                                .padding(.top)
                             }
-                            .padding(.top)
+                            .padding(.vertical)
                         }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
@@ -529,7 +539,7 @@ struct HomePage: View {
                     .opacity(isChangesMade ? 0 : 1)
                 }
                 .navigationDestination(isPresented: $productEditShown) {
-                    ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, products_number: productsNumber, ifEdit: true, productIndex: productIndex, readData: readData)
+                    ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, oldFile: $oldFile, oldFileName: $oldFileName, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, file: $file, fileName: $fileName, products_number: productsNumber, ifEdit: true, productIndex: productIndex, readData: readData)
                 }
 //                .navigationDestination(isPresented: $classEditShown) {
 //                    ClassForm(oldClassName: $oldClassName, oldClassDesc: $oldClassDesc, oldClassPrice: $oldClassPrice, oldClassDuration: $oldClassDuration, oldClassSeats: $oldClassSeats, oldClassLocation: $oldClassLocation, oldImage: $oldClassImage, className: $className, classDesc: $classDesc, classDuration: $classDuration, classPrice: $classPrice, classSeats: $classSeats, classLocation: $classLocation, image: $classImage, classes_number: classesNumber, ifEdit: true, classIndex: classIndex, readData: readData)
