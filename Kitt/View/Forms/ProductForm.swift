@@ -150,13 +150,13 @@ struct ProductForm: View {
                                     HStack {
                                         Spacer()
                                         
-                                        if productName.count > 45 {
-                                            Text("\(productName.count)")
+                                        if productName.count >= 45 {
+                                            Text("\(55 - productName.count)")
                                                 .foregroundColor(.red)
                                                 .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
                                                 .fontWeight(.bold)
                                         } else {
-                                            Text("\(productName.count)")
+                                            Text("\(55 - productName.count)")
                                                 .foregroundColor(.black)
                                                 .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
                                                 .fontWeight(.bold)

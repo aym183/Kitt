@@ -26,7 +26,7 @@ struct SocialMediaInput: View {
                     Color(.white).ignoresSafeArea()
 //                    ScrollView(showsIndicators: false) {
                     VStack {
-                        Text("Add your most important\nlinks here").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical).padding(.leading, -20)
+                        Text("Add your most important\nlinks here").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical).padding(.trailing, 30)
                                 
 //                            .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                             

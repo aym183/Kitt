@@ -89,13 +89,13 @@ struct LinkForm: View {
                                 HStack {
                                     Spacer()
                                     
-                                    if linkName.count > 25 {
-                                        Text("\(linkName.count)")
+                                    if linkName.count >= 25 {
+                                        Text("\(35 - linkName.count)")
                                             .foregroundColor(.red)
                                             .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
                                             .fontWeight(.bold)
                                     } else {
-                                        Text("\(linkName.count)")
+                                        Text("\(35 - linkName.count)")
                                             .foregroundColor(.black)
                                             .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
                                             .fontWeight(.bold)
@@ -103,6 +103,7 @@ struct LinkForm: View {
                                 }
                                 .padding(.trailing, 30).padding(.top, 10)
                         }
+                            
                         }
                         
                         

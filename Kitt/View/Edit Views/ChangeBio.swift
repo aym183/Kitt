@@ -36,13 +36,13 @@ struct ChangeBio: View {
                                 HStack {
                                     Spacer()
                                     
-                                    if bio.count > 40 {
-                                        Text("\(bio.count)")
+                                    if bio.count >= 40 {
+                                        Text("\(50 - bio.count)")
                                             .foregroundColor(.red)
                                             .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
                                             .fontWeight(.bold)
                                     } else {
-                                        Text("\(bio.count)")
+                                        Text("\(50 - bio.count)")
                                             .foregroundColor(.black)
                                             .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
                                             .fontWeight(.bold)
