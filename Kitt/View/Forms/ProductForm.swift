@@ -19,6 +19,7 @@ struct ProductForm: View {
     @Binding var productDesc: String
     @Binding var productPrice: String
     @Binding var image: UIImage?
+    @State var isShowingHint = false
     @State var charLimit = false
     @State var uploadFile = ""
     @State var showImagePicker = false
@@ -47,9 +48,9 @@ struct ProductForm: View {
                             HStack() {
                                 if ifEdit {
                                     Text("Edit Product").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical)
-                                    
+
                                     Spacer()
-                                    
+
                                     Button(action: {
                                         DispatchQueue.global(qos: .userInteractive).async {
                                             DeleteDB().deleteProduct(image: readData.products![productIndex!]["image"]!) { response in
@@ -63,15 +64,36 @@ struct ProductForm: View {
                                         }
                                     }) {
                                         Image(systemName: "trash").font(.system(size: 25)).background(Circle().fill(.gray).frame(width: 45, height: 45).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing, 25).padding(.vertical)
+
 //                                        Image(systemName: "trash").background(Circle().fill(.gray).frame(width: 40, height: 40).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing, 30).padding(.vertical)
                                     }
                                 } else {
                                     Text("New Product").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).padding(.vertical).multilineTextAlignment(.leading)
-                                    //
+                                    
+                                    Button(action: {
+                                        withAnimation(.easeOut(duration: 0.5)) {
+                                                isShowingHint.toggle()
+                                        }
+                                        }) {
+                                        Image(systemName: "questionmark")
+                                            .background(Circle().fill(.gray).font(.system(size: 10)).frame(width: 25, height: 25).opacity(0.3))
+                                            .foregroundColor(.black).fontWeight(.bold).padding(.vertical)
+                                            .fontWeight(.semibold).padding(.leading, 10).padding(.top, -3)
+                                    }
+                                    
                                     Spacer()
                                 }
                             }
                             .padding(.leading, 15).padding(.bottom, -5).padding(.top, -5)
+                            
+                            if isShowingHint {
+                                ProductCardView(hint: "Please upload product images taken in landscape for optimal appearance")
+                                    .transition(.scale)
+                                    .padding(.top, -18)
+                                    .padding(.leading, 150)
+                                    .padding(.bottom, 5)
+    //                                .cornerRadius(10, corners: [.topRight, .bottomRight, .bottomLeft])
+                            }
                             
                             
                             ZStack {
@@ -163,6 +185,9 @@ struct ProductForm: View {
                                         .padding([.top, .leading])
                                 }
                             }
+                            .padding(.bottom, 5)
+                            
+                            
                                 //                                .font(Font.custom("Avenir-Medium", size: 16))
                                 //                                    .focused($productDesc, equals: true)
                                 
@@ -303,4 +328,16 @@ struct DocumentPicker: UIViewControllerRepresentable {
                 }
             }
         }
+}
+
+struct ProductCardView: View {
+    let hint: String
+    
+    var body: some View {
+        RoundedRectangle(cornerRadius: 10)
+            .fill(Color("TextField"))
+            .foregroundColor(.white)
+            .frame(width: 165, height: 70)
+            .overlay(Text(hint).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 12)).padding(10))
+    }
 }

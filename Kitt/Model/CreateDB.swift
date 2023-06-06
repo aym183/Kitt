@@ -36,9 +36,9 @@ class CreateDB : ObservableObject {
                     "username": username,
                     "stripe_customer_id": "",
                     "stripe_payment_method": "",
-                    "links": docRef,
-                    "products": docRef,
-                    "classes": docRef,
+                    "links": username,
+                    "products": username,
+                    "classes": username,
                     "profile_image": "",
                     "instagram": "",
                     "tiktok": "",
@@ -53,9 +53,9 @@ class CreateDB : ObservableObject {
                         completion("Error")
                     } else {
                         UserDefaults.standard.set(username, forKey: "username")
-                        UserDefaults.standard.set(docRef, forKey: "links")
-                        UserDefaults.standard.set(docRef, forKey: "products")
-                        UserDefaults.standard.set(docRef, forKey: "classes")
+                        UserDefaults.standard.set(username, forKey: "links")
+                        UserDefaults.standard.set(username, forKey: "products")
+                        UserDefaults.standard.set(username, forKey: "classes")
                         UserDefaults.standard.set("", forKey: "tiktok")
                         UserDefaults.standard.set("", forKey: "facebook")
                         UserDefaults.standard.set("", forKey: "website")

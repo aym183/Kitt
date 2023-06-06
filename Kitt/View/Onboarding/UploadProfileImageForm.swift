@@ -40,7 +40,7 @@ struct UploadProfileImageForm: View {
                                             .frame(width: 80, height: 80)
                                             .cornerRadius(50)
                                     } else {
-                                        Circle().fill(.gray).opacity(0.2).frame(width: 100, height: 100)
+                                        Circle().fill(.gray).opacity(0.2).frame(width: 80, height: 80)
                                         Image(systemName: "plus").fontWeight(.heavy).font(.system(size: 30))
                                     }
                                 }

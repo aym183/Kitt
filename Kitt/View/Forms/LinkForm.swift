@@ -62,7 +62,7 @@ struct LinkForm: View {
                                     Image(systemName: "questionmark")
                                         .background(Circle().fill(.gray).font(.system(size: 12)).frame(width: 25, height: 25).opacity(0.3))
                                         .foregroundColor(.black).fontWeight(.bold).padding(.vertical)
-                                        .fontWeight(.semibold).padding(.leading, 10).padding(.top, -5)
+                                        .fontWeight(.semibold).padding(.leading, 10).padding(.top, -3)
                                 }
                                 Spacer()
                             }
