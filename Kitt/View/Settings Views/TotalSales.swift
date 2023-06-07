@@ -9,8 +9,12 @@ import SwiftUI
 
 struct TotalSales: View {
     var labels = ["this week", "this month", "all-time"]
+    @ObservedObject var readData: ReadDB
+//    @State var sales_amount: [Int]?
     
     var body: some View {
+        var sales_amount = [readData.week_sales["total"], readData.month_sales["total"], readData.total_sales["total"]]
+        var sales_count = [readData.week_sales["sales"], readData.month_sales["sales"], readData.total_sales["sales"]]
         GeometryReader { geometry in
             ZStack {
                 Color(.white).ignoresSafeArea()
@@ -31,15 +35,15 @@ struct TotalSales: View {
                                 VStack(alignment: .center) {
                                     
                                     Text(labels[index]).font(Font.custom("Avenir-Medium", size: 18))
-                                    //                                Spacer()
                                     HStack(spacing: 2) {
-                                        Text("450").font(Font.custom("Avenir-Heavy", size: 50)).fontWeight(.black)
+
+                                        Text(String(describing: sales_amount[index]!)).font(Font.custom("Avenir-Heavy", size: 50)).fontWeight(.black)
                                         
                                         Text("aed").font(Font.custom("Avenir-Heavy", size: 25)).fontWeight(.black).padding(.bottom, -15)
                                     }
                                     .padding(.bottom, -20)
                                     
-                                    Text("from 85 customers").font(Font.custom("Avenir-Medium", size:18))
+                                    Text("from \(String(describing:(sales_count[index]!))) customers").font(Font.custom("Avenir-Medium", size:18))
                                 }
                             }
                             .frame(width: geometry.size.width-70, height: 130)
@@ -124,8 +128,8 @@ struct TotalSales: View {
       }
 }
 
-struct TotalSales_Previews: PreviewProvider {
-    static var previews: some View {
-        TotalSales()
-    }
-}
+//struct TotalSales_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TotalSales()
+//    }
+//}

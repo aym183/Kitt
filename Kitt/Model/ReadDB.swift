@@ -17,9 +17,9 @@ class ReadDB : ObservableObject {
     @Published var products: [[String: String]]? = []
     @Published var sales: [[String: Any]]? = []
     @Published var classes: [[String: String]]? = []
-    @Published var week_sales: Int = 0
-    @Published var month_sales: Int = 0
-    @Published var total_sales: Int = 0
+    @Published var week_sales: [String: Int] = [:]
+    @Published var month_sales: [String: Int] = [:]
+    @Published var total_sales: [String: Int] = [:]
     @Published var profile_image: UIImage? = nil
     @Published var product_images: [UIImage?] = []
     @Published var classes_images: [UIImage?] = []
@@ -219,35 +219,40 @@ class ReadDB : ObservableObject {
                     var temp_week_sales = 0
                     var temp_month_sales = 0
                     var temp_total_sales = 0
+                    var temp_week_amount = 0
+                    var temp_month_amount = 0
+                    var temp_total_amount = 0
+                    
                     for sale in self.sales! {
                         let date = (sale["date"]! as AnyObject).dateValue()
                         // Add comparison here
                         if (date.compare(oneWeekAgo) == .orderedDescending) {
-                            temp_week_sales += Int(String(describing: sale["price"]!))!
-                            temp_month_sales += Int(String(describing: sale["price"]!))!
-                            temp_total_sales += Int(String(describing: sale["price"]!))!
+                            temp_week_amount += Int(String(describing: sale["price"]!))!
+                            temp_month_amount += Int(String(describing: sale["price"]!))!
+                            temp_total_amount += Int(String(describing: sale["price"]!))!
+                            
+                            temp_week_sales += 1
+                            temp_month_sales += 1
+                            temp_total_sales += 1
                             
                         } else if (date.compare(oneMonthAgo) == .orderedDescending) {
-                            temp_month_sales += Int(String(describing: sale["price"]!))!
-                            temp_total_sales += Int(String(describing: sale["price"]!))!
-                            
+                            temp_month_amount += Int(String(describing: sale["price"]!))!
+                            temp_total_amount += Int(String(describing: sale["price"]!))!
+                            temp_month_sales += 1
+                            temp_total_sales += 1
                         } else {
-                            temp_total_sales += Int(String(describing: sale["price"]!))!
+                            temp_total_amount += Int(String(describing: sale["price"]!))!
+                            temp_total_sales += 1
                         }
                     }
-                    self.week_sales = temp_week_sales
-                    self.month_sales = temp_month_sales
-                    self.total_sales = temp_total_sales
+                    self.week_sales["total"] = temp_week_amount
+                    self.month_sales["total"] = temp_month_amount
+                    self.total_sales["total"] = temp_total_amount
+                    self.week_sales["sales"] = temp_week_sales
+                    self.month_sales["sales"] = temp_month_sales
+                    self.total_sales["sales"] = temp_total_sales
+                    print("\(self.week_sales), \(self.month_sales), \(self.total_sales)")
                 }
-
-//                let pricesWithinLastWeek = self.sales
-//                    .filter { $0.date.compare(oneWeekAgo) == .orderedDescending }
-//                    .map { $0.price }
-//
-//                let totalPriceWithinLastWeek = pricesWithinLastWeek.reduce(0, +)
-//                if self.sales!.count != 0 {
-//                    self.sortSalesArray()
-//                }
             }
     }
     
