@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct SettingsPage: View {
     var labels = ["Change profile picture", "Change name", "Change bio", "Help" , "Refer a friend"]
@@ -125,6 +126,9 @@ struct SettingsPage: View {
 //                            .padding(.top)
                         }
                         .padding(.bottom).padding(.top, -10)
+                    }
+                    .onAppear {
+                        print(String(describing: readData.sales!))
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
