@@ -13,8 +13,10 @@ struct TotalSales: View {
 //    @State var sales_amount: [Int]?
     
     var body: some View {
-        var sales_amount = [readData.week_sales["total"], readData.month_sales["total"], readData.total_sales["total"]]
-        var sales_count = [readData.week_sales["sales"], readData.month_sales["sales"], readData.total_sales["sales"]]
+        var sales_amount = [readData.week_sales!["total"], readData.month_sales!["total"], readData.total_sales!["total"]]
+        var sales_count = [readData.week_sales!["sales"], readData.month_sales!["sales"], readData.total_sales!["sales"]]
+        var noOfSaleDates = readData.sale_dates?.count ?? 0
+        var noOfSales = readData.sales?.count ?? 0
         GeometryReader { geometry in
             ZStack {
                 Color(.white).ignoresSafeArea()
@@ -43,7 +45,11 @@ struct TotalSales: View {
                                     }
                                     .padding(.bottom, -20)
                                     
-                                    Text("from \(String(describing:(sales_count[index]!))) customers").font(Font.custom("Avenir-Medium", size:18))
+                                    if sales_count[index]! == 1 {
+                                        Text("from \(String(describing:(sales_count[index]!))) customer").font(Font.custom("Avenir-Medium", size:18))
+                                    } else {
+                                        Text("from \(String(describing:(sales_count[index]!))) customers").font(Font.custom("Avenir-Medium", size:18))
+                                    }
                                 }
                             }
                             .frame(width: geometry.size.width-70, height: 130)
@@ -66,47 +72,55 @@ struct TotalSales: View {
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(alignment: .leading) {
-                            
-                            HStack {
-                                Text("05 June").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.045)).fontWeight(.bold).foregroundColor(.gray)
-                                Spacer()
-                            }
-//                            .padding(.leading, 2)
-                            
-                            ForEach(0..<5, id: \.self) { index in
-                                HStack(spacing: -5) {
-                                    ZStack {
-                                        Image("Test_Image")
-                                            .resizable()
-                                            .scaledToFill()
+                            if noOfSaleDates != 0 {
+                                ForEach(readData.sale_dates!, id: \.self) { index in
+                                    HStack {
+                                        Text(index).font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.045)).fontWeight(.bold).foregroundColor(.gray)
+                                        Spacer()
                                     }
-                                    .frame(width: 50, height: 50)
-                                    .cornerRadius(5)
+                                    .id(index)
                                     
-                                    VStack(alignment: .leading, spacing: 6) {
-                                        Text("Yoga Level 1 Guide")
-                                            .font(Font.custom("Avenir-Heavy", size: 15))
-                                        Text(verbatim: "imadali04@gmail.com")
-                                            .font(Font.custom("Avenir-Medium", size: 14))
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.gray)
-                                    }
-                                    .padding(.horizontal, 15)
-//                                    .frame(width: 230)
-                                    
-                                    Spacer()
-                                    
-                                    VStack(alignment: .trailing, spacing: 6) {
-                                        Text("200 aed").font(Font.custom("Avenir-Heavy", size: 15)).fontWeight(.bold)
+                                    ForEach(0..<noOfSales, id: \.self) { sale_index in
+                                        if index == String(describing: readData.sales![sale_index]["date"]!) {
+                                            HStack(spacing: -5) {
+                                                ZStack {
+                                                    Image(uiImage: readData.loadProductImage(key: String(describing: readData.sales![sale_index]["image"]!)))
+                                                        .resizable()
+                                                        .scaledToFill()
+                                                }
+                                                .frame(width: 50, height: 50)
+                                                .cornerRadius(5)
+
+                                                VStack(alignment: .leading, spacing: 6) {
+                                                    Text(String(describing: readData.sales![sale_index]["name"]!))
+                                                        .font(Font.custom("Avenir-Heavy", size: 15))
+                                                    Text(verbatim: String(describing: readData.sales![sale_index]["email"]!))
+                                                        .font(Font.custom("Avenir-Medium", size: 14))
+                                                        .fontWeight(.bold)
+                                                        .foregroundColor(.gray)
+                                                }
+                                                .padding(.horizontal, 15)
+                                                //                                    .frame(width: 230)
+
+                                                Spacer()
+
+                                                VStack(alignment: .trailing, spacing: 6) {
+                                                    Text("\(String(describing: readData.sales![sale_index]["price"]!)) aed").font(Font.custom("Avenir-Heavy", size: 15)).fontWeight(.bold)
+
+                                                    Text("2h ago").font(Font.custom("Avenir-Medium", size: 14)).foregroundColor(.gray).fontWeight(.bold)
+                                                    //                                        .padding(.trailing, 20.5)
+                                                }
+                                                .padding(.leading, -25)
+                                            }
+                                            .frame(width: geometry.size.width-70, height: 50)
+                                            .padding(.bottom, 5)
+                                            .id(sale_index)
+                                        }
                                         
-                                        Text("2h ago").font(Font.custom("Avenir-Medium", size: 14)).foregroundColor(.gray).fontWeight(.bold)
-//                                        .padding(.trailing, 20.5)
+
                                     }
-                                    .padding(.leading, -25)
                                 }
-                                .frame(width: geometry.size.width-70, height: 50)
-                                .padding(.bottom, 5)
-//                                .padding(.horizontal, 15)
+                                //                            .padding(.leading, 2)
                                 
                             }
                         }

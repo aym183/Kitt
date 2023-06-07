@@ -127,6 +127,9 @@ struct SettingsPage: View {
                         }
                         .padding(.bottom).padding(.top, -10)
                     }
+                    .onAppear {
+                        print(readData.sales)
+                    }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $salesPageShown) {

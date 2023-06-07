@@ -17,9 +17,11 @@ class ReadDB : ObservableObject {
     @Published var products: [[String: String]]? = []
     @Published var sales: [[String: Any]]? = []
     @Published var classes: [[String: String]]? = []
-    @Published var week_sales: [String: Int] = [:]
-    @Published var month_sales: [String: Int] = [:]
-    @Published var total_sales: [String: Int] = [:]
+    @Published var week_sales: [String: Int]? = ["total": 0, "sales": 0]
+    @Published var month_sales: [String: Int]? = ["total": 0, "sales": 0]
+    @Published var total_sales: [String: Int]? = ["total": 0, "sales": 0]
+//    @Published var sale_dates: [String]? = []
+    @Published var sale_dates: [String]? = []
     @Published var profile_image: UIImage? = nil
     @Published var product_images: [UIImage?] = []
     @Published var classes_images: [UIImage?] = []
@@ -190,6 +192,12 @@ class ReadDB : ObservableObject {
         let db = Firestore.firestore()
         let ref = db.collection("sales")
         var temp_sales = UserDefaults.standard.array(forKey: "myKey") as? [[String:Any]] ?? []
+        let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
+        let oneMonthAgo = Date().addingTimeInterval(-31 * 24 * 60 * 60)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
 //        sales
         
         ref.whereField(FieldPath.documentID(), isEqualTo: sales)
@@ -199,6 +207,9 @@ class ReadDB : ObservableObject {
                 } else {
                     for document in snapshot!.documents {
                         for documentData in document.data().values {
+//                            let date = (sale["date"]! as AnyObject).dateValue()
+//                            dateFormatter.dateFormat = "dd MMMM YYYY"
+//                            let formattedDate = dateFormatter.string(from: date)
                             temp_sales.append(documentData as! [String : Any])
 //                            if let valueDict = documentData as? [String: Any] {
 //                                print("\(valueDict) this is Sale")
@@ -207,15 +218,23 @@ class ReadDB : ObservableObject {
                         }
                     }
                 }
+                
                 self.sales = temp_sales
                 
-                let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
-                let oneMonthAgo = Date().addingTimeInterval(-31 * 24 * 60 * 60)
                 
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//                if let date = dateFormatter.date(from: dateString) {
+//                    dateFormatter.dateFormat = "dd MMMM"
+//                    let formattedDate = dateFormatter.string(from: date)
+//                    print(formattedDate) // Output: 07 June
+//                }
                 
                 if self.sales!.count != 0 {
+//                    for index in 0..<self.sales!.count {
+//                        let date = (self.sales![index]["date"]! as AnyObject).dateValue()
+//                        dateFormatter.dateFormat = "dd MMMM YYYY"
+//                        let formattedDate = dateFormatter.string(from: date)
+//                        self.sales![index]["date"]! = formattedDate
+//                    }
                     var temp_week_sales = 0
                     var temp_month_sales = 0
                     var temp_total_sales = 0
@@ -223,35 +242,44 @@ class ReadDB : ObservableObject {
                     var temp_month_amount = 0
                     var temp_total_amount = 0
                     
-                    for sale in self.sales! {
-                        let date = (sale["date"]! as AnyObject).dateValue()
-                        // Add comparison here
+                    for index in 0..<self.sales!.count {
+                        let date = (self.sales![index]["date"]! as AnyObject).dateValue()
+                        dateFormatter.dateFormat = "dd MMMM YYYY"
+                        let formattedDate = dateFormatter.string(from: date)
+                        self.sales![index]["date"]! = formattedDate
+                        
+                        if !self.sale_dates!.contains(formattedDate) {
+                            self.sale_dates!.append(formattedDate)
+                        }
+                        
                         if (date.compare(oneWeekAgo) == .orderedDescending) {
-                            temp_week_amount += Int(String(describing: sale["price"]!))!
-                            temp_month_amount += Int(String(describing: sale["price"]!))!
-                            temp_total_amount += Int(String(describing: sale["price"]!))!
+                            temp_week_amount += Int(String(describing: self.sales![index]["price"]!))!
+                            temp_month_amount += Int(String(describing: self.sales![index]["price"]!))!
+                            temp_total_amount += Int(String(describing: self.sales![index]["price"]!))!
                             
                             temp_week_sales += 1
                             temp_month_sales += 1
                             temp_total_sales += 1
                             
                         } else if (date.compare(oneMonthAgo) == .orderedDescending) {
-                            temp_month_amount += Int(String(describing: sale["price"]!))!
-                            temp_total_amount += Int(String(describing: sale["price"]!))!
+                            temp_month_amount += Int(String(describing: self.sales![index]["price"]!))!
+                            temp_total_amount += Int(String(describing: self.sales![index]["price"]!))!
                             temp_month_sales += 1
                             temp_total_sales += 1
                         } else {
-                            temp_total_amount += Int(String(describing: sale["price"]!))!
+                            temp_total_amount += Int(String(describing: self.sales![index]["price"]!))!
                             temp_total_sales += 1
                         }
                     }
-                    self.week_sales["total"] = temp_week_amount
-                    self.month_sales["total"] = temp_month_amount
-                    self.total_sales["total"] = temp_total_amount
-                    self.week_sales["sales"] = temp_week_sales
-                    self.month_sales["sales"] = temp_month_sales
-                    self.total_sales["sales"] = temp_total_sales
-                    print("\(self.week_sales), \(self.month_sales), \(self.total_sales)")
+                    self.week_sales!["total"] = temp_week_amount
+                    self.month_sales!["total"] = temp_month_amount
+                    self.total_sales!["total"] = temp_total_amount
+                    self.week_sales!["sales"] = temp_week_sales
+                    self.month_sales!["sales"] = temp_month_sales
+                    self.total_sales!["sales"] = temp_total_sales
+                    if self.sale_dates != [] {
+                        self.sortDatesDescending()
+                    }
                 }
             }
     }
@@ -301,19 +329,19 @@ class ReadDB : ObservableObject {
         self.links = sortedArray
     }
     
-    func sortSalesArray() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    func sortDatesDescending() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM yyyy" // Update the date format
+            
+        let sortedDates = self.sale_dates!.sorted { dateString1, dateString2 in
+               guard let date1 = dateFormatter.date(from: dateString1),
+                     let date2 = dateFormatter.date(from: dateString2) else {
+                   return false // Invalid date format
+               }
+               return date1 > date2
+           }
         
-        let sortedArray = self.links!.sorted(by: { dict1, dict2 in
-            if let date1 = formatter.date(from: dict1["date"]!), let date2 = formatter.date(from: dict2["date"]!) {
-                return date1.compare(date2) == .orderedAscending
-            } else {
-                return false
-            }
-        })
-//        print("\(String(describing: self.sales)) are the sorted sales")
-//        print("\(String(describing: sortedArray)) are the sorted array")
-//        self.sales = sortedArray
+        self.sale_dates = sortedDates
+            
     }
 }
