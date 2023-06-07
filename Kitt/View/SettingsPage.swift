@@ -16,6 +16,7 @@ struct SettingsPage: View {
     let phoneNumber = "+971506194984"
     @State var profileImageChange = false
     @State var profileNameChange = false
+    @State var salesPageShown = false
     @State var bioChange = false
     
     let linkURL = URL(string: "https://kitt.bio")!
@@ -54,7 +55,7 @@ struct SettingsPage: View {
                         Spacer()
                         
                         ScrollView(.vertical, showsIndicators: true) {
-                            Button(action: {}) {
+                            Button(action: { salesPageShown.toggle() }) {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 10)
                                         .fill(.gray)
@@ -127,6 +128,9 @@ struct SettingsPage: View {
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)
+                    .navigationDestination(isPresented: $salesPageShown) {
+                        TotalSales()
+                    }
                     .navigationDestination(isPresented: $profileImageChange) {
                         ChangeProfilePicture()
                     }

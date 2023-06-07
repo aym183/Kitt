@@ -39,6 +39,7 @@ class CreateDB : ObservableObject {
                     "links": username,
                     "products": username,
                     "classes": username,
+                    "sales": username,
                     "profile_image": "",
                     "instagram": "",
                     "tiktok": "",
@@ -56,6 +57,7 @@ class CreateDB : ObservableObject {
                         UserDefaults.standard.set(username, forKey: "links")
                         UserDefaults.standard.set(username, forKey: "products")
                         UserDefaults.standard.set(username, forKey: "classes")
+                        UserDefaults.standard.set(username, forKey: "sales")
                         UserDefaults.standard.set("", forKey: "tiktok")
                         UserDefaults.standard.set("", forKey: "facebook")
                         UserDefaults.standard.set("", forKey: "website")
