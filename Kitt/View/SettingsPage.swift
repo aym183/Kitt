@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 
 struct SettingsPage: View {
-    var labels = ["Change profile picture", "Change name", "Change bio", "Help" , "Refer a friend"]
+    var labels = ["Change profile picture", "Change name", "Change bio", "Help", "Refer a friend"]
     @ObservedObject var readData: ReadDB
     var profile_image: UIImage?
     var name: String
@@ -55,29 +55,24 @@ struct SettingsPage: View {
                         .frame(width: geometry.size.width-50, height: 100)
                         Spacer()
                         
-                        ScrollView(.vertical, showsIndicators: true) {
+                        ScrollView(.vertical, showsIndicators: false) {
                             Button(action: { salesPageShown.toggle() }) {
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 10)
-                                        .fill(.gray)
-                                        .opacity(0.2)
-                                        .frame(height: 64)
-                                        .padding(.top, 5)
+                                        .fill(Color("TextField"))
+                                        .frame(height: 60)
                                     HStack {
                                         Text("Total Sales").font(Font.custom("Avenir-Medium", size: 18))
                                         Spacer()
                                         Image(systemName: "arrow.right")
                                     }
                                     .fontWeight(.semibold)
-                                    .padding(.horizontal, 28).padding(.top, 5)
+                                    .padding(.horizontal, 28)
                                 }
-                                .frame(width: geometry.size.width-80)
-                                .padding(.bottom, 30)
+                                .frame(width: geometry.size.width-50)
                             }
                             
                             ForEach(0..<5) { index in
-                                
-                                
                                 Button(action: {
                                     if index == 0 {
                                         profileImageChange.toggle()
@@ -97,35 +92,24 @@ struct SettingsPage: View {
                                 }) {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10)
-                                            .fill(.gray)
-                                            .opacity(0.2)
-                                            .frame(height: 64)
-                                            .padding(.top, 5)
+                                            .fill(Color("TextField"))
+                                            .frame(height: 60)
+//                                            .padding(.top, 5)
                                         HStack {
                                             Text(labels[index]).font(Font.custom("Avenir-Medium", size: 18))
                                             Spacer()
                                             Image(systemName: "arrow.right")
                                         }
                                         .fontWeight(.semibold)
-                                        .padding(.horizontal, 28).padding(.top, 5)
+                                        .padding(.horizontal, 28)
                                     }
-                                    .frame(width: geometry.size.width-80)
+                                    .frame(width: geometry.size.width-50)
                                 }
                             }
-                        
-                            HStack {
-                                Spacer()
-                                ZStack {
-                                    Image("LaunchSets").resizable().scaledToFill()
-                                }
-                                .frame(width: 70, height: 50)
-                                .cornerRadius(10).padding(.vertical, 10)
-                                
-                                Spacer()
-                            }
+
 //                            .padding(.top)
                         }
-                        .padding(.bottom).padding(.top, -10)
+                        .padding(.bottom, 10).padding(.top, -10)
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)

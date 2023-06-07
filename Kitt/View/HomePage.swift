@@ -189,7 +189,7 @@ struct HomePage: View {
                                     Image(systemName: "person.circle").font(Font.system(size: 80))
                                 }
                             }
-                            .padding(.trailing, 10).padding(.top, 22)
+                            .padding(.top, 22)
                         }
                         .padding(.horizontal, 5)
                         
