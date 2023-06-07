@@ -259,7 +259,8 @@ struct ProductForm: View {
                             Spacer()
                             
                             Button(action: {
-                                if ifEdit {
+                                if ifEdit && selectedPDF != nil {
+                                    print("I am here")
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         if let image = self.image, let pdf = selectedPDF {
                                             UpdateDB().updateCreatedProduct(data: ["oldProductName": oldProductName, "oldProductDesc": oldProductDesc, "oldProductPrice": oldProductPrice, "productName": productName, "productDesc": productDesc, "productPrice": productPrice, "old_file_name": oldFileName, "new_file_name": pdf.lastPathComponent], old_image: oldImage!, new_image: image, new_file: pdf) { response in
@@ -269,7 +270,19 @@ struct ProductForm: View {
                                             }
                                         }
                                     }
-                                } else {
+                                } else if ifEdit && selectedPDF == nil {
+                                    DispatchQueue.global(qos: .userInteractive).async {
+                                        if let image = self.image {
+                                            UpdateDB().updateCreatedProductWithoutFile(data: ["oldProductName": oldProductName, "oldProductDesc": oldProductDesc, "oldProductPrice": oldProductPrice, "productName": productName, "productDesc": productDesc, "productPrice": productPrice, "old_file_name": oldFileName, "old_file": oldFile], old_image: oldImage!, new_image: image) { response in
+                                                if response == "Successful" {
+                                                    productCreated.toggle()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                else {
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         if products_number != 0, let pdf = selectedPDF {
                                             if let image = self.image {

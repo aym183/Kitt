@@ -187,7 +187,7 @@ class UpdateDB : ObservableObject {
 
                                 if valueDict["name"] == String(describing: data["oldProductName"]!) && valueDict["price"] == String(describing: data["oldProductPrice"]!) && valueDict["description"] == String(describing: data["oldProductDesc"]!) {
                                     
-                                    temp_entries[documentData.key] = ["name": String(describing: data["productName"]!), "description": String(describing: data["productDesc"]!), "time_created": TimeData().getPresentDateTime(), "price": String(describing: data["productPrice"]!), "image": path, "file": filePath, "file_name": String(describing: data["new_file_name"]!)]
+                                        temp_entries[documentData.key] = ["name": String(describing: data["productName"]!), "description": String(describing: data["productDesc"]!), "time_created": TimeData().getPresentDateTime(), "price": String(describing: data["productPrice"]!), "image": path, "file": filePath, "file_name": String(describing: data["new_file_name"]!)]
 
                                         DispatchQueue.global(qos: .background).async {
                                             let storage = Storage.storage().reference()
@@ -230,6 +230,93 @@ class UpdateDB : ObservableObject {
                                                     print("Error uploading product file \(error.localizedDescription)")
                                                 }
                                             }
+                                        }
+
+                                } else {
+                                    temp_entries[documentData.key] = valueDict
+                                }
+                            }
+                        }
+                        ref.document(document.documentID).setData(temp_entries) { error in
+                            if let error = error {
+                                print("Error updating created product: \(error.localizedDescription)")
+                            } else {
+                                print("Updated Created Product successfully")
+                                completion("Successful")
+                            }
+                        }
+                    }
+                }
+            }
+    }
+   
+    func updateCreatedProductWithoutFile(data: [String: Any], old_image: UIImage, new_image: UIImage, completion: @escaping (String?) -> Void) {
+        @AppStorage("products") var products: String = ""
+        let db = Firestore.firestore()
+        let ref = db.collection("products")
+        let randomID = UUID().uuidString
+        let path = "product_images/\(randomID).jpg"
+        let filePath = "product_files/\(randomID).pdf"
+        
+        var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
+        
+        let imageData = new_image.jpegData(compressionQuality: 0.8)
+
+        guard imageData != nil else {
+            return
+        }
+        
+        UserDefaults.standard.set(new_image.jpegData(compressionQuality: 0.8), forKey: path)
+        
+        ref.whereField(FieldPath.documentID(), isEqualTo: products)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error finding product to update: \(error.localizedDescription)")
+                } else {
+                    for document in snapshot!.documents {
+                        for documentData in document.data() {
+                            if let valueDict = documentData.value as? [String: String] {
+
+                                if valueDict["name"] == String(describing: data["oldProductName"]!) && valueDict["price"] == String(describing: data["oldProductPrice"]!) && valueDict["description"] == String(describing: data["oldProductDesc"]!) {
+                                    
+                                    temp_entries[documentData.key] = ["name": String(describing: data["productName"]!), "description": String(describing: data["productDesc"]!), "time_created": TimeData().getPresentDateTime(), "price": String(describing: data["productPrice"]!), "image": path, "file_name": String(describing: data["old_file_name"]!), "file": String(describing: data["old_file"]!)]
+                                    
+
+                                        DispatchQueue.global(qos: .background).async {
+                                            let storage = Storage.storage().reference()
+                                            let fileRef = storage.child("product_images/\(randomID).jpg")
+                                            
+                                            let sideLength = min(new_image.size.width, new_image.size.height)
+                                            let sourceSize = new_image.size
+                                            let xOffset = (sourceSize.width - sideLength) / 2.0
+                                            let yOffset = (sourceSize.height - sideLength) / 2.0
+
+                                            let cropRect = CGRect(
+                                                x: xOffset,
+                                                y: yOffset,
+                                                width: sideLength,
+                                                height: sideLength
+                                            ).integral
+                                            
+                                            // Center crop the image
+                                            let sourceCGImage = new_image.cgImage!
+                                            let croppedCGImage = sourceCGImage.cropping(
+                                                to: cropRect
+                                            )!
+                                            let croppedImage = UIImage(cgImage: croppedCGImage)
+
+                                            // Convert the UIImage to data
+                                            guard let croppedImageData = croppedImage.jpegData(compressionQuality: 0.8) else {
+                                                print("Error converting cropped image to JPEG data")
+                                                return
+                                            }
+                                            
+                                            let uploadTask = fileRef.putData(croppedImageData, metadata: nil) { metadata, error in
+                                                    if let error = error {
+                                                        print("Error uploading product image \(error.localizedDescription)")
+                                                    }
+                                            }
+                                            
                                         }
 
                                 } else {

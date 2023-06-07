@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TotalSales: View {
-    var labels = ["this week", "this month", "all-time"]
+    var labels = ["last 7 days", "last 3 days", "all-time"]
     @ObservedObject var readData: ReadDB
 //    @State var sales_amount: [Int]?
     
