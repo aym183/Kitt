@@ -207,14 +207,7 @@ class ReadDB : ObservableObject {
                 } else {
                     for document in snapshot!.documents {
                         for documentData in document.data().values {
-//                            let date = (sale["date"]! as AnyObject).dateValue()
-//                            dateFormatter.dateFormat = "dd MMMM YYYY"
-//                            let formattedDate = dateFormatter.string(from: date)
                             temp_sales.append(documentData as! [String : Any])
-//                            if let valueDict = documentData as? [String: Any] {
-//                                print("\(valueDict) this is Sale")
-//
-//                            }
                         }
                     }
                 }
@@ -229,6 +222,7 @@ class ReadDB : ObservableObject {
 //                }
                 
                 if self.sales!.count != 0 {
+                    
 //                    for index in 0..<self.sales!.count {
 //                        let date = (self.sales![index]["date"]! as AnyObject).dateValue()
 //                        dateFormatter.dateFormat = "dd MMMM YYYY"
@@ -280,6 +274,9 @@ class ReadDB : ObservableObject {
                     if self.sale_dates != [] {
                         self.sortDatesDescending()
                     }
+                }
+                if self.sales!.count != 0 {
+                    self.sortArrayByTime()
                 }
             }
     }
@@ -343,5 +340,20 @@ class ReadDB : ObservableObject {
         
         self.sale_dates = sortedDates
             
+    }
+    
+    func sortArrayByTime() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm:ss a"
+
+        let sortedTime = self.sales!.sorted(by: { dict1, dict2 in
+            if let date1 = dateFormatter.date(from: String(describing: dict1["time"]!)), let date2 = dateFormatter.date(from: String(describing:dict2["time"]!)) {
+                return date1.compare(date2) == .orderedDescending
+            } else {
+                return false
+            }
+        })
+        
+        self.sales = sortedTime
     }
 }

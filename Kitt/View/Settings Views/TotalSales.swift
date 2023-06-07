@@ -95,19 +95,19 @@ struct TotalSales: View {
                                                     Text(String(describing: readData.sales![sale_index]["name"]!))
                                                         .font(Font.custom("Avenir-Heavy", size: 15))
                                                     Text(verbatim: String(describing: readData.sales![sale_index]["email"]!))
-                                                        .font(Font.custom("Avenir-Medium", size: 14))
+                                                        .font(Font.custom("Avenir-Medium", size: 13))
                                                         .fontWeight(.bold)
                                                         .foregroundColor(.gray)
                                                 }
-                                                .padding(.horizontal, 15)
+                                                .padding(.horizontal, 15).padding(.trailing, 30)
                                                 //                                    .frame(width: 230)
 
                                                 Spacer()
 
-                                                VStack(alignment: .trailing, spacing: 6) {
+                                                VStack(alignment: .trailing, spacing: 8) {
                                                     Text("\(String(describing: readData.sales![sale_index]["price"]!)) aed").font(Font.custom("Avenir-Heavy", size: 15)).fontWeight(.bold)
 
-                                                    Text("2h ago").font(Font.custom("Avenir-Medium", size: 14)).foregroundColor(.gray).fontWeight(.bold)
+                                                    Text("").font(Font.custom("Avenir-Medium", size: 14)).foregroundColor(.gray).fontWeight(.bold)
                                                     //                                        .padding(.trailing, 20.5)
                                                 }
                                                 .padding(.leading, -25)
