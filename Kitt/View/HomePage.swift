@@ -510,6 +510,7 @@ struct HomePage: View {
                             readData.getLinks()
                             readData.getProducts()
 //                            readData.getClasses()
+                            readData.getSales()
                             readData.loadProfileImage() { response in
                                 if response != nil {
                                     profile_image = response!

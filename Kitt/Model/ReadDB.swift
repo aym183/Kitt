@@ -15,6 +15,7 @@ class ReadDB : ObservableObject {
     
     @Published var links: [[String: String]]? = []
     @Published var products: [[String: String]]? = []
+    @Published var sales: [[String: Any]]? = []
     @Published var classes: [[String: String]]? = []
     @Published var profile_image: UIImage? = nil
     @Published var product_images: [UIImage?] = []
@@ -181,6 +182,35 @@ class ReadDB : ObservableObject {
             }
     }
     
+    func getSales() {
+        @AppStorage("sales") var sales: String = ""
+        let db = Firestore.firestore()
+        let ref = db.collection("sales")
+        var temp_sales = UserDefaults.standard.array(forKey: "myKey") as? [[String:Any]] ?? []
+//        sales
+        
+        ref.whereField(FieldPath.documentID(), isEqualTo: sales)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error getting sales in getSales: \(error.localizedDescription)")
+                } else {
+                    for document in snapshot!.documents {
+                        for documentData in document.data().values {
+                            temp_sales.append(documentData as! [String : Any])
+//                            if let valueDict = documentData as? [String: Any] {
+//                                print("\(valueDict) this is Sale")
+//
+//                            }
+                        }
+                    }
+                }
+                self.sales = temp_sales
+//                if self.sales!.count != 0 {
+//                    self.sortSalesArray()
+//                }
+            }
+    }
+    
     
     func sortProductsArray() {
         let formatter = DateFormatter()
@@ -224,5 +254,21 @@ class ReadDB : ObservableObject {
             }
         })
         self.links = sortedArray
+    }
+    
+    func sortSalesArray() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let sortedArray = self.links!.sorted(by: { dict1, dict2 in
+            if let date1 = formatter.date(from: dict1["date"]!), let date2 = formatter.date(from: dict2["date"]!) {
+                return date1.compare(date2) == .orderedAscending
+            } else {
+                return false
+            }
+        })
+//        print("\(String(describing: self.sales)) are the sorted sales")
+//        print("\(String(describing: sortedArray)) are the sorted array")
+//        self.sales = sortedArray
     }
 }
