@@ -18,6 +18,8 @@ class ReadDB : ObservableObject {
     @Published var sales: [[String: Any]]? = []
     @Published var classes: [[String: String]]? = []
     @Published var week_sales: Int = 0
+    @Published var month_sales: Int = 0
+    @Published var total_sales: Int = 0
     @Published var profile_image: UIImage? = nil
     @Published var product_images: [UIImage?] = []
     @Published var classes_images: [UIImage?] = []
@@ -208,19 +210,34 @@ class ReadDB : ObservableObject {
                 self.sales = temp_sales
                 
                 let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
+                let oneMonthAgo = Date().addingTimeInterval(-31 * 24 * 60 * 60)
+                
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 
                 if self.sales!.count != 0 {
                     var temp_week_sales = 0
+                    var temp_month_sales = 0
+                    var temp_total_sales = 0
                     for sale in self.sales! {
                         let date = (sale["date"]! as AnyObject).dateValue()
                         // Add comparison here
-                        if date.compare(oneWeekAgo) == .orderedDescending {
+                        if (date.compare(oneWeekAgo) == .orderedDescending) {
                             temp_week_sales += Int(String(describing: sale["price"]!))!
+                            temp_month_sales += Int(String(describing: sale["price"]!))!
+                            temp_total_sales += Int(String(describing: sale["price"]!))!
+                            
+                        } else if (date.compare(oneMonthAgo) == .orderedDescending) {
+                            temp_month_sales += Int(String(describing: sale["price"]!))!
+                            temp_total_sales += Int(String(describing: sale["price"]!))!
+                            
+                        } else {
+                            temp_total_sales += Int(String(describing: sale["price"]!))!
                         }
                     }
                     self.week_sales = temp_week_sales
+                    self.month_sales = temp_month_sales
+                    self.total_sales = temp_total_sales
                 }
 
 //                let pricesWithinLastWeek = self.sales

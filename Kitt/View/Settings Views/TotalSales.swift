@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TotalSales: View {
-    var labels = ["this week", "this month", "all time"]
+    var labels = ["this week", "this month", "all-time"]
     
     var body: some View {
         GeometryReader { geometry in
