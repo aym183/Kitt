@@ -46,6 +46,9 @@ struct CreateProfile: View {
                                            self.bio = String(value.prefix(50))
                                       }
                                   })
+                                .onTapGesture {
+                                    isEditingTextField = true
+                                }
                             
                             if bio.count > 0 {
                                 HStack {

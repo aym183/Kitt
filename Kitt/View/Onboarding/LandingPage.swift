@@ -17,13 +17,13 @@ struct LandingPage: View {
     var body: some View {
         NavigationStack {
             ZStack {
-//                VStack {
-//                    if Auth.auth().currentUser != nil {
-//                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
-//                    } else {
+                VStack {
+                    if Auth.auth().currentUser != nil {
+                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
+                    } else {
                         LandingContent()
-//                    }
-//                }
+                    }
+                }
             }
         }
     }
@@ -72,8 +72,7 @@ struct LandingContent: View {
                                   return
                               }
 
-                              let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                                             accessToken: user.accessToken.tokenString)
+                              let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
                                 
                             Task {
                                   do {
@@ -132,21 +131,21 @@ struct LandingContent: View {
                             CreateLink(homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: (Auth.auth().currentUser?.email)!, createLinkSheet: $createLinkSheet).presentationDetents([.height(500)])
                         }
                         
-                        Button(action: { loginSheet.toggle() }) {
-                            HStack {
-                                Image(systemName: "arrow.right").foregroundColor(.white)
-                                Text("Login")
-                            }
-                            .font(Font.system(size: 20))
-                            .fontWeight(.medium)
-                            .frame(width: 300, height: 55)
-                            .background(Color.black).foregroundColor(Color.white)
-                            .cornerRadius(50)
-                        }
-                        .padding(.horizontal, 50).padding(.bottom)
-                        .sheet(isPresented: $loginSheet) {
-                            LoginForm(loginSheet: $loginSheet).presentationDetents([.height(400)])
-                        }
+//                        Button(action: { loginSheet.toggle() }) {
+//                            HStack {
+//                                Image(systemName: "arrow.right").foregroundColor(.white)
+//                                Text("Login")
+//                            }
+//                            .font(Font.system(size: 20))
+//                            .fontWeight(.medium)
+//                            .frame(width: 300, height: 55)
+//                            .background(Color.black).foregroundColor(Color.white)
+//                            .cornerRadius(50)
+//                        }
+//                        .padding(.horizontal, 50).padding(.bottom)
+//                        .sheet(isPresented: $loginSheet) {
+//                            LoginForm(loginSheet: $loginSheet, homePageShown: $homePageShown).presentationDetents([.height(400)])
+//                        }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .foregroundColor(.black)

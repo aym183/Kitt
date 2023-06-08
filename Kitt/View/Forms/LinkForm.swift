@@ -49,7 +49,7 @@ struct LinkForm: View {
                                         }
                                     }
                                 }) {
-                                    Image(systemName: "trash").font(.system(size: 25)).background(Circle().fill(.gray).frame(width: 45, height: 45).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing, 25).padding(.vertical)
+                                    Image(systemName: "trash").font(.system(size: 20)).background(Circle().fill(.gray).frame(width: 35, height: 35).opacity(0.3)).foregroundColor(.black).fontWeight(.bold).padding(.trailing, 25).padding(.vertical)
                                 }
 
                             } else {
@@ -112,6 +112,9 @@ struct LinkForm: View {
                         
                         
                         TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                            .onTapGesture {
+                                isEditingTextField = true
+                            }
 //                            .onChange(of: linkURL) { newValue in
 //                                validateURL()
 //                            }

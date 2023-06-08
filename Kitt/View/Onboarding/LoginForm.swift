@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginForm: View {
     @Binding var loginSheet: Bool
+    @Binding var homePageShown: Bool
     @State var email = ""
     @State var password = ""
     @State var isEmailValid: Bool = true
@@ -16,7 +17,7 @@ struct LoginForm: View {
     @State var alertShown = false
     @State private var isEditingTextField = false
     var areAllFieldsEmpty: Bool {
-        return (email.isEmpty || password.isEmpty) || (isEmailValid)
+        return (email.isEmpty || password.isEmpty) && isEmailValid
     }
     
     var body: some View {
@@ -51,6 +52,9 @@ struct LoginForm: View {
                         }
                         
                         SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                            .onTapGesture {
+                                isEditingTextField = true
+                            }
                         
                         Text("By continuing you agree to our Terms of Service.\nKitt services are subject to our Privacy Policy.")
                             .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5)
@@ -59,17 +63,18 @@ struct LoginForm: View {
                         
                         
                         Button(action: {
-//                            DispatchQueue.global(qos: .userInteractive).async {
-//                                AuthViewModel().signUp(email: email, password: password) { response in
-//                                    if response == "Successful" {
-//                                        showProfileCreation.toggle()
-//                                    } else {
-//                                        alertText = response!
-//                                        alertShown.toggle()
-////                                        print("Incorrect email/unmatched passwords")
-//                                    }
-//                                }
-//                            }
+                            DispatchQueue.global(qos: .userInteractive).async {
+                                AuthViewModel().signIn(email: email, password: password) { response in
+                                    if response == "Successful" {
+                                        loginSheet.toggle()
+                                        homePageShown.toggle()
+                                    } else {
+                                        alertText = response!
+                                        alertShown.toggle()
+//                                        print("Incorrect email/unmatched passwords")
+                                    }
+                                }
+                            }
                             
                         }) {
                             HStack {

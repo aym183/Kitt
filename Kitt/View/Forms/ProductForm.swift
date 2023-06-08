@@ -69,7 +69,7 @@ struct ProductForm: View {
                                             }
                                         }
                                     }) {
-                                        Image(systemName: "trash").font(.system(size: 25)).background(Circle().fill(.gray).frame(width: 45, height: 45).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing, 25).padding(.vertical)
+                                        Image(systemName: "trash").font(.system(size: 20)).background(Circle().fill(.gray).frame(width: 35, height: 35).opacity(0.3)).foregroundColor(.black).fontWeight(.bold).padding(.trailing, 25).padding(.vertical)
 
 //                                        Image(systemName: "trash").background(Circle().fill(.gray).frame(width: 40, height: 40).opacity(0.3)).foregroundColor(.red).fontWeight(.bold).padding(.trailing, 30).padding(.vertical)
                                     }
@@ -186,6 +186,9 @@ struct ProductForm: View {
                                     .disableAutocorrection(true)
                                     .autocapitalization(.none)
                                     .font(Font.custom("Avenir-Medium", size: 16))
+                                    .onTapGesture {
+                                        isEditingTextField = true
+                                    }
                                 
                                 if productDesc.count == 0 {
                                     Text("Product Description")
@@ -206,8 +209,15 @@ struct ProductForm: View {
                             
                             if ifEdit {
                                 TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16)).keyboardType(.decimalPad)
+                                    .onTapGesture {
+                                        isEditingTextField = true
+                                    }
                             } else {
                                 TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16)).keyboardType(.decimalPad).padding(.top, -5)
+                                
+                                    .onTapGesture {
+                                        isEditingTextField = true
+                                    }
                             }
                             
 //                            if !ifEdit {

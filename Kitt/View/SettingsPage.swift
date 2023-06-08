@@ -62,7 +62,7 @@ struct SettingsPage: View {
                                         .fill(Color("TextField"))
                                         .frame(height: 60)
                                     HStack {
-                                        Text("Total Sales").font(Font.custom("Avenir-Medium", size: 18))
+                                        Text("Sales").font(Font.custom("Avenir-Medium", size: 18))
                                         Spacer()
                                         Image(systemName: "arrow.right")
                                     }
