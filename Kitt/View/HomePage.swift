@@ -509,8 +509,8 @@ struct HomePage: View {
                         DispatchQueue.global(qos: .userInteractive).async {
                             readData.getLinks()
                             readData.getProducts()
-//                            readData.getClasses()
                             readData.getSales()
+//                            readData.getClasses()
                             readData.loadProfileImage() { response in
                                 if response != nil {
                                     profile_image = response!

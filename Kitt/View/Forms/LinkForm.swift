@@ -21,6 +21,7 @@ struct LinkForm: View {
     @ObservedObject var readData: ReadDB
     @State var isURLValid: Bool = true
     @State var isShowingHint = false
+    @State private var isEditingTextField = false
     var areAllFieldsEmpty: Bool {
         return linkName.isEmpty || linkURL.isEmpty
     }
@@ -84,6 +85,9 @@ struct LinkForm: View {
                                            self.linkName = String(value.prefix(35))
                                       }
                                   })
+                                .onTapGesture {
+                                    isEditingTextField = true
+                                }
                             
                             if linkName.count > 0 {
                                 HStack {
@@ -127,12 +131,12 @@ struct LinkForm: View {
                                 DispatchQueue.global(qos: .userInteractive).async {
                                     UpdateDB().updateCreatedLink(old_url: oldURL, new_url: linkURL, old_name: oldName, new_name: linkName) { response in
                                         if response == "Successful" {
-                                            readData.getLinks()
+                                            linkDeleted.toggle()
+//                                            readData.getLinks()
                                         }
                                     }
                                 }
-                                linkDeleted.toggle()
-                                linkEditShown.toggle()
+//                                linkEditShown.toggle()/
                             } else {
                                 DispatchQueue.global(qos: .userInteractive).async {
                                     if links_number != 0 {
@@ -164,6 +168,15 @@ struct LinkForm: View {
                         HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                     }
                     
+                }
+                .onTapGesture {
+                    isEditingTextField = false
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                .onAppear {
+                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+                        isEditingTextField = false
+                    }
                 }
         }
         }

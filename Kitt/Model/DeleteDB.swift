@@ -68,7 +68,6 @@ class DeleteDB : ObservableObject {
                                 print("Error deleting product: \(error.localizedDescription)")
                             } else {
                                 completion("Deleted")
-                                UserDefaults.standard.removeObject(forKey: image)
                             }
                         }
                     }

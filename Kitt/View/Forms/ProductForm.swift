@@ -35,6 +35,7 @@ struct ProductForm: View {
     @State var productIndex: Int?
     @ObservedObject var readData: ReadDB
     @State var selectedPDF: URL?
+    @State private var isEditingTextField = false
     
     var areAllFieldsEmpty: Bool {
         if ifEdit {
@@ -145,11 +146,14 @@ struct ProductForm: View {
                             
                             ZStack {
                                 TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
-                                        .onChange(of: self.productName, perform: { value in
+                                    .onChange(of: self.productName, perform: { value in
                                                if value.count > 55 {
                                                    self.productName = String(value.prefix(55))
                                                }
-                                          })
+                                    })
+                                    .onTapGesture {
+                                        isEditingTextField = true
+                                    }
                                 
                                 if productName.count > 0 {
                                     HStack {
@@ -310,6 +314,15 @@ struct ProductForm: View {
                     }
                     .padding(.top, -5)
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                    }
+                    .onTapGesture {
+                        isEditingTextField = false
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                    .onAppear {
+                        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+                            isEditingTextField = false
+                        }
                     }
                     .onAppear {
                         if !ifEdit {

@@ -14,6 +14,7 @@ struct SocialMediaInput: View {
     @AppStorage("facebook") var fbUsername: String = ""
     @AppStorage("youtube") var ytChannel: String = ""
     @AppStorage("website") var webAddress: String = ""
+    @State private var isEditingTextField = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -32,6 +33,9 @@ struct SocialMediaInput: View {
                                 Image("Instagram").frame(width: 50, height: 60).background(Color("TextField")).cornerRadius(10).padding(.trailing, -10)
 
                                 TextField("", text: $igUsername, prompt: Text("Instagram username").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-120, height: 65).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16)).padding(.leading, -10)
+                                    .onTapGesture {
+                                        isEditingTextField = true
+                                    }
                             }
                             .frame(width: geometry.size.width-70, height: 60).background(Color("TextField")).cornerRadius(10).padding(.top, 10)
                             HStack {
@@ -91,6 +95,15 @@ struct SocialMediaInput: View {
                         }
 //                    }
                     
+                }
+                .onTapGesture {
+                    isEditingTextField = false
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                .onAppear {
+                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+                        isEditingTextField = false
+                    }
                 }
         }
         }

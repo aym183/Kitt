@@ -11,6 +11,7 @@ struct ChangeName: View {
     @State var name = ""
     @State var profileNameChanged = false
     @AppStorage("full_name") var fullName: String = ""
+    @State private var isEditingTextField = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -24,6 +25,9 @@ struct ChangeName: View {
                             }    
                         
                         TextField("", text: $name, prompt: Text("Full Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                            .onTapGesture {
+                                isEditingTextField = true
+                            }
                         
                         Spacer()
                         
@@ -42,6 +46,15 @@ struct ChangeName: View {
                         
                         }
                         .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                        }
+                        .onTapGesture {
+                            isEditingTextField = false
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        }
+                        .onAppear {
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+                                isEditingTextField = false
+                            }
                         }
                         .foregroundColor(.black)
                         .navigationDestination(isPresented: $profileNameChanged) {

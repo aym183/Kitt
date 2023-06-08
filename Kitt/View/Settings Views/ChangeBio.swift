@@ -11,6 +11,7 @@ struct ChangeBio: View {
     @State var bio = ""
     @State var profileBioChanged = false
     @AppStorage("bio") var bioText: String = ""
+    @State private var isEditingTextField = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -31,6 +32,9 @@ struct ChangeBio: View {
                                            self.bio = String(value.prefix(50))
                                       }
                                   })
+                                .onTapGesture {
+                                    isEditingTextField = true
+                                }
                             
                             if bio.count > 0 {
                                 HStack {
@@ -70,6 +74,15 @@ struct ChangeBio: View {
                         
                         }
                         .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                        }
+                        .onTapGesture {
+                            isEditingTextField = false
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        }
+                        .onAppear {
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+                                isEditingTextField = false
+                            }
                         }
                         .foregroundColor(.black)
                         .navigationDestination(isPresented: $profileBioChanged) {
