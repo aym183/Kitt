@@ -17,13 +17,13 @@ struct LandingPage: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                VStack {
-                    if Auth.auth().currentUser != nil {
-                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
-                    } else {
+//                VStack {
+//                    if Auth.auth().currentUser != nil {
+//                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
+//                    } else {
                         LandingContent()
-                    }
-                }
+//                    }
+//                }
             }
         }
     }
@@ -31,6 +31,7 @@ struct LandingPage: View {
 
 struct LandingContent: View {
     @State var createAccountSheet = false
+    @State var loginSheet = false
     @State var createLinkSheet = false
     @State var homePageShown = false
     var authVM = AuthViewModel()
@@ -123,12 +124,28 @@ struct LandingContent: View {
                             .background(Color.black).foregroundColor(Color.white)
                             .cornerRadius(50)
                         }
-                        .padding(.horizontal, 50).padding(.bottom)
+                        .padding(.horizontal, 50)
                         .sheet(isPresented: $createAccountSheet) {
                             CreateAccountForm(createAccountSheet: $createAccountSheet, homePageShown: $homePageShown, createLinkSheet: $createLinkSheet).presentationDetents([.height(500)])
                         }
                         .sheet(isPresented: $createLinkSheet) {
                             CreateLink(homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: (Auth.auth().currentUser?.email)!, createLinkSheet: $createLinkSheet).presentationDetents([.height(500)])
+                        }
+                        
+                        Button(action: { loginSheet.toggle() }) {
+                            HStack {
+                                Image(systemName: "arrow.right").foregroundColor(.white)
+                                Text("Login")
+                            }
+                            .font(Font.system(size: 20))
+                            .fontWeight(.medium)
+                            .frame(width: 300, height: 55)
+                            .background(Color.black).foregroundColor(Color.white)
+                            .cornerRadius(50)
+                        }
+                        .padding(.horizontal, 50).padding(.bottom)
+                        .sheet(isPresented: $loginSheet) {
+                            LoginForm(loginSheet: $loginSheet).presentationDetents([.height(400)])
                         }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)

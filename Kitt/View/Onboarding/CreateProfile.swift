@@ -16,6 +16,7 @@ struct CreateProfile: View {
     @Binding var createAccountSheet: Bool
     var email: String
     @Binding var createLinkSheet: Bool
+    @State private var isEditingTextField = false
     var areAllFieldsEmpty: Bool {
         return fullName.isEmpty || bio.isEmpty
     }
@@ -34,6 +35,9 @@ struct CreateProfile: View {
                         
                         
                         TextField("", text: $fullName, prompt: Text("Full Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                            .onTapGesture {
+                                isEditingTextField = true
+                            }
                         
                         ZStack {
                             TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
@@ -95,7 +99,15 @@ struct CreateProfile: View {
                         UploadProfileImageForm(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
                     }
                 }
-            
+                .onTapGesture {
+                    isEditingTextField = false
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                .onAppear {
+                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+                        isEditingTextField = false
+                    }
+                }
         }
     }
 

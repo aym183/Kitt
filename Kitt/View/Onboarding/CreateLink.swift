@@ -16,6 +16,7 @@ struct CreateLink: View {
     @State var alertShown = false
     var email: String
     @Binding var createLinkSheet: Bool
+    @State private var isEditingTextField = false
     var areAllFieldsEmpty: Bool {
         return username.isEmpty
     }
@@ -33,6 +34,9 @@ struct CreateLink: View {
                         .frame(width: geometry.size.width-40)
                         
                         TextField("", text: $username, prompt: Text("Username").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                            .onTapGesture {
+                                isEditingTextField = true
+                            }
                         
                         //                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
                         
@@ -72,6 +76,15 @@ struct CreateLink: View {
                     .padding(.top, 30)
                     .navigationDestination(isPresented: $profileDetailsShown) {
                         CreateProfile(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: email, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
+                    }
+                }
+                .onTapGesture {
+                    isEditingTextField = false
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                .onAppear {
+                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+                        isEditingTextField = false
                     }
                 }
                 .SPAlert(
