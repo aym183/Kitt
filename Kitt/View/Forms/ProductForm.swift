@@ -11,6 +11,7 @@ import UniformTypeIdentifiers
 import UIKit
 
 struct ProductForm: View {
+    @Binding var oldIndex: String
     @Binding var oldProductName: String
     @Binding var oldProductDesc: String
     @Binding var oldProductPrice: String
@@ -59,10 +60,11 @@ struct ProductForm: View {
 
                                     Button(action: {
                                         DispatchQueue.global(qos: .userInteractive).async {
-                                            DeleteDB().deleteProduct(image: readData.products![productIndex!]["image"]!) { response in
+                                            DeleteDB().deleteProduct(name: readData.products![productIndex!]["name"]!) { response in
                                                 if response == "Deleted" {
                                                     readData.products?.remove(at: productIndex!)
                                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                        UpdateDB().updateDeleted(products_input: readData.products!)
                                                         productDeleted.toggle()
                                                     }
                                                 }
@@ -277,7 +279,7 @@ struct ProductForm: View {
                                     print("I am here")
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         if let image = self.image, let pdf = selectedPDF {
-                                            UpdateDB().updateCreatedProduct(data: ["oldProductName": oldProductName, "oldProductDesc": oldProductDesc, "oldProductPrice": oldProductPrice, "productName": productName, "productDesc": productDesc, "productPrice": productPrice, "old_file_name": oldFileName, "new_file_name": pdf.lastPathComponent], old_image: oldImage!, new_image: image, new_file: pdf) { response in
+                                            UpdateDB().updateCreatedProduct(data: ["oldProductName": oldProductName, "oldProductDesc": oldProductDesc, "oldProductPrice": oldProductPrice, "productName": productName, "productDesc": productDesc, "productPrice": productPrice, "old_file_name": oldFileName, "new_file_name": pdf.lastPathComponent], old_image: oldImage!, new_image: image, new_file: pdf, index: String(describing: productIndex!)) { response in
                                                 if response == "Successful" {
                                                     productCreated.toggle()
                                                 }
@@ -287,7 +289,7 @@ struct ProductForm: View {
                                 } else if ifEdit && selectedPDF == nil {
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         if let image = self.image {
-                                            UpdateDB().updateCreatedProductWithoutFile(data: ["oldProductName": oldProductName, "oldProductDesc": oldProductDesc, "oldProductPrice": oldProductPrice, "productName": productName, "productDesc": productDesc, "productPrice": productPrice, "old_file_name": oldFileName, "old_file": oldFile], old_image: oldImage!, new_image: image) { response in
+                                            UpdateDB().updateCreatedProductWithoutFile(data: ["oldProductName": oldProductName, "oldProductDesc": oldProductDesc, "oldProductPrice": oldProductPrice, "productName": productName, "productDesc": productDesc, "productPrice": productPrice, "old_file_name": oldFileName, "old_file": oldFile], old_image: oldImage!, new_image: image, index: String(describing: productIndex!)) { response in
                                                 if response == "Successful" {
                                                     productCreated.toggle()
                                                 }
@@ -300,11 +302,11 @@ struct ProductForm: View {
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         if products_number != 0, let pdf = selectedPDF {
                                             if let image = self.image {
-                                                UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf, file_name: selectedPDF!.lastPathComponent)
+                                                UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf, file_name: selectedPDF!.lastPathComponent, index: String(describing: products_number))
                                             }
                                         } else {
                                             if let image = self.image, let pdf = selectedPDF {
-                                                CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf, file_name: selectedPDF!.lastPathComponent)
+                                                CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf, file_name: selectedPDF!.lastPathComponent, index: String(describing: products_number))
                                             }
                                         }
                                         productCreated.toggle()

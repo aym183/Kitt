@@ -24,6 +24,7 @@ struct FormSelection: View {
     @State var oldProductDesc = ""
     @State var oldProductPrice = ""
     @State var oldImage: UIImage?
+    @State var oldIndex = ""
     @State var oldFileName = ""
     @State var oldFile = ""
     @State var file = ""
@@ -93,13 +94,13 @@ struct FormSelection: View {
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $productFormShown) {
 //                        ProductForm(products_number: products_number)
-                        ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, oldFile: $oldFile, oldFileName: $oldFileName, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, file: $file, fileName: $fileName, products_number: products_number, ifEdit: false, readData: readData)
+                        ProductForm(oldIndex: $oldIndex, oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, oldFile: $oldFile, oldFileName: $oldFileName, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, file: $file, fileName: $fileName, products_number: products_number, ifEdit: false, readData: readData)
                     }
 //                    .navigationDestination(isPresented: $classFormShown) {
 //                        ClassForm(oldClassName: $oldClassName, oldClassDesc: $oldClassDesc, oldClassPrice: $oldClassPrice, oldClassDuration: $oldClassDuration, oldClassSeats: $oldClassSeats, oldClassLocation: $oldClassLocation, oldImage: $oldClassImage, className: $className, classDesc: $classDesc, classDuration: $classDuration, classPrice: $classPrice, classSeats: $classSeats, classLocation: $classLocation, image: $classImage, classes_number: classes_number, ifEdit: false, readData: readData)
 //                    }
                     .navigationDestination(isPresented: $linkFormShown) {
-                        LinkForm(oldName: $linkName, oldURL: $linkURL, linkName: $linkName, linkURL: $linkURL, ifEdit: false, links_number:  links_number, linkEditShown: $linkEditShown, readData: readData)
+                        LinkForm(oldName: $linkName, oldURL: $linkURL, oldIndex: $oldIndex, linkName: $linkName, linkURL: $linkURL, ifEdit: false, products_number:  products_number, linkEditShown: $linkEditShown, readData: readData)
                     }
         }
     }

@@ -71,17 +71,17 @@ class CreateDB : ObservableObject {
         }
     }
     
-    func addLink(name: String, url: String) {
-        @AppStorage("links") var links: String = ""
+    func addLink(name: String, url: String, index: String) {
+        @AppStorage("products") var products: String = ""
         
         let db = Firestore.firestore()
-        let ref = db.collection("links")
-        var docID = ref.document(links)
+        let ref = db.collection("products")
+        var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
         
         var documentData = [String: Any]()
         var fieldID = ref.document()
-        documentData[fieldID.documentID] = ["name": name, "url": url, "time_created": presentDateTime]
+        documentData[fieldID.documentID] = ["name": name, "url": url, "time_created": presentDateTime, "index": index]
         
         docID.setData(documentData) { error in
            if let error = error {
@@ -93,7 +93,7 @@ class CreateDB : ObservableObject {
     }
     
     
-    func addProducts(image: UIImage, name: String, description: String, price: String, file: URL, file_name: String) {
+    func addProducts(image: UIImage, name: String, description: String, price: String, file: URL, file_name: String, index: String) {
         @AppStorage("products") var products: String = ""
         
         let imageData = image.jpegData(compressionQuality: 0.8)
@@ -177,7 +177,7 @@ class CreateDB : ObservableObject {
         
         var documentData = [String: Any]()
         var fieldID = ref.document()
-        documentData[fieldID.documentID] = ["name": name, "image": path, "time_created": presentDateTime, "description": description, "price": price, "file": filePath, "file_name": file_name]
+        documentData[fieldID.documentID] = ["name": name, "image": path, "time_created": presentDateTime, "description": description, "price": price, "file": filePath, "file_name": file_name, "index": index]
         
         docID.setData(documentData) { error in
            if let error = error {

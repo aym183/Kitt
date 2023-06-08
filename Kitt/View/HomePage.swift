@@ -21,6 +21,8 @@ struct HomePage: View {
     @AppStorage("full_name") var fullName: String = ""
     @AppStorage("bio") var bioText: String = ""
     @StateObject var readData = ReadDB()
+    @State var oldProductIndex = ""
+    @State var oldLinkIndex = ""
     @State var oldProductName = ""
     @State var oldProductDesc = ""
     @State var oldProductPrice = ""
@@ -195,7 +197,7 @@ struct HomePage: View {
                         
                         HStack {
                             Button(action: {
-                                linksNumber = noOfLinks
+//                                linksNumber = noOfLinks
                                 productsNumber = noOfProducts
                                 classesNumber = noOfClasses
                                 formShown.toggle()
@@ -240,7 +242,106 @@ struct HomePage: View {
                                 .padding(.horizontal)
                                 .multilineTextAlignment(.leading)
                                 
-                                
+                                ForEach(0..<noOfProducts, id: \.self) { index in
+//                                        HStack {
+                                    
+                                    if readData.products![index].count != 4 {
+                                        ZStack {
+                                            
+                                            RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 110)
+                                            
+                                            HStack {
+                                                ZStack {
+                                                    Image(uiImage: readData.loadProductImage(key: readData.products![index]["image"]!)).resizable().scaledToFill()
+                                                }
+                                                .frame(width: 110, height: 110)
+                                                .cornerRadius(10)
+////
+                                                
+                                                VStack(alignment: .leading) {
+                                                    Text("\(readData.products![index]["name"]!)").font(Font.custom("Avenir-Black", size: 15))
+                                                    
+                                                    Spacer()
+                                                    
+                                                    HStack {
+                                                        
+                                                        Text("\(readData.products![index]["price"]!) AED").font(Font.custom("Avenir-Medium", size: 15))
+                                                        
+                                                        Spacer()
+                                                        
+                                                        Button(action: {
+                                                            productIndex = index
+                                                            productName = readData.products![index]["name"]!
+                                                            productDesc = readData.products![index]["description"]!
+                                                            productPrice = "\(readData.products![index]["price"]!)"
+                                                            fileName = readData.products![index]["file_name"]!
+                                                            file = readData.products![index]["file"]!
+                                                            
+                                                            oldFile = readData.products![index]["file"]!
+                                                            oldFileName = readData.products![index]["file_name"]!
+                                                            
+                                                            oldProductName = readData.products![index]["name"]!
+                                                            oldProductDesc = readData.products![index]["description"]!
+                                                            oldProductPrice = "\(readData.products![index]["price"]!)"
+                                                            oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                            image = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                            productEditShown.toggle()
+                                                            
+                                                        }) {
+                                                            Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing, 5).fontWeight(.bold)
+                                                        }
+                                                    }
+                                                    .padding(.trailing, 10)
+                                                }
+                                                .padding(.horizontal, 5)
+                                                .padding(.vertical, 10)
+                                                
+                                            }
+                                            
+                                        }
+                                        .padding(.bottom, 5)
+//                                            .padding(.top,10)
+                                        .padding(.horizontal)
+                                        .multilineTextAlignment(.leading)
+                                        .id(index)
+//                                        .onAppear {
+//                                            linksNumber += 1
+//                                        }
+                                        
+                                    } else {
+                                        
+                                        ZStack {
+                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 70)
+                                            
+                                            HStack {
+                                                Text(readData.products![index]["name"]!).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15)).padding(.leading, 20)
+                                                
+                                                Spacer()
+                                                
+                                                Button(action: {
+                                                    
+                                                    linkIndex = index
+                                                    linkName = readData.products![index]["name"]!
+                                                    linkURL = readData.products![index]["url"]!
+                                                    oldName = readData.products![index]["name"]!
+                                                    oldURL = readData.products![index]["url"]!
+                                                    linkEditShown.toggle()
+                                                
+                                                }) {
+                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
+                                                }
+                                                .padding(.trailing, 5)
+                                                
+                                            }
+                                            .padding(.trailing)
+                                        }
+                                        .padding(.horizontal)
+                                        .multilineTextAlignment(.leading)
+                                        .id(index)
+                                        
+                                    }
+                                        
+                                }
 //                                ForEach(0..<noOfClasses, id: \.self) { index in
 //                                    HStack {
 //                                        ZStack {
@@ -329,102 +430,6 @@ struct HomePage: View {
 //                                }
 //                                .padding(.top, 10)
                                 
-                                    ForEach(0..<noOfProducts, id: \.self) { index in
-//                                        HStack {
-                                        
-                                        if readData.products![index].count == 3 {
-                                            ZStack {
-                                                    RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 70)
-                                                
-                                                HStack {
-                                                    Text(readData.products![index]["name"]!).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15)).padding(.leading, 20)
-                                                    
-                                                    Spacer()
-                                                    
-                                                    Button(action: {
-                                                        linkIndex = index
-                                                        linkName = readData.products![index]["name"]!
-                                                        linkURL = readData.products![index]["url"]!
-                                                        oldName = readData.products![index]["name"]!
-                                                        oldURL = readData.products![index]["url"]!
-                                                        linkEditShown.toggle()
-                                                    
-                                                    }) {
-                                                        Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
-                                                    }
-                                                    .padding(.trailing, 5)
-                                                    
-                                                }
-                                                .padding(.trailing)
-                                            }
-                                            .padding(.horizontal)
-                                            .multilineTextAlignment(.leading)
-                                            .id(index)
-                                            
-                                            
-                                        } else {
-                                            ZStack {
-                                                
-                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 110)
-                                                
-                                                HStack {
-                                                    ZStack {
-                                                        Image(uiImage: readData.loadProductImage(key: readData.products![index]["image"]!)).resizable().scaledToFill()
-                                                    }
-                                                    .frame(width: 110, height: 110)
-                                                    .cornerRadius(10)
-                                                    
-                                                    
-                                                    VStack(alignment: .leading) {
-                                                        Text("\(readData.products![index]["name"]!)").font(Font.custom("Avenir-Black", size: 15))
-                                                        
-                                                        Spacer()
-                                                        
-                                                        HStack {
-                                                            
-                                                            Text("\(readData.products![index]["price"]!) AED").font(Font.custom("Avenir-Medium", size: 15))
-                                                            
-                                                            Spacer()
-                                                            
-                                                            Button(action: {
-                                                                productIndex = index
-                                                                productName = readData.products![index]["name"]!
-                                                                productDesc = readData.products![index]["description"]!
-                                                                productPrice = "\(readData.products![index]["price"]!)"
-                                                                fileName = readData.products![index]["file_name"]!
-                                                                file = readData.products![index]["file"]!
-                                                                
-                                                                oldFile = readData.products![index]["file"]!
-                                                                oldFileName = readData.products![index]["file_name"]!
-                                                                
-                                                                oldProductName = readData.products![index]["name"]!
-                                                                oldProductDesc = readData.products![index]["description"]!
-                                                                oldProductPrice = "\(readData.products![index]["price"]!)"
-                                                                oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
-                                                                image = readData.loadProductImage(key: readData.products![index]["image"]!)
-                                                                productEditShown.toggle()
-                                                                
-                                                            }) {
-                                                                Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing, 5).fontWeight(.bold)
-                                                            }
-                                                        }
-                                                        .padding(.trailing, 10)
-                                                    }
-                                                    .padding(.horizontal, 5)
-                                                    .padding(.vertical, 10)
-                                                    
-                                                }
-                                                
-                                            }
-                                            .padding(.bottom, 5)
-//                                            .padding(.top,10)
-                                            .padding(.horizontal)
-                                            .multilineTextAlignment(.leading)
-                                            .id(index)
-                                        }
-                                            
-                                    }
-                                
                             }
                             .padding(.vertical)
                         }
@@ -443,7 +448,6 @@ struct HomePage: View {
                     .padding(.top, 30)
                     .onAppear {
                         DispatchQueue.global(qos: .userInteractive).async {
-//                            readData.getLinks()
                             readData.getProducts()
                             readData.getSales()
 //                            readData.getClasses()
@@ -469,6 +473,10 @@ struct HomePage: View {
                             }
                         }
                     }
+                    .onChange(of: readData.products) { _ in
+                        print("I have changed")
+                    }
+                    
                     .opacity(isShownHomePage ? 0 : 1)
                     .opacity(isShownProductCreated ? 0 : 1)
                     .opacity(isShownLinkCreated ? 0 : 1)
@@ -476,13 +484,13 @@ struct HomePage: View {
                     .opacity(isChangesMade ? 0 : 1)
                 }
                 .navigationDestination(isPresented: $productEditShown) {
-                    ProductForm(oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, oldFile: $oldFile, oldFileName: $oldFileName, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, file: $file, fileName: $fileName, products_number: productsNumber, ifEdit: true, productIndex: productIndex, readData: readData)
+                    ProductForm(oldIndex: $oldProductIndex, oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, oldFile: $oldFile, oldFileName: $oldFileName, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, file: $file, fileName: $fileName, products_number: productsNumber, ifEdit: true, productIndex: productIndex, readData: readData)
                 }
 //                .navigationDestination(isPresented: $classEditShown) {
 //                    ClassForm(oldClassName: $oldClassName, oldClassDesc: $oldClassDesc, oldClassPrice: $oldClassPrice, oldClassDuration: $oldClassDuration, oldClassSeats: $oldClassSeats, oldClassLocation: $oldClassLocation, oldImage: $oldClassImage, className: $className, classDesc: $classDesc, classDuration: $classDuration, classPrice: $classPrice, classSeats: $classSeats, classLocation: $classLocation, image: $classImage, classes_number: classesNumber, ifEdit: true, classIndex: classIndex, readData: readData)
 //                }
                 .navigationDestination(isPresented: $linkEditShown) {
-                    LinkForm(oldName: $oldName, oldURL: $oldURL, linkName: $linkName, linkURL: $linkURL, ifEdit: true, links_number: linksNumber, linkEditShown: $linkEditShown, linkIndex: linkIndex, readData: readData).presentationDetents([.height(500)])
+                    LinkForm(oldName: $oldName, oldURL: $oldURL, oldIndex: $oldLinkIndex, linkName: $linkName, linkURL: $linkURL, ifEdit: true, products_number: productsNumber, linkEditShown: $linkEditShown, linkIndex: linkIndex, readData: readData).presentationDetents([.height(500)])
                 }
         }
     }

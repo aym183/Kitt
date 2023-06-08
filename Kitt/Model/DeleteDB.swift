@@ -13,12 +13,12 @@ import FirebaseFirestore
 class DeleteDB : ObservableObject {
     
     func deleteLink(name: String, url: String, completion: @escaping (String?) -> Void) {
-        @AppStorage("links") var links: String = ""
+        @AppStorage("products") var products: String = ""
         let db = Firestore.firestore()
-        let ref = db.collection("links")
+        let ref = db.collection("products")
         var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
         
-        ref.whereField(FieldPath.documentID(), isEqualTo: links)
+        ref.whereField(FieldPath.documentID(), isEqualTo: products)
             .getDocuments { (snapshot, error) in
                 if let error = error {
                     print("Error finding product to delete: \(error.localizedDescription)")
@@ -44,7 +44,7 @@ class DeleteDB : ObservableObject {
             }
     }
     
-    func deleteProduct(image: String, completion: @escaping (String?) -> Void) {
+    func deleteProduct(name: String, completion: @escaping (String?) -> Void) {
         @AppStorage("products") var products: String = ""
         let db = Firestore.firestore()
         let ref = db.collection("products")
@@ -57,8 +57,8 @@ class DeleteDB : ObservableObject {
                 } else {
                     for document in snapshot!.documents {
                         for documentData in document.data() {
-                            if let valueDict = documentData.value as? [String: String], let dict_image = valueDict["image"] {
-                                if dict_image != image {
+                            if let valueDict = documentData.value as? [String: String], let dict_name = valueDict["name"] {
+                                if dict_name != name {
                                     temp_entries[documentData.key] = valueDict
                                 }
                             }

@@ -20,9 +20,12 @@ class ReadDB : ObservableObject {
     @Published var week_sales: [String: Int]? = ["total": 0, "sales": 0]
     @Published var month_sales: [String: Int]? = ["total": 0, "sales": 0]
     @Published var total_sales: [String: Int]? = ["total": 0, "sales": 0]
+    @Published var temp_values: [[String: String]]? = []
 //    @Published var sale_dates: [String]? = []
     @Published var sale_dates: [String]? = []
     @Published var profile_image: UIImage? = nil
+    @Published var link_elements_check = false
+    @Published var product_elements_check = false
     @Published var product_images: [UIImage?] = []
     @Published var classes_images: [UIImage?] = []
     
@@ -70,16 +73,23 @@ class ReadDB : ObservableObject {
                         for documentData in document.data().values {
                             if let valueDict = documentData as? [String: String] {
 //                                temp_links.append(valueDict)
-                                self.products!.append(valueDict)
+                                temp_links.append(valueDict)
                             }
                         }
                     }
                 }
                 
-//                self.links = temp_links
+//                self.products! = temp_links
+                    
+                self.links = temp_links
+                self.temp_values = self.products
+                self.products = temp_links
+                self.products!.append(contentsOf: self.temp_values!)
                 if self.products != [] {
                     self.sortProductsArray()
                 }
+//                self.link_elements_check = true
+                
                
             }
     }
@@ -123,6 +133,7 @@ class ReadDB : ObservableObject {
     func loadProductImage(key: String) -> UIImage {
         let imageData = UserDefaults.standard.data(forKey: key)
         let cachedImage = UIImage(data: imageData!)
+         
         return cachedImage!
         
         
@@ -184,10 +195,12 @@ class ReadDB : ObservableObject {
                 
                 // Fix image positioning
                 self.products = temp_products
-//                if self.products != [] {
-//                    self.sortProductsArray()
-//                }
-                self.getLinks()
+//                self.getLinks()
+//                self.product_elements_check = true
+                if self.products != [] {
+                    self.sortProductsArray()
+                }
+//                self.getLinks()
             }
     }
     
@@ -287,16 +300,15 @@ class ReadDB : ObservableObject {
     
     
     func sortProductsArray() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let sortedArray = self.products!.sorted(by: { dict1, dict2 in
-            if let date1 = formatter.date(from: dict1["time_created"]!), let date2 = formatter.date(from: dict2["time_created"]!) {
-                return date1.compare(date2) == .orderedAscending
-            } else {
+        let sortedArray = self.products?.sorted(by: { dict1, dict2 in
+            guard let index1 = Int(dict1["index"]!),
+                  let index2 = Int(dict2["index"]!) else {
                 return false
             }
+            
+            return index1 < index2
         })
+        
         self.products = sortedArray
 //        self.loadProductImage()
     }

@@ -10,11 +10,12 @@ import SwiftUI
 struct LinkForm: View {
     @Binding var oldName: String
     @Binding var oldURL: String
+    @Binding var oldIndex: String
     @Binding var linkName: String
     @Binding var linkURL: String
     @State var linkCreated = false
     @State var ifEdit: Bool
-    var links_number: Int
+    var products_number: Int
     @State var linkDeleted = false
     @Binding var linkEditShown: Bool
     @State var linkIndex: Int?
@@ -39,10 +40,11 @@ struct LinkForm: View {
 
                                 Button(action: {
                                     DispatchQueue.global(qos: .userInteractive).async {
-                                        DeleteDB().deleteLink(name: readData.links![linkIndex!]["name"]!, url: readData.links![linkIndex!]["url"]!) { response in
+                                        DeleteDB().deleteLink(name: readData.products![linkIndex!]["name"]!, url: readData.products![linkIndex!]["url"]!) { response in
                                             if response == "Deleted" {
-                                                readData.links?.remove(at: linkIndex!)
+                                                readData.products?.remove(at: linkIndex!)
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                    UpdateDB().updateDeleted(products_input: readData.products!)
                                                     linkDeleted.toggle()
                                                 }
                                             }
@@ -132,7 +134,7 @@ struct LinkForm: View {
                         Button(action: {
                             if ifEdit {
                                 DispatchQueue.global(qos: .userInteractive).async {
-                                    UpdateDB().updateCreatedLink(old_url: oldURL, new_url: linkURL, old_name: oldName, new_name: linkName) { response in
+                                    UpdateDB().updateCreatedLink(old_url: oldURL, new_url: linkURL, old_name: oldName, new_name: linkName, index: String(describing: linkIndex!)) { response in
                                         if response == "Successful" {
                                             linkDeleted.toggle()
 //                                            readData.getLinks()
@@ -142,10 +144,10 @@ struct LinkForm: View {
 //                                linkEditShown.toggle()/
                             } else {
                                 DispatchQueue.global(qos: .userInteractive).async {
-                                    if links_number != 0 {
-                                        UpdateDB().updateLinks(name: linkName, url: linkURL)
+                                    if products_number != 0 {
+                                        UpdateDB().updateLinks(name: linkName, url: linkURL, index: String(describing: products_number))
                                     } else {
-                                        CreateDB().addLink(name: linkName, url: linkURL)
+                                        CreateDB().addLink(name: linkName, url: linkURL, index: String(describing: products_number))
                                     }
                                 }
                                 linkCreated.toggle()

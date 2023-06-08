@@ -103,17 +103,17 @@ class UpdateDB : ObservableObject {
         }
     }
     
-    func updateLinks(name: String, url: String) {
-        @AppStorage("links") var links: String = ""
+    func updateLinks(name: String, url: String, index: String) {
+        @AppStorage("products") var products: String = ""
         
         let db = Firestore.firestore()
-        let ref = db.collection("links")
-        var docID = ref.document(links)
+        let ref = db.collection("products")
+        var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
         
         var documentData = [String: Any]()
         var fieldID = ref.document()
-        documentData[fieldID.documentID] = ["name": name, "url": url, "time_created": presentDateTime]
+        documentData[fieldID.documentID] = ["name": name, "url": url, "time_created": presentDateTime, "index": index]
         
         docID.updateData(documentData) { error in
         if let error = error {
@@ -124,13 +124,13 @@ class UpdateDB : ObservableObject {
         }
     }
     
-    func updateCreatedLink(old_url: String, new_url: String, old_name: String, new_name: String, completion: @escaping (String?) -> Void) {
-        @AppStorage("links") var links: String = ""
+    func updateCreatedLink(old_url: String, new_url: String, old_name: String, new_name: String, index: String, completion: @escaping (String?) -> Void) {
+        @AppStorage("products") var products: String = ""
         let db = Firestore.firestore()
-        let ref = db.collection("links")
+        let ref = db.collection("products")
         var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
         
-        ref.whereField(FieldPath.documentID(), isEqualTo: links)
+        ref.whereField(FieldPath.documentID(), isEqualTo: products)
             .getDocuments { (snapshot, error) in
                 if let error = error {
                     print("Error finding link to update: \(error.localizedDescription)")
@@ -139,7 +139,7 @@ class UpdateDB : ObservableObject {
                         for documentData in document.data() {
                             if let valueDict = documentData.value as? [String: String] {
                                 if valueDict["name"] == old_name && valueDict["url"] == old_url {
-                                    temp_entries[documentData.key] = ["name": new_name, "url": new_url, "time_created": TimeData().getPresentDateTime()]
+                                    temp_entries[documentData.key] = ["name": new_name, "url": new_url, "time_created": TimeData().getPresentDateTime(), "index": index]
                                 } else {
                                     temp_entries[documentData.key] = valueDict
                                 }
@@ -158,7 +158,7 @@ class UpdateDB : ObservableObject {
             }
     }
     
-    func updateCreatedProduct(data: [String: Any], old_image: UIImage, new_image: UIImage, new_file: URL, completion: @escaping (String?) -> Void) {
+    func updateCreatedProduct(data: [String: Any], old_image: UIImage, new_image: UIImage, new_file: URL, index: String, completion: @escaping (String?) -> Void) {
         @AppStorage("products") var products: String = ""
         let db = Firestore.firestore()
         let ref = db.collection("products")
@@ -187,7 +187,7 @@ class UpdateDB : ObservableObject {
 
                                 if valueDict["name"] == String(describing: data["oldProductName"]!) && valueDict["price"] == String(describing: data["oldProductPrice"]!) && valueDict["description"] == String(describing: data["oldProductDesc"]!) {
                                     
-                                        temp_entries[documentData.key] = ["name": String(describing: data["productName"]!), "description": String(describing: data["productDesc"]!), "time_created": TimeData().getPresentDateTime(), "price": String(describing: data["productPrice"]!), "image": path, "file": filePath, "file_name": String(describing: data["new_file_name"]!)]
+                                    temp_entries[documentData.key] = ["name": String(describing: data["productName"]!), "description": String(describing: data["productDesc"]!), "time_created": TimeData().getPresentDateTime(), "price": String(describing: data["productPrice"]!), "image": path, "file": filePath, "file_name": String(describing: data["new_file_name"]!), "index": index]
 
                                         DispatchQueue.global(qos: .background).async {
                                             let storage = Storage.storage().reference()
@@ -250,7 +250,7 @@ class UpdateDB : ObservableObject {
             }
     }
    
-    func updateCreatedProductWithoutFile(data: [String: Any], old_image: UIImage, new_image: UIImage, completion: @escaping (String?) -> Void) {
+    func updateCreatedProductWithoutFile(data: [String: Any], old_image: UIImage, new_image: UIImage, index: String, completion: @escaping (String?) -> Void) {
         @AppStorage("products") var products: String = ""
         let db = Firestore.firestore()
         let ref = db.collection("products")
@@ -279,7 +279,7 @@ class UpdateDB : ObservableObject {
 
                                 if valueDict["name"] == String(describing: data["oldProductName"]!) && valueDict["price"] == String(describing: data["oldProductPrice"]!) && valueDict["description"] == String(describing: data["oldProductDesc"]!) {
                                     
-                                    temp_entries[documentData.key] = ["name": String(describing: data["productName"]!), "description": String(describing: data["productDesc"]!), "time_created": TimeData().getPresentDateTime(), "price": String(describing: data["productPrice"]!), "image": path, "file_name": String(describing: data["old_file_name"]!), "file": String(describing: data["old_file"]!)]
+                                    temp_entries[documentData.key] = ["name": String(describing: data["productName"]!), "description": String(describing: data["productDesc"]!), "time_created": TimeData().getPresentDateTime(), "price": String(describing: data["productPrice"]!), "image": path, "file_name": String(describing: data["old_file_name"]!), "file": String(describing: data["old_file"]!), "index": index]
                                     
 
                                         DispatchQueue.global(qos: .background).async {
@@ -391,7 +391,7 @@ class UpdateDB : ObservableObject {
             }
     }
     
-    func updateProducts(image: UIImage, name: String, description: String, price: String, file: URL, file_name: String) {
+    func updateProducts(image: UIImage, name: String, description: String, price: String, file: URL, file_name: String, index: String) {
         @AppStorage("products") var products: String = ""
         
         let imageData = image.jpegData(compressionQuality: 0.8)
@@ -453,7 +453,7 @@ class UpdateDB : ObservableObject {
         
         var documentData = [String: Any]()
         var fieldID = ref.document()
-        documentData[fieldID.documentID] = ["image": path, "name": name, "time_created": presentDateTime, "description": description, "price": price, "file": filePath, "file_name": file_name]
+        documentData[fieldID.documentID] = ["image": path, "name": name, "time_created": presentDateTime, "description": description, "price": price, "file": filePath, "file_name": file_name, "index": index]
         
         docID.updateData(documentData) { error in
         if let error = error {
@@ -461,6 +461,36 @@ class UpdateDB : ObservableObject {
         } else {
             print("Product Updated!")
         }
+        }
+        
+    }
+    
+    func updateDeleted(products_input: [[String: String]]) {
+        var products_list: [[String: String]] = []
+        @AppStorage("products") var products: String = ""
+
+        let db = Firestore.firestore()
+        let ref = db.collection("products")
+        var docID = ref.document(products)
+        var presentDateTime = TimeData().getPresentDateTime()
+
+        var documentData = [String: Any]()
+
+        for index in 0..<products_input.count {
+            let fieldID = ref.document() // Generate a new random ID for each element
+            var product = products_input[index]
+            product["index"] = String(index)
+            products_list.append(product)
+
+            documentData[fieldID.documentID] = product
+        }
+
+        docID.setData(documentData) { error in
+            if let error = error {
+                print("Error adding link: \(error.localizedDescription)")
+            } else {
+                print("Link added successfully!")
+            }
         }
         
     }
