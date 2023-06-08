@@ -331,6 +331,38 @@ struct HomePage: View {
                                 
                                     ForEach(0..<noOfProducts, id: \.self) { index in
 //                                        HStack {
+                                        
+                                        if readData.products![index].count == 3 {
+                                            ZStack {
+                                                    RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 70)
+                                                
+                                                HStack {
+                                                    Text(readData.products![index]["name"]!).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15)).padding(.leading, 20)
+                                                    
+                                                    Spacer()
+                                                    
+                                                    Button(action: {
+                                                        linkIndex = index
+                                                        linkName = readData.products![index]["name"]!
+                                                        linkURL = readData.products![index]["url"]!
+                                                        oldName = readData.products![index]["name"]!
+                                                        oldURL = readData.products![index]["url"]!
+                                                        linkEditShown.toggle()
+                                                    
+                                                    }) {
+                                                        Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
+                                                    }
+                                                    .padding(.trailing, 5)
+                                                    
+                                                }
+                                                .padding(.trailing)
+                                            }
+                                            .padding(.horizontal)
+                                            .multilineTextAlignment(.leading)
+                                            .id(index)
+                                            
+                                            
+                                        } else {
                                             ZStack {
                                                 
                                                 RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 110)
@@ -377,14 +409,6 @@ struct HomePage: View {
                                                             }
                                                         }
                                                         .padding(.trailing, 10)
-//                                                        .padding(.leading, 10)
-//                                                        HStack {
-//                                                            VStack(alignment: .leading) {
-//
-//                                                            }
-//                                                            .padding(.leading, 15).padding(.bottom, 10)
-//                                                            Spacer()
-//                                                        }
                                                     }
                                                     .padding(.horizontal, 5)
                                                     .padding(.vertical, 10)
@@ -397,98 +421,10 @@ struct HomePage: View {
                                             .padding(.horizontal)
                                             .multilineTextAlignment(.leading)
                                             .id(index)
-                                            
-//                                        }
-//                                        .id(index)
-                                    }
-//                                    .padding(.top, 10)
-                                    
-//                                }
-                                
-                                
-                                ForEach(0..<noOfLinks, id: \.self) { index in
-//                                    HStack {
-                                        ZStack {
-                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 70)
-                                            
-                                            HStack {
-                                                Text(readData.links![index]["name"]!).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15)).padding(.leading, 20)
-                                                
-                                                Spacer()
-                                                
-                                                Button(action: {
-                                                    linkIndex = index
-                                                    linkName = readData.links![index]["name"]!
-                                                    linkURL = readData.links![index]["url"]!
-                                                    oldName = readData.links![index]["name"]!
-                                                    oldURL = readData.links![index]["url"]!
-                                                    linkEditShown.toggle()
-                                                
-                                                }) {
-                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
-                                                }
-                                                .padding(.trailing, 5)
-                                                
-//                                                Button(action: {
-//                                                    linkIndex = index
-//                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                                                        DeleteDB().deleteLink(name: readData.links![index]["name"]!, url: readData.links![index]["url"]!)
-//                                                        readData.links?.remove(at: linkIndex as Int)
-//                                                    }
-//                                                }) {
-//                                                    Image(systemName: "trash").background(
-//                                                        Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).foregroundColor(.red).fontWeight(.bold)
-//                                                }
-                                            }
-                                            .padding(.trailing)
                                         }
-                                        .padding(.horizontal)
-                                        .multilineTextAlignment(.leading)
-                                        
-//                                        HStack(spacing: 25) {
-//                                            Button(action: {
-//                                                linkName = readData.links![index]["name"]!
-//                                                linkURL = readData.links![index]["url"]!
-//                                                oldName = readData.links![index]["name"]!
-//                                                oldURL = readData.links![index]["url"]!
-//                                                linkEditShown.toggle()
-//
-//                                            }) {
-//                                                Image(systemName: "pencil").background(
-//                                                    Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
-//                                                )
-//                                            }
-//
-//                                            Button(action: {
-//                                                linkIndex = index
-//                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                                                    DeleteDB().deleteLink(name: readData.links![index]["name"]!, url: readData.links![index]["url"]!)
-//                                                        readData.links?.remove(at: linkIndex as Int)
-//                                                }
-//                                            }) {
-//                                                Image(systemName: "trash").background(
-//                                                    Circle().fill(.gray).frame(width: 28, height: 28).opacity(0.2)
-//                                                ).foregroundColor(.red)
-//                                            }
-//                                        }
-//                                        .font(Font.system(size: 13))
-//                                        .padding(.top, 5).padding(.trailing)
-//                                        .fontWeight(.bold)
-//                                    }
-                                    .id(index)
-                                }
-//                                .padding(.top,5)
+                                            
+                                    }
                                 
-//                                HStack {
-//                                    Spacer()
-//                                    Text("Made with")
-//                                        .font(.footnote).fontWeight(.semibold)
-//                                        .padding(.top).padding(.horizontal, 5)
-//                                        .opacity(0.7)
-//                                    Image("LaunchSets").resizable().frame(width: 50, height: 40).cornerRadius(10).padding(.top, 10).padding(.leading, -8)
-//                                    Spacer()
-//                                }
-//                                .padding(.top)
                             }
                             .padding(.vertical)
                         }
@@ -507,7 +443,7 @@ struct HomePage: View {
                     .padding(.top, 30)
                     .onAppear {
                         DispatchQueue.global(qos: .userInteractive).async {
-                            readData.getLinks()
+//                            readData.getLinks()
                             readData.getProducts()
                             readData.getSales()
 //                            readData.getClasses()

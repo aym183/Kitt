@@ -26,7 +26,8 @@ struct TotalSales: View {
                         Text("Sales").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical)
                         Spacer()
                     }
-                    .padding(.leading, 15).padding(.bottom, -5).padding(.top, -5)
+                    .frame(width: geometry.size.width-40)
+                    .padding(.leading, 10).padding(.bottom, -5).padding(.top, -5)
                     
                     TabView {
                         ForEach(0..<labels.count, id: \.self) { index in
@@ -52,7 +53,7 @@ struct TotalSales: View {
                                     }
                                 }
                             }
-                            .frame(width: geometry.size.width-70, height: 130)
+                            .frame(width: geometry.size.width-50, height: 130)
                             .id(index)
                         }
                     }
@@ -68,7 +69,8 @@ struct TotalSales: View {
                         Text("Orders").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical)
                         Spacer()
                     }
-                    .padding(.leading, 15).padding(.bottom, -5).padding(.top, -20)
+                    .frame(width: geometry.size.width-40)
+                    .padding(.leading, 10).padding(.bottom, -5).padding(.top, -20)
                     
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(alignment: .leading) {
@@ -79,6 +81,7 @@ struct TotalSales: View {
                                         Spacer()
                                     }
                                     .id(index)
+                                    .padding(.horizontal, 15)
                                     
                                     ForEach(0..<noOfSales, id: \.self) { sale_index in
                                         if index == String(describing: readData.sales![sale_index]["date"]!) {
@@ -112,8 +115,8 @@ struct TotalSales: View {
                                                 }
                                                 .padding(.leading, -25)
                                             }
-                                            .frame(width: geometry.size.width-70, height: 50)
-                                            .padding(.bottom, 5)
+                                            .frame(width: geometry.size.width-50, height: 50)
+                                            .padding(.bottom, 5).padding(.horizontal, 15)
                                             .id(sale_index)
                                         }
                                         
@@ -125,10 +128,12 @@ struct TotalSales: View {
                             }
                         }
 //                        .padding(.leading, 15)
-                        .padding(.horizontal, 15)
                         
                     }
                     .padding(.top, -15)
+                    .refreshable {
+                        readData.getSales()
+                    }
                 }
                 .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                 .foregroundColor(.black)

@@ -69,15 +69,18 @@ class ReadDB : ObservableObject {
                     for document in snapshot!.documents {
                         for documentData in document.data().values {
                             if let valueDict = documentData as? [String: String] {
-                                temp_links.append(valueDict)
+//                                temp_links.append(valueDict)
+                                self.products!.append(valueDict)
                             }
                         }
                     }
                 }
-                self.links = temp_links
-                if self.links != [] {
-                    self.sortLinksArray()
+                
+//                self.links = temp_links
+                if self.products != [] {
+                    self.sortProductsArray()
                 }
+               
             }
     }
     
@@ -181,9 +184,10 @@ class ReadDB : ObservableObject {
                 
                 // Fix image positioning
                 self.products = temp_products
-                if self.products != [] {
-                    self.sortProductsArray()
-                }
+//                if self.products != [] {
+//                    self.sortProductsArray()
+//                }
+                self.getLinks()
             }
     }
     
