@@ -147,7 +147,7 @@ struct ProductForm: View {
                             }
                             
                             ZStack {
-                                TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                                TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).font(Font.custom("Avenir-Medium", size: 16))
                                     .onChange(of: self.productName, perform: { value in
                                                if value.count > 55 {
                                                    self.productName = String(value.prefix(55))
@@ -186,7 +186,6 @@ struct ProductForm: View {
                                     .background(Color("TextField"))
                                     .cornerRadius(10)
                                     .disableAutocorrection(true)
-                                    .autocapitalization(.none)
                                     .font(Font.custom("Avenir-Medium", size: 16))
                                     .onTapGesture {
                                         isEditingTextField = true
@@ -210,12 +209,12 @@ struct ProductForm: View {
 //                                    .focused($productDesc, equals: true)
                             
                             if ifEdit {
-                                TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16)).keyboardType(.decimalPad)
+                                TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).font(Font.custom("Avenir-Medium", size: 16)).keyboardType(.decimalPad)
                                     .onTapGesture {
                                         isEditingTextField = true
                                     }
                             } else {
-                                TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16)).keyboardType(.decimalPad).padding(.top, -5)
+                                TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).font(Font.custom("Avenir-Medium", size: 16)).keyboardType(.decimalPad).padding(.top, -5)
                                 
                                     .onTapGesture {
                                         isEditingTextField = true

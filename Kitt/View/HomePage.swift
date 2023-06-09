@@ -216,7 +216,7 @@ struct HomePage: View {
                         
                         Spacer()
                         
-                        if readData.links == nil && readData.products == nil{
+                        if readData.products == nil {
                             Text("No products or links added yet.").fontWeight(.semibold)
                             Spacer()
                         } else {
@@ -246,6 +246,7 @@ struct HomePage: View {
                                     .multilineTextAlignment(.leading)
                                     .background(.white)
                                     .listRowBackground(Color.white)
+                                    .listRowSeparator(.hidden)
                                     
                                     ForEach(0..<noOfProducts, id: \.self) { index in
                                         //                                        HStack {
@@ -355,10 +356,12 @@ struct HomePage: View {
                                     .onMove(perform: move)
                                     .listRowSeparator(.hidden)
                                     .padding(.vertical, -5)
+                                    
                                 }
                                 .listStyle(.plain)
                                 .scrollContentBackground(.hidden)
                                 .padding(.vertical)
+                                
 //                                ForEach(0..<noOfClasses, id: \.self) { index in
 //                                    HStack {
 //                                        ZStack {

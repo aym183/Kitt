@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 
 struct SettingsPage: View {
-    var labels = ["Change profile picture", "Change name", "Change bio", "Help", "Refer a friend"]
+    var labels = ["Change profile picture", "Change name", "Change bio", "Help", "Refer a friend", "Sign Out"]
     @ObservedObject var readData: ReadDB
     var profile_image: UIImage?
     var name: String
@@ -72,7 +72,7 @@ struct SettingsPage: View {
                                 .frame(width: geometry.size.width-50)
                             }
                             
-                            ForEach(0..<5) { index in
+                            ForEach(0..<6) { index in
                                 Button(action: {
                                     if index == 0 {
                                         profileImageChange.toggle()
@@ -84,10 +84,12 @@ struct SettingsPage: View {
                                         if let whatsappURL = URL(string: "https://wa.me/\(phoneNumber)") {
                                             UIApplication.shared.open(whatsappURL)
                                         }
-                                    } else {
+                                    } else if index == 4 {
                                         let message = "Hey! Check out Kitt to start selling products and services from your Instagram link in bio.\n"
                                         let activityViewController = UIActivityViewController(activityItems: [message, linkURL], applicationActivities: nil)
                                         UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
+                                    } else {
+                                        print("Sign Out")
                                     }
                                 }) {
                                     ZStack {
