@@ -220,128 +220,145 @@ struct HomePage: View {
                             Text("No products or links added yet.").fontWeight(.semibold)
                             Spacer()
                         } else {
-                            ScrollView(showsIndicators: false) {
+//                            ScrollView(showsIndicators: false) {
 //                                if readData.product_images != [] {
+                            
                                 
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 70)
+                                List {
                                     
-                                    HStack {
-                                        Text("😎").padding(.leading, 20)
-                                        Text("Your Social Links").foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15))
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 70)
                                         
-                                        Spacer()
-                                        
-                                        Button(action: { socialsEditShown.toggle() }) {
-                                            Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
-                                                .padding(.trailing, 5)
+                                        HStack {
+                                            Text("😎").padding(.leading, 20)
+                                            Text("Your Social Links").foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15))
+                                            
+                                            Spacer()
+                                            
+                                            Button(action: { socialsEditShown.toggle() }) {
+                                                Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
+                                                    .padding(.trailing, 5)
+                                            }
                                         }
+                                        .padding(.trailing)
                                     }
-                                    .padding(.trailing)
-                                }
-                                .padding(.horizontal)
-                                .multilineTextAlignment(.leading)
-                                
-                                ForEach(0..<noOfProducts, id: \.self) { index in
-//                                        HStack {
+                                    .padding(.horizontal)
+                                    .multilineTextAlignment(.leading)
+                                    .background(.white)
+                                    .listRowBackground(Color.white)
                                     
-                                    if readData.products![index].count != 4 {
-                                        ZStack {
-                                            
-                                            RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 110)
-                                            
-                                            HStack {
-                                                ZStack {
-                                                    Image(uiImage: readData.loadProductImage(key: readData.products![index]["image"]!)).resizable().scaledToFill()
-                                                }
-                                                .frame(width: 110, height: 110)
-                                                .cornerRadius(10)
-////
+                                    ForEach(0..<noOfProducts, id: \.self) { index in
+                                        //                                        HStack {
+                                        
+                                        if readData.products![index]["description"] != nil {
+                                            ZStack {
                                                 
-                                                VStack(alignment: .leading) {
-                                                    Text("\(readData.products![index]["name"]!)").font(Font.custom("Avenir-Black", size: 15))
+                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 110)
+                                                
+                                                HStack {
+                                                    ZStack {
+                                                        Image(uiImage: readData.loadProductImage(key: readData.products![index]["image"]!)).resizable().scaledToFill()
+                                                    }
+                                                    .frame(width: 110, height: 110)
+                                                    .cornerRadius(10)
+//                                                    ////
                                                     
-                                                    Spacer()
-                                                    
-                                                    HStack {
-                                                        
-                                                        Text("\(readData.products![index]["price"]!) AED").font(Font.custom("Avenir-Medium", size: 15))
+                                                    VStack(alignment: .leading) {
+                                                        Text("\(readData.products![index]["name"]!)").font(Font.custom("Avenir-Black", size: 15))
                                                         
                                                         Spacer()
                                                         
-                                                        Button(action: {
-                                                            productIndex = index
-                                                            productName = readData.products![index]["name"]!
-                                                            productDesc = readData.products![index]["description"]!
-                                                            productPrice = "\(readData.products![index]["price"]!)"
-                                                            fileName = readData.products![index]["file_name"]!
-                                                            file = readData.products![index]["file"]!
+                                                        HStack {
                                                             
-                                                            oldFile = readData.products![index]["file"]!
-                                                            oldFileName = readData.products![index]["file_name"]!
+                                                            Text("\(readData.products![index]["price"]!) AED").font(Font.custom("Avenir-Medium", size: 15))
                                                             
-                                                            oldProductName = readData.products![index]["name"]!
-                                                            oldProductDesc = readData.products![index]["description"]!
-                                                            oldProductPrice = "\(readData.products![index]["price"]!)"
-                                                            oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
-                                                            image = readData.loadProductImage(key: readData.products![index]["image"]!)
-                                                            productEditShown.toggle()
+                                                            Spacer()
                                                             
-                                                        }) {
-                                                            Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing, 5).fontWeight(.bold)
+                                                            Button(action: {
+                                                                productIndex = index
+                                                                productName = readData.products![index]["name"]!
+                                                                productDesc = readData.products![index]["description"]!
+                                                                productPrice = "\(readData.products![index]["price"]!)"
+                                                                fileName = readData.products![index]["file_name"]!
+                                                                file = readData.products![index]["file"]!
+                                                                
+                                                                oldFile = readData.products![index]["file"]!
+                                                                oldFileName = readData.products![index]["file_name"]!
+                                                                
+                                                                oldProductName = readData.products![index]["name"]!
+                                                                oldProductDesc = readData.products![index]["description"]!
+                                                                oldProductPrice = "\(readData.products![index]["price"]!)"
+                                                                oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                                image = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                                productEditShown.toggle()
+                                                                
+                                                            }) {
+                                                                Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing, 5).fontWeight(.bold)
+                                                            }
                                                         }
+                                                        .padding(.trailing, 10)
                                                     }
-                                                    .padding(.trailing, 10)
-                                                }
-                                                .padding(.horizontal, 5)
-                                                .padding(.vertical, 10)
-                                                
-                                            }
-                                            
-                                        }
-                                        .padding(.bottom, 5)
-//                                            .padding(.top,10)
-                                        .padding(.horizontal)
-                                        .multilineTextAlignment(.leading)
-                                        .id(index)
-//                                        .onAppear {
-//                                            linksNumber += 1
-//                                        }
-                                        
-                                    } else {
-                                        
-                                        ZStack {
-                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 70)
-                                            
-                                            HStack {
-                                                Text(readData.products![index]["name"]!).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15)).padding(.leading, 20)
-                                                
-                                                Spacer()
-                                                
-                                                Button(action: {
+                                                    .padding(.horizontal, 5)
+                                                    .padding(.vertical, 15)
                                                     
-                                                    linkIndex = index
-                                                    linkName = readData.products![index]["name"]!
-                                                    linkURL = readData.products![index]["url"]!
-                                                    oldName = readData.products![index]["name"]!
-                                                    oldURL = readData.products![index]["url"]!
-                                                    linkEditShown.toggle()
-                                                
-                                                }) {
-                                                    Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
                                                 }
-                                                .padding(.trailing, 5)
                                                 
                                             }
-                                            .padding(.trailing)
+                                            .padding(.bottom, 5)
+                                            //                                            .padding(.top,10)
+                                            .padding(.horizontal)
+                                            .multilineTextAlignment(.leading)
+                                            .id(readData.products![index]["index"])
+                                            .background(.white)
+                                            .listRowBackground(Color.white)
+                                            //                                        .onAppear {
+                                            //                                            linksNumber += 1
+                                            //                                        }
+                                            
+                                        } else {
+                                            
+                                            ZStack {
+                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 70)
+                                                
+                                                HStack {
+                                                    Text(readData.products![index]["name"]!).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15)).padding(.leading, 20)
+                                                    
+                                                    Spacer()
+                                                    
+                                                    Button(action: {
+                                                        
+                                                        linkIndex = index
+                                                        linkName = readData.products![index]["name"]!
+                                                        linkURL = readData.products![index]["url"]!
+                                                        oldName = readData.products![index]["name"]!
+                                                        oldURL = readData.products![index]["url"]!
+                                                        linkEditShown.toggle()
+                                                        
+                                                    }) {
+                                                        Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
+                                                    }
+                                                    .padding(.trailing, 5)
+                                                    
+                                                }
+                                                .padding(.trailing)
+                                            }
+                                            .padding(.horizontal)
+                                            .padding(.bottom, 5)
+                                            .multilineTextAlignment(.leading)
+                                            .id(readData.products![index]["index"])
+                                            .background(.white)
+                                            .listRowBackground(Color.white)
+                                            
                                         }
-                                        .padding(.horizontal)
-                                        .multilineTextAlignment(.leading)
-                                        .id(index)
                                         
                                     }
-                                        
+                                    .onMove(perform: move)
+                                    .listRowSeparator(.hidden)
+                                    .padding(.vertical, -5)
                                 }
+                                .listStyle(.plain)
+                                .scrollContentBackground(.hidden)
+                                .padding(.vertical)
 //                                ForEach(0..<noOfClasses, id: \.self) { index in
 //                                    HStack {
 //                                        ZStack {
@@ -430,8 +447,8 @@ struct HomePage: View {
 //                                }
 //                                .padding(.top, 10)
                                 
-                            }
-                            .padding(.vertical)
+//                            }
+//                            .padding(.vertical)
                         }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
@@ -474,7 +491,7 @@ struct HomePage: View {
                         }
                     }
                     .onChange(of: readData.products) { _ in
-                        print("I have changed")
+                        print(readData.products)
                     }
                     
                     .opacity(isShownHomePage ? 0 : 1)
@@ -493,6 +510,14 @@ struct HomePage: View {
                     LinkForm(oldName: $oldName, oldURL: $oldURL, oldIndex: $oldLinkIndex, linkName: $linkName, linkURL: $linkURL, ifEdit: true, products_number: productsNumber, linkEditShown: $linkEditShown, linkIndex: linkIndex, readData: readData).presentationDetents([.height(500)])
                 }
         }
+    }
+    
+    func move(from source: IndexSet, to destination: Int) {
+        readData.products!.move(fromOffsets: source, toOffset: destination)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            UpdateDB().updateIndex(products_input: readData.products!)
+        }
+        
     }
 }
 

@@ -487,9 +487,39 @@ class UpdateDB : ObservableObject {
 
         docID.setData(documentData) { error in
             if let error = error {
-                print("Error adding link: \(error.localizedDescription)")
+                print("Error changing index order: \(error.localizedDescription)")
             } else {
-                print("Link added successfully!")
+                print("Index Order Updated!")
+            }
+        }
+        
+    }
+    
+    func updateIndex(products_input: [[String: String]]) {
+        var products_list: [[String: String]] = []
+        @AppStorage("products") var products: String = ""
+
+        let db = Firestore.firestore()
+        let ref = db.collection("products")
+        var docID = ref.document(products)
+        var presentDateTime = TimeData().getPresentDateTime()
+
+        var documentData = [String: Any]()
+
+        for index in 0..<products_input.count {
+            let fieldID = ref.document() // Generate a new random ID for each element
+            var product = products_input[index]
+            product["index"] = String(index)
+            products_list.append(product)
+
+            documentData[fieldID.documentID] = product
+        }
+
+        docID.setData(documentData) { error in
+            if let error = error {
+                print("Error changing index order: \(error.localizedDescription)")
+            } else {
+                print("Index Order Updated!")
             }
         }
         
