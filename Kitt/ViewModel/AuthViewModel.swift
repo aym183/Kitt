@@ -44,6 +44,16 @@ class AuthViewModel : ObservableObject {
         }
     }
     
+    func signOut(completion: @escaping (String?) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            completion("Successful")
+        } catch let signOutError as NSError {
+            print("Error signing out: \(signOutError.localizedDescription)")
+            completion("Error signing out: \(signOutError.localizedDescription)")
+        }
+    }
+    
 //    func signUpWithGoogle() {
 //        
 //    }

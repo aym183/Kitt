@@ -19,6 +19,8 @@ struct SettingsPage: View {
     @State var profileNameChange = false
     @State var salesPageShown = false
     @State var bioChange = false
+    @State var signedOut = false
+    @State var showingSignOutConfirmation = false
     
     let linkURL = URL(string: "https://kitt.bio")!
     
@@ -89,7 +91,7 @@ struct SettingsPage: View {
                                         let activityViewController = UIActivityViewController(activityItems: [message, linkURL], applicationActivities: nil)
                                         UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
                                     } else {
-                                        print("Sign Out")
+                                        showingSignOutConfirmation = true
                                     }
                                 }) {
                                     ZStack {
@@ -126,6 +128,25 @@ struct SettingsPage: View {
                     }
                     .navigationDestination(isPresented: $bioChange) {
                         ChangeBio()
+                    }
+                    .navigationDestination(isPresented: $signedOut) {
+                        LandingPage().navigationBarBackButtonHidden(true)
+                    }
+                    .alert(isPresented: $showingSignOutConfirmation) {
+                        Alert(
+                            title: Text("Are you sure you want to sign out?"),
+                            primaryButton: .default(Text("Yes")) {
+                                AuthViewModel().signOut() { response in
+                                    if response == "Successful" {
+                                        signedOut.toggle()
+                                    }
+                                }
+                                showingSignOutConfirmation = false
+                            },
+                            secondaryButton: .cancel() {
+                                showingSignOutConfirmation = false
+                            }
+                        )
                     }
                 }
         }
