@@ -18,11 +18,11 @@ struct LandingPage: View {
         NavigationStack {
             ZStack {
                 VStack {
-                    if Auth.auth().currentUser != nil {
-                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
-                    } else {
+//                    if Auth.auth().currentUser != nil {
+//                        HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
+//                    } else {
                         LandingContent()
-                    }
+//                    }
                 }
             }
         }
@@ -78,6 +78,7 @@ struct LandingContent: View {
                                             let result = try await Auth.auth().signIn(with: credential)
                                             ReadDB().getUserDetails(email: (Auth.auth().currentUser?.email!)!) { result in
                                                 if result == "Successful" {
+//
                                                     homePageShown.toggle()
                                                 } else if result == "User does not exist" {
                                                     createLinkSheet.toggle()
@@ -152,7 +153,7 @@ struct LandingContent: View {
                                 .background(Color.black).foregroundColor(Color.white)
                                 .cornerRadius(50)
                             }
-                            .padding(.horizontal, 50).padding(.bottom)
+                            .padding(.horizontal, 50).padding(.bottom).padding(.vertical, 5)
                             .sheet(isPresented: $loginSheet) {
                                 LoginForm(loginSheet: $loginSheet, homePageShown: $homePageShown).presentationDetents([.height(400)])
                             }
@@ -170,6 +171,33 @@ struct LandingContent: View {
 //                    }
 //                }
             }
+    }
+    
+}
+
+struct NavigationUtil {
+    static func popToRootView() {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            findNavigationController(viewController:
+UIApplication.shared.windows.filter { $0.isKeyWindow
+}.first?.rootViewController)?
+                .popToRootViewController(animated: true)
+        }
+    }
+static func findNavigationController(viewController: UIViewController?)
+-> UINavigationController? {
+        guard let viewController = viewController else {
+            return nil
+        }
+if let navigationController = viewController as? UINavigationController
+{
+        return navigationController
+    }
+for childViewController in viewController.children {
+        return findNavigationController(viewController:
+childViewController)
+    }
+return nil
     }
 }
 
