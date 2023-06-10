@@ -275,7 +275,6 @@ struct ProductForm: View {
                             
                             Button(action: {
                                 if ifEdit && selectedPDF != nil {
-                                    print("I am here")
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         if let image = self.image, let pdf = selectedPDF {
                                             UpdateDB().updateCreatedProduct(data: ["oldProductName": oldProductName, "oldProductDesc": oldProductDesc, "oldProductPrice": oldProductPrice, "productName": productName, "productDesc": productDesc, "productPrice": productPrice, "old_file_name": oldFileName, "new_file_name": pdf.lastPathComponent], old_image: oldImage!, new_image: image, new_file: pdf, index: String(describing: productIndex!)) { response in
@@ -301,14 +300,17 @@ struct ProductForm: View {
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         if products_number != 0, let pdf = selectedPDF {
                                             if let image = self.image {
-                                                UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf, file_name: selectedPDF!.lastPathComponent, index: String(describing: products_number))
+                                                UpdateDB().updateProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf, file_name: selectedPDF!.lastPathComponent, index: String(describing: products_number)) { response in
+                                                        productCreated.toggle()
+                                                }
                                             }
                                         } else {
                                             if let image = self.image, let pdf = selectedPDF {
-                                                CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf, file_name: selectedPDF!.lastPathComponent, index: String(describing: products_number))
+                                                CreateDB().addProducts(image: image, name: productName, description: productDesc, price: productPrice, file: pdf, file_name: selectedPDF!.lastPathComponent, index: String(describing: products_number)) { response in
+                                                        productCreated.toggle()
+                                                }
                                             }
                                         }
-                                        productCreated.toggle()
                                     }
                                 }
                             }) {

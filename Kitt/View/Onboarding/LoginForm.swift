@@ -17,7 +17,7 @@ struct LoginForm: View {
     @State var alertShown = false
     @State private var isEditingTextField = false
     var areAllFieldsEmpty: Bool {
-        return (email.isEmpty || password.isEmpty) && isEmailValid
+        return email.isEmpty || password.isEmpty || !isEmailValid
     }
     
     var body: some View {

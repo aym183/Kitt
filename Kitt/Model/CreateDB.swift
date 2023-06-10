@@ -93,7 +93,7 @@ class CreateDB : ObservableObject {
     }
     
     
-    func addProducts(image: UIImage, name: String, description: String, price: String, file: URL, file_name: String, index: String) {
+    func addProducts(image: UIImage, name: String, description: String, price: String, file: URL, file_name: String, index: String, completion: @escaping (String?) -> Void) {
         @AppStorage("products") var products: String = ""
         
         let imageData = image.jpegData(compressionQuality: 0.8)
@@ -184,6 +184,7 @@ class CreateDB : ObservableObject {
                print("Error adding product: \(error.localizedDescription)")
            } else {
                print("Product added successfully!")
+               completion("Successful")
            }
         }
     }

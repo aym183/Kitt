@@ -265,7 +265,7 @@ struct HomePage: View {
 //                                                    ////
                                                     
                                                     VStack(alignment: .leading) {
-                                                        Text("\(readData.products![index]["name"]!)").font(Font.custom("Avenir-Black", size: 15))
+                                                        Text("\(readData.products![index]["name"]!)").font(Font.custom("Avenir-Black", size: 15)).padding(.top, 5)
                                                         
                                                         Spacer()
                                                         
@@ -298,9 +298,11 @@ struct HomePage: View {
                                                             }
                                                         }
                                                         .padding(.trailing, 10)
+                                                        .padding(.bottom, 10)
                                                     }
+                                                    .frame(height: 110)
                                                     .padding(.horizontal, 5)
-                                                    .padding(.vertical, 15)
+//                                                    .padding(.vertical, 5)
                                                     
                                                 }
                                                 
