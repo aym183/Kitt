@@ -62,14 +62,12 @@ struct LandingContent: View {
                                 // Start the sign in flow!
                                 GIDSignIn.sharedInstance.signIn(withPresenting: getRootViewController()) { result, error in
                                     guard error == nil else {
-                                        // ...
                                         return
                                     }
                                     
                                     guard let user = result?.user,
                                           let idToken = user.idToken?.tokenString
                                     else {
-                                        // ...
                                         return
                                     }
                                     
@@ -78,13 +76,18 @@ struct LandingContent: View {
                                     Task {
                                         do {
                                             let result = try await Auth.auth().signIn(with: credential)
-                                            createLinkSheet.toggle()
+                                            ReadDB().getUserDetails(email: (Auth.auth().currentUser?.email!)!) { result in
+                                                if result == "Successful" {
+                                                    homePageShown.toggle()
+                                                } else if result == "User does not exist" {
+                                                    createLinkSheet.toggle()
+                                                }
+                                            }
                                         }
                                         catch {
                                             print("Error authenticating: \(error.localizedDescription)")
                                         }
                                     }
-                                    // ...
                                 }
                             }) {
                                 HStack {
@@ -105,8 +108,6 @@ struct LandingContent: View {
                                 authVM.handleSignInWithAppleCompletion(result) { response in
                                     if response == "Success" {
                                         ReadDB().getUserDetails(email: (Auth.auth().currentUser?.email!)!) { result in
-                                            print((Auth.auth().currentUser?.email!)!)
-                                            print(result)
                                             if result == "Successful" {
                                                 homePageShown.toggle()
                                             } else if result == "User does not exist" {
