@@ -107,8 +107,7 @@ struct LoginForm: View {
                     isPresent: $alertShown,
                     title: "Error",
                     message: alertText,
-                    duration: 2,
-                    dismissOnTap: true,
+                    duration: 1,
                     preset: .custom(UIImage(systemName: "exclamationmark")!),
                     haptic: .error
                 )

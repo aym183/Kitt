@@ -33,19 +33,19 @@ class AuthViewModel : ObservableObject {
 
     
     func signIn(email: String, password: String, completion: @escaping (String?) -> Void) {
-//        auth.signIn(withEmail: email, password: password) { authResult, error in
-//            if let error = error {
-//                print(error.localizedDescription)
-//                completion(error.localizedDescription)
-//            } else {
+        auth.signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print(error.localizedDescription)
+                completion(error.localizedDescription)
+            } else {
                 ReadDB().getUserDetails(email: email) { response in
                     if response == "Successful" {
                         print("Successful auth")
                         completion("Successful")
                     }
                 }
-//            }
-//        }
+            }
+        }
     
     }
     
@@ -97,7 +97,7 @@ class AuthViewModel : ObservableObject {
                                                       rawNonce: nonce)
             Task {
               do {
-                let result = try await Auth.auth().signIn(with: credential)
+                let result = try await auth.signIn(with: credential)
                 completion("Success")
 //                await updateDisplayName(for: result.user, with: appleIDCredential)
               }

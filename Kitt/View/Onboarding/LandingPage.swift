@@ -104,7 +104,15 @@ struct LandingContent: View {
                             } onCompletion: { result in
                                 authVM.handleSignInWithAppleCompletion(result) { response in
                                     if response == "Success" {
-                                        createLinkSheet.toggle()
+                                        ReadDB().getUserDetails(email: (Auth.auth().currentUser?.email!)!) { result in
+                                            print((Auth.auth().currentUser?.email!)!)
+                                            print(result)
+                                            if result == "Successful" {
+                                                homePageShown.toggle()
+                                            } else if result == "User does not exist" {
+                                                createLinkSheet.toggle()
+                                            }
+                                        }
                                     }
                                 }
                             }
