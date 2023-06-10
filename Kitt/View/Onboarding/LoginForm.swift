@@ -101,6 +101,7 @@ struct LoginForm: View {
                     NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
                         isEditingTextField = false
                     }
+
                 }
                 .SPAlert(
                     isPresent: $alertShown,

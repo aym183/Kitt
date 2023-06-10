@@ -493,9 +493,9 @@ struct HomePage: View {
                             }
                         }
                     }
-                    .onChange(of: readData.products) { _ in
-                        print(readData.products)
-                    }
+//                    .onChange(of: readData.products) { _ in
+//                        print(readData.products)
+//                    }
                     
                     .opacity(isShownHomePage ? 0 : 1)
                     .opacity(isShownProductCreated ? 0 : 1)

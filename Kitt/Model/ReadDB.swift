@@ -94,6 +94,57 @@ class ReadDB : ObservableObject {
             }
     }
     
+    func getUserDetails(email: String, completion: @escaping (String?) -> Void) {
+        let db = Firestore.firestore()
+        let ref = db.collection("users")
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+            
+        ref.whereField("email", isEqualTo: email)
+            .getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error getting userDetils: \(error.localizedDescription)")
+                } else {
+                    for document in snapshot!.documents {
+                        UserDefaults.standard.set(document.data()["username"]!, forKey: "username")
+                        UserDefaults.standard.set(document.data()["links"]!, forKey: "links")
+                        UserDefaults.standard.set(document.data()["products"]!, forKey: "products")
+                        UserDefaults.standard.set(document.data()["classes"]!, forKey: "classes")
+                        UserDefaults.standard.set(document.data()["sales"]!, forKey: "sales")
+                        UserDefaults.standard.set(document.data()["tiktok"]!, forKey: "tiktok")
+                        UserDefaults.standard.set(document.data()["facebook"]!, forKey: "facebook")
+                        UserDefaults.standard.set(document.data()["website"]!, forKey: "website")
+                        UserDefaults.standard.set(document.data()["youtube"]!, forKey: "youtube")
+                        UserDefaults.standard.set(document.data()["instagram"]!, forKey: "instagram")
+                        let imageRef = storageRef.child(String(describing: document.data()["profile_image"]!))
+                        
+                        imageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+                                if let error = error {
+                                    print("Error fetching image: \(error.localizedDescription)")
+                                    completion(nil)
+                                    return
+                                }
+                                
+                                if let data = data, let image = UIImage(data: data) {
+                                    UserDefaults.standard.set(image.jpegData(compressionQuality: 0.8), forKey: "profile_image")
+                                    print("profile image retrieved")
+                                    completion("Successful")
+                                } else {
+                                    print("profile image not retrieved")
+                                }
+                            }
+                        
+//                        UserDefaults.standard.set(nil, forKey: "profile_image")
+//                        for documentData in document.data() {
+//                            print(documentData)
+//                        }
+                    }
+                }
+            
+            }
+    }
+    
+    
     func getClasses() {
         @AppStorage("classes") var classes: String = ""
         let db = Firestore.firestore()

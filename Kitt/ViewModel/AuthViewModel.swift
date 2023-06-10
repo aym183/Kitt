@@ -33,15 +33,20 @@ class AuthViewModel : ObservableObject {
 
     
     func signIn(email: String, password: String, completion: @escaping (String?) -> Void) {
-        auth.signIn(withEmail: email, password: password) { authResult, error in
-            if let error = error {
-                print(error.localizedDescription)
-                completion(error.localizedDescription)
-            } else {
-                print("Successful auth")
-                completion("Successful")
-            }
-        }
+//        auth.signIn(withEmail: email, password: password) { authResult, error in
+//            if let error = error {
+//                print(error.localizedDescription)
+//                completion(error.localizedDescription)
+//            } else {
+                ReadDB().getUserDetails(email: email) { response in
+                    if response == "Successful" {
+                        print("Successful auth")
+                        completion("Successful")
+                    }
+                }
+//            }
+//        }
+    
     }
     
     func signOut(completion: @escaping (String?) -> Void) {
