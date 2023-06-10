@@ -131,7 +131,9 @@ class ReadDB : ObservableObject {
                                         print("profile image retrieved")
                                         completion("Successful")
                                     } else {
+                                        UserDefaults.standard.set(nil, forKey: "profile_image")
                                         print("profile image not retrieved")
+                                        completion("Successful")
                                     }
                                 }
                             

@@ -17,12 +17,13 @@ struct CreateAccountForm: View {
     @Binding var createAccountSheet: Bool
     @State var showProfileCreation = false
     @State var isEmailValid: Bool = true
+    @State var doPasswordsMatch: Bool = true
     @State var errorText: Bool = false
     @Binding var homePageShown: Bool
     @Binding var createLinkSheet: Bool
     @State private var isEditingTextField = false
     var areAllFieldsEmpty: Bool {
-        return (email.isEmpty || password.isEmpty || confirmPassword.isEmpty ) || (isEmailValid && password != confirmPassword)
+        return email.isEmpty || password.isEmpty || confirmPassword.isEmpty  || !isEmailValid || !doPasswordsMatch
     }
     
     var body: some View {
@@ -62,18 +63,28 @@ struct CreateAccountForm: View {
                             .onTapGesture {
                                 isEditingTextField = true
                             }
+                            .onChange(of: password) { newValue in
+                                withAnimation(.easeOut(duration: 0.2)) {
+                                    validatePassword()
+                                }
+                            }
                         
                         SecureField("", text: $confirmPassword, prompt: Text("Confirm Password").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                             .onTapGesture {
                                 isEditingTextField = true
                             }
-                        
-                        if password != confirmPassword {
-                            HStack {
-                                Spacer()
-                                Text("Passwords do not match").foregroundColor(.red).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.bold)
+                            .onChange(of: confirmPassword) { newValue in
+                                withAnimation(.easeOut(duration: 0.2)) {
+                                    validatePassword()
+                                }
                             }
-                            .padding(.trailing, 5)
+                        
+                        if !doPasswordsMatch {
+                                HStack {
+                                    Spacer()
+                                    Text("Passwords do not match").foregroundColor(.red).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.bold)
+                                }
+                                .padding(.trailing, 5)
                         }
                         
                         Text("By continuing you agree to our Terms of Service.\nKitt services are subject to our Privacy Policy.")
@@ -141,6 +152,14 @@ struct CreateAccountForm: View {
             let emailRegex = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
             let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
             isEmailValid = emailPredicate.evaluate(with: email)
+    }
+    
+    private func validatePassword() {
+        if password == confirmPassword {
+            doPasswordsMatch = true
+        } else {
+            doPasswordsMatch = false
+        }
     }
 }
 

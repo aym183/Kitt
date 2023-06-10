@@ -130,7 +130,7 @@ struct SettingsPage: View {
                         ChangeBio()
                     }
                     .navigationDestination(isPresented: $signedOut) {
-                        LandingPage().navigationBarBackButtonHidden(true)
+                        LandingContent().navigationBarBackButtonHidden(true)
                     }
                     .alert(isPresented: $showingSignOutConfirmation) {
                         Alert(

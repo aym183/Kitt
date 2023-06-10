@@ -13,6 +13,7 @@ import GoogleSignIn
 
 struct LandingPage: View {
     @AppStorage("username") var userName: String = ""
+    @State var loggedInUser = false
     
     var body: some View {
         NavigationStack {
@@ -25,6 +26,10 @@ struct LandingPage: View {
                     }
                 }
             }
+//            .onAppear {
+////                NavigationUtil.popToRootView()
+//                print(Auth.auth().currentUser)
+//            }
         }
     }
 }
@@ -78,7 +83,6 @@ struct LandingContent: View {
                                             let result = try await Auth.auth().signIn(with: credential)
                                             ReadDB().getUserDetails(email: (Auth.auth().currentUser?.email!)!) { result in
                                                 if result == "Successful" {
-//
                                                     homePageShown.toggle()
                                                 } else if result == "User does not exist" {
                                                     createLinkSheet.toggle()
@@ -164,11 +168,6 @@ struct LandingContent: View {
                             HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                         }
                     }
-//                    .onAppear {
-//                        if let navigationController = UIApplication.shared.keyWindow?.rootViewController?.navigationController {
-//                            navigationController.popToRootViewController(animated: false)
-//                        }
-//                    }
 //                }
             }
     }
@@ -176,29 +175,29 @@ struct LandingContent: View {
 }
 
 struct NavigationUtil {
-    static func popToRootView() {
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            findNavigationController(viewController:
-UIApplication.shared.windows.filter { $0.isKeyWindow
-}.first?.rootViewController)?
-                .popToRootViewController(animated: true)
+        static func popToRootView() {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                findNavigationController(viewController:
+    UIApplication.shared.windows.filter { $0.isKeyWindow
+    }.first?.rootViewController)?
+                    .popToRootViewController(animated: true)
+            }
         }
-    }
-static func findNavigationController(viewController: UIViewController?)
--> UINavigationController? {
-        guard let viewController = viewController else {
-            return nil
+    static func findNavigationController(viewController: UIViewController?)
+    -> UINavigationController? {
+            guard let viewController = viewController else {
+                return nil
+            }
+    if let navigationController = viewController as? UINavigationController
+    {
+            return navigationController
         }
-if let navigationController = viewController as? UINavigationController
-{
-        return navigationController
-    }
-for childViewController in viewController.children {
-        return findNavigationController(viewController:
-childViewController)
-    }
-return nil
-    }
+    for childViewController in viewController.children {
+            return findNavigationController(viewController:
+    childViewController)
+        }
+    return nil
+        }
 }
 
 struct LandingPage_Previews: PreviewProvider {

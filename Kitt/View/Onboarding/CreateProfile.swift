@@ -76,6 +76,7 @@ struct CreateProfile: View {
                                 UpdateDB().updateUserDetails(fullName: fullName, bioText: bio) { response in
                                     if response == "Successful" {
                                         profileImageUploadShown.toggle()
+                                        print("Successful name and bio added")
                                     }
                                 }
                             }
