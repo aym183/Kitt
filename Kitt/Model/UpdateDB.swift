@@ -103,7 +103,7 @@ class UpdateDB : ObservableObject {
         }
     }
     
-    func updateLinks(name: String, url: String, index: String) {
+    func updateLinks(name: String, url: String, index: String, completion: @escaping (String?) -> Void) {
         @AppStorage("products") var products: String = ""
         
         let db = Firestore.firestore()
@@ -120,6 +120,7 @@ class UpdateDB : ObservableObject {
             print("Error updating link: \(error.localizedDescription)")
         } else {
             print("Link Updated!")
+            completion("Successful")
         }
         }
     }

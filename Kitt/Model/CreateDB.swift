@@ -71,7 +71,7 @@ class CreateDB : ObservableObject {
         }
     }
     
-    func addLink(name: String, url: String, index: String) {
+    func addLink(name: String, url: String, index: String, completion: @escaping (String?) -> Void) {
         @AppStorage("products") var products: String = ""
         
         let db = Firestore.firestore()
@@ -88,6 +88,7 @@ class CreateDB : ObservableObject {
                print("Error adding link: \(error.localizedDescription)")
            } else {
                print("Link added successfully!")
+               completion("Successful")
            }
         }
     }

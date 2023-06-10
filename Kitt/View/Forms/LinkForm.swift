@@ -137,7 +137,6 @@ struct LinkForm: View {
                                     UpdateDB().updateCreatedLink(old_url: oldURL, new_url: linkURL, old_name: oldName, new_name: linkName, index: String(describing: linkIndex!)) { response in
                                         if response == "Successful" {
                                             linkDeleted.toggle()
-//                                            readData.getLinks()
                                         }
                                     }
                                 }
@@ -145,12 +144,20 @@ struct LinkForm: View {
                             } else {
                                 DispatchQueue.global(qos: .userInteractive).async {
                                     if products_number != 0 {
-                                        UpdateDB().updateLinks(name: linkName, url: linkURL, index: String(describing: products_number))
+                                        UpdateDB().updateLinks(name: linkName, url: linkURL, index: String(describing: products_number)) { response in
+                                            if response == "Successful" {
+                                                linkDeleted.toggle()
+                                            }
+                                        }
                                     } else {
-                                        CreateDB().addLink(name: linkName, url: linkURL, index: String(describing: products_number))
+                                        CreateDB().addLink(name: linkName, url: linkURL, index: String(describing: products_number)) { response in
+                                            if response == "Successful" {
+                                                linkDeleted.toggle()
+                                            }
+                                            
+                                        }
                                     }
                                 }
-                                linkCreated.toggle()
                             }
                            
                         }) {
