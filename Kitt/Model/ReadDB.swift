@@ -117,6 +117,8 @@ class ReadDB : ObservableObject {
                             UserDefaults.standard.set(document.data()["website"]!, forKey: "website")
                             UserDefaults.standard.set(document.data()["youtube"]!, forKey: "youtube")
                             UserDefaults.standard.set(document.data()["instagram"]!, forKey: "instagram")
+                            UserDefaults.standard.set(document.data()["full_name"]!, forKey: "full_name")
+                            UserDefaults.standard.set(document.data()["bio"]!, forKey: "bio")
                             let imageRef = storageRef.child(String(describing: document.data()["profile_image"]!))
                             
                             imageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
