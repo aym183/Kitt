@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		61005E222A272BA500980B40 /* SVGKit in Frameworks */ = {isa = PBXBuildFile; productRef = 61005E212A272BA500980B40 /* SVGKit */; };
 		61005E242A272BA500980B40 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 61005E232A272BA500980B40 /* SVGKitSwift */; };
+		613679382A363B5700BD3B44 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613679372A363B5700BD3B44 /* NotificationHandler.swift */; };
 		61615EA72A29FE1C00A23710 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 61615EA62A29FE1C00A23710 /* CropViewController */; };
 		61615EA92A29FE1C00A23710 /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 61615EA82A29FE1C00A23710 /* TOCropViewController */; };
 		61615EAB2A2F7F9F00A23710 /* TotalSales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61615EAA2A2F7F9F00A23710 /* TotalSales.swift */; };
@@ -74,6 +75,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		613679372A363B5700BD3B44 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		61615EAA2A2F7F9F00A23710 /* TotalSales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalSales.swift; sourceTree = "<group>"; };
 		61615EAC2A31B01D00A23710 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		6166874C2A15F37D0016A549 /* ChangeProfilePicture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeProfilePicture.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				61A0E85E2A0A2F4100FE474D /* AuthViewModel.swift */,
+				613679372A363B5700BD3B44 /* NotificationHandler.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61A0E8182A0A09F000FE474D /* LandingPage.swift in Sources */,
+				613679382A363B5700BD3B44 /* NotificationHandler.swift in Sources */,
 				61A0E8132A09F78900FE474D /* LinkForm.swift in Sources */,
 				61A0E8642A0A416F00FE474D /* TimeData.swift in Sources */,
 				61A0E8682A0A44DC00FE474D /* ImagePicker.swift in Sources */,

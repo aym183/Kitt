@@ -171,7 +171,7 @@ struct HomePage: View {
                             }
                             Spacer()
                             
-                            Button(action: {settingsShown.toggle()}) {
+                            Button(action: { settingsShown.toggle() }) {
                                 
                                 if profile_image != nil {
                                     ZStack {
@@ -201,6 +201,7 @@ struct HomePage: View {
                                 productsNumber = noOfProducts
                                 classesNumber = noOfClasses
                                 formShown.toggle()
+                                NotificationHandler().scheduleLocalNotification()
                             }) {
                                 HStack(spacing: 6) {
                                     Image(systemName: "plus").fontWeight(.black)
