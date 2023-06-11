@@ -90,7 +90,7 @@ struct UploadProfileImageForm: View {
                                 }
                                 homePageShown.toggle()
                                 }) {
-                                Text("I'll do it later").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.055)).padding([.top, .leading])
+                                Text("I'll do it later").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.045)).padding([.top, .leading])
                             }
                         }
                         

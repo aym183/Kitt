@@ -147,7 +147,7 @@ struct ProductForm: View {
                             }
                             
                             ZStack {
-                                TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).font(Font.custom("Avenir-Medium", size: 16))
+                                TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16))
                                     .onChange(of: self.productName, perform: { value in
                                                if value.count > 45 {
                                                    self.productName = String(value.prefix(45))
@@ -185,7 +185,6 @@ struct ProductForm: View {
                                     .scrollContentBackground(.hidden)
                                     .background(Color("TextField"))
                                     .cornerRadius(10)
-                                    .disableAutocorrection(true)
                                     .font(Font.custom("Avenir-Medium", size: 16))
                                     .onTapGesture {
                                         isEditingTextField = true

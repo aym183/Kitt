@@ -69,13 +69,17 @@ class ReadDB : ObservableObject {
                 if let error = error {
                     print("Error getting email in getLinks: \(error.localizedDescription)")
                 } else {
-                    for document in snapshot!.documents {
-                        for documentData in document.data().values {
-                            if let valueDict = documentData as? [String: String] {
-//                                temp_links.append(valueDict)
-                                temp_links.append(valueDict)
+                    if snapshot!.documents != [] {
+                        for document in snapshot!.documents {
+                            for documentData in document.data().values {
+                                if let valueDict = documentData as? [String: String] {
+                                    //                                temp_links.append(valueDict)
+                                    temp_links.append(valueDict)
+                                }
                             }
                         }
+                    } else {
+                        print("No Links for user")
                     }
                 }
                 
@@ -105,6 +109,7 @@ class ReadDB : ObservableObject {
                 if let error = error {
                     print("Error getting userDetils: \(error.localizedDescription)")
                 } else {
+                    
                     if snapshot!.documents != [] {
                         for document in snapshot!.documents {
                             UserDefaults.standard.set(document.data()["username"]!, forKey: "username")
@@ -221,34 +226,38 @@ class ReadDB : ObservableObject {
                 if let error = error {
                     print("Error getting email in getProducts: \(error.localizedDescription)")
                 } else {
-                    for document in snapshot!.documents {
-                        for documentData in document.data().values {
-                            if let valueDict = documentData as? [String: String] {
-                                temp_products.append(valueDict)
-//                                if valueDict["image"] != nil {
-//                                    let storageRef = Storage.storage().reference()
-//                                    let fileRef = storageRef.child(String(describing: valueDict["image"]!))
-//
-//                                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-//                                        if error == nil && data != nil {
-//                                            if let image = UIImage(data: data!) {
-//                                                temp_products_images.append(image)
-//
-//
-//
-//                                                if temp_products_images.count == self.products?.count {
-//                                                    self.product_images = temp_products_images
-//                                                }
-//                                            }
-//                                        } else {
-//                                            print(error)
-//                                        }
-//                                    }
-//                    //                self.product_images = temp_products_images
-//                    //                print("Product Images are \(self.product_images)")
-//                                }
+                    if snapshot!.documents != [] {
+                        for document in snapshot!.documents {
+                            for documentData in document.data().values {
+                                if let valueDict = documentData as? [String: String] {
+                                    temp_products.append(valueDict)
+                                    //                                if valueDict["image"] != nil {
+                                    //                                    let storageRef = Storage.storage().reference()
+                                    //                                    let fileRef = storageRef.child(String(describing: valueDict["image"]!))
+                                    //
+                                    //                                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+                                    //                                        if error == nil && data != nil {
+                                    //                                            if let image = UIImage(data: data!) {
+                                    //                                                temp_products_images.append(image)
+                                    //
+                                    //
+                                    //
+                                    //                                                if temp_products_images.count == self.products?.count {
+                                    //                                                    self.product_images = temp_products_images
+                                    //                                                }
+                                    //                                            }
+                                    //                                        } else {
+                                    //                                            print(error)
+                                    //                                        }
+                                    //                                    }
+                                    //                    //                self.product_images = temp_products_images
+                                    //                    //                print("Product Images are \(self.product_images)")
+                                    //                                }
+                                }
                             }
                         }
+                    } else {
+                        print("No products for user")
                     }
                 }
                 

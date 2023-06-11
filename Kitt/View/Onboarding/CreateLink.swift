@@ -33,7 +33,7 @@ struct CreateLink: View {
                         }
                         .frame(width: max(0, geometry.size.width-40))
                         
-                        TextField("", text: $username, prompt: Text("Username").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-40), height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                        TextField("", text: $username, prompt: Text("Username").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-40), height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                             .onTapGesture {
                                 isEditingTextField = true
                             }

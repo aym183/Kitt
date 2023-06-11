@@ -84,7 +84,7 @@ class AuthViewModel : ObservableObject {
               return
             }
             guard let appleIDToken = appleIDCredential.identityToken else {
-              print("Unable to fetdch identify token.")
+              print("Unable to fetch identify token.")
               return
             }
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
@@ -99,6 +99,7 @@ class AuthViewModel : ObservableObject {
               do {
                 let result = try await auth.signIn(with: credential)
                 completion("Success")
+                  
 //                await updateDisplayName(for: result.user, with: appleIDCredential)
               }
               catch {

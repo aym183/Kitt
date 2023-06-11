@@ -26,7 +26,7 @@ struct ChangeBio: View {
                             
                         
                         ZStack {
-                            TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).font(Font.custom("Avenir-Medium", size: 16))
+                            TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16))
                                 .onChange(of: self.bio, perform: { value in
                                        if value.count > 50 {
                                            self.bio = String(value.prefix(50))

@@ -24,7 +24,7 @@ struct ChangeName: View {
                             Spacer()
                             }    
                         
-                        TextField("", text: $name, prompt: Text("Full Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).font(Font.custom("Avenir-Medium", size: 16))
+                        TextField("", text: $name, prompt: Text("Full Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16))
                             .onTapGesture {
                                 isEditingTextField = true
                             }

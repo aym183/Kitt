@@ -126,7 +126,7 @@ struct LandingContent: View {
                             Button(action: { createAccountSheet.toggle() }) {
                                 HStack {
                                     Image(systemName: "envelope.fill").foregroundColor(.white)
-                                    Text("Sign in with Email")
+                                    Text("Sign up with Email")
                                 }
                                 .font(Font.system(size: 20))
                                 .fontWeight(.medium)
@@ -147,7 +147,7 @@ struct LandingContent: View {
                             }) {
                                 HStack {
                                     Image(systemName: "arrow.right").foregroundColor(.white).padding(.leading, -10)
-                                    Text("Login with Email")
+                                    Text("Log in with Email")
                                 }
                                 .font(Font.system(size: 20))
                                 .fontWeight(.medium)
