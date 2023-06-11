@@ -227,7 +227,7 @@ struct HomePage: View {
                                 List {
                                     
                                     ZStack {
-                                        RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 70)
+                                        RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: max(0, geometry.size.width-50), height: 70)
                                         
                                         HStack {
                                             Text("😎").padding(.leading, 20)
@@ -254,7 +254,7 @@ struct HomePage: View {
                                         if readData.products![index]["description"] != nil {
                                             ZStack {
                                                 
-                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 110)
+                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: max(0, geometry.size.width-50), height: 110)
                                                 
                                                 HStack {
                                                     ZStack {
@@ -321,7 +321,7 @@ struct HomePage: View {
                                         } else {
                                             
                                             ZStack {
-                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: geometry.size.width-50, height: 70)
+                                                RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: max(0, geometry.size.width-50), height: 70)
                                                 
                                                 HStack {
                                                     Text(readData.products![index]["name"]!).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15)).padding(.leading, 20)
@@ -456,7 +456,7 @@ struct HomePage: View {
 //                            .padding(.vertical)
                         }
                     }
-                    .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                    .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                     .navigationDestination(isPresented: $socialsEditShown) {
                         SocialMediaInput()
                     }

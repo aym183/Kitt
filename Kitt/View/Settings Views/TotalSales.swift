@@ -26,7 +26,7 @@ struct TotalSales: View {
                         Text("Sales").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical)
                         Spacer()
                     }
-                    .frame(width: geometry.size.width-40)
+                    .frame(width: max(0, geometry.size.width-40))
                     .padding(.leading, 10).padding(.bottom, -5).padding(.top, -5)
                     
                     TabView {
@@ -53,7 +53,7 @@ struct TotalSales: View {
                                     }
                                 }
                             }
-                            .frame(width: geometry.size.width-50, height: 130)
+                            .frame(width: max(0, geometry.size.width-50), height: 130)
                             .id(index)
                         }
                     }
@@ -69,7 +69,7 @@ struct TotalSales: View {
                         Text("Orders").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical)
                         Spacer()
                     }
-                    .frame(width: geometry.size.width-40)
+                    .frame(width: max(0, geometry.size.width-40))
                     .padding(.leading, 10).padding(.bottom, -5).padding(.top, -20)
                     
                     ScrollView(.vertical, showsIndicators: false) {
@@ -115,7 +115,7 @@ struct TotalSales: View {
                                                 }
                                                 .padding(.leading, -25)
                                             }
-                                            .frame(width: geometry.size.width-50, height: 50)
+                                            .frame(width: max(0, geometry.size.width-50), height: 50)
                                             .padding(.bottom, 5).padding(.horizontal, 15)
                                             .id(sale_index)
                                         }
@@ -135,7 +135,7 @@ struct TotalSales: View {
                         readData.getSales()
                     }
                 }
-                .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                 .foregroundColor(.black)
             }
         }

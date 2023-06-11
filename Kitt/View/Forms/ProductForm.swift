@@ -110,7 +110,7 @@ struct ProductForm: View {
                                         Image(uiImage: image)
                                             .resizable()
                                             .scaledToFill()
-                                            .frame(width: geometry.size.width-70, height: geometry.size.height - 450)
+                                            .frame(width: max(0, geometry.size.width-70), height: max(0, geometry.size.height-450))
                                         
                                         VStack {
                                             HStack {
@@ -121,10 +121,10 @@ struct ProductForm: View {
                                             }
                                             Spacer()
                                         }
-                                        .frame(height: geometry.size.height - 450)
+                                        .frame(height: max(0, geometry.size.height-450))
                                         
                                     }
-                                    .frame(width: geometry.size.width-70, height: geometry.size.height - 450)
+                                    .frame(width: max(0, geometry.size.width-70), height: max(0, geometry.size.height-450))
                                     .cornerRadius(10)
                                 } else {
                                     Button(action: { showImagePicker.toggle() }) {
@@ -132,7 +132,7 @@ struct ProductForm: View {
                                             
                                             RoundedRectangle(cornerRadius: 10)
                                                 .fill(Color("TextField"))
-                                                .frame(width: geometry.size.width-70, height: geometry.size.height - 450)
+                                                .frame(width: max(0, geometry.size.width-70), height: max(0, geometry.size.height-450))
                                             
                                             VStack {
                                                 Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
@@ -147,7 +147,7 @@ struct ProductForm: View {
                             }
                             
                             ZStack {
-                                TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).font(Font.custom("Avenir-Medium", size: 16))
+                                TextField("", text: $productName, prompt: Text("Product Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).font(Font.custom("Avenir-Medium", size: 16))
                                     .onChange(of: self.productName, perform: { value in
                                                if value.count > 45 {
                                                    self.productName = String(value.prefix(45))
@@ -181,7 +181,7 @@ struct ProductForm: View {
                                 
                                 TextEditor(text: $productDesc)
                                     .padding([.horizontal, .bottom], 12).padding(.top, 5)
-                                    .frame(width: geometry.size.width-70, height: 140)
+                                    .frame(width: max(0, geometry.size.width-70), height: 140)
                                     .scrollContentBackground(.hidden)
                                     .background(Color("TextField"))
                                     .cornerRadius(10)
@@ -209,12 +209,12 @@ struct ProductForm: View {
 //                                    .focused($productDesc, equals: true)
                             
                             if ifEdit {
-                                TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).font(Font.custom("Avenir-Medium", size: 16)).keyboardType(.decimalPad)
+                                TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).font(Font.custom("Avenir-Medium", size: 16)).keyboardType(.decimalPad)
                                     .onTapGesture {
                                         isEditingTextField = true
                                     }
                             } else {
-                                TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).font(Font.custom("Avenir-Medium", size: 16)).keyboardType(.decimalPad).padding(.top, -5)
+                                TextField("", text: $productPrice, prompt: Text("Price (AED)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).disableAutocorrection(true).font(Font.custom("Avenir-Medium", size: 16)).keyboardType(.decimalPad).padding(.top, -5)
                                 
                                     .onTapGesture {
                                         isEditingTextField = true
@@ -267,7 +267,7 @@ struct ProductForm: View {
                                         .fontWeight(.semibold)
                                         .padding(.leading).padding(.top, -5)
                                     }
-                                    .frame(width: geometry.size.width-70)
+                                    .frame(width: max(0, geometry.size.width-70))
                                 }
 //                            }
                             
@@ -315,9 +315,9 @@ struct ProductForm: View {
                                 }
                             }) {
                                 if ifEdit {
-                                    Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
+                                    Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: max(0, geometry.size.width-70), height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
                                 } else {
-                                    Text("Add").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
+                                    Text("Add").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: max(0, geometry.size.width-70), height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
                                 }
                             }
                             .padding(.bottom)
@@ -326,7 +326,7 @@ struct ProductForm: View {
                         
                     }
                     .padding(.top, -5)
-                    .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                    .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                     }
                     .onTapGesture {
                         isEditingTextField = false

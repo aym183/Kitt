@@ -26,10 +26,6 @@ struct LandingPage: View {
                     }
                 }
             }
-//            .onAppear {
-////                NavigationUtil.popToRootView()
-//                print(Auth.auth().currentUser)
-//            }
         }
     }
 }
@@ -146,7 +142,9 @@ struct LandingContent: View {
                                 CreateLink(homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: (Auth.auth().currentUser?.email)!, createLinkSheet: $createLinkSheet).presentationDetents([.height(500)])
                             }
                             
-                            Button(action: { loginSheet.toggle() }) {
+                            Button(action: {
+                                loginSheet.toggle()
+                            }) {
                                 HStack {
                                     Image(systemName: "arrow.right").foregroundColor(.white).padding(.leading, -10)
                                     Text("Login with Email")
@@ -162,7 +160,7 @@ struct LandingContent: View {
                                 LoginForm(loginSheet: $loginSheet, homePageShown: $homePageShown).presentationDetents([.height(400)])
                             }
                         }
-                        .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                        .frame(width: max(0,geometry.size.width-40), height: max(0, geometry.size.height-20))
                         .foregroundColor(.black)
                         .navigationDestination(isPresented: $homePageShown) {
                             HomePage(isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)

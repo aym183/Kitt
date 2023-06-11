@@ -54,7 +54,7 @@ struct SettingsPage: View {
                             Text(bio).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 50).padding(.bottom)
                             
                         }
-                        .frame(width: geometry.size.width-50, height: 100)
+                        .frame(width: max(0, geometry.size.width-50), height: 100)
                         Spacer()
                         
                         ScrollView(.vertical, showsIndicators: false) {
@@ -71,7 +71,7 @@ struct SettingsPage: View {
                                     .fontWeight(.semibold)
                                     .padding(.horizontal, 28)
                                 }
-                                .frame(width: geometry.size.width-50)
+                                .frame(width: max(0, geometry.size.width-50))
                             }
                             
                             ForEach(0..<6) { index in
@@ -107,7 +107,7 @@ struct SettingsPage: View {
                                         .fontWeight(.semibold)
                                         .padding(.horizontal, 28)
                                     }
-                                    .frame(width: geometry.size.width-50)
+                                    .frame(width: max(0, geometry.size.width-50))
                                 }
                             }
 
@@ -115,7 +115,7 @@ struct SettingsPage: View {
                         }
                         .padding(.bottom, 10).padding(.top, -10)
                     }
-                    .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                    .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $salesPageShown) {
                         TotalSales(readData: readData)

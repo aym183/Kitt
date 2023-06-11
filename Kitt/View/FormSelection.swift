@@ -64,7 +64,7 @@ struct FormSelection: View {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(Color("TextField"))
-                                    .frame(width: geometry.size.width-60, height: 70)
+                                    .frame(width: max(0, geometry.size.width-60), height: 70)
                                 
                                 HStack {
                                     Button(action: {
@@ -89,7 +89,7 @@ struct FormSelection: View {
                         
                         Spacer()
                     }
-                    .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                    .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                     }
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $productFormShown) {

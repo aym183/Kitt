@@ -34,13 +34,13 @@ struct CreateProfile: View {
                         .frame(width: geometry.size.width-40)
                         
                         
-                        TextField("", text: $fullName, prompt: Text("Full Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).font(Font.custom("Avenir-Medium", size: 16))
+                        TextField("", text: $fullName, prompt: Text("Full Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-40), height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).font(Font.custom("Avenir-Medium", size: 16))
                             .onTapGesture {
                                 isEditingTextField = true
                             }
                         
                         ZStack {
-                            TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).font(Font.custom("Avenir-Medium", size: 16))
+                            TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: max(0, geometry.size.width-40), height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).font(Font.custom("Avenir-Medium", size: 16))
                                 .onChange(of: self.bio, perform: { value in
                                        if value.count > 50 {
                                            self.bio = String(value.prefix(50))
@@ -96,7 +96,7 @@ struct CreateProfile: View {
                         Spacer()
 
                     }
-                    .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                    .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .navigationDestination(isPresented: $profileImageUploadShown) {

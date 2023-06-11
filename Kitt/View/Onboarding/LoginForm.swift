@@ -33,9 +33,9 @@ struct LoginForm: View {
                                 Image(systemName: "xmark.circle.fill")
                             }
                         }
-                        .frame(width: geometry.size.width-40)
+                        .frame(width: max(0, geometry.size.width-40))
                         
-                        TextField("", text: $email, prompt: Text("Email").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                        TextField("", text: $email, prompt: Text("Email").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-40), height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                             .onChange(of: email) { newValue in
                                 withAnimation(.easeOut(duration: 0.2)) {
                                     validateEmail()
@@ -53,14 +53,14 @@ struct LoginForm: View {
                             .padding(.trailing, 5)
                         }
                         
-                        SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                        SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-40), height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).disableAutocorrection(true).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
                             .onTapGesture {
                                 isEditingTextField = true
                             }
                         
                         Text("By continuing you agree to our Terms of Service.\nKitt services are subject to our Privacy Policy.")
                             .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5)
-                            .frame(width: geometry.size.width-40, height: 40)
+                            .frame(width: max(0, geometry.size.width-40), height: 40)
                             .padding(.top, 10).padding(.leading, -15)
                         
                         
@@ -91,7 +91,7 @@ struct LoginForm: View {
                         .padding(.bottom)
                         .disabled(areAllFieldsEmpty)
                     }
-                    .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                    .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                     .foregroundColor(.black)
                     .padding(.top, 30)
                 }

@@ -26,7 +26,7 @@ struct UploadProfileImageForm: View {
                         }
                         .padding(.bottom, 2)
 //                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
-                        .frame(width: geometry.size.width-40)
+                        .frame(width: max(0, geometry.size.width-40))
                         
                         Text("Select an image to use as your profile \npicture. It will show up on your page.").font(Font.custom("Avenir-Medium", size: 18)).padding(.leading, 2)
                         
@@ -48,7 +48,7 @@ struct UploadProfileImageForm: View {
                             Text("@\(username)").padding(.leading, 25).font(Font.custom("Avenir-Medium", size: 25)).fontWeight(.bold)
                             Spacer()
                         }
-                        .frame(width: geometry.size.width-60, height: 75)
+                        .frame(width: max(0, geometry.size.width-60), height: 75)
                         .padding(.vertical, 30).padding(.horizontal, 10)
                         
                         HStack {
@@ -95,7 +95,7 @@ struct UploadProfileImageForm: View {
                         }
                         
                     }
-                    .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                    .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .sheet(isPresented: $showImagePicker) {

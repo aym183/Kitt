@@ -33,12 +33,12 @@ struct ChangeProfilePicture: View {
                                     Image(uiImage: image)
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: geometry.size.width-70, height: geometry.size.height - 450)
+                                        .frame(width: max(0, geometry.size.width-70), height: max(0, geometry.size.height-450))
                                         .cornerRadius(10)
                                 } else {
                                     RoundedRectangle(cornerRadius: 10)
                                         .fill(Color("TextField"))
-                                        .frame(width: geometry.size.width-70, height: geometry.size.height - 450)
+                                        .frame(width: max(0, geometry.size.width-70), height: max(0, geometry.size.height-450))
                                     VStack {
                                         Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
                                         Text("Add profile image").padding(.top,5).fontWeight(.semibold)
@@ -62,13 +62,13 @@ struct ChangeProfilePicture: View {
                                     }
                                 }
                         }) {
-                                Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: geometry.size.width-70, height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
+                                Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: max(0,geometry.size.width-70), height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
                         }
                         .padding(.bottom)
                         .disabled(areAllFieldsEmpty)
                         
                         }
-                        .frame(width: geometry.size.width-40, height: geometry.size.height-20)
+                        .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                         }
                         .foregroundColor(.black)
                         .sheet(isPresented: $showImagePicker) {
