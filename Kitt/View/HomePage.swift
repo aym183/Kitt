@@ -201,7 +201,7 @@ struct HomePage: View {
                                 productsNumber = noOfProducts
                                 classesNumber = noOfClasses
                                 formShown.toggle()
-                                NotificationHandler().scheduleLocalNotification()
+//                                NotificationHandler().scheduleLocalNotification()
                             }) {
                                 HStack(spacing: 6) {
                                     Image(systemName: "plus").fontWeight(.black)

@@ -9,13 +9,13 @@ import Foundation
 import UserNotifications
 
 struct NotificationHandler {
-    func scheduleLocalNotification() {
+    func scheduleLocalNotification(product_name: String, price: String) {
         let content = UNMutableNotificationContent()
-        content.title = "Notification Title Ayman"
-        content.body = "Notification Body"
+        content.title = "You have a new sale! 🥳"
+        content.body = "\(product_name) has sold for \(price) AED"
         content.sound = UNNotificationSound.default
         
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
         let request = UNNotificationRequest(identifier: "notificationIdentifier", content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request) { error in
