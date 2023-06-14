@@ -108,6 +108,7 @@ struct LinkForm: View {
                                     }
                                 }
                                 .padding(.trailing, 30).padding(.top, 10)
+                                .frame(height: 60)
                         }
                             
                         }

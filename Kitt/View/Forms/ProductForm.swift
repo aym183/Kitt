@@ -174,6 +174,7 @@ struct ProductForm: View {
                                         }
                                     }
                                     .padding(.trailing, 30)
+                                    .frame(height: 60)
                             }
                             }
                             

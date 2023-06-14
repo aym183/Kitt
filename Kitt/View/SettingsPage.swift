@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 
 struct SettingsPage: View {
-    var labels = ["Sales", "Payout Details", "Edit profile", "Help", "Refer a friend", "Sign out"]
+    var labels = ["Sales", "Payout details", "Edit profile", "Help", "Refer a friend", "Sign out"]
     @ObservedObject var readData: ReadDB
     var profile_image: UIImage?
     var name: String
@@ -18,6 +18,7 @@ struct SettingsPage: View {
     @State var profileImageChange = false
     @State var profileNameChange = false
     @State var salesPageShown = false
+    @State var payoutDetailsShown = false
     @State var bioChange = false
     @State var signedOut = false
     @State var showingSignOutConfirmation = false
@@ -79,8 +80,7 @@ struct SettingsPage: View {
                                     if index == 0 {
                                         salesPageShown.toggle()
                                     } else if index == 1 {
-                                        // Payout Details
-                                        print("Payout Details")
+                                        payoutDetailsShown.toggle()
                                     } else if index == 2 {
                                         profileImageChange.toggle()
                                         
@@ -127,6 +127,9 @@ struct SettingsPage: View {
                     }
                     .navigationDestination(isPresented: $profileImageChange) {
                         EditProfile()
+                    }
+                    .navigationDestination(isPresented: $payoutDetailsShown) {
+                        PayoutDetails()
                     }
 //                    .navigationDestination(isPresented: $profileNameChange) {
 //                        ChangeName()

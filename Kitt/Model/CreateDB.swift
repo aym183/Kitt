@@ -45,7 +45,11 @@ class CreateDB : ObservableObject {
                     "tiktok": "",
                     "facebook": "",
                     "youtube": "",
-                    "website": ""
+                    "website": "",
+                    "bank_name": "",
+                    "bank_full_name": "",
+                    "account_number": "",
+                    "iban": ""
                 ]
                 
                 ref.addDocument(data: data) { error in

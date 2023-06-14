@@ -87,7 +87,7 @@ class UpdateDB : ObservableObject {
         
         collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
             if let error = error {
-                print("Error updating Image: \(error)")
+                print("Error updating user details: \(error)")
             } else {
                 guard let document = querySnapshot?.documents.first else {
                     print("No documents found")
@@ -98,6 +98,27 @@ class UpdateDB : ObservableObject {
                 docRef.updateData(["full_name": fullName, "bio": bioText])
                 UserDefaults.standard.set(fullName, forKey: "full_name")
                 UserDefaults.standard.set(bioText, forKey: "bio")
+                completion("Successful")
+            }
+        }
+    }
+    
+    func updateBankDetails(fullName: String, bankName: String, accountNumber: String, iban: String, completion: @escaping (String?) -> Void) {
+        let db = Firestore.firestore()
+        let collectionRef = db.collection("users")
+        @AppStorage("username") var userName: String = ""
+        
+        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error updating bank details: \(error)")
+            } else {
+                guard let document = querySnapshot?.documents.first else {
+                    print("No documents found")
+                    return
+                }
+            
+                let docRef = collectionRef.document(document.documentID)
+                docRef.updateData(["bank_name": bankName, "bank_full_name": fullName, "account_number": accountNumber, "iban": iban])
                 completion("Successful")
             }
         }
