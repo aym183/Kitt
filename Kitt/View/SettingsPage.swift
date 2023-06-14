@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 
 struct SettingsPage: View {
-    var labels = ["Edit Profile", "Help", "Refer a friend", "Sign Out"]
+    var labels = ["Edit profile", "Help", "Refer a friend", "Sign out"]
     @ObservedObject var readData: ReadDB
     var profile_image: UIImage?
     var name: String
@@ -30,32 +30,46 @@ struct SettingsPage: View {
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack(alignment: .center) {
-                        if profile_image != nil {
-                            ZStack {
-                                Image(uiImage: profile_image!)
-                                    .resizable()
-                                    .scaledToFill()
-                            }
-                            .frame(width: 110, height: 110)
-                            .cornerRadius(100)
-                            .padding(.top, 10)
-                            
-//                                .frame(width: 130, height: 130)
-//
-                        } else {
-                            Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
-                        }
                         
+                        HStack {
+                            if profile_image != nil {
+                                ZStack {
+                                    Image(uiImage: profile_image!)
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                .frame(width: 75, height: 75)
+                                .cornerRadius(100)
+    //                            .padding(.top, 10)
+                                
+    //                                .frame(width: 130, height: 130)
+    //
+                            } else {
+                                ZStack {
+                                    Image(systemName: "person.circle")
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                .frame(width: 75, height: 75)
+                            }
+                            
+                            Text(name).font(Font.custom("Avenir-Black", size: 20)).multilineTextAlignment(.leading).padding(.leading, 10)
+                            Spacer()
+                            
+                        }
+                        .padding(.horizontal, 5).padding(.bottom, 20).padding(.top, -40)
+                        
+                        
+//                        Spacer()
 //                        Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
-                        VStack(alignment: .center) {
-                            Text(name).font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.08)).padding(.top, -8).multilineTextAlignment(.center)
+//                        VStack(alignment: .center) {
+                            
 //                                .padding(.horizontal, 50)
                             
-                            Text(bio).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 50).padding(.bottom)
+//                            Text(bio).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 50).padding(.bottom)
                             
-                        }
-                        .frame(width: max(0, geometry.size.width-50), height: 100)
-                        Spacer()
+//                        }
+                        
                         
                         ScrollView(.vertical, showsIndicators: false) {
                             Button(action: { salesPageShown.toggle() }) {
@@ -110,7 +124,8 @@ struct SettingsPage: View {
 
 //                            .padding(.top)
                         }
-                        .padding(.bottom, 10).padding(.top, -10)
+                        .frame(height: 500)
+                        .padding(.bottom, 10)
                     }
                     .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                     .foregroundColor(.black)
