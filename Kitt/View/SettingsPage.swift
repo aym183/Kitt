@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 
 struct SettingsPage: View {
-    var labels = ["Edit profile", "Help", "Refer a friend", "Sign out"]
+    var labels = ["Sales", "Payout Details", "Edit profile", "Help", "Refer a friend", "Sign out"]
     @ObservedObject var readData: ReadDB
     var profile_image: UIImage?
     var name: String
@@ -72,36 +72,29 @@ struct SettingsPage: View {
                         
                         
                         ScrollView(.vertical, showsIndicators: false) {
-                            Button(action: { salesPageShown.toggle() }) {
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color("TextField"))
-                                        .frame(height: 60)
-                                    HStack {
-                                        Text("Sales").font(Font.custom("Avenir-Medium", size: 18))
-                                        Spacer()
-                                        Image(systemName: "arrow.right")
-                                    }
-                                    .fontWeight(.semibold)
-                                    .padding(.horizontal, 28)
-                                }
-                                .frame(width: max(0, geometry.size.width-50))
-                            }
                             
-                            ForEach(0..<4) { index in
+                            ForEach(0..<6) { index in
                                 Button(action: {
+
                                     if index == 0 {
-                                        profileImageChange.toggle()
+                                        salesPageShown.toggle()
                                     } else if index == 1 {
-                                        if let whatsappURL = URL(string: "https://wa.me/\(phoneNumber)") {
-                                            UIApplication.shared.open(whatsappURL)
-                                        }
+                                        // Payout Details
+                                        print("Payout Details")
                                     } else if index == 2 {
+                                        profileImageChange.toggle()
+                                        
+                                    } else if index == 3 {
                                         let message = "Hey! Check out Kitt to start selling products and services from your Instagram link in bio.\n"
                                         let activityViewController = UIActivityViewController(activityItems: [message, linkURL], applicationActivities: nil)
                                         UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
-                                        
-                                    } else if index == 3 {
+                                    }
+                                    else if index == 4 {
+                                        if let whatsappURL = URL(string: "https://wa.me/\(phoneNumber)") {
+                                            UIApplication.shared.open(whatsappURL)
+                                        }
+                                    }
+                                    else {
                                         showingSignOutConfirmation = true
                                     }
                                 }) {
