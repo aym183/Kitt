@@ -119,6 +119,10 @@ class UpdateDB : ObservableObject {
             
                 let docRef = collectionRef.document(document.documentID)
                 docRef.updateData(["bank_name": bankName, "bank_full_name": fullName, "account_number": accountNumber, "iban": iban])
+                UserDefaults.standard.set(bankName, forKey: "bank_name")
+                UserDefaults.standard.set(fullName, forKey: "bank_full_name")
+                UserDefaults.standard.set(accountNumber, forKey: "acc_number")
+                UserDefaults.standard.set(iban, forKey: "iban")
                 completion("Successful")
             }
         }

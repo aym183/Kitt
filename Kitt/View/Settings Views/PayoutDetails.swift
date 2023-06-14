@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct PayoutDetails: View {
+    @AppStorage("bank_name") var bankName: String = ""
+    @AppStorage("bank_full_name") var fullName: String = ""
+    @AppStorage("acc_number") var accNumber: String = ""
+    @AppStorage("iban") var ibanCache: String = ""
+    
     @State private var isEditingTextField = false
     @State var bank_name = ""
     @State var full_name = ""
@@ -118,6 +123,10 @@ struct PayoutDetails: View {
                             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
                                 isEditingTextField = false
                             }
+                            bank_name = bankName
+                            full_name = fullName
+                            account_number = accNumber
+                            iban = ibanCache
                         }
                         .foregroundColor(.black)
                         .navigationDestination(isPresented: $bankDetailsUpdated) {

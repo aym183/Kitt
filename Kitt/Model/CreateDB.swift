@@ -68,6 +68,10 @@ class CreateDB : ObservableObject {
                         UserDefaults.standard.set("", forKey: "youtube")
                         UserDefaults.standard.set("", forKey: "instagram")
                         UserDefaults.standard.set(nil, forKey: "profile_image")
+                        UserDefaults.standard.set("", forKey: "bank_name")
+                        UserDefaults.standard.set("", forKey: "bank_full_name")
+                        UserDefaults.standard.set("", forKey: "acc_number")
+                        UserDefaults.standard.set("", forKey: "iban")
                         completion("User Added")
                     }
                 }
