@@ -113,7 +113,7 @@ struct LinkForm: View {
                         }
                         
                         
-                        TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).autocapitalization(.none).font(Font.custom("Avenir-Medium", size: 16))
+                        TextField("", text: $linkURL, prompt: Text("URL").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).autocapitalization(.none).autocorrectionDisabled(true).font(Font.custom("Avenir-Medium", size: 16))
                             .onTapGesture {
                                 isEditingTextField = true
                             }

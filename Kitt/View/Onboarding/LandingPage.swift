@@ -43,15 +43,32 @@ struct LandingContent: View {
                         Color(.white).ignoresSafeArea()
                         VStack{
                             
-                            //                        Text("Kitt")
-                            Image("HeaderText")
-                                .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1))
-                                .foregroundColor(.black)
-                                .padding(.top, 50)
-                                .padding(.horizontal)
+                            HStack {
+                                
+                                ZStack {
+                                    Image("HeaderText")
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                .frame(width: 100, height: 50)
+                                Spacer()
+                            }
+                            .padding(.top, 50)
+                            .padding(.leading, 2)
                             
+                            HStack {
+                                Text("Welcome to Kitt! 👋")
+                                    .font(Font.custom("Avenir-Medium", size: 25)).fontWeight(.bold)
+                                Spacer()
+                            }
+                            .padding(.leading, 10).padding(.bottom, 5)
                             
-                            Spacer()
+                            HStack {
+                                Text("Kitt is the easiest way to build your business on Instagram.\n\n✅ Start your shop in 5 minutes\n✅ Sell classes, guides, and more!\n✅ Fast AED payouts\n✅ Free to start")
+                                    .font(Font.custom("Avenir-Medium", size: 18)).multilineTextAlignment(.leading)
+                                Spacer()
+                            }
+                            .padding(.leading, 10).padding(.bottom, 40)
                             
                             Button(action: {
                                 guard let clientID = FirebaseApp.app()?.options.clientID else { return }
@@ -91,17 +108,31 @@ struct LandingContent: View {
                                     }
                                 }
                             }) {
-                                HStack {
-                                    Image("Google").foregroundColor(.white)
-                                    Text("Sign in with Google")
+                                HStack(spacing: 3.5) {
+                                    Image("Google").resizable().frame(width: 18, height: 18)
+                                    Text("Continue with Google")
                                 }
-                                .font(Font.system(size: 20))
-                                .fontWeight(.medium)
-                                .frame(width: 300, height: 55)
+                                .font(Font.custom("Avenir-Medium", size: 18))
+                                .fontWeight(.bold)
+                                .frame(width: 320, height: 50)
                                 .background(Color.black).foregroundColor(Color.white)
-                                .cornerRadius(50)
+                                .cornerRadius(10)
                             }
                             .padding(.horizontal, 50).padding(.bottom, 5)
+                            
+//                            Button(action: { createAccountSheet.toggle() }) {
+//                                HStack {
+//                                    Text("Continue with Apple")
+//                                }
+//                                .font(Font.custom("Avenir-Medium", size: 18))
+//                                .fontWeight(.bold)
+//                                .frame(width: 320, height: 55)
+//                                .background(Color.black).foregroundColor(Color.white)
+//                                .cornerRadius(10)
+//                            }
+//                            .padding(.horizontal, 50).padding(.bottom, 10)
+                            
+                            
                             
                             SignInWithAppleButton { request in
                                 authVM.handleSignInWithAppleRequest(request)
@@ -118,21 +149,25 @@ struct LandingContent: View {
                                     }
                                 }
                             }
-                            .frame(width: 300, height: 55)
-                            .cornerRadius(50)
+                            .font(Font.custom("Avenir-Medium", size: 18))
+                            .fontWeight(.medium)
+                            .frame(width: 320, height: 50)
+                            .cornerRadius(10)
                             .padding(.horizontal, 50)
-                            .padding(.bottom, 5)
+                            .padding(.bottom, 10)
+                            
+                            Divider().frame(width: 300, height: 1.5).background(Color("Divider")).padding(.bottom, 10)
                             
                             Button(action: { createAccountSheet.toggle() }) {
-                                HStack {
-                                    Image(systemName: "envelope.fill").foregroundColor(.white)
-                                    Text("Sign up with Email")
+                                HStack(spacing: 3.5) {
+                                    Image("Mail").resizable().frame(width: 18, height: 18)
+                                    Text("Sign up with email")
                                 }
-                                .font(Font.system(size: 20))
-                                .fontWeight(.medium)
-                                .frame(width: 300, height: 55)
+                                .font(Font.custom("Avenir-Medium", size: 18))
+                                .fontWeight(.bold)
+                                .frame(width: 320, height: 50)
                                 .background(Color.black).foregroundColor(Color.white)
-                                .cornerRadius(50)
+                                .cornerRadius(10)
                             }
                             .padding(.horizontal, 50)
                             .sheet(isPresented: $createAccountSheet) {
@@ -145,15 +180,15 @@ struct LandingContent: View {
                             Button(action: {
                                 loginSheet.toggle()
                             }) {
-                                HStack {
-                                    Image(systemName: "arrow.right").foregroundColor(.white).padding(.leading, -10)
-                                    Text("Log in with Email")
+                                HStack(spacing: 3.5) {
+                                    Image("Mail").resizable().frame(width: 18, height: 18)
+                                    Text("Log in with email")
                                 }
-                                .font(Font.system(size: 20))
-                                .fontWeight(.medium)
-                                .frame(width: 300, height: 55)
+                                .font(Font.custom("Avenir-Medium", size: 18))
+                                .fontWeight(.bold)
+                                .frame(width: 320, height: 50)
                                 .background(Color.black).foregroundColor(Color.white)
-                                .cornerRadius(50)
+                                .cornerRadius(10)
                             }
                             .padding(.horizontal, 50).padding(.bottom).padding(.vertical, 5)
                             .sheet(isPresented: $loginSheet) {
@@ -197,6 +232,7 @@ struct NavigationUtil {
     return nil
         }
 }
+
 
 struct LandingPage_Previews: PreviewProvider {
     static var previews: some View {
