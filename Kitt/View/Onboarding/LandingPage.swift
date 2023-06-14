@@ -112,8 +112,8 @@ struct LandingContent: View {
                                     Image("Google").resizable().frame(width: 18, height: 18)
                                     Text("Continue with Google")
                                 }
-                                .font(Font.custom("Avenir-Medium", size: 18))
-                                .fontWeight(.bold)
+                                .font(.system(size: 18))
+                                .fontWeight(.medium)
                                 .frame(width: 320, height: 50)
                                 .background(Color.black).foregroundColor(Color.white)
                                 .cornerRadius(10)
@@ -149,8 +149,8 @@ struct LandingContent: View {
                                     }
                                 }
                             }
-                            .font(Font.custom("Avenir-Medium", size: 18))
-                            .fontWeight(.medium)
+//                            .font(Font.custom("Avenir-Medium", size: 18))
+//                            .fontWeight(.bold)
                             .frame(width: 320, height: 50)
                             .cornerRadius(10)
                             .padding(.horizontal, 50)
@@ -163,8 +163,10 @@ struct LandingContent: View {
                                     Image("Mail").resizable().frame(width: 18, height: 18)
                                     Text("Sign up with email")
                                 }
-                                .font(Font.custom("Avenir-Medium", size: 18))
-                                .fontWeight(.bold)
+//                                .font(Font.custom("Avenir-Medium", size: 18))
+//                                .fontWeight(.bold)
+                                .font(.system(size: 18))
+                                .fontWeight(.medium)
                                 .frame(width: 320, height: 50)
                                 .background(Color.black).foregroundColor(Color.white)
                                 .cornerRadius(10)
@@ -184,8 +186,10 @@ struct LandingContent: View {
                                     Image("Mail").resizable().frame(width: 18, height: 18)
                                     Text("Log in with email")
                                 }
-                                .font(Font.custom("Avenir-Medium", size: 18))
-                                .fontWeight(.bold)
+//                                .font(Font.custom("Avenir-Medium", size: 18))
+//                                .fontWeight(.bold)
+                                .font(.system(size: 18))
+                                .fontWeight(.medium)
                                 .frame(width: 320, height: 50)
                                 .background(Color.black).foregroundColor(Color.white)
                                 .cornerRadius(10)

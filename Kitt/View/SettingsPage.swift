@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseFirestore
 
 struct SettingsPage: View {
-    var labels = ["Change profile picture", "Change name", "Change bio", "Help", "Refer a friend", "Sign Out"]
+    var labels = ["Edit Profile", "Help", "Refer a friend", "Sign Out"]
     @ObservedObject var readData: ReadDB
     var profile_image: UIImage?
     var name: String
@@ -74,23 +74,20 @@ struct SettingsPage: View {
                                 .frame(width: max(0, geometry.size.width-50))
                             }
                             
-                            ForEach(0..<6) { index in
+                            ForEach(0..<4) { index in
                                 Button(action: {
                                     if index == 0 {
                                         profileImageChange.toggle()
                                     } else if index == 1 {
-                                        profileNameChange.toggle()
-                                    } else if index == 2 {
-                                        bioChange.toggle()
-                                    } else if index == 3 {
                                         if let whatsappURL = URL(string: "https://wa.me/\(phoneNumber)") {
                                             UIApplication.shared.open(whatsappURL)
                                         }
-                                    } else if index == 4 {
+                                    } else if index == 2 {
                                         let message = "Hey! Check out Kitt to start selling products and services from your Instagram link in bio.\n"
                                         let activityViewController = UIActivityViewController(activityItems: [message, linkURL], applicationActivities: nil)
                                         UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
-                                    } else {
+                                        
+                                    } else if index == 3 {
                                         showingSignOutConfirmation = true
                                     }
                                 }) {
@@ -121,14 +118,14 @@ struct SettingsPage: View {
                         TotalSales(readData: readData)
                     }
                     .navigationDestination(isPresented: $profileImageChange) {
-                        ChangeProfilePicture()
+                        EditProfile()
                     }
-                    .navigationDestination(isPresented: $profileNameChange) {
-                        ChangeName()
-                    }
-                    .navigationDestination(isPresented: $bioChange) {
-                        ChangeBio()
-                    }
+//                    .navigationDestination(isPresented: $profileNameChange) {
+//                        ChangeName()
+//                    }
+//                    .navigationDestination(isPresented: $bioChange) {
+//                        ChangeBio()
+//                    }
                     .navigationDestination(isPresented: $signedOut) {
                         LandingContent().navigationBarBackButtonHidden(true)
                     }
