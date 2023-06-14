@@ -272,6 +272,106 @@ class ReadDB : ObservableObject {
             }
     }
     
+    func getSales_rt() {
+        @AppStorage("sales") var sales: String = ""
+        let salesDB = Database.database().reference().child("sales").child(sales)
+        var temp_sales = UserDefaults.standard.array(forKey: "myKey") as? [[String:Any]] ?? []
+        let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
+        let oneMonthAgo = Date().addingTimeInterval(-31 * 24 * 60 * 60)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        salesDB.observe(.value) { snapshot, error  in
+            
+            if let error = error {
+                print("Error getting sales in getSales_rt:")
+            } else {
+                if let snapshotValue = snapshot.value as? [String: Any] {
+                    for value in snapshotValue.values {
+                        temp_sales.append(value as! [String : Any])
+                    }
+                } else {
+                    print("No value for that name")
+                }
+                self.sales = temp_sales
+                
+                if self.sales!.count != 0 {
+                    
+                    var temp_week_sales = 0
+                    var temp_month_sales = 0
+                    var temp_total_sales = 0
+                    var temp_week_amount = 0
+                    var temp_month_amount = 0
+                    var temp_total_amount = 0
+
+                    for index in 0..<self.sales!.count {
+                        let dateString = self.sales![index]["date"]! as! String
+
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+
+                        if let date = dateFormatter.date(from: dateString) {
+                            let currentDate = Date()
+
+                            
+                            let calendar = Calendar.current
+                            let oneWeekAgo = calendar.date(byAdding: .weekOfYear, value: -1, to: currentDate)!
+                            let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: currentDate)!
+                            
+                            let formattedDate = DateFormatter()
+                            formattedDate.dateFormat = "dd MMMM yyyy"
+                            let dateString = formattedDate.string(from: date)
+                            
+                            self.sales![index]["date"]! = dateString
+                            
+                            if !self.sale_dates!.contains(dateString) {
+                                self.sale_dates!.append(dateString)
+                            }
+
+
+                            if date > oneWeekAgo {
+                                temp_week_amount += Int(String(describing: self.sales![index]["price"]!))!
+                                temp_month_amount += Int(String(describing: self.sales![index]["price"]!))!
+                                temp_total_amount += Int(String(describing: self.sales![index]["price"]!))!
+
+                                temp_week_sales += 1
+                                temp_month_sales += 1
+                                temp_total_sales += 1
+
+                            } else if date > oneMonthAgo {
+                                temp_month_amount += Int(String(describing: self.sales![index]["price"]!))!
+                                temp_total_amount += Int(String(describing: self.sales![index]["price"]!))!
+                                temp_month_sales += 1
+                                temp_total_sales += 1
+                            } else {
+                                temp_total_amount += Int(String(describing: self.sales![index]["price"]!))!
+                                temp_total_sales += 1
+                            }
+                        } else {
+                            print("Invalid date format")
+                        }
+                    }
+                    self.week_sales!["total"] = temp_week_amount
+                    self.month_sales!["total"] = temp_month_amount
+                    self.total_sales!["total"] = temp_total_amount
+                    self.week_sales!["sales"] = temp_week_sales
+                    self.month_sales!["sales"] = temp_month_sales
+                    self.total_sales!["sales"] = temp_total_sales
+                    if self.sale_dates != [] {
+                        self.sortDatesDescending()
+                    }
+                }
+                if self.sales!.count != 0 {
+                    self.sortArrayByTime()
+                }
+                print("\(self.sales) are the sales")
+            }
+           }
+    }
+    
     func getSales() {
         @AppStorage("sales") var sales: String = ""
         let db = Firestore.firestore()

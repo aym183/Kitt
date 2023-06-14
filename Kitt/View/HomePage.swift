@@ -470,10 +470,12 @@ struct HomePage: View {
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .onAppear {
+                        readData.sales = []
                         DispatchQueue.global(qos: .userInteractive).async {
                             readData.getProducts()
-                            readData.getSales()
+                            //readData.getSales()
 //                            readData.getClasses()
+                            readData.getSales_rt()
                             readData.loadProfileImage() { response in
                                 if response != nil {
                                     profile_image = response!

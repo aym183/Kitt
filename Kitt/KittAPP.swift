@@ -23,16 +23,18 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
             guard success else {
                 return
             }
+            print("Success in APNs registry")
         }
         application.registerForRemoteNotifications()
-        
         return true
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) { messaging.token() { token, _ in
         guard let token = token else {
+            print("Token is nil")
             return
         }
+        print("Token: \(token)")
     }
     }
     
@@ -47,6 +49,22 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
         completionHandler()
     }
 
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+            @AppStorage("username") var username: String = ""
+            let databaseRef = Database.database().reference().child("sales").child(username)
+            
+            databaseRef.observe(.value) { snapshot in
+                
+                if snapshot.exists() {
+                    // Database has new data, trigger actions or update UI
+//                    completionHandler(.newData)
+                    print("\(snapshot.value) This is snapshot value")
+                } else {
+                    // No new data
+                    completionHandler(.noData)
+                }
+            }
+        }
     
     
     
