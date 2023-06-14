@@ -284,7 +284,8 @@ class ReadDB : ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
         salesDB.observe(.value) { snapshot, error  in
-            
+            temp_sales = []
+            self.sale_dates = []
             if let error = error {
                 print("Error getting sales in getSales_rt:")
             } else {
@@ -367,7 +368,6 @@ class ReadDB : ObservableObject {
                 if self.sales!.count != 0 {
                     self.sortArrayByTime()
                 }
-                print("\(self.sales) are the sales")
             }
            }
     }

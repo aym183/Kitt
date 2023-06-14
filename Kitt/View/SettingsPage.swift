@@ -149,12 +149,6 @@ struct SettingsPage: View {
                         )
                     }
                 }
-                .onAppear {
-                    readData.sales = []
-                    DispatchQueue.global(qos: .userInteractive).async {
-                        readData.getSales_rt()
-                    }
-                }
         }
     }
     
