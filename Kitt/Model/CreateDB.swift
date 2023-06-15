@@ -63,6 +63,7 @@ class CreateDB : ObservableObject {
                         UserDefaults.standard.set(username, forKey: "classes")
                         UserDefaults.standard.set(username, forKey: "sales")
                         UserDefaults.standard.set("", forKey: "tiktok")
+                        UserDefaults.standard.set("", forKey: "social_email")
                         UserDefaults.standard.set("", forKey: "facebook")
                         UserDefaults.standard.set("", forKey: "website")
                         UserDefaults.standard.set("", forKey: "youtube")

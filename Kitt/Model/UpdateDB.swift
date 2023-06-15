@@ -592,7 +592,7 @@ class UpdateDB : ObservableObject {
         }
     }
     
-    func updateSocials(instagram: String, tiktok: String, facebook: String, youtube: String, website: String) {
+    func updateSocials(instagram: String, tiktok: String, facebook: String, youtube: String, website: String, email: String) {
         let db = Firestore.firestore()
         let collectionRef = db.collection("users")
         @AppStorage("username") var userName: String = ""
@@ -607,12 +607,13 @@ class UpdateDB : ObservableObject {
                 }
             
                 let docRef = collectionRef.document(document.documentID)
-                docRef.updateData(["instagram": instagram, "tiktok": tiktok, "facebook": facebook, "youtube": youtube, "website": website])
+                docRef.updateData(["instagram": instagram, "tiktok": tiktok, "facebook": facebook, "youtube": youtube, "website": website, "social_email": email])
                 UserDefaults.standard.set(instagram, forKey: "instagram")
                 UserDefaults.standard.set(tiktok, forKey: "tiktok")
                 UserDefaults.standard.set(facebook, forKey: "facebook")
                 UserDefaults.standard.set(youtube, forKey: "youtube")
                 UserDefaults.standard.set(website, forKey: "website")
+                UserDefaults.standard.set(email, forKey: "social_email")
             }
         }
     }
