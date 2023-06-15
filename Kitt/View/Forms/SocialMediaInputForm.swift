@@ -14,6 +14,11 @@ struct SocialMediaInput: View {
     @AppStorage("facebook") var fbUsername: String = ""
     @AppStorage("youtube") var ytChannel: String = ""
     @AppStorage("website") var webAddress: String = ""
+    @State var ig = ""
+    @State var tiktok = ""
+    @State var fb = ""
+    @State var yt = ""
+    @State var web = ""
     @State private var isEditingTextField = false
     
     var body: some View {
@@ -38,7 +43,7 @@ struct SocialMediaInput: View {
                             HStack {
                                 Image("Instagram").frame(width: 50, height: 60).background(Color("TextField")).cornerRadius(10).padding(.trailing, -10)
 
-                                TextField("", text: $igUsername, prompt: Text("Instagram username").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-120), height: 65).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.leading, -10)
+                                TextField("", text: $ig, prompt: Text("Instagram username").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-120), height: 65).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.leading, -10)
                                     .onTapGesture {
                                         isEditingTextField = true
                                     }
@@ -47,7 +52,7 @@ struct SocialMediaInput: View {
                             HStack {
                                 Image("TikTok").frame(width: 50, height: 60).background(Color("TextField")).cornerRadius(10).padding(.trailing, -10)
 
-                                TextField("", text: $tiktokUsername, prompt: Text("Tiktok username").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-120), height: 65).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.leading, -10)
+                                TextField("", text: $tiktok, prompt: Text("Tiktok username").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-120), height: 65).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.leading, -10)
                                     .onTapGesture {
                                         isEditingTextField = true
                                     }
@@ -57,7 +62,7 @@ struct SocialMediaInput: View {
                             HStack {
                                 Image("Facebook").frame(width: 50, height: 60).background(Color("TextField")).cornerRadius(10).padding(.trailing, -10)
 
-                                TextField("", text: $fbUsername, prompt: Text("Facebook username").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-120), height: 65).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.leading, -10)
+                                TextField("", text: $fb, prompt: Text("Facebook username").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-120), height: 65).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.leading, -10)
                                     .onTapGesture {
                                         isEditingTextField = true
                                     }
@@ -67,7 +72,7 @@ struct SocialMediaInput: View {
                             HStack {
                                 Image("YouTube").frame(width: 50, height: 60).background(Color("TextField")).cornerRadius(10).padding(.trailing, -10)
 
-                                TextField("", text: $ytChannel, prompt: Text("YouTube channel").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-120), height: 65).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.leading, -10)
+                                TextField("", text: $yt, prompt: Text("YouTube channel").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-120), height: 65).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.leading, -10)
                                     .onTapGesture {
                                         isEditingTextField = true
                                     }
@@ -77,7 +82,7 @@ struct SocialMediaInput: View {
                             HStack {
                                 Image("Globe").frame(width: 50, height: 60).background(Color("TextField")).cornerRadius(10).padding(.trailing, -10)
 
-                                TextField("", text: $webAddress, prompt: Text("Website address").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-120), height: 65).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.leading, -10)
+                                TextField("", text: $web, prompt: Text("Website address").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-120), height: 65).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.leading, -10)
                                     .onTapGesture {
                                         isEditingTextField = true
                                     }
@@ -97,7 +102,7 @@ struct SocialMediaInput: View {
                             
                             Button(action: {
                               DispatchQueue.global(qos: .userInteractive).async {
-                                  UpdateDB().updateSocials(instagram: igUsername, tiktok: tiktokUsername, facebook: fbUsername, youtube: ytChannel, website: webAddress)
+                                  UpdateDB().updateSocials(instagram: ig, tiktok: tiktok, facebook: fb, youtube: yt, website: web)
                                   linkAdded.toggle()
                               }
                                 
@@ -122,6 +127,11 @@ struct SocialMediaInput: View {
                     NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
                         isEditingTextField = false
                     }
+                    ig = igUsername
+                    yt = ytChannel
+                    web = webAddress
+                    tiktok = tiktokUsername
+                    fb = fbUsername
                 }
         }
         }
