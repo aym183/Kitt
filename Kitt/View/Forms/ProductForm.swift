@@ -37,6 +37,7 @@ struct ProductForm: View {
     @ObservedObject var readData: ReadDB
     @State var selectedPDF: URL?
     @State private var isEditingTextField = false
+    @State var showingPopupConfirmation = false
     
     var areAllFieldsEmpty: Bool {
         if ifEdit {
@@ -58,22 +59,7 @@ struct ProductForm: View {
 
                                     Spacer()
 
-                                    Button(action: {
-                                        DispatchQueue.global(qos: .userInteractive).async {
-                                            if let new_product_index = readData.products!.firstIndex(where: { $0["name"] == productName && $0["description"] == productDesc }) {
-                                                print(new_product_index)
-                                                DeleteDB().deleteProduct(name: readData.products![new_product_index]["name"]!) { response in
-                                                    if response == "Deleted" {
-                                                        readData.products?.remove(at: new_product_index)
-                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                            UpdateDB().updateDeleted(products_input: readData.products!)
-                                                            productDeleted.toggle()
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }) {
+                                    Button(action: { showingPopupConfirmation.toggle() }) {
                                         ZStack {
                                             Image(systemName: "trash").resizable().scaledToFill().font(.system(size: 20)).foregroundColor(.black).fontWeight(.bold)
                                         }
@@ -371,6 +357,31 @@ struct ProductForm: View {
                     }
                     .navigationDestination(isPresented: $productDeleted) {
                         HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                    }
+                    .alert(isPresented: $showingPopupConfirmation) {
+                        Alert(
+                            title: Text("Are you sure you want to delete this?"),
+                            primaryButton: .default(Text("Yes")) {
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    if let new_product_index = readData.products!.firstIndex(where: { $0["name"] == productName && $0["description"] == productDesc }) {
+                                        print(new_product_index)
+                                        DeleteDB().deleteProduct(name: readData.products![new_product_index]["name"]!) { response in
+                                            if response == "Deleted" {
+                                                readData.products?.remove(at: new_product_index)
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                    UpdateDB().updateDeleted(products_input: readData.products!)
+                                                    productDeleted.toggle()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                showingPopupConfirmation = false
+                            },
+                            secondaryButton: .cancel() {
+                                showingPopupConfirmation = false
+                            }
+                        )
                     }
             }
     }

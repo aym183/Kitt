@@ -17,6 +17,7 @@ struct LinkForm: View {
     @State var ifEdit: Bool
     var products_number: Int
     @State var linkDeleted = false
+    @State var showingPopupConfirmation = false
     @Binding var linkEditShown: Bool
     @State var linkIndex: Int?
     @ObservedObject var readData: ReadDB
@@ -38,24 +39,7 @@ struct LinkForm: View {
 
                                 Spacer()
 
-                                Button(action: {
-                                    
-                                    DispatchQueue.global(qos: .userInteractive).async {
-                                        if let new_link_index = readData.products!.firstIndex(where: { $0["name"] == linkName && $0["url"] == linkURL }) {
-                                            print(new_link_index)
-                                            
-                                            DeleteDB().deleteLink(name: readData.products![new_link_index]["name"]!, url: readData.products![new_link_index]["url"]!) { response in
-                                                if response == "Deleted" {
-                                                    readData.products?.remove(at: new_link_index)
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                        UpdateDB().updateDeleted(products_input: readData.products!)
-                                                        linkDeleted.toggle()
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }) {
+                                Button(action: { showingPopupConfirmation.toggle() }) {
                                     ZStack {
                                         Image(systemName: "trash").resizable().scaledToFill().font(.system(size: 20)).foregroundColor(.black).fontWeight(.bold)
                                     }
@@ -191,6 +175,32 @@ struct LinkForm: View {
                     .navigationDestination(isPresented: $linkDeleted) {
                         HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                     }
+                    .alert(isPresented: $showingPopupConfirmation) {
+                        Alert(
+                            title: Text("Are you sure you want to delete this?"),
+                            primaryButton: .default(Text("Yes")) {
+                                DispatchQueue.global(qos: .userInteractive).async {
+                                    if let new_link_index = readData.products!.firstIndex(where: { $0["name"] == linkName && $0["url"] == linkURL }) {
+                                        print(new_link_index)
+                                        
+                                        DeleteDB().deleteLink(name: readData.products![new_link_index]["name"]!, url: readData.products![new_link_index]["url"]!) { response in
+                                            if response == "Deleted" {
+                                                readData.products?.remove(at: new_link_index)
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                    UpdateDB().updateDeleted(products_input: readData.products!)
+                                                    linkDeleted.toggle()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                showingPopupConfirmation = false
+                            },
+                            secondaryButton: .cancel() {
+                                showingPopupConfirmation = false
+                            }
+                        )
+                    }
                     
                 }
                 .onTapGesture {
@@ -202,6 +212,7 @@ struct LinkForm: View {
                         isEditingTextField = false
                     }
                 }
+                
         }
         }
     

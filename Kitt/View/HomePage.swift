@@ -555,22 +555,6 @@ struct HomePage: View {
                 .navigationDestination(isPresented: $linkEditShown) {
                     LinkForm(oldName: $oldName, oldURL: $oldURL, oldIndex: $oldLinkIndex, linkName: $linkName, linkURL: $linkURL, ifEdit: true, products_number: productsNumber, linkEditShown: $linkEditShown, linkIndex: linkIndex, readData: readData).presentationDetents([.height(500)])
                 }
-//                .alert(isPresented: $showingSignOutConfirmation) {
-//                    Alert(
-//                        title: Text("Are you sure you want to delete this?"),
-//                        primaryButton: .default(Text("Yes")) {
-//                            AuthViewModel().signOut() { response in
-//                                if response == "Successful" {
-//                                    signedOut.toggle()
-//                                }
-//                            }
-//                            showingSignOutConfirmation = false
-//                        },
-//                        secondaryButton: .cancel() {
-//                            showingSignOutConfirmation = false
-//                        }
-//                    )
-//                }
         }
     }
     
