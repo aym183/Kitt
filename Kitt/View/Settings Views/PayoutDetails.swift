@@ -34,22 +34,22 @@ struct PayoutDetails: View {
                             Spacer()
                             }
                         
-                        TextField("", text: $bank_name, prompt: Text("Bank Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.bottom, 10)
+                        TextField("", text: $bank_name, prompt: Text("UAE Bank Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.bottom, 10)
                             .onTapGesture {
                                 isEditingTextField = true
                             }
                         
-                        TextField("", text: $full_name, prompt: Text("Full Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.bottom, 10)
+                        TextField("", text: $full_name, prompt: Text("Full Name (as per account)").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16)).padding(.bottom, 10)
                             .onTapGesture {
                                 isEditingTextField = true
                             }
                         
                         
                         ZStack {
-                            TextField("", text: $account_number, prompt: Text("Account Number").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).keyboardType(.decimalPad).autocapitalization(.none).autocorrectionDisabled(true).font(Font.custom("Avenir-Medium", size: 16)).padding(.bottom, 10)
+                            TextField("", text: $account_number, prompt: Text("UAE Account Number").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).keyboardType(.decimalPad).autocapitalization(.none).autocorrectionDisabled(true).font(Font.custom("Avenir-Medium", size: 16)).padding(.bottom, 10)
                                 .onChange(of: self.account_number, perform: { value in
-                                       if value.count > 8 {
-                                           self.account_number = String(value.prefix(8))
+                                       if value.count > 12 {
+                                           self.account_number = String(value.prefix(12))
                                       }
                                 })
                                 .onTapGesture {
@@ -59,7 +59,7 @@ struct PayoutDetails: View {
                             if account_number.count > 0 {
                                 HStack {
                                     Spacer()
-                                        Text("\(8 - account_number.count)")
+                                        Text("\(12 - account_number.count)")
                                             .foregroundColor(.black)
                                             .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
                                             .fontWeight(.bold)
