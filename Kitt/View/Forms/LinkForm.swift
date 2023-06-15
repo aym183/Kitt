@@ -39,10 +39,17 @@ struct LinkForm: View {
                                 Spacer()
 
                                 Button(action: {
+                                    
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         DeleteDB().deleteLink(name: readData.products![linkIndex!]["name"]!, url: readData.products![linkIndex!]["url"]!) { response in
                                             if response == "Deleted" {
                                                 readData.products?.remove(at: linkIndex!)
+//                                                ForEach(0..<products_number, id: \.self) { index in
+//                                                    if readData.products![index]["name"] == linkName && readData.products![index]["url"] == linkName {
+//                                                        readData.products?.remove(at: index)
+//                                                    }
+//
+//                                                }
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                                     UpdateDB().updateDeleted(products_input: readData.products!)
                                                     linkDeleted.toggle()
@@ -193,6 +200,21 @@ struct LinkForm: View {
                 }
         }
         }
+    
+    func findIndex(forName name: String, url: String) -> Int? {
+        guard let products = readData.products else {
+            return nil
+        }
+        
+        return products.firstIndex { item in
+            guard let itemName = item["name"],
+                  let itemURL = item["url"] else {
+                return false
+            }
+            print(itemName == name && itemURL == url)
+            return itemName == name && itemURL == url
+        }
+    }
     
 //        private func validateURL() {
 //            let urlRegex = "^https://[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"

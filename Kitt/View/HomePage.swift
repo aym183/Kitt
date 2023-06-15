@@ -35,6 +35,7 @@ struct HomePage: View {
     @State var productDesc = ""
     @State var productPrice = ""
     @State var image: UIImage?
+    @State var temp_products: [[String: String]] = []
 //    @State var oldClassName = ""
 //    @State var oldClassDesc = ""
 //    @State var oldClassPrice = ""
@@ -277,22 +278,45 @@ struct HomePage: View {
                                                             Spacer()
                                                             
                                                             Button(action: {
-                                                                productIndex = index
-                                                                productName = readData.products![index]["name"]!
-                                                                productDesc = readData.products![index]["description"]!
-                                                                productPrice = "\(readData.products![index]["price"]!)"
-                                                                fileName = readData.products![index]["file_name"]!
-                                                                file = readData.products![index]["file"]!
                                                                 
-                                                                oldFile = readData.products![index]["file"]!
-                                                                oldFileName = readData.products![index]["file_name"]!
-                                                                
-                                                                oldProductName = readData.products![index]["name"]!
-                                                                oldProductDesc = readData.products![index]["description"]!
-                                                                oldProductPrice = "\(readData.products![index]["price"]!)"
-                                                                oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
-                                                                image = readData.loadProductImage(key: readData.products![index]["image"]!)
-                                                                productEditShown.toggle()
+                                                                if temp_products != [] {
+                                                                    if let product_index = temp_products.firstIndex(where: { $0["name"] == readData.products![index]["name"]! && $0["description"] == readData.products![index]["description"]! }) {
+                                                                        
+                                                                        productIndex = product_index
+                                                                        productName = readData.products![index]["name"]!
+                                                                        productDesc = readData.products![index]["description"]!
+                                                                        productPrice = "\(readData.products![index]["price"]!)"
+                                                                        fileName = readData.products![index]["file_name"]!
+                                                                        file = readData.products![index]["file"]!
+                                                                        
+                                                                        oldFile = readData.products![index]["file"]!
+                                                                        oldFileName = readData.products![index]["file_name"]!
+                                                                        
+                                                                        oldProductName = readData.products![index]["name"]!
+                                                                        oldProductDesc = readData.products![index]["description"]!
+                                                                        oldProductPrice = "\(readData.products![index]["price"]!)"
+                                                                        oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                                        image = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                                        productEditShown.toggle()
+                                                                    }
+                                                                } else {
+                                                                    productIndex = index
+                                                                    productName = readData.products![index]["name"]!
+                                                                    productDesc = readData.products![index]["description"]!
+                                                                    productPrice = "\(readData.products![index]["price"]!)"
+                                                                    fileName = readData.products![index]["file_name"]!
+                                                                    file = readData.products![index]["file"]!
+                                                                    
+                                                                    oldFile = readData.products![index]["file"]!
+                                                                    oldFileName = readData.products![index]["file_name"]!
+                                                                    
+                                                                    oldProductName = readData.products![index]["name"]!
+                                                                    oldProductDesc = readData.products![index]["description"]!
+                                                                    oldProductPrice = "\(readData.products![index]["price"]!)"
+                                                                    oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                                    image = readData.loadProductImage(key: readData.products![index]["image"]!)
+                                                                    productEditShown.toggle()
+                                                                }
                                                                 
                                                             }) {
                                                                 Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing, 5).fontWeight(.bold)
@@ -330,13 +354,25 @@ struct HomePage: View {
                                                     Spacer()
                                                     
                                                     Button(action: {
-                                                        
-                                                        linkIndex = index
-                                                        linkName = readData.products![index]["name"]!
-                                                        linkURL = readData.products![index]["url"]!
-                                                        oldName = readData.products![index]["name"]!
-                                                        oldURL = readData.products![index]["url"]!
-                                                        linkEditShown.toggle()
+                                                        if temp_products != [] {
+                                                            if let link_index = temp_products.firstIndex(where: { $0["name"] == readData.products![index]["name"]! && $0["url"] == readData.products![index]["url"]! }) {
+                                                                
+                                                                linkIndex = link_index
+                                                                linkName = readData.products![index]["name"]!
+                                                                linkURL = readData.products![index]["url"]!
+                                                                oldName = readData.products![index]["name"]!
+                                                                oldURL = readData.products![index]["url"]!
+                                                                linkEditShown.toggle()
+                                                            }
+                                                        } else {
+                                                            linkIndex = index
+                                                            linkName = readData.products![index]["name"]!
+                                                            linkURL = readData.products![index]["url"]!
+                                                            oldName = readData.products![index]["name"]!
+                                                            oldURL = readData.products![index]["url"]!
+                                                            linkEditShown.toggle()
+                                                        }
+//                                                        temp_products = readData.products!
                                                         
                                                     }) {
                                                         Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
@@ -521,9 +557,23 @@ struct HomePage: View {
     }
     
     func move(from source: IndexSet, to destination: Int) {
-        readData.products!.move(fromOffsets: source, toOffset: destination)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            UpdateDB().updateIndex(products_input: readData.products!)
+//        readData.products = []
+        temp_products = readData.products!
+        temp_products.move(fromOffsets: source, toOffset: destination)
+//        readData.products!.move(fromOffsets: source, toOffset: destination)
+//        readData.products = temp_products
+//
+        var currentIndex = 0
+        for index in temp_products.indices {
+            temp_products[index]["index"] = String(describing: currentIndex)
+            currentIndex += 1
+        }
+        
+//        let temp_index = readData.products![destination][
+        DispatchQueue.global(qos: .userInteractive).async {
+            UpdateDB().updateIndex(products_input: temp_products) { response in
+                print(readData.products!)
+            }
         }
         
     }

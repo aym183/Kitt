@@ -522,7 +522,7 @@ class UpdateDB : ObservableObject {
         
     }
     
-    func updateIndex(products_input: [[String: String]]) {
+    func updateIndex(products_input: [[String: String]], completion: @escaping (String?) -> Void) {
         var products_list: [[String: String]] = []
         @AppStorage("products") var products: String = ""
 
@@ -547,6 +547,7 @@ class UpdateDB : ObservableObject {
                 print("Error changing index order: \(error.localizedDescription)")
             } else {
                 print("Index Order Updated!")
+                completion("Order Updated")
             }
         }
         
