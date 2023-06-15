@@ -59,10 +59,6 @@ class AuthViewModel : ObservableObject {
         }
     }
     
-//    func signUpWithGoogle() {
-//        
-//    }
-    
     func handleSignInWithAppleRequest(_ request: ASAuthorizationAppleIDRequest) {
         request.requestedScopes = [.email]
         randomNonceString() { response in
@@ -110,7 +106,7 @@ class AuthViewModel : ObservableObject {
         }
     }
     
-    private func randomNonceString(length: Int = 32, completion: @escaping (String?) -> Void) {
+    func randomNonceString(length: Int = 32, completion: @escaping (String?) -> Void) {
       precondition(length > 0)
       var randomBytes = [UInt8](repeating: 0, count: length)
       let errorCode = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
@@ -131,7 +127,7 @@ class AuthViewModel : ObservableObject {
       completion(String(nonce))
     }
     
-    private func sha256(_ input: String) -> String {
+    func sha256(_ input: String) -> String {
       let inputData = Data(input.utf8)
       let hashedData = SHA256.hash(data: inputData)
       let hashString = hashedData.compactMap {

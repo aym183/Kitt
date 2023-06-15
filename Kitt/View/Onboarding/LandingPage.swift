@@ -110,9 +110,9 @@ struct LandingContent: View {
                             }) {
                                 HStack(spacing: 3.5) {
                                     Image("Google").resizable().frame(width: 18, height: 18)
-                                    Text("Continue with Google")
+                                    Text("Sign in with Google")
                                 }
-                                .font(.system(size: 18))
+                                .font(.system(size: 18.5))
                                 .fontWeight(.medium)
                                 .frame(width: 320, height: 50)
                                 .background(Color.black).foregroundColor(Color.white)
@@ -161,11 +161,11 @@ struct LandingContent: View {
                             Button(action: { createAccountSheet.toggle() }) {
                                 HStack(spacing: 3.5) {
                                     Image("Mail").resizable().frame(width: 18, height: 18)
-                                    Text("Sign up with email")
+                                    Text("Sign up with Email")
                                 }
 //                                .font(Font.custom("Avenir-Medium", size: 18))
 //                                .fontWeight(.bold)
-                                .font(.system(size: 18))
+                                .font(.system(size: 18.5))
                                 .fontWeight(.medium)
                                 .frame(width: 320, height: 50)
                                 .background(Color.black).foregroundColor(Color.white)
@@ -184,11 +184,11 @@ struct LandingContent: View {
                             }) {
                                 HStack(spacing: 3.5) {
                                     Image("Mail").resizable().frame(width: 18, height: 18)
-                                    Text("Log in with email")
+                                    Text("Log in with Email")
                                 }
 //                                .font(Font.custom("Avenir-Medium", size: 18))
 //                                .fontWeight(.bold)
-                                .font(.system(size: 18))
+                                .font(.system(size: 18.5))
                                 .fontWeight(.medium)
                                 .frame(width: 320, height: 50)
                                 .background(Color.black).foregroundColor(Color.white)
@@ -208,8 +208,8 @@ struct LandingContent: View {
 //                }
             }
     }
-    
 }
+
 
 struct NavigationUtil {
         static func popToRootView() {
