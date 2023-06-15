@@ -291,25 +291,7 @@ class ReadDB : ObservableObject {
             } else {
                 if let snapshotValue = snapshot.value as? [String: Any] {
                     for value in snapshotValue.values {
-//                        let prodName = value["name"] as! String
-//                        let email = value["email"] as! String
-//                        let time = value["time"] as! String
-//
-//                        let recordExists = self.sales.contains { item in
-//                                    guard let existingProdName = item["name"] as? String,
-//                                          let existingEmail = item["email"] as? String,
-//                                          let existingTime = item["time"] as? String else {
-//                                        return false
-//                                    }
-//
-//                            return prodName == existingProdName && email == existingEmail && time == existingTime
-//                        }
-//
-//                        if !recordExists {
                             temp_sales.append(value as! [String: Any])
-//                        }
-//                        if temp_sales.contains()
-//                        temp_sales.append(value as! [String : Any])
                     }
                 } else {
                     print("No value for that name")
@@ -330,7 +312,7 @@ class ReadDB : ObservableObject {
 
                         let dateFormatter = DateFormatter()
                         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+                        dateFormatter.dateFormat = "E MMM d yyyy HH:mm:ss 'GMT'Z (zzzz)"
 
                         if let date = dateFormatter.date(from: dateString) {
                             let currentDate = Date()

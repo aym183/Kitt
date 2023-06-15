@@ -86,6 +86,7 @@ struct TotalSales: View {
                                     ForEach(0..<noOfSales, id: \.self) { sale_index in
                                         if index == String(describing: readData.sales![sale_index]["date"]!) {
                                             HStack(spacing: -5) {
+//                                                Text(String(describing: readData.sales![sale_index]["image"]!))
                                                 ZStack {
                                                     Image(uiImage: readData.loadProductImage(key: String(describing: readData.sales![sale_index]["image"]!)))
                                                         .resizable()
