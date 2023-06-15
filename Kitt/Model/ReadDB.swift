@@ -124,6 +124,11 @@ class ReadDB : ObservableObject {
                             UserDefaults.standard.set(document.data()["instagram"]!, forKey: "instagram")
                             UserDefaults.standard.set(document.data()["full_name"]!, forKey: "full_name")
                             UserDefaults.standard.set(document.data()["bio"]!, forKey: "bio")
+                            UserDefaults.standard.set(document.data()["social_email"]!, forKey: "social_email")
+                            UserDefaults.standard.set(document.data()["bank_name"]!, forKey: "bank_name")
+                            UserDefaults.standard.set(document.data()["bank_full_name"]!, forKey: "bank_full_name")
+                            UserDefaults.standard.set(document.data()["account_number"]!, forKey: "acc_number")
+                            UserDefaults.standard.set(document.data()["iban"]!, forKey: "iban")
                             let imageRef = storageRef.child(String(describing: document.data()["profile_image"]!))
                             
                             imageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
@@ -286,7 +291,7 @@ class ReadDB : ObservableObject {
         salesDB.observe(.value) { snapshot, error  in
             temp_sales = []
             self.sale_dates = []
-            NotificationHandler().scheduleLocalNotification(product_name: "This is name", price: "50")
+//            NotificationHandler().scheduleLocalNotification(product_name: "This is name", price: "50")
             if let error = error {
                 print("Error getting sales in getSales_rt:")
             } else {

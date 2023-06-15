@@ -29,7 +29,7 @@ class CreateDB : ObservableObject {
                 // Username is already in use
                 completion("Username already exists")
             } else {
-                let docRef = ref.document().documentID
+                let docRef = ref.document(username)
                 let data: [String: Any] = [
                     "date_created": TimeData().getPresentDateTime(),
                     "email": email,
@@ -44,6 +44,7 @@ class CreateDB : ObservableObject {
                     "instagram": "",
                     "tiktok": "",
                     "facebook": "",
+                    "social_email": "",
                     "youtube": "",
                     "website": "",
                     "bank_name": "",
@@ -52,7 +53,7 @@ class CreateDB : ObservableObject {
                     "iban": ""
                 ]
                 
-                ref.addDocument(data: data) { error in
+                docRef.setData(data) { error in
                     if let error = error {
                         print("Error adding user: \(error.localizedDescription)")
                         completion("Error")

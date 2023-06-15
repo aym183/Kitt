@@ -122,7 +122,7 @@ struct SocialMediaInput: View {
                             }) {
                                 Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: max(0, geometry.size.width-70), height: 60).background(.black).foregroundColor(.white).cornerRadius(10)
                             }
-                            .padding(.bottom)
+                            .padding(.vertical)
                             
                         }
                         }
