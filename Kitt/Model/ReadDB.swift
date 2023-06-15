@@ -129,7 +129,7 @@ class ReadDB : ObservableObject {
                             imageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
                                     if let error = error {
                                         print("Error fetching image: \(error.localizedDescription)")
-                                        completion(nil)
+                                        completion("Successful")
                                         return
                                     }
                                     
@@ -286,6 +286,7 @@ class ReadDB : ObservableObject {
         salesDB.observe(.value) { snapshot, error  in
             temp_sales = []
             self.sale_dates = []
+            NotificationHandler().scheduleLocalNotification(product_name: "This is name", price: "50")
             if let error = error {
                 print("Error getting sales in getSales_rt:")
             } else {

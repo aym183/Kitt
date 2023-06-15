@@ -149,8 +149,6 @@ struct LandingContent: View {
                                     }
                                 }
                             }
-//                            .font(Font.custom("Avenir-Medium", size: 18))
-//                            .fontWeight(.bold)
                             .frame(width: 320, height: 50)
                             .cornerRadius(10)
                             .padding(.horizontal, 50)

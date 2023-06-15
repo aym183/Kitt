@@ -85,14 +85,14 @@ struct SettingsPage: View {
                                         profileImageChange.toggle()
                                         
                                     } else if index == 3 {
-                                        let message = "Hey! Check out Kitt to start selling products and services from your Instagram link in bio.\n"
-                                        let activityViewController = UIActivityViewController(activityItems: [message, linkURL], applicationActivities: nil)
-                                        UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
-                                    }
-                                    else if index == 4 {
                                         if let whatsappURL = URL(string: "https://wa.me/\(phoneNumber)") {
                                             UIApplication.shared.open(whatsappURL)
                                         }
+                                    }
+                                    else if index == 4 {
+                                        let message = "Hey! Check out Kitt to start selling products and services from your Instagram link in bio.\n"
+                                        let activityViewController = UIActivityViewController(activityItems: [message, linkURL], applicationActivities: nil)
+                                        UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
                                     }
                                     else {
                                         showingSignOutConfirmation = true
