@@ -186,9 +186,9 @@ struct LinkForm: View {
                                         DeleteDB().deleteLink(name: readData.products![new_link_index]["name"]!, url: readData.products![new_link_index]["url"]!) { response in
                                             if response == "Deleted" {
                                                 readData.products?.remove(at: new_link_index)
+                                                linkDeleted.toggle()
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                                     UpdateDB().updateDeleted(products_input: readData.products!)
-                                                    linkDeleted.toggle()
                                                 }
                                             }
                                         }

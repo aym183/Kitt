@@ -368,9 +368,9 @@ struct ProductForm: View {
                                         DeleteDB().deleteProduct(name: readData.products![new_product_index]["name"]!) { response in
                                             if response == "Deleted" {
                                                 readData.products?.remove(at: new_product_index)
+                                                productDeleted.toggle()
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                                     UpdateDB().updateDeleted(products_input: readData.products!)
-                                                    productDeleted.toggle()
                                                 }
                                             }
                                         }
