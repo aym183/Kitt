@@ -60,12 +60,15 @@ struct ProductForm: View {
 
                                     Button(action: {
                                         DispatchQueue.global(qos: .userInteractive).async {
-                                            DeleteDB().deleteProduct(name: readData.products![productIndex!]["name"]!) { response in
-                                                if response == "Deleted" {
-                                                    readData.products?.remove(at: productIndex!)
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                        UpdateDB().updateDeleted(products_input: readData.products!)
-                                                        productDeleted.toggle()
+                                            if let new_product_index = readData.products!.firstIndex(where: { $0["name"] == productName && $0["description"] == productDesc }) {
+                                                print(new_product_index)
+                                                DeleteDB().deleteProduct(name: readData.products![new_product_index]["name"]!) { response in
+                                                    if response == "Deleted" {
+                                                        readData.products?.remove(at: new_product_index)
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                            UpdateDB().updateDeleted(products_input: readData.products!)
+                                                            productDeleted.toggle()
+                                                        }
                                                     }
                                                 }
                                             }

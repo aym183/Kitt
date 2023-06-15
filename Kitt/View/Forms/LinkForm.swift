@@ -41,18 +41,16 @@ struct LinkForm: View {
                                 Button(action: {
                                     
                                     DispatchQueue.global(qos: .userInteractive).async {
-                                        DeleteDB().deleteLink(name: readData.products![linkIndex!]["name"]!, url: readData.products![linkIndex!]["url"]!) { response in
-                                            if response == "Deleted" {
-                                                readData.products?.remove(at: linkIndex!)
-//                                                ForEach(0..<products_number, id: \.self) { index in
-//                                                    if readData.products![index]["name"] == linkName && readData.products![index]["url"] == linkName {
-//                                                        readData.products?.remove(at: index)
-//                                                    }
-//
-//                                                }
-                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                    UpdateDB().updateDeleted(products_input: readData.products!)
-                                                    linkDeleted.toggle()
+                                        if let new_link_index = readData.products!.firstIndex(where: { $0["name"] == linkName && $0["url"] == linkURL }) {
+                                            print(new_link_index)
+                                            
+                                            DeleteDB().deleteLink(name: readData.products![new_link_index]["name"]!, url: readData.products![new_link_index]["url"]!) { response in
+                                                if response == "Deleted" {
+                                                    readData.products?.remove(at: new_link_index)
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                        UpdateDB().updateDeleted(products_input: readData.products!)
+                                                        linkDeleted.toggle()
+                                                    }
                                                 }
                                             }
                                         }
