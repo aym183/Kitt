@@ -523,6 +523,7 @@ struct HomePage: View {
                                     isShownHomePage = false
                                     isShownLinkCreated = false
                                     isChangesMade = false
+                                    temp_products = readData.products!
                                 }
                             }
                             
@@ -530,6 +531,7 @@ struct HomePage: View {
                                 withAnimation(.easeOut(duration: 0.5)) {
                                     isShownProductCreated = false
                                     isShownClassCreated = false
+                                    temp_products = readData.products!
                                 }
                             }
                         }
@@ -553,12 +555,27 @@ struct HomePage: View {
                 .navigationDestination(isPresented: $linkEditShown) {
                     LinkForm(oldName: $oldName, oldURL: $oldURL, oldIndex: $oldLinkIndex, linkName: $linkName, linkURL: $linkURL, ifEdit: true, products_number: productsNumber, linkEditShown: $linkEditShown, linkIndex: linkIndex, readData: readData).presentationDetents([.height(500)])
                 }
+//                .alert(isPresented: $showingSignOutConfirmation) {
+//                    Alert(
+//                        title: Text("Are you sure you want to delete this?"),
+//                        primaryButton: .default(Text("Yes")) {
+//                            AuthViewModel().signOut() { response in
+//                                if response == "Successful" {
+//                                    signedOut.toggle()
+//                                }
+//                            }
+//                            showingSignOutConfirmation = false
+//                        },
+//                        secondaryButton: .cancel() {
+//                            showingSignOutConfirmation = false
+//                        }
+//                    )
+//                }
         }
     }
     
     func move(from source: IndexSet, to destination: Int) {
 //        readData.products = []
-        temp_products = readData.products!
         temp_products.move(fromOffsets: source, toOffset: destination)
 //        readData.products!.move(fromOffsets: source, toOffset: destination)
 //        readData.products = temp_products
@@ -570,9 +587,9 @@ struct HomePage: View {
         }
         
 //        let temp_index = readData.products![destination][
-        DispatchQueue.global(qos: .userInteractive).async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             UpdateDB().updateIndex(products_input: temp_products) { response in
-                print(readData.products!)
+                print("Index changed")
             }
         }
         
