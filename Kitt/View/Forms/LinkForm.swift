@@ -56,7 +56,13 @@ struct LinkForm: View {
                                         }
                                     }
                                 }) {
-                                    Image(systemName: "trash").font(.system(size: 20)).background(Circle().fill(.gray).frame(width: 35, height: 35).opacity(0.3)).foregroundColor(.black).fontWeight(.bold).padding(.trailing, 25).padding(.vertical)
+                                    ZStack {
+                                        Image(systemName: "trash").resizable().scaledToFill().font(.system(size: 20)).foregroundColor(.black).fontWeight(.bold)
+                                    }
+                                    .frame(width: 20, height: 20)
+                                    .background(Circle().fill(.gray).opacity(0.3).frame(width: 35, height: 35))
+                                    .padding(.trailing, 25)
+                                    .padding(.vertical)
                                 }
 
                             } else {
