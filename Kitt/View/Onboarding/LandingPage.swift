@@ -10,6 +10,8 @@ import Firebase
 import FirebaseAuth
 import _AuthenticationServices_SwiftUI
 import GoogleSignIn
+import AuthenticationServices
+import UIKit
 
 struct LandingPage: View {
     @AppStorage("username") var userName: String = ""
@@ -133,7 +135,6 @@ struct LandingContent: View {
 //                            .padding(.horizontal, 50).padding(.bottom, 10)
                             
                             
-                            
                             SignInWithAppleButton { request in
                                 authVM.handleSignInWithAppleRequest(request)
                             } onCompletion: { result in
@@ -235,6 +236,65 @@ struct NavigationUtil {
         }
 }
 
+struct CustomSignInWithAppleButton: UIViewRepresentable {
+    var type: ASAuthorizationAppleIDButton.ButtonType = .default
+    var style: ASAuthorizationAppleIDButton.Style = .black
+   
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
+
+    func makeUIView(context: Context) -> ASAuthorizationAppleIDButton {
+        let button = ASAuthorizationAppleIDButton(
+            authorizationButtonType: .continue,
+            authorizationButtonStyle: style
+        )
+
+        button.addTarget(
+            context.coordinator,
+            action: #selector(Coordinator.buttonPressed),
+            for: .touchUpInside)
+        return button
+    }
+
+    func updateUIView(
+        _ uiView: ASAuthorizationAppleIDButton,
+        context: Context) {
+        if let anchor = uiView.window {
+            context.coordinator.presentationAnchor = anchor
+        }
+    }
+}
+
+@objc
+final class Coordinator : NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        guard let window = UIApplication.shared.windows.first else {
+               fatalError("Unable to retrieve the window.")
+           }
+           return window
+    }
+    
+    let parent: CustomSignInWithAppleButton
+    var presentationAnchor: ASPresentationAnchor?
+    var button: ASAuthorizationAppleIDButton?
+    init(parent: CustomSignInWithAppleButton) {
+         self.parent = parent
+    }
+
+    @objc
+    func buttonPressed() {
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+
+        let authController = ASAuthorizationController(
+            authorizationRequests: [request]
+        )
+        authController.delegate = self
+        authController.presentationContextProvider = self
+        authController.performRequests()
+    }
+}
 
 struct LandingPage_Previews: PreviewProvider {
     static var previews: some View {

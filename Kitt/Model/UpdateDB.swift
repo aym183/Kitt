@@ -218,7 +218,10 @@ class UpdateDB : ObservableObject {
                                         DispatchQueue.global(qos: .background).async {
                                             let storage = Storage.storage().reference()
                                             let fileRef = storage.child("product_images/\(randomID).jpg")
-                                            
+
+                                            // Get the original image's orientation
+                                            let sourceOrientation = new_image.imageOrientation
+
                                             let sideLength = min(new_image.size.width, new_image.size.height)
                                             let sourceSize = new_image.size
                                             let xOffset = (sourceSize.width - sideLength) / 2.0
@@ -230,24 +233,33 @@ class UpdateDB : ObservableObject {
                                                 width: sideLength,
                                                 height: sideLength
                                             ).integral
-                                            
-                                            // Center crop the image
-                                            let sourceCGImage = new_image.cgImage!
-                                            let croppedCGImage = sourceCGImage.cropping(
-                                                to: cropRect
-                                            )!
-                                            let croppedImage = UIImage(cgImage: croppedCGImage)
+
+                                            // Create a copy of the original image with the correct orientation
+                                            let correctedImage: UIImage
+                                            if sourceOrientation != .up {
+                                                UIGraphicsBeginImageContextWithOptions(new_image.size, false, new_image.scale)
+                                                new_image.draw(in: CGRect(origin: .zero, size: new_image.size))
+                                                correctedImage = UIGraphicsGetImageFromCurrentImageContext() ?? new_image
+                                                UIGraphicsEndImageContext()
+                                            } else {
+                                                correctedImage = new_image
+                                            }
+
+                                            // Center crop the corrected image
+                                            let sourceCGImage = correctedImage.cgImage!
+                                            let croppedCGImage = sourceCGImage.cropping(to: cropRect)!
+                                            let croppedImage = UIImage(cgImage: croppedCGImage, scale: correctedImage.scale, orientation: correctedImage.imageOrientation)
 
                                             // Convert the UIImage to data
                                             guard let croppedImageData = croppedImage.jpegData(compressionQuality: 0.8) else {
                                                 print("Error converting cropped image to JPEG data")
                                                 return
                                             }
-                                            
+
                                             let uploadTask = fileRef.putData(croppedImageData, metadata: nil) { metadata, error in
-                                                    if let error = error {
-                                                        print("Error uploading product image \(error.localizedDescription)")
-                                                    }
+                                                if let error = error {
+                                                    print("Error uploading product image: \(error.localizedDescription)")
+                                                }
                                             }
                                             
                                             let productFileRef = storage.child("product_files/\(randomID).pdf")
@@ -311,7 +323,10 @@ class UpdateDB : ObservableObject {
                                         DispatchQueue.global(qos: .background).async {
                                             let storage = Storage.storage().reference()
                                             let fileRef = storage.child("product_images/\(randomID).jpg")
-                                            
+
+                                            // Get the original image's orientation
+                                            let sourceOrientation = new_image.imageOrientation
+
                                             let sideLength = min(new_image.size.width, new_image.size.height)
                                             let sourceSize = new_image.size
                                             let xOffset = (sourceSize.width - sideLength) / 2.0
@@ -323,24 +338,33 @@ class UpdateDB : ObservableObject {
                                                 width: sideLength,
                                                 height: sideLength
                                             ).integral
-                                            
-                                            // Center crop the image
-                                            let sourceCGImage = new_image.cgImage!
-                                            let croppedCGImage = sourceCGImage.cropping(
-                                                to: cropRect
-                                            )!
-                                            let croppedImage = UIImage(cgImage: croppedCGImage)
+
+                                            // Create a copy of the original image with the correct orientation
+                                            let correctedImage: UIImage
+                                             if sourceOrientation != .up {
+                                                UIGraphicsBeginImageContextWithOptions(new_image.size, false, new_image.scale)
+                                                new_image.draw(in: CGRect(origin: .zero, size: new_image.size))
+                                                correctedImage = UIGraphicsGetImageFromCurrentImageContext() ?? new_image
+                                                UIGraphicsEndImageContext()
+                                            } else {
+                                                correctedImage = new_image
+                                            }
+
+                                            // Center crop the corrected image
+                                            let sourceCGImage = correctedImage.cgImage!
+                                            let croppedCGImage = sourceCGImage.cropping(to: cropRect)!
+                                            let croppedImage = UIImage(cgImage: croppedCGImage, scale: correctedImage.scale, orientation: correctedImage.imageOrientation)
 
                                             // Convert the UIImage to data
                                             guard let croppedImageData = croppedImage.jpegData(compressionQuality: 0.8) else {
                                                 print("Error converting cropped image to JPEG data")
                                                 return
                                             }
-                                            
+
                                             let uploadTask = fileRef.putData(croppedImageData, metadata: nil) { metadata, error in
-                                                    if let error = error {
-                                                        print("Error uploading product image \(error.localizedDescription)")
-                                                    }
+                                                if let error = error {
+                                                    print("Error uploading product image: \(error.localizedDescription)")
+                                                }
                                             }
                                             
                                         }
@@ -437,7 +461,10 @@ class UpdateDB : ObservableObject {
         DispatchQueue.global(qos: .background).async {
             let storage = Storage.storage().reference()
             let fileRef = storage.child("product_images/\(randomID).jpg")
-            
+
+            // Get the original image's orientation
+            let sourceOrientation = image.imageOrientation
+
             let sideLength = min(image.size.width, image.size.height)
             let sourceSize = image.size
             let xOffset = (sourceSize.width - sideLength) / 2.0
@@ -449,28 +476,40 @@ class UpdateDB : ObservableObject {
                 width: sideLength,
                 height: sideLength
             ).integral
-            
-            // Center crop the image
-            let sourceCGImage = image.cgImage!
-            let croppedCGImage = sourceCGImage.cropping(
-                to: cropRect
-            )!
-            let croppedImage = UIImage(cgImage: croppedCGImage)
+
+            // Create a copy of the original image with the correct orientation
+            let correctedImage: UIImage
+            if sourceOrientation != .up {
+                UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+                image.draw(in: CGRect(origin: .zero, size: image.size))
+                correctedImage = UIGraphicsGetImageFromCurrentImageContext() ?? image
+                UIGraphicsEndImageContext()
+            } else {
+                correctedImage = image
+            }
+
+            // Center crop the corrected image
+            let sourceCGImage = correctedImage.cgImage!
+            let croppedCGImage = sourceCGImage.cropping(to: cropRect)!
+            let croppedImage = UIImage(cgImage: croppedCGImage, scale: correctedImage.scale, orientation: correctedImage.imageOrientation)
 
             // Convert the UIImage to data
             guard let croppedImageData = croppedImage.jpegData(compressionQuality: 0.8) else {
                 print("Error converting cropped image to JPEG data")
                 return
             }
-            
+
             let uploadTask = fileRef.putData(croppedImageData, metadata: nil) { metadata, error in
-                    if let error = error {
-                        print("Error uploading product image \(error.localizedDescription)")
-                    }
+                if let error = error {
+                    print("Error uploading product image: \(error.localizedDescription)")
+                }
             }
             
             let productFileRef = storage.child("product_files/\(randomID).pdf")
             let productFileUpload = productFileRef.putFile(from: file, metadata: nil) { metadata, error in
+                if let error = error {
+                    print("Error uploading product file \(error.localizedDescription)")
+                }
             }
         }
         
