@@ -18,6 +18,7 @@ class CreateDB : ObservableObject {
     func addUser(email: String, username: String, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         let ref = db.collection("users")
+        @AppStorage("fcm_token") var cached_fcm: String = ""
         
         ref.whereField("username", isEqualTo: username).getDocuments { (snapshot, error) in
             if let error = error {
@@ -50,10 +51,9 @@ class CreateDB : ObservableObject {
                     "bank_name": "",
                     "bank_full_name": "",
                     "account_number": "",
-                    "iban": ""
-//                    "fcm_token": "",
+                    "iban": "",
+                    "fcm_token": cached_fcm
                 ]
-                
                 docRef.setData(data) { error in
                     if let error = error {
                         print("Error adding user: \(error.localizedDescription)")
@@ -124,7 +124,6 @@ class CreateDB : ObservableObject {
         
         DispatchQueue.global(qos: .background).async {
             
-
             let storage = Storage.storage().reference()
             let fileRef = storage.child("product_images/\(randomID).jpg")
 
