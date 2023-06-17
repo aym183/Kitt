@@ -12,60 +12,46 @@ import UserNotifications
 import FirebaseMessaging
 import UIKit
 
-class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        
-        FirebaseApp.configure()
-        Messaging.messaging().delegate = self
-        UNUserNotificationCenter.current().delegate = self
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { success, _ in
-            guard success else {
-                return
-            }
-            print("Success in APNs registry")
-        }
-        application.registerForRemoteNotifications()
-        return true
-    }
-    
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) { messaging.token() { token, _ in
-        guard let token = token else {
-            print("Token is nil")
-            return
-        }
-        print("Token: \(token)")
-    }
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        // Handle the notification and customize its presentation
-        // You can specify how the notification should be presented to the user
-        completionHandler([.alert, .badge, .sound])
-    }
-    
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        // Handle the notification and perform actions based on the user's response
-        completionHandler()
-    }
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+           FirebaseApp.configure()
+           
+           if #available(iOS 10.0, *) {
+               let center = UNUserNotificationCenter.current()
+               center.delegate = self
+               center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
+                   if granted {
+                       DispatchQueue.main.async {
+                           application.registerForRemoteNotifications()
+                       }
+                   }
+               }
+           } else {
+               let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+               application.registerUserNotificationSettings(settings)
+               application.registerForRemoteNotifications()
+           }
+           
+           Messaging.messaging().delegate = self
 
-//    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-//            @AppStorage("username") var username: String = ""
-//            let databaseRef = Database.database().reference().child("sales").child(username)
-//
-//            databaseRef.observe(.value) { snapshot in
-//
-//                if snapshot.exists() {
-//                    // Database has new data, trigger actions or update UI
-////                    completionHandler(.newData)
-//                    print("\(snapshot.value) This is snapshot value")
-//                } else {
-//                    // No new data
-//                    completionHandler(.noData)
-//                }
-//            }
-//        }
+           return true
+       }
     
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+           Messaging.messaging().apnsToken = deviceToken
+       }
+    
+//    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+//          // Called when a new scene session is being created.
+//          // Use this method to select a configuration to create the new scene with.
+//          return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+//      }
+//
+//      func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
+//          // Called when the user discards a scene session.
+//          // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
+//          // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+//      }
     
     
     func application(_ app: UIApplication,
@@ -73,6 +59,42 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
                      options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
       return GIDSignIn.sharedInstance.handle(url)
     }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+  // Receive displayed notifications for iOS 10 devices.
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                    willPresent notification: UNNotification,
+                                    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+            let userInfo = notification.request.content.userInfo
+            print(userInfo)
+            completionHandler([.alert, .badge, .sound])
+        }
+        
+        func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                    didReceive response: UNNotificationResponse,
+                                    withCompletionHandler completionHandler: @escaping () -> Void) {
+            let userInfo = response.notification.request.content.userInfo
+            print(userInfo)
+            completionHandler()
+        }
+}
+
+
+extension AppDelegate: MessagingDelegate {
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+            @AppStorage("fcm_token") var cached_fcm: String = ""
+        
+            if fcmToken == cached_fcm {
+                print("Cached registration token is: \(fcmToken ?? "")")
+            } else {
+                UserDefaults.standard.set(fcmToken, forKey: "fcm_token")
+                print("New registration token is: \(fcmToken ?? "")")
+            }
+            // TODO: Send the fcmToken to your server if needed
+        }
+    
 }
 
 

@@ -51,6 +51,7 @@ class CreateDB : ObservableObject {
                     "bank_full_name": "",
                     "account_number": "",
                     "iban": ""
+//                    "fcm_token": "",
                 ]
                 
                 docRef.setData(data) { error in
