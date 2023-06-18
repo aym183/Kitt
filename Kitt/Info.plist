@@ -29,5 +29,7 @@
 	<false/>
 	<key>FirebaseMessagingAutoInitEnabled</key>
 	<false/>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string></string>
 </dict>
 </plist>

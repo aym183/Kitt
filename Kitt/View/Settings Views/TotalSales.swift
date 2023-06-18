@@ -47,9 +47,9 @@ struct TotalSales: View {
                                     .padding(.bottom, -20)
                                     
                                     if sales_count[index]! == 1 {
-                                        Text("from \(String(describing:(sales_count[index]!))) customer").font(Font.custom("Avenir-Medium", size:18))
+                                        Text("from \(String(describing:(sales_count[index]!))) order").font(Font.custom("Avenir-Medium", size:18))
                                     } else {
-                                        Text("from \(String(describing:(sales_count[index]!))) customers").font(Font.custom("Avenir-Medium", size:18))
+                                        Text("from \(String(describing:(sales_count[index]!))) orders").font(Font.custom("Avenir-Medium", size:18))
                                     }
                                 }
                             }

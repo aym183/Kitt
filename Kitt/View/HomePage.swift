@@ -93,38 +93,47 @@ struct HomePage: View {
                             .foregroundColor(.black)
                             .frame(width: max(0, geometry.size.width))
                             
-                            LottieView().frame(width: max(0, geometry.size.width))
+                            LottieView(name: "confetti", speed: 0.5).frame(width: max(0, geometry.size.width))
                     }
                     
                     if isShownHomePage {
-                        VStack {
-                            ProgressView()
-                                .scaleEffect(1.75)
-                                .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
-
-                            Text("Getting Kitt Ready! 🥳").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                        VStack(alignment: .center) {
+                            Spacer()
+                            
+                            LottieView(name: "loading_3.0", speed: 1).frame(width: 100, height: 100)
+                            
+                            Text("Getting Kitt Ready! 🥳").font(Font.custom("Avenir-Medium", size: 25)).multilineTextAlignment(.center).padding(.horizontal).foregroundColor(.black).padding(.top, -5)
+                            
+                            Spacer()
                         }
+                        .foregroundColor(.black).frame(width: max(0, geometry.size.width))
                         
                     }
                     
                     if isChangesMade {
-                        VStack {
-                            ProgressView()
-                                .scaleEffect(1.75)
-                                .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
+                        VStack(alignment: .center) {
+                            Spacer()
                             
-                            Text("Implementing Changes...").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            LottieView(name: "loading_3.0", speed: 1).frame(width: 100, height: 100)
+                            
+                            Text("Implementing changes...").font(Font.custom("Avenir-Medium", size: 25)).multilineTextAlignment(.center).padding(.horizontal).foregroundColor(.black).padding(.top, -5)
+                            
+                            Spacer()
                         }
+                        .foregroundColor(.black).frame(width: max(0, geometry.size.width))
                     }
                     
                     if isShownLinkCreated {
-                        VStack {
-                            ProgressView()
-                                .scaleEffect(1.75)
-                                .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
+                        VStack(alignment: .center) {
+                            Spacer()
                             
-                            Text("Creating your link!").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            LottieView(name: "loading_3.0", speed: 1).frame(width: 100, height: 100)
+                            
+                            Text("Creating your link!").font(Font.custom("Avenir-Medium", size: 25)).multilineTextAlignment(.center).padding(.horizontal).foregroundColor(.black).padding(.top, -5)
+                            
+                            Spacer()
                         }
+                        .foregroundColor(.black).frame(width: max(0, geometry.size.width))
                     }
                     
                     if isShownClassCreated {
@@ -138,13 +147,16 @@ struct HomePage: View {
                     }
                     
                     if isShownProductCreated {
-                        VStack {
-                            ProgressView()
-                                .scaleEffect(1.75)
-                                .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
+                        VStack(alignment: .center) {
+                            Spacer()
                             
-                            Text("Creating your product!").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
+                            LottieView(name: "loading_3.0", speed: 1).frame(width: 100, height: 100)
+                            
+                            Text("Creating your product!").font(Font.custom("Avenir-Medium", size: 25)).multilineTextAlignment(.center).padding(.horizontal).foregroundColor(.black).padding(.top, -5)
+                            
+                            Spacer()
                         }
+                        .foregroundColor(.black).frame(width: max(0, geometry.size.width))
                     }
                     
                     
@@ -607,6 +619,8 @@ struct HomePage: View {
         }
         
     }
+    
+    
 }
 
 //struct ContentView_Previews: PreviewProvider {

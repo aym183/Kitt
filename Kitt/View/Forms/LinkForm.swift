@@ -142,13 +142,13 @@ struct LinkForm: View {
                                     if products_number != 0 {
                                         UpdateDB().updateLinks(name: linkName, url: linkURL, index: String(describing: products_number)) { response in
                                             if response == "Successful" {
-                                                linkDeleted.toggle()
+                                                linkCreated.toggle()
                                             }
                                         }
                                     } else {
                                         CreateDB().addLink(name: linkName, url: linkURL, index: String(describing: products_number)) { response in
                                             if response == "Successful" {
-                                                linkDeleted.toggle()
+                                                linkCreated.toggle()
                                             }
                                             
                                         }

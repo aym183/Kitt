@@ -9,10 +9,13 @@ import SwiftUI
 import Lottie
 
 struct LottieView: UIViewRepresentable {
+    var name: String
+    var speed: CGFloat
+    
     func makeUIView(context: Context) -> Lottie.LottieAnimationView {
-        let animationView = LottieAnimationView(name: "confetti")
+        let animationView = LottieAnimationView(name: name)
         animationView.contentMode = .scaleAspectFill
-        animationView.animationSpeed = 0.5
+        animationView.animationSpeed = speed
         animationView.play()
         
         return animationView

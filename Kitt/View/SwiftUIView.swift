@@ -13,17 +13,15 @@ struct SwiftUIView: View {
             VStack(alignment: .center) {
                 Spacer()
                 
-                Image("Shop").resizable().frame(width: 90, height: 90)
                 
-                Text("Congratulations!").font(Font.custom("Avenir-Medium", size: 35)).padding(.top, 10).fontWeight(.bold)
+                LottieView(name: "loading_3.0", speed: 1).frame(width: 100, height: 100)
                 
-                Text("Your store is now ready. Add your first product to start selling.").font(Font.custom("Avenir-Medium", size: 16)).multilineTextAlignment(.center).padding(.top, 0).frame(width: 270)
+                Text("Getting Kitt Ready! 🥳").font(Font.custom("Avenir-Medium", size: 25)).multilineTextAlignment(.center).padding(.horizontal).foregroundColor(.black).padding(.top, -5)
                 
                 Spacer()
             }
             .foregroundColor(.black).frame(width: max(0, geometry.size.width))
             
-            LottieView().frame(width: max(0, geometry.size.width))
             
         }
     }
