@@ -17,7 +17,7 @@ struct EditProfile: View {
     @State var profileImageChanged = false
     @State private var isEditingTextField = false
     var areAllFieldsEmpty: Bool {
-        image == nil && name == fullName && bio == bioText
+       image == nil && name == fullName && bio == bioText
     }
     
     var body: some View {
@@ -96,24 +96,32 @@ struct EditProfile: View {
                         
                         Button(action: {
                             DispatchQueue.global(qos: .userInteractive).async {
+                                
                                     if let image = self.image {
                                         CreateDB().uploadProfileImage(image: image) { response in
                                             if response == "Cached" {
-                                                profileImageChanged.toggle()
+//                                                profileImageChanged.toggle()
+                                                print("Image Changed")
                                             }
                                         }
                                     }
-                                    UpdateDB().updateFullName(fullName: name) { response in
-                                        if response == "Successful" {
-                                            print("Name updated")
+                                    
+                                    if name != fullName ||  bio != bioText {
+                                        UpdateDB().updateFullName(fullName: name) { response in
+                                            if response == "Successful" {
+                                                print("Name updated")
+                                            }
                                         }
+                                        
+                                        UpdateDB().updateBio(bioText: bio) { response in
+                                            if response == "Successful" {
+                                                print("Bio updated")
+                                            }
+                                        }
+                                        
                                     }
                                 
-                                    UpdateDB().updateBio(bioText: bio) { response in
-                                        if response == "Successful" {
-                                            print("Bio updated")
-                                        }
-                                    }
+                                    profileImageChanged.toggle()
                                 }
                         }) {
                                 Text("Update Details").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: max(0,geometry.size.width-70), height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)

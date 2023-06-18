@@ -201,7 +201,7 @@ struct LandingContent: View {
                         .frame(width: max(0,geometry.size.width-40), height: max(0, geometry.size.height-20))
                         .foregroundColor(.black)
                         .navigationDestination(isPresented: $homePageShown) {
-                            HomePage(isSignedUp: true, isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                            HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                         }
                     }
 //                }
