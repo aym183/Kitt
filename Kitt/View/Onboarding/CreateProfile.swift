@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CreateProfile: View {
+    @Binding var signUpShown: Bool
     @Binding var username: String
     @State var fullName = ""
     @State var bio = ""
@@ -100,7 +101,7 @@ struct CreateProfile: View {
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .navigationDestination(isPresented: $profileImageUploadShown) {
-                        UploadProfileImageForm(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
+                        UploadProfileImageForm(signUpShown: $signUpShown, username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
                     }
                 }
                 .onTapGesture {

@@ -19,7 +19,7 @@ class UpdateDB : ObservableObject {
         let collectionRef = db.collection("users")
         @AppStorage("username") var userName: String = ""
         
-        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+        collectionRef.whereField("metadata.username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error updating Image: \(error)")
             } else {
@@ -29,41 +29,79 @@ class UpdateDB : ObservableObject {
                 }
             
                 let docRef = collectionRef.document(document.documentID)
-                docRef.updateData(["profile_image": String(describing: image)])
+                let metadata = document.data()["metadata"] as? [String: Any]
+                var updatedMetadata = metadata ?? [:]
+                
+                updatedMetadata["profile_imag"] = String(describing: image)
+                
+                docRef.updateData(["metadata": updatedMetadata])
+//                docRef.updateData(["profile_image": String(describing: image)])
                 UserDefaults.standard.set(String(describing: image), forKey: "profile_image")
                 completion("Successful")
             }
         }
     }
     
-    func updateBio(bioText: String, completion: @escaping (String?) -> Void) {
+//    func updateBio(bioText: String, completion: @escaping (String?) -> Void) {
+//        let db = Firestore.firestore()
+//        let collectionRef = db.collection("users")
+//        @AppStorage("username") var userName: String = ""
+//
+//        collectionRef.whereField("metadata.username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+//            if let error = error {
+//                print("Error updating Bio: \(error)")
+//            } else {
+//                guard let document = querySnapshot?.documents.first else {
+//                    print("No documents found")
+//                    return
+//                }
+//
+//                let docRef = collectionRef.document(document.documentID)
+////                docRef.updateData(["bio": bioText])
+//                let metadata = document.data()["metadata"] as? [String: Any]
+//                var updatedMetadata = metadata ?? [:]
+//
+//                updatedMetadata["bio"] = bioText
+//
+//                docRef.updateData(["metadata": updatedMetadata])
+//
+//                UserDefaults.standard.set(bioText, forKey: "bio")
+//                completion("Successful")
+//            }
+//        }
+//    }
+//
+    func updateProfile(image: UIImage, bioText: String, fullName: String, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         let collectionRef = db.collection("users")
         @AppStorage("username") var userName: String = ""
         
-        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error updating Bio: \(error)")
-            } else {
-                guard let document = querySnapshot?.documents.first else {
-                    print("No documents found")
-                    return
-                }
-            
-                let docRef = collectionRef.document(document.documentID)
-                docRef.updateData(["bio": bioText])
-                UserDefaults.standard.set(bioText, forKey: "bio")
-                completion("Successful")
-            }
+        let imageData = image.jpegData(compressionQuality: 0.8)
+
+        guard imageData != nil else {
+            return
         }
-    }
-    
-    func updateFullName(fullName: String, completion: @escaping (String?) -> Void) {
-        let db = Firestore.firestore()
-        let collectionRef = db.collection("users")
-        @AppStorage("username") var userName: String = ""
         
-        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+        let randomID = UUID().uuidString
+        let path = "profile_images/\(randomID).jpg"
+        
+        
+        DispatchQueue.global(qos: .background).async {
+            let storage = Storage.storage().reference()
+            let fileRef = storage.child("profile_images/\(randomID).jpg")
+            let uploadTask = fileRef.putData(imageData!, metadata: nil) { metadata, error in
+                if let error = error {
+                    print("Error uploading profile image \(error.localizedDescription)")
+                }
+            }
+            print("File added to profile image")
+        }
+        
+        
+        UserDefaults.standard.set(image.jpegData(compressionQuality: 0.8), forKey: "profile_image")
+        
+        
+        collectionRef.whereField("metadata.username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error updating Full Name: \(error)")
             } else {
@@ -73,8 +111,47 @@ class UpdateDB : ObservableObject {
                 }
             
                 let docRef = collectionRef.document(document.documentID)
-                docRef.updateData(["full_name": fullName])
+                let metadata = document.data()["metadata"] as? [String: Any]
+                var updatedMetadata = metadata ?? [:]
+                
+                updatedMetadata["full_name"] = fullName
+                updatedMetadata["bio"] = bioText
+                updatedMetadata["profile_image"] = path
+                
+                docRef.updateData(["metadata": updatedMetadata])
+//                docRef.updateData(["full_name": fullName])
                 UserDefaults.standard.set(fullName, forKey: "full_name")
+                UserDefaults.standard.set(bioText, forKey: "bio")
+                completion("Successful")
+            }
+        }
+    }
+    
+    func updateProfileWithoutImage(bioText: String, fullName: String, completion: @escaping (String?) -> Void) {
+        let db = Firestore.firestore()
+        let collectionRef = db.collection("users")
+        @AppStorage("username") var userName: String = ""
+        
+        collectionRef.whereField("metadata.username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error updating Full Name: \(error)")
+            } else {
+                guard let document = querySnapshot?.documents.first else {
+                    print("No documents found")
+                    return
+                }
+            
+                let docRef = collectionRef.document(document.documentID)
+                let metadata = document.data()["metadata"] as? [String: Any]
+                var updatedMetadata = metadata ?? [:]
+                
+                updatedMetadata["full_name"] = fullName
+                updatedMetadata["bio"] = bioText
+                
+                docRef.updateData(["metadata": updatedMetadata])
+//                docRef.updateData(["full_name": fullName])
+                UserDefaults.standard.set(fullName, forKey: "full_name")
+                UserDefaults.standard.set(bioText, forKey: "bio")
                 completion("Successful")
             }
         }
@@ -85,7 +162,7 @@ class UpdateDB : ObservableObject {
         let collectionRef = db.collection("users")
         @AppStorage("username") var userName: String = ""
         
-        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+        collectionRef.whereField("metadata.username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error updating user details: \(error)")
             } else {
@@ -95,7 +172,15 @@ class UpdateDB : ObservableObject {
                 }
             
                 let docRef = collectionRef.document(document.documentID)
-                docRef.updateData(["full_name": fullName, "bio": bioText])
+                let metadata = document.data()["metadata"] as? [String: Any]
+                var updatedMetadata = metadata ?? [:]
+                
+                updatedMetadata["full_name"] = fullName
+                updatedMetadata["bio"] = bioText
+                
+                docRef.updateData(["metadata": updatedMetadata])
+                
+//                docRef.updateData(["full_name": fullName, "bio": bioText])
                 UserDefaults.standard.set(fullName, forKey: "full_name")
                 UserDefaults.standard.set(bioText, forKey: "bio")
                 completion("Successful")
@@ -108,7 +193,7 @@ class UpdateDB : ObservableObject {
         let collectionRef = db.collection("users")
         @AppStorage("username") var userName: String = ""
         
-        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+        collectionRef.whereField("metadata.username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error updating bank details: \(error)")
             } else {
@@ -636,7 +721,7 @@ class UpdateDB : ObservableObject {
         let collectionRef = db.collection("users")
         @AppStorage("username") var userName: String = ""
         
-        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+        collectionRef.whereField("metadata.username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error updating Socials: \(error)")
             } else {
@@ -646,7 +731,19 @@ class UpdateDB : ObservableObject {
                 }
             
                 let docRef = collectionRef.document(document.documentID)
-                docRef.updateData(["instagram": instagram, "tiktok": tiktok, "facebook": facebook, "youtube": youtube, "website": website, "social_email": email])
+                let metadata = document.data()["metadata"] as? [String: Any]
+                var updatedMetadata = metadata ?? [:]
+                
+                updatedMetadata["instagram"] = instagram
+                updatedMetadata["tiktok"] = tiktok
+                updatedMetadata["facebook"] = facebook
+                updatedMetadata["youtube"] = youtube
+                updatedMetadata["website"] = website
+                updatedMetadata["social_email"] = email
+                
+                docRef.updateData(["metadata": updatedMetadata])
+                
+//                docRef.updateData(["instagram": instagram, "tiktok": tiktok, "facebook": facebook, "youtube": youtube, "website": website, "social_email": email])
                 UserDefaults.standard.set(instagram, forKey: "instagram")
                 UserDefaults.standard.set(tiktok, forKey: "tiktok")
                 UserDefaults.standard.set(facebook, forKey: "facebook")

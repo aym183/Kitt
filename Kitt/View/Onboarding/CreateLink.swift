@@ -10,6 +10,7 @@ import SwiftUI
 struct CreateLink: View {
     @State var username = ""
     @State var profileDetailsShown = false
+    @Binding var signUpShown: Bool
     @Binding var homePageShown: Bool
     @Binding var createAccountSheet: Bool
     @State var alertText = ""
@@ -75,7 +76,7 @@ struct CreateLink: View {
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .navigationDestination(isPresented: $profileDetailsShown) {
-                        CreateProfile(username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: email, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
+                        CreateProfile(signUpShown: $signUpShown, username: $username, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: email, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
                     }
                 }
                 .onTapGesture {

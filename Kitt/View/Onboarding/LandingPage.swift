@@ -28,6 +28,9 @@ struct LandingPage: View {
                     }
                 }
             }
+            .onAppear {
+                print(Auth.auth().currentUser!.uid)
+            }
         }
     }
 }
@@ -37,6 +40,7 @@ struct LandingContent: View {
     @State var loginSheet = false
     @State var createLinkSheet = false
     @State var homePageShown = false
+    @State var signUpShown = false
     var authVM = AuthViewModel()
     var body: some View {
             GeometryReader { geometry in
@@ -172,10 +176,10 @@ struct LandingContent: View {
                             }
                             .padding(.horizontal, 50)
                             .sheet(isPresented: $createAccountSheet) {
-                                CreateAccountForm(createAccountSheet: $createAccountSheet, homePageShown: $homePageShown, createLinkSheet: $createLinkSheet).presentationDetents([.height(500)])
+                                CreateAccountForm(signUpShown: $signUpShown, createAccountSheet: $createAccountSheet, homePageShown: $homePageShown, createLinkSheet: $createLinkSheet).presentationDetents([.height(500)])
                             }
                             .sheet(isPresented: $createLinkSheet) {
-                                CreateLink(homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: (Auth.auth().currentUser?.email)!, createLinkSheet: $createLinkSheet).presentationDetents([.height(500)])
+                                CreateLink(signUpShown: $signUpShown, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: (Auth.auth().currentUser?.email)!, createLinkSheet: $createLinkSheet).presentationDetents([.height(500)])
                             }
                             
                             Button(action: {
@@ -202,6 +206,9 @@ struct LandingContent: View {
                         .foregroundColor(.black)
                         .navigationDestination(isPresented: $homePageShown) {
                             HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                        }
+                        .navigationDestination(isPresented: $signUpShown) {
+                            HomePage(isSignedUp: true, isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                         }
                     }
 //                }

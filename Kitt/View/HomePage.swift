@@ -568,8 +568,8 @@ struct HomePage: View {
                                 }
                             }
                             
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                                withAnimation(.easeOut(duration: 0.8)) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+                                withAnimation(.easeOut(duration: 1.5)) {
                                     isSignedUp = false
                                     temp_products = readData.products!
                                 }

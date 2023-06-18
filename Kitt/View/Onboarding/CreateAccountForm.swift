@@ -14,6 +14,7 @@ struct CreateAccountForm: View {
     @State var confirmPassword = ""
     @State var alertText = ""
     @State var alertShown = false
+    @Binding var signUpShown: Bool
     @Binding var createAccountSheet: Bool
     @State var showProfileCreation = false
     @State var isEmailValid: Bool = true
@@ -123,7 +124,7 @@ struct CreateAccountForm: View {
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .navigationDestination(isPresented: $showProfileCreation) {
-                        CreateLink(homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: email, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
+                        CreateLink(signUpShown: $signUpShown, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: email, createLinkSheet: $createLinkSheet).navigationBarHidden(true)
                     }
                 }
                 .onTapGesture {

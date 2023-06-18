@@ -19,6 +19,11 @@ class CreateDB : ObservableObject {
         let db = Firestore.firestore()
         let ref = db.collection("users")
         @AppStorage("fcm_token") var cached_fcm: String = ""
+        var uuid = ""
+        
+        if Auth.auth().currentUser?.uid != nil {
+            uuid = Auth.auth().currentUser!.uid
+        }
         
         ref.whereField("username", isEqualTo: username).getDocuments { (snapshot, error) in
             if let error = error {
@@ -32,27 +37,15 @@ class CreateDB : ObservableObject {
             } else {
                 let docRef = ref.document(username)
                 let data: [String: Any] = [
+                    "metadata": ["email": email, "username": username, "links": username, "products": username, "classes": username, "profile_image": "", "instagram": "", "tiktok": "", "facebook": "", "social_email": "", "youtube": "", "website": ""],
                     "date_created": TimeData().getPresentDateTime(),
-                    "email": email,
-                    "username": username,
-                    "stripe_customer_id": "",
-                    "stripe_payment_method": "",
-                    "links": username,
-                    "products": username,
-                    "classes": username,
                     "sales": username,
-                    "profile_image": "",
-                    "instagram": "",
-                    "tiktok": "",
-                    "facebook": "",
-                    "social_email": "",
-                    "youtube": "",
-                    "website": "",
                     "bank_name": "",
                     "bank_full_name": "",
                     "account_number": "",
                     "iban": "",
-                    "fcm_token": cached_fcm
+                    "fcm_token": cached_fcm,
+                    "auth_uuid": uuid
                 ]
                 docRef.setData(data) { error in
                     if let error = error {
@@ -269,7 +262,7 @@ class CreateDB : ObservableObject {
         completion("Cached")
         
         
-        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+        collectionRef.whereField("metadata.username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error uploading Image: \(error)")
             } else {
@@ -279,7 +272,11 @@ class CreateDB : ObservableObject {
                 }
             
                 let docRef = collectionRef.document(document.documentID)
-                docRef.updateData(["profile_image": path])
+                let metadata = document.data()["metadata"] as? [String: Any]
+                var updatedMetadata = metadata ?? [:]
+                
+                updatedMetadata["profile_image"] = path
+                docRef.updateData(["metadata": updatedMetadata])
             }
         }
     }

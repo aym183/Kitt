@@ -60,13 +60,13 @@ struct ChangeBio: View {
                         Spacer()
                         
                         Button(action: {
-                            DispatchQueue.global(qos: .userInteractive).async {
-                                    UpdateDB().updateBio(bioText: bio) { response in
-                                        if response == "Successful" {
-                                            profileBioChanged.toggle()
-                                        }
-                                    }
-                                }
+//                            DispatchQueue.global(qos: .userInteractive).async {
+//                                    UpdateDB().updateBio(bioText: bio) { response in
+//                                        if response == "Successful" {
+//                                            profileBioChanged.toggle()
+//                                        }
+//                                    }
+//                                }
                         }) {
                                 Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: max(0, geometry.size.width-70), height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
                         }

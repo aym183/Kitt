@@ -98,28 +98,39 @@ struct EditProfile: View {
                             DispatchQueue.global(qos: .userInteractive).async {
                                 
                                     if let image = self.image {
-                                        CreateDB().uploadProfileImage(image: image) { response in
-                                            if response == "Cached" {
-//                                                profileImageChanged.toggle()
-                                                print("Image Changed")
-                                            }
+//                                        CreateDB().uploadProfileImage(image: image) { response in
+//                                            if response == "Cached" {
+////                                                profileImageChanged.toggle()
+//                                                print("Image Changed")
+//                                            }
+//                                        }
+                                        
+                                        UpdateDB().updateProfile(image: image, bioText: bio, fullName: name) { response in
+                                            if response == "Successful" {
+                                                print("Profile updated")
+                                           }
                                         }
+                                    } else if self.image == nil {
+    //                                        UpdateDB().updateFullName(fullName: name) { response in
+    //                                            if response == "Successful" {
+    //                                                print("Name updated")
+    //                                            }
+    //                                        }
+    //
+    //                                        UpdateDB().updateBio(bioText: bio) { response in
+    //                                            if response == "Successful" {
+    //                                                print("Bio updated")
+    //                                            }
+    //                                        }
+                                            
+                                            UpdateDB().updateProfileWithoutImage(bioText: bio, fullName: name) { response in
+                                                if response == "Successful" {
+                                                    print("Profile updated")
+                                               }
+                                            }
+                                            
                                     }
                                     
-                                    if name != fullName ||  bio != bioText {
-                                        UpdateDB().updateFullName(fullName: name) { response in
-                                            if response == "Successful" {
-                                                print("Name updated")
-                                            }
-                                        }
-                                        
-                                        UpdateDB().updateBio(bioText: bio) { response in
-                                            if response == "Successful" {
-                                                print("Bio updated")
-                                            }
-                                        }
-                                        
-                                    }
                                 
                                     profileImageChanged.toggle()
                                 }

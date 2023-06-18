@@ -104,7 +104,7 @@ class ReadDB : ObservableObject {
         let storage = Storage.storage()
         let storageRef = storage.reference()
             
-        ref.whereField("email", isEqualTo: email)
+        ref.whereField("metadata.email", isEqualTo: email)
             .getDocuments { (snapshot, error) in
                 if let error = error {
                     print("Error getting userDetils: \(error.localizedDescription)")
@@ -112,24 +112,25 @@ class ReadDB : ObservableObject {
                     
                     if snapshot!.documents != [] {
                         for document in snapshot!.documents {
-                            UserDefaults.standard.set(document.data()["username"]!, forKey: "username")
-                            UserDefaults.standard.set(document.data()["links"]!, forKey: "links")
-                            UserDefaults.standard.set(document.data()["products"]!, forKey: "products")
-                            UserDefaults.standard.set(document.data()["classes"]!, forKey: "classes")
+                            let metadata = document.data()["metadata"] as? [String: Any]
+                            UserDefaults.standard.set(String(describing: metadata!["username"]), forKey: "username")
+                            UserDefaults.standard.set(String(describing: metadata!["links"]), forKey: "links")
+                            UserDefaults.standard.set(String(describing: metadata!["products"]), forKey: "products")
+                            UserDefaults.standard.set(String(describing: metadata!["classes"]), forKey: "classes")
+                            UserDefaults.standard.set(String(describing: metadata!["tiktok"]), forKey: "tiktok")
+                            UserDefaults.standard.set(String(describing: metadata!["facebook"]), forKey: "facebook")
+                            UserDefaults.standard.set(String(describing: metadata!["website"]), forKey: "website")
+                            UserDefaults.standard.set(String(describing: metadata!["youtube"]), forKey: "youtube")
+                            UserDefaults.standard.set(String(describing: metadata!["instagram"]), forKey: "instagram")
+                            UserDefaults.standard.set(String(describing: metadata!["full_name"]), forKey: "full_name")
+                            UserDefaults.standard.set(String(describing: metadata!["bio"]), forKey: "bio")
+                            UserDefaults.standard.set(String(describing: metadata!["social_email"]), forKey: "social_email")
                             UserDefaults.standard.set(document.data()["sales"]!, forKey: "sales")
-                            UserDefaults.standard.set(document.data()["tiktok"]!, forKey: "tiktok")
-                            UserDefaults.standard.set(document.data()["facebook"]!, forKey: "facebook")
-                            UserDefaults.standard.set(document.data()["website"]!, forKey: "website")
-                            UserDefaults.standard.set(document.data()["youtube"]!, forKey: "youtube")
-                            UserDefaults.standard.set(document.data()["instagram"]!, forKey: "instagram")
-                            UserDefaults.standard.set(document.data()["full_name"]!, forKey: "full_name")
-                            UserDefaults.standard.set(document.data()["bio"]!, forKey: "bio")
-                            UserDefaults.standard.set(document.data()["social_email"]!, forKey: "social_email")
                             UserDefaults.standard.set(document.data()["bank_name"]!, forKey: "bank_name")
                             UserDefaults.standard.set(document.data()["bank_full_name"]!, forKey: "bank_full_name")
                             UserDefaults.standard.set(document.data()["account_number"]!, forKey: "acc_number")
                             UserDefaults.standard.set(document.data()["iban"]!, forKey: "iban")
-                            let imageRef = storageRef.child(String(describing: document.data()["profile_image"]!))
+                            let imageRef = storageRef.child(String(describing: metadata!["profile_image"]!))
                             
                             imageRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
                                     if let error = error {

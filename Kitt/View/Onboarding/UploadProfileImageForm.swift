@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UploadProfileImageForm: View {
+    @Binding var signUpShown: Bool
     @Binding var username: String
     @Binding var homePageShown: Bool
     @Binding var createAccountSheet: Bool
@@ -63,7 +64,8 @@ struct UploadProfileImageForm: View {
                                                 if createLinkSheet == true {
                                                     createLinkSheet.toggle()
                                                 }
-                                                homePageShown.toggle()
+//                                                homePageShown.toggle()
+                                                signUpShown.toggle()
                                             }
                                         }
                                     }
@@ -88,7 +90,7 @@ struct UploadProfileImageForm: View {
                                 if createLinkSheet == true {
                                     createLinkSheet.toggle()
                                 }
-                                homePageShown.toggle()
+                                signUpShown.toggle()
                                 }) {
                                 Text("I'll do it later").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.045)).padding([.top, .leading])
                             }
