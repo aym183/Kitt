@@ -91,6 +91,7 @@ struct HomePage: View {
                                 Spacer()
                             }
                             .foregroundColor(.black)
+                            .frame(width: max(0, geometry.size.width))
                             
                             LottieView().frame(width: max(0, geometry.size.width))
                     }
@@ -555,7 +556,7 @@ struct HomePage: View {
                                 }
                             }
                             
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                                 withAnimation(.easeOut(duration: 0.8)) {
                                     isSignedUp = false
                                     temp_products = readData.products!

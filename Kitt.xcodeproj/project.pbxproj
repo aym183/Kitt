@@ -18,6 +18,8 @@
 		61615EAB2A2F7F9F00A23710 /* TotalSales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61615EAA2A2F7F9F00A23710 /* TotalSales.swift */; };
 		61615EAD2A31B01D00A23710 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61615EAC2A31B01D00A23710 /* LoginForm.swift */; };
 		61635CED2A3EEE5D007DA218 /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 61635CEC2A3EEE5D007DA218 /* confetti.json */; };
+		61635CF12A3F0017007DA218 /* confetti_2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 61635CF02A3F0017007DA218 /* confetti_2.0.json */; };
+		61635CF32A3F0041007DA218 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61635CF22A3F0041007DA218 /* SwiftUIView.swift */; };
 		6166874D2A15F37D0016A549 /* EditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166874C2A15F37D0016A549 /* EditProfile.swift */; };
 		6166874F2A15FB2A0016A549 /* ChangeBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166874E2A15FB2A0016A549 /* ChangeBio.swift */; };
 		616687512A161E900016A549 /* CreateProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616687502A161E900016A549 /* CreateProfile.swift */; };
@@ -85,6 +87,8 @@
 		61615EAA2A2F7F9F00A23710 /* TotalSales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalSales.swift; sourceTree = "<group>"; };
 		61615EAC2A31B01D00A23710 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		61635CEC2A3EEE5D007DA218 /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
+		61635CF02A3F0017007DA218 /* confetti_2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti_2.0.json; sourceTree = "<group>"; };
+		61635CF22A3F0041007DA218 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		6166874C2A15F37D0016A549 /* EditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfile.swift; sourceTree = "<group>"; };
 		6166874E2A15FB2A0016A549 /* ChangeBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBio.swift; sourceTree = "<group>"; };
 		616687502A161E900016A549 /* CreateProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfile.swift; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 		61635CEB2A3EEE35007DA218 /* Lottie Files */ = {
 			isa = PBXGroup;
 			children = (
+				61635CF02A3F0017007DA218 /* confetti_2.0.json */,
 				61635CEC2A3EEE5D007DA218 /* confetti.json */,
 				6136793E2A3EED1900BD3B44 /* LottieView.swift */,
 			);
@@ -249,6 +254,7 @@
 				61A0E80E2A09E16100FE474D /* FormSelection.swift */,
 				61A0E8152A0A051300FE474D /* SettingsPage.swift */,
 				61A0E8672A0A44DC00FE474D /* ImagePicker.swift */,
+				61635CF22A3F0041007DA218 /* SwiftUIView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -407,6 +413,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61635CF12A3F0017007DA218 /* confetti_2.0.json in Resources */,
 				61635CED2A3EEE5D007DA218 /* confetti.json in Resources */,
 				61A0E8052A09D0D600FE474D /* Preview Assets.xcassets in Resources */,
 				61A0E8022A09D0D600FE474D /* Assets.xcassets in Resources */,
@@ -458,6 +465,7 @@
 				616687562A1654660016A549 /* SocialMediaInputForm.swift in Sources */,
 				61615EAB2A2F7F9F00A23710 /* TotalSales.swift in Sources */,
 				61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */,
+				61635CF32A3F0041007DA218 /* SwiftUIView.swift in Sources */,
 				61A0E8162A0A051300FE474D /* SettingsPage.swift in Sources */,
 				61A0E81F2A0A15DC00FE474D /* UploadProfileImageForm.swift in Sources */,
 				61A0E86C2A0A4A5F00FE474D /* ReadDB.swift in Sources */,
