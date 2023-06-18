@@ -58,7 +58,7 @@ struct ChangeName: View {
                         }
                         .foregroundColor(.black)
                         .navigationDestination(isPresented: $profileNameChanged) {
-                            HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                            HomePage(isSignedUp: false, isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                         }
                         .onAppear {
                             name = fullName

@@ -12,6 +12,7 @@ import SPAlert
 struct HomePage: View {
     @State var formShown = false
     @State var settingsShown = false
+    @State var isSignedUp: Bool
     @State var isShownHomePage: Bool
     @State var isChangesMade: Bool
     @State var isShownClassCreated: Bool
@@ -76,14 +77,33 @@ struct HomePage: View {
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     
+                    if isSignedUp {
+                            
+                            VStack(alignment: .center) {
+                                Spacer()
+                                
+                                Image("Shop").resizable().frame(width: 90, height: 90)
+                                
+                                Text("Congratulations!").font(Font.custom("Avenir-Medium", size: 35)).padding(.top, 10).fontWeight(.bold)
+                                
+                                Text("Your store is now ready. Add your first product to start selling.").font(Font.custom("Avenir-Medium", size: 16)).multilineTextAlignment(.center).padding(.top, 0).frame(width: 270)
+                                
+                                Spacer()
+                            }
+                            .foregroundColor(.black)
+                            
+                            LottieView().frame(width: max(0, geometry.size.width))
+                    }
+                    
                     if isShownHomePage {
                         VStack {
                             ProgressView()
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
-                            
+
                             Text("Getting Kitt Ready! 🥳").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
+                        
                     }
                     
                     if isChangesMade {
@@ -534,6 +554,13 @@ struct HomePage: View {
                                     temp_products = readData.products!
                                 }
                             }
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                                withAnimation(.easeOut(duration: 0.8)) {
+                                    isSignedUp = false
+                                    temp_products = readData.products!
+                                }
+                            }
                         }
                     }
 //                    .onChange(of: readData.products) { _ in
@@ -545,6 +572,7 @@ struct HomePage: View {
                     .opacity(isShownLinkCreated ? 0 : 1)
                     .opacity(isShownClassCreated ? 0 : 1)
                     .opacity(isChangesMade ? 0 : 1)
+                    .opacity(isSignedUp ? 0 : 1)
                 }
                 .navigationDestination(isPresented: $productEditShown) {
                     ProductForm(oldIndex: $oldProductIndex, oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, oldFile: $oldFile, oldFileName: $oldFileName, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, file: $file, fileName: $fileName, products_number: productsNumber, ifEdit: true, productIndex: productIndex, readData: readData)

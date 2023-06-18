@@ -45,7 +45,7 @@ struct UploadProfileImageForm: View {
                                     }
                                 }
                             }
-                            Text("@\(username)").padding(.leading, 25).font(Font.custom("Avenir-Medium", size: 25)).fontWeight(.bold)
+                            Text("@\(username)").padding(.leading, 25).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.05)).fontWeight(.bold)
                             Spacer()
                         }
                         .frame(width: max(0, geometry.size.width-60), height: 75)

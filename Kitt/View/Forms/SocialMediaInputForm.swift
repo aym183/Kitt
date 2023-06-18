@@ -129,7 +129,7 @@ struct SocialMediaInput: View {
                         .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-15))
                         .foregroundColor(.black)
                         .navigationDestination(isPresented: $linkAdded) {
-                            HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                            HomePage(isSignedUp: false, isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                         }
                     
                     

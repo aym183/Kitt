@@ -11,10 +11,13 @@
 		61005E242A272BA500980B40 /* SVGKitSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 61005E232A272BA500980B40 /* SVGKitSwift */; };
 		613679382A363B5700BD3B44 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613679372A363B5700BD3B44 /* NotificationHandler.swift */; };
 		6136793A2A3A448300BD3B44 /* PayoutDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613679392A3A448300BD3B44 /* PayoutDetails.swift */; };
+		6136793D2A3EEBD100BD3B44 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6136793C2A3EEBD100BD3B44 /* Lottie */; };
+		6136793F2A3EED1900BD3B44 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6136793E2A3EED1900BD3B44 /* LottieView.swift */; };
 		61615EA72A29FE1C00A23710 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 61615EA62A29FE1C00A23710 /* CropViewController */; };
 		61615EA92A29FE1C00A23710 /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 61615EA82A29FE1C00A23710 /* TOCropViewController */; };
 		61615EAB2A2F7F9F00A23710 /* TotalSales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61615EAA2A2F7F9F00A23710 /* TotalSales.swift */; };
 		61615EAD2A31B01D00A23710 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61615EAC2A31B01D00A23710 /* LoginForm.swift */; };
+		61635CED2A3EEE5D007DA218 /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 61635CEC2A3EEE5D007DA218 /* confetti.json */; };
 		6166874D2A15F37D0016A549 /* EditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166874C2A15F37D0016A549 /* EditProfile.swift */; };
 		6166874F2A15FB2A0016A549 /* ChangeBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166874E2A15FB2A0016A549 /* ChangeBio.swift */; };
 		616687512A161E900016A549 /* CreateProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616687502A161E900016A549 /* CreateProfile.swift */; };
@@ -78,8 +81,10 @@
 /* Begin PBXFileReference section */
 		613679372A363B5700BD3B44 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		613679392A3A448300BD3B44 /* PayoutDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutDetails.swift; sourceTree = "<group>"; };
+		6136793E2A3EED1900BD3B44 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		61615EAA2A2F7F9F00A23710 /* TotalSales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalSales.swift; sourceTree = "<group>"; };
 		61615EAC2A31B01D00A23710 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
+		61635CEC2A3EEE5D007DA218 /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
 		6166874C2A15F37D0016A549 /* EditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfile.swift; sourceTree = "<group>"; };
 		6166874E2A15FB2A0016A549 /* ChangeBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBio.swift; sourceTree = "<group>"; };
 		616687502A161E900016A549 /* CreateProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfile.swift; sourceTree = "<group>"; };
@@ -133,6 +138,7 @@
 				61A0E8252A0A2C1900FE474D /* FirebaseAnalytics in Frameworks */,
 				61A0E8412A0A2C1B00FE474D /* FirebaseFirestoreSwift in Frameworks */,
 				61A0E8272A0A2C1900FE474D /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				6136793D2A3EEBD100BD3B44 /* Lottie in Frameworks */,
 				61A0E82D2A0A2C1900FE474D /* FirebaseAppCheck in Frameworks */,
 				61005E242A272BA500980B40 /* SVGKitSwift in Frameworks */,
 				61615EA72A29FE1C00A23710 /* CropViewController in Frameworks */,
@@ -158,6 +164,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61635CEB2A3EEE35007DA218 /* Lottie Files */ = {
+			isa = PBXGroup;
+			children = (
+				61635CEC2A3EEE5D007DA218 /* confetti.json */,
+				6136793E2A3EED1900BD3B44 /* LottieView.swift */,
+			);
+			path = "Lottie Files";
+			sourceTree = "<group>";
+		};
 		6166874B2A15F36A0016A549 /* Settings Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +240,7 @@
 		61A0E80B2A09D43600FE474D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				61635CEB2A3EEE35007DA218 /* Lottie Files */,
 				616687522A1622D90016A549 /* Forms */,
 				6166874B2A15F36A0016A549 /* Settings Views */,
 				61A60C582A0BEE16006B7984 /* Launch Screen */,
@@ -339,6 +355,7 @@
 				61005E232A272BA500980B40 /* SVGKitSwift */,
 				61615EA62A29FE1C00A23710 /* CropViewController */,
 				61615EA82A29FE1C00A23710 /* TOCropViewController */,
+				6136793C2A3EEBD100BD3B44 /* Lottie */,
 			);
 			productName = Mishki;
 			productReference = 61A0E7FA2A09D0D500FE474D /* Kitt.app */;
@@ -374,6 +391,7 @@
 				6166875A2A1787380016A549 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				61005E202A272BA500980B40 /* XCRemoteSwiftPackageReference "SVGKit" */,
 				61615EA52A29FE1C00A23710 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
+				6136793B2A3EEBD100BD3B44 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 61A0E7FB2A09D0D500FE474D /* Products */;
 			projectDirPath = "";
@@ -389,6 +407,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61635CED2A3EEE5D007DA218 /* confetti.json in Resources */,
 				61A0E8052A09D0D600FE474D /* Preview Assets.xcassets in Resources */,
 				61A0E8022A09D0D600FE474D /* Assets.xcassets in Resources */,
 				61A60C5C2A0CAC07006B7984 /* LaunchScreen.storyboard in Resources */,
@@ -425,6 +444,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6136793F2A3EED1900BD3B44 /* LottieView.swift in Sources */,
 				61A0E8182A0A09F000FE474D /* LandingPage.swift in Sources */,
 				613679382A363B5700BD3B44 /* NotificationHandler.swift in Sources */,
 				61A0E8132A09F78900FE474D /* LinkForm.swift in Sources */,
@@ -582,7 +602,7 @@
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = Kitt/Kitt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Kitt/Preview Content\"";
 				DEVELOPMENT_TEAM = 29VBPZUJ23;
 				ENABLE_PREVIEWS = YES;
@@ -623,7 +643,7 @@
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = Kitt/Kitt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Kitt/Preview Content\"";
 				DEVELOPMENT_TEAM = 29VBPZUJ23;
 				ENABLE_PREVIEWS = YES;
@@ -687,6 +707,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		6136793B2A3EEBD100BD3B44 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		61615EA52A29FE1C00A23710 /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TimOliver/TOCropViewController";
@@ -731,6 +759,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 61005E202A272BA500980B40 /* XCRemoteSwiftPackageReference "SVGKit" */;
 			productName = SVGKitSwift;
+		};
+		6136793C2A3EEBD100BD3B44 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6136793B2A3EEBD100BD3B44 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		61615EA62A29FE1C00A23710 /* CropViewController */ = {
 			isa = XCSwiftPackageProductDependency;

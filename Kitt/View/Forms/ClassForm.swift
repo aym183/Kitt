@@ -170,10 +170,10 @@ struct ClassForm: View {
                         ImagePicker(image: $image)
                     }
                     .navigationDestination(isPresented: $classCreated) {
-                        HomePage(isShownHomePage: false, isChangesMade: false, isShownClassCreated: true, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                        HomePage(isSignedUp: false, isShownHomePage: false, isChangesMade: false, isShownClassCreated: true, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                     }
                     .navigationDestination(isPresented: $classDeleted) {
-                        HomePage(isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                        HomePage(isSignedUp: false, isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
                     }
             }
     }
