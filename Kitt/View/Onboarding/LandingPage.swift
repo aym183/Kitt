@@ -29,7 +29,7 @@ struct LandingPage: View {
                 }
             }
             .onAppear {
-                print(Auth.auth().currentUser!.uid)
+                print(Auth.auth().currentUser?.uid)
             }
         }
     }
@@ -103,7 +103,7 @@ struct LandingContent: View {
                                             ReadDB().getUserDetails(email: (Auth.auth().currentUser?.email!)!) { result in
                                                 if result == "Successful" {
                                                     homePageShown.toggle()
-                                                } else if result == "User does not exist" {
+                                                } else if result == "User does not exist" || result == "Missing or insufficient permissions." {
                                                     createLinkSheet.toggle()
                                                 }
                                             }
@@ -147,7 +147,7 @@ struct LandingContent: View {
                                         ReadDB().getUserDetails(email: (Auth.auth().currentUser?.email!)!) { result in
                                             if result == "Successful" {
                                                 homePageShown.toggle()
-                                            } else if result == "User does not exist" {
+                                            } else if result == "User does not exist" || result == "Missing or insufficient permissions." {
                                                 createLinkSheet.toggle()
                                             }
                                         }

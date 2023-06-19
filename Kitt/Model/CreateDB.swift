@@ -15,9 +15,30 @@ class CreateDB : ObservableObject {
     
     let imageCache = NSCache<NSString, UIImage>()
     
+    func addtoDB() {
+        let db = Firestore.firestore()
+        var uuid = ""
+        
+        if Auth.auth().currentUser?.uid != nil {
+            uuid = Auth.auth().currentUser!.uid
+        }
+        
+        let ref = db.collection("users")
+        let productRef = db.collection("products")
+        let docRef = ref.document(uuid)
+        let prodDocRef = productRef.document(uuid)
+        
+        prodDocRef.setData([:])
+        docRef.setData([:])
+    }
+    
     func addUser(email: String, username: String, completion: @escaping (String?) -> Void) {
+
         let db = Firestore.firestore()
         let ref = db.collection("users")
+//        let productRef = db.collection("products")
+//        let salesRef = db.collection("sales")
+        
         @AppStorage("fcm_token") var cached_fcm: String = ""
         var uuid = ""
         
@@ -25,54 +46,61 @@ class CreateDB : ObservableObject {
             uuid = Auth.auth().currentUser!.uid
         }
         
-        ref.whereField("username", isEqualTo: username).getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error checking username: \(error.localizedDescription)")
-                return
-            }
-            
-            if let documents = snapshot?.documents, !documents.isEmpty {
-                // Username is already in use
-                completion("Username already exists")
-            } else {
-                let docRef = ref.document(username)
-                let data: [String: Any] = [
-                    "metadata": ["email": email, "username": username, "links": username, "products": username, "classes": username, "profile_image": "", "instagram": "", "tiktok": "", "facebook": "", "social_email": "", "youtube": "", "website": ""],
-                    "date_created": TimeData().getPresentDateTime(),
-                    "sales": username,
-                    "bank_name": "",
-                    "bank_full_name": "",
-                    "account_number": "",
-                    "iban": "",
-                    "fcm_token": cached_fcm,
-                    "auth_uuid": uuid
-                ]
-                docRef.setData(data) { error in
-                    if let error = error {
-                        print("Error adding user: \(error.localizedDescription)")
-                        completion("Error")
-                    } else {
-                        UserDefaults.standard.set(username, forKey: "username")
-                        UserDefaults.standard.set(username, forKey: "links")
-                        UserDefaults.standard.set(username, forKey: "products")
-                        UserDefaults.standard.set(username, forKey: "classes")
-                        UserDefaults.standard.set(username, forKey: "sales")
-                        UserDefaults.standard.set("", forKey: "tiktok")
-                        UserDefaults.standard.set("", forKey: "social_email")
-                        UserDefaults.standard.set("", forKey: "facebook")
-                        UserDefaults.standard.set("", forKey: "website")
-                        UserDefaults.standard.set("", forKey: "youtube")
-                        UserDefaults.standard.set("", forKey: "instagram")
-                        UserDefaults.standard.set(nil, forKey: "profile_image")
-                        UserDefaults.standard.set("", forKey: "bank_name")
-                        UserDefaults.standard.set("", forKey: "bank_full_name")
-                        UserDefaults.standard.set("", forKey: "acc_number")
-                        UserDefaults.standard.set("", forKey: "iban")
-                        completion("User Added")
+//        let docRef = ref.document(uuid)
+//        let prodDocRef = productRef.document(uuid)
+//        prodDocRef.setData([:])
+//        docRef.setData([:])
+        let docRef = ref.document(uuid)
+        
+            ref.whereField("metadata.username", isEqualTo: username).getDocuments { (snapshot, error) in
+                if let error = error {
+                    print("Error checking username: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let documents = snapshot?.documents, !documents.isEmpty {
+                    // Username is already in use
+                    completion("Username already exists")
+                } else {
+                    
+                    let data: [String: Any] = [
+                        "metadata": ["email": email, "username": username, "links": uuid, "products": uuid, "classes": uuid, "profile_image": "", "instagram": "", "tiktok": "", "facebook": "", "social_email": "", "youtube": "", "website": ""],
+                        "date_created": TimeData().getPresentDateTime(),
+                        "sales": uuid,
+                        "bank_name": "",
+                        "bank_full_name": "",
+                        "account_number": "",
+                        "iban": "",
+                        "fcm_token": cached_fcm,
+                        "auth_uuid": uuid
+                    ]
+                    
+                    docRef.setData(data) { error in
+                        if let error = error {
+                            print("Error adding user: \(error.localizedDescription)")
+                            completion("Error")
+                        } else {
+                            UserDefaults.standard.set(username, forKey: "username")
+                            UserDefaults.standard.set(uuid, forKey: "links")
+                            UserDefaults.standard.set(uuid, forKey: "products")
+                            UserDefaults.standard.set(uuid, forKey: "classes")
+                            UserDefaults.standard.set(uuid, forKey: "sales")
+                            UserDefaults.standard.set("", forKey: "tiktok")
+                            UserDefaults.standard.set("", forKey: "social_email")
+                            UserDefaults.standard.set("", forKey: "facebook")
+                            UserDefaults.standard.set("", forKey: "website")
+                            UserDefaults.standard.set("", forKey: "youtube")
+                            UserDefaults.standard.set("", forKey: "instagram")
+                            UserDefaults.standard.set(nil, forKey: "profile_image")
+                            UserDefaults.standard.set("", forKey: "bank_name")
+                            UserDefaults.standard.set("", forKey: "bank_full_name")
+                            UserDefaults.standard.set("", forKey: "acc_number")
+                            UserDefaults.standard.set("", forKey: "iban")
+                            completion("User Added")
+                        }
                     }
                 }
             }
-        }
     }
     
     func addLink(name: String, url: String, index: String, completion: @escaping (String?) -> Void) {

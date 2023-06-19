@@ -14,6 +14,7 @@ import AuthenticationServices
 import CryptoKit
 import GoogleSignIn
 import GoogleSignInSwift
+import FirebaseFirestore
 
 class AuthViewModel : ObservableObject {
     let auth = Auth.auth()
@@ -26,6 +27,7 @@ class AuthViewModel : ObservableObject {
                 completion(error!.localizedDescription)
             } else {
                 print("Successful auth")
+                CreateDB().addtoDB()
                 completion("Successful")
             }
         }
@@ -38,10 +40,13 @@ class AuthViewModel : ObservableObject {
                 print(error.localizedDescription)
                 completion(error.localizedDescription)
             } else {
+                print("Signed in")
                 ReadDB().getUserDetails(email: email) { response in
                     if response == "Successful" {
                         print("Successful auth")
                         completion("Successful")
+                    } else if response == "Missing or insufficient permissions." {
+                        completion("Missing")
                     }
                 }
             }

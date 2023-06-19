@@ -108,23 +108,24 @@ class ReadDB : ObservableObject {
             .getDocuments { (snapshot, error) in
                 if let error = error {
                     print("Error getting userDetils: \(error.localizedDescription)")
+                    completion(error.localizedDescription)
                 } else {
                     
                     if snapshot!.documents != [] {
                         for document in snapshot!.documents {
                             let metadata = document.data()["metadata"] as? [String: Any]
-                            UserDefaults.standard.set(String(describing: metadata!["username"]), forKey: "username")
-                            UserDefaults.standard.set(String(describing: metadata!["links"]), forKey: "links")
-                            UserDefaults.standard.set(String(describing: metadata!["products"]), forKey: "products")
-                            UserDefaults.standard.set(String(describing: metadata!["classes"]), forKey: "classes")
-                            UserDefaults.standard.set(String(describing: metadata!["tiktok"]), forKey: "tiktok")
-                            UserDefaults.standard.set(String(describing: metadata!["facebook"]), forKey: "facebook")
-                            UserDefaults.standard.set(String(describing: metadata!["website"]), forKey: "website")
-                            UserDefaults.standard.set(String(describing: metadata!["youtube"]), forKey: "youtube")
-                            UserDefaults.standard.set(String(describing: metadata!["instagram"]), forKey: "instagram")
-                            UserDefaults.standard.set(String(describing: metadata!["full_name"]), forKey: "full_name")
-                            UserDefaults.standard.set(String(describing: metadata!["bio"]), forKey: "bio")
-                            UserDefaults.standard.set(String(describing: metadata!["social_email"]), forKey: "social_email")
+                            UserDefaults.standard.set(String(describing: metadata!["username"]!), forKey: "username")
+                            UserDefaults.standard.set(String(describing: metadata!["links"]!), forKey: "links")
+                            UserDefaults.standard.set(String(describing: metadata!["products"]!), forKey: "products")
+                            UserDefaults.standard.set(String(describing: metadata!["classes"]!), forKey: "classes")
+                            UserDefaults.standard.set(String(describing: metadata!["tiktok"]!), forKey: "tiktok")
+                            UserDefaults.standard.set(String(describing: metadata!["facebook"]!), forKey: "facebook")
+                            UserDefaults.standard.set(String(describing: metadata!["website"]!), forKey: "website")
+                            UserDefaults.standard.set(String(describing: metadata!["youtube"]!), forKey: "youtube")
+                            UserDefaults.standard.set(String(describing: metadata!["instagram"]!), forKey: "instagram")
+                            UserDefaults.standard.set(String(describing: metadata!["full_name"]!), forKey: "full_name")
+                            UserDefaults.standard.set(String(describing: metadata!["bio"]!), forKey: "bio")
+                            UserDefaults.standard.set(String(describing: metadata!["social_email"]!), forKey: "social_email")
                             UserDefaults.standard.set(document.data()["sales"]!, forKey: "sales")
                             UserDefaults.standard.set(document.data()["bank_name"]!, forKey: "bank_name")
                             UserDefaults.standard.set(document.data()["bank_full_name"]!, forKey: "bank_full_name")
