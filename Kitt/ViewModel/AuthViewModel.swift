@@ -27,8 +27,11 @@ class AuthViewModel : ObservableObject {
                 completion(error!.localizedDescription)
             } else {
                 print("Successful auth")
-                CreateDB().addtoDB()
-                completion("Successful")
+                CreateDB().addtoDB() { response in
+                    if response == "Successful" {
+                        completion("Successful")
+                    }
+                }
             }
         }
     }

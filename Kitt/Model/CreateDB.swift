@@ -15,7 +15,7 @@ class CreateDB : ObservableObject {
     
     let imageCache = NSCache<NSString, UIImage>()
     
-    func addtoDB() {
+    func addtoDB(completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         var uuid = ""
         
@@ -30,6 +30,8 @@ class CreateDB : ObservableObject {
         
         prodDocRef.setData([:])
         docRef.setData([:])
+        
+        completion("Successful")
     }
     
     func addUser(email: String, username: String, completion: @escaping (String?) -> Void) {

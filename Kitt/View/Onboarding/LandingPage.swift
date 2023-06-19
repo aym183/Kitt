@@ -104,7 +104,11 @@ struct LandingContent: View {
                                                 if result == "Successful" {
                                                     homePageShown.toggle()
                                                 } else if result == "User does not exist" || result == "Missing or insufficient permissions." {
-                                                    createLinkSheet.toggle()
+                                                    CreateDB().addtoDB() { response in
+                                                        if response == "Successful" {
+                                                            createLinkSheet.toggle()
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -148,7 +152,11 @@ struct LandingContent: View {
                                             if result == "Successful" {
                                                 homePageShown.toggle()
                                             } else if result == "User does not exist" || result == "Missing or insufficient permissions." {
-                                                createLinkSheet.toggle()
+                                                CreateDB().addtoDB() { response in
+                                                    if response == "Successful" {
+                                                        createLinkSheet.toggle()
+                                                    }
+                                                }
                                             }
                                         }
                                     }

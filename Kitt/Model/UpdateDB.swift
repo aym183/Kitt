@@ -720,6 +720,7 @@ class UpdateDB : ObservableObject {
         let db = Firestore.firestore()
         let collectionRef = db.collection("users")
         @AppStorage("username") var userName: String = ""
+        print("\(userName)")
         
         collectionRef.whereField("metadata.username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
             if let error = error {

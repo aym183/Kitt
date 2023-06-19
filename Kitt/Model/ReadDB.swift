@@ -281,6 +281,7 @@ class ReadDB : ObservableObject {
     
     func getSales_rt() {
         @AppStorage("sales") var sales: String = ""
+//        @AppStorage("username") var userName: String = ""
         let salesDB = Database.database().reference().child("sales").child(sales)
         var temp_sales = UserDefaults.standard.array(forKey: "myKey") as? [[String:Any]] ?? []
         let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
