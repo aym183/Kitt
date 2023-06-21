@@ -312,27 +312,27 @@ struct HomePage: View {
                                                             
                                                             Button(action: {
                                                                 
-                                                                if temp_products != [] {
-                                                                    if let product_index = temp_products.firstIndex(where: { $0["name"] == readData.products![index]["name"]! && $0["description"] == readData.products![index]["description"]! }) {
-                                                                        
-                                                                        productIndex = product_index
-                                                                        productName = readData.products![index]["name"]!
-                                                                        productDesc = readData.products![index]["description"]!
-                                                                        productPrice = "\(readData.products![index]["price"]!)"
-                                                                        fileName = readData.products![index]["file_name"]!
-                                                                        file = readData.products![index]["file"]!
-                                                                        
-                                                                        oldFile = readData.products![index]["file"]!
-                                                                        oldFileName = readData.products![index]["file_name"]!
-                                                                        
-                                                                        oldProductName = readData.products![index]["name"]!
-                                                                        oldProductDesc = readData.products![index]["description"]!
-                                                                        oldProductPrice = "\(readData.products![index]["price"]!)"
-                                                                        oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
-                                                                        image = readData.loadProductImage(key: readData.products![index]["image"]!)
-                                                                        productEditShown.toggle()
-                                                                    }
-                                                                } else {
+//                                                                if temp_products != [] {
+//                                                                    if let product_index = temp_products.firstIndex(where: { $0["name"] == readData.products![index]["name"]! && $0["description"] == readData.products![index]["description"]! }) {
+//
+//                                                                        productIndex = product_index
+//                                                                        productName = readData.products![index]["name"]!
+//                                                                        productDesc = readData.products![index]["description"]!
+//                                                                        productPrice = "\(readData.products![index]["price"]!)"
+//                                                                        fileName = readData.products![index]["file_name"]!
+//                                                                        file = readData.products![index]["file"]!
+//
+//                                                                        oldFile = readData.products![index]["file"]!
+//                                                                        oldFileName = readData.products![index]["file_name"]!
+//
+//                                                                        oldProductName = readData.products![index]["name"]!
+//                                                                        oldProductDesc = readData.products![index]["description"]!
+//                                                                        oldProductPrice = "\(readData.products![index]["price"]!)"
+//                                                                        oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
+//                                                                        image = readData.loadProductImage(key: readData.products![index]["image"]!)
+//                                                                        productEditShown.toggle()
+//                                                                    }
+//                                                                } else {
                                                                     productIndex = index
                                                                     productName = readData.products![index]["name"]!
                                                                     productDesc = readData.products![index]["description"]!
@@ -349,7 +349,7 @@ struct HomePage: View {
                                                                     oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
                                                                     image = readData.loadProductImage(key: readData.products![index]["image"]!)
                                                                     productEditShown.toggle()
-                                                                }
+//                                                                }
                                                                 
                                                             }) {
                                                                 Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing, 5).fontWeight(.bold)
@@ -387,24 +387,24 @@ struct HomePage: View {
                                                     Spacer()
                                                     
                                                     Button(action: {
-                                                        if temp_products != [] {
-                                                            if let link_index = temp_products.firstIndex(where: { $0["name"] == readData.products![index]["name"]! && $0["url"] == readData.products![index]["url"]! }) {
-                                                                
-                                                                linkIndex = link_index
-                                                                linkName = readData.products![index]["name"]!
-                                                                linkURL = readData.products![index]["url"]!
-                                                                oldName = readData.products![index]["name"]!
-                                                                oldURL = readData.products![index]["url"]!
-                                                                linkEditShown.toggle()
-                                                            }
-                                                        } else {
+//                                                        if temp_products != [] {
+//                                                            if let link_index = temp_products.firstIndex(where: { $0["name"] == readData.products![index]["name"]! && $0["url"] == readData.products![index]["url"]! }) {
+//
+//                                                                linkIndex = link_index
+//                                                                linkName = readData.products![index]["name"]!
+//                                                                linkURL = readData.products![index]["url"]!
+//                                                                oldName = readData.products![index]["name"]!
+//                                                                oldURL = readData.products![index]["url"]!
+//                                                                linkEditShown.toggle()
+//                                                            }
+//                                                        } else {
                                                             linkIndex = index
                                                             linkName = readData.products![index]["name"]!
                                                             linkURL = readData.products![index]["url"]!
                                                             oldName = readData.products![index]["name"]!
                                                             oldURL = readData.products![index]["url"]!
                                                             linkEditShown.toggle()
-                                                        }
+//                                                        }
 //                                                        temp_products = readData.products!
                                                         
                                                     }) {
@@ -557,7 +557,7 @@ struct HomePage: View {
                                     isShownHomePage = false
                                     isShownLinkCreated = false
                                     isChangesMade = false
-                                    temp_products = readData.products!
+//                                    temp_products = readData.products!
                                 }
                             }
                             
@@ -565,14 +565,14 @@ struct HomePage: View {
                                 withAnimation(.easeOut(duration: 0.5)) {
                                     isShownProductCreated = false
                                     isShownClassCreated = false
-                                    temp_products = readData.products!
+//                                    temp_products = readData.products!
                                 }
                             }
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
                                 withAnimation(.easeOut(duration: 1.5)) {
                                     isSignedUp = false
-                                    temp_products = readData.products!
+//                                    temp_products = readData.products!
                                 }
                             }
                         }
@@ -617,6 +617,7 @@ struct HomePage: View {
             UpdateDB().updateIndex(products_input: readData.products!) { response in
                 if response == "Order Updated" {
                     print("Index changed")
+                    print(readData.products)
 //                    readData.products = temp_products
                 }
             }
