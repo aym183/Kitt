@@ -18,32 +18,46 @@ class AppState: ObservableObject {
 }
 
 
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate  {
-    var isNotificationReceived = false
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, ObservableObject  {
+//    var isNotificationReceived = false
+    var isSignedUp = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
             FirebaseApp.configure()
-           
-            let center = UNUserNotificationCenter.current()
-            center.delegate = self
-            center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
-                if granted {
-                    DispatchQueue.main.async {
-                        application.registerForRemoteNotifications()
-                    }
-                }
-            }
-           
-//            if let notification = launchOptions?[.remoteNotification] as? [String: Any] {
-//                        // Handle the notification and navigate the user to view X
-////                        handleNotification(notification)
-//                print("I Came from noti")
-//            }
+        
+////            if isSignedUp {
+                let center = UNUserNotificationCenter.current()
+                  center.delegate = self
+                  center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
+                      if granted {
+                          DispatchQueue.main.async {
+                              application.registerForRemoteNotifications()
+                          }
+                      }
+                  }
+        
             Messaging.messaging().delegate = self
+            
+              
+//            }
 
             return true
        }
     
+//    func registerPushNotifications() {
+//        let center = UNUserNotificationCenter.current()
+//           center.delegate = self
+//           center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
+//               if granted {
+//                   self.isSignedUp = true
+//                   DispatchQueue.main.async {
+//                       UIApplication.shared.registerForRemoteNotifications()
+//                   }
+//               }
+//           }
+//        Messaging.messaging().delegate = self
+//    }
+//
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                     willPresent notification: UNNotification,
                                     withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -97,36 +111,11 @@ extension AppDelegate: MessagingDelegate {
 
 @main
 struct KittAPP: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
             LandingPage().preferredColorScheme(.dark)
         }
     }
 }
-
-struct LandingPage: View {
-//    @ObservedObject var appState = AppState.shared
-    @AppStorage("username") var userName: String = ""
-    @State var loggedInUser = false
-    @State var isNotificationReceived = false
-//    @EnvironmentObject var notificationState: NotificationState
-    
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                VStack {
-//                    if Auth.auth().currentUser != nil && appState.pageToNavigationTo != nil {
-//                        HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: true)
-//                    } else
-                    if Auth.auth().currentUser != nil {
-                        HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: false)
-                    } else {
-                        LandingContent()
-                    }
-                }
-            }
-        }
-    }
-}
-

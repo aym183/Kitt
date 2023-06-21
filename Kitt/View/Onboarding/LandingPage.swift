@@ -13,6 +13,33 @@ import GoogleSignIn
 import AuthenticationServices
 import UIKit
 
+struct LandingPage: View {
+//    @ObservedObject var appState = AppState.shared
+    @AppStorage("username") var userName: String = ""
+    @State var loggedInUser = false
+    @State var isNotificationReceived = false
+//    @EnvironmentObject var notificationState: NotificationState
+    
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                VStack {
+//                    if Auth.auth().currentUser != nil && appState.pageToNavigationTo != nil {
+//                        HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: true)
+//                    } else
+                    if Auth.auth().currentUser != nil {
+                        HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: false)
+                    } else {
+                        LandingContent()
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
 struct LandingContent: View {
     @State var createAccountSheet = false
     @State var loginSheet = false

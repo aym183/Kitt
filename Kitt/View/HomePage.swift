@@ -70,7 +70,8 @@ struct HomePage: View {
     @State var socialsEditShown = false
     @State var showingAlert = false
     @ObservedObject var appState = AppState.shared
-
+    @EnvironmentObject private var appDelegate: AppDelegate
+    @State var isUpdating = false
     
     var body: some View {
         var noOfLinks = readData.links?.count ?? 0
@@ -186,6 +187,7 @@ struct HomePage: View {
                                     )
                                     
                                     Button(action: {
+                                        
                                         guard let url = URL(string: "https://kitt.bio/\(userName)") else {
                                             return
                                         }
@@ -208,7 +210,12 @@ struct HomePage: View {
                             }
                             Spacer()
                             
-                            Button(action: { settingsShown.toggle() }) {
+                            Button(action: {
+//                                updateTempProducts()
+//                                print(readData.products!)
+                            
+                                settingsShown.toggle()
+                            }) {
                                 
                                 if profile_image != nil {
                                     ZStack {
@@ -235,9 +242,18 @@ struct HomePage: View {
                         HStack {
                             Button(action: {
 //                                linksNumber = noOfLinks
+//                                UpdateDB().updateIndex(products_input: readData.products!) { response in
+//                                    if response == "Order Updated" {
+//                                        print("Index changed")
+//                    //                    print(readData.products)
+//                    //                    readData.products = temp_products
+//                                    }
+//                                }
                                 productsNumber = noOfProducts
                                 classesNumber = noOfClasses
+//                                updateTempProducts()
                                 formShown.toggle()
+                                
 //                                NotificationHandler().scheduleLocalNotification()
                             }) {
                                 HStack(spacing: 6) {
@@ -254,9 +270,17 @@ struct HomePage: View {
                         
                         Spacer()
                         
-                        if readData.products == nil {
-                            Text("No products or links added yet.").fontWeight(.semibold)
-                            Spacer()
+                        if isUpdating {
+                            VStack(alignment: .center) {
+                                Spacer()
+                                
+                                LottieView(name: "loading_3.0", speed: 1).frame(width: 75, height: 75)
+//
+                                Text("Loading...").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.horizontal).foregroundColor(.black).padding(.top, -5)
+                                
+                                Spacer()
+                            }
+                            .foregroundColor(.black).frame(width: max(0, geometry.size.width))
                         } else {
 //                            ScrollView(showsIndicators: false) {
 //                                if readData.product_images != [] {
@@ -273,7 +297,10 @@ struct HomePage: View {
                                             
                                             Spacer()
                                             
-                                            Button(action: { socialsEditShown.toggle() }) {
+                                            Button(action: {
+//                                                updateTempProducts()
+                                                socialsEditShown.toggle()
+                                            }) {
                                                 Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
                                                     .padding(.trailing, 5)
                                             }
@@ -333,7 +360,9 @@ struct HomePage: View {
 //                                                                        oldProductPrice = "\(readData.products![index]["price"]!)"
 //                                                                        oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
 //                                                                        image = readData.loadProductImage(key: readData.products![index]["image"]!)
+////                                                                        updateTempProducts()
 //                                                                        productEditShown.toggle()
+//
 //                                                                    }
 //                                                                } else {
                                                                     productIndex = index
@@ -398,6 +427,7 @@ struct HomePage: View {
 //                                                                linkURL = readData.products![index]["url"]!
 //                                                                oldName = readData.products![index]["name"]!
 //                                                                oldURL = readData.products![index]["url"]!
+////                                                                updateTempProducts()
 //                                                                linkEditShown.toggle()
 //                                                            }
 //                                                        } else {
@@ -571,7 +601,13 @@ struct HomePage: View {
                                             
                                         }
                                     }
-//                                    temp_products = readData.products!
+//                                    temp_products = Array(readData.products!)
+                                    
+            //                            if let appDelegate = UIApplication.shared.delegate as? Kitt.AppDelegate {
+            //                                    print("Delegate it \(appDelegate)")
+            //                                   appDelegate.registerPushNotifications()
+            //                            }
+                                    
                                 }
                             }
                             
@@ -579,16 +615,26 @@ struct HomePage: View {
                                 withAnimation(.easeOut(duration: 0.5)) {
                                     isShownProductCreated = false
                                     isShownClassCreated = false
-//                                    temp_products = readData.products!
+//                                    temp_products = Array(readData.products!)
                                 }
                             }
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
                                 withAnimation(.easeOut(duration: 1.5)) {
                                     isSignedUp = false
-//                                    temp_products = readData.products!
+//                                    if isSignedUp == false {
+//                                        appDelegate.registerPushNotifications()
+//                                    }
+//                                    temp_products = Array(readData.products!)
                                 }
                             }
+                            
+//                            if !isSignedUp && !isShownProductCreated && !isShownClassCreated && !isChangesMade && !isShownLinkCreated && !isShownHomePage {
+//                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                                    temp_products = Array(readData.products!)
+//                                }
+//                            }
+
                             
                         }
                     }
@@ -616,32 +662,64 @@ struct HomePage: View {
     }
     
     func move(from source: IndexSet, to destination: Int) {
-//        readData.products = []
-        readData.products!.move(fromOffsets: source, toOffset: destination)
+        //        readData.products = []
+//        temp_products.move(fromOffsets: source, toOffset: destination)
 //        readData.products!.move(fromOffsets: source, toOffset: destination)
-//        readData.products = temp_products
-////
-//        var currentIndex = 0
-//        for index in temp_products.indices {
-//            temp_products[index]["index"] = String(describing: currentIndex)
-//            currentIndex += 1
-//        }
+        readData.products!.move(fromOffsets: source, toOffset: destination)
+        //        readData.products = temp_products
+        ////
+//                var currentIndex = 0
+//                for index in temp_products.indices {
+//                    temp_products[index]["index"] = String(describing: currentIndex)
+//                    currentIndex += 1
+//                }
         
-//        let temp_index = readData.products![destination][
+//                let temp_index = readData.products![destination][
+        withAnimation(.easeOut(duration: 0.25)) {
+            isUpdating = true
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            UpdateDB().updateIndex(products_input: readData.products!) { response in
+                    UpdateDB().updateIndex(products_input: readData.products!) { response in
+                        if response == "Order Updated" {
+                            print("Index changed")
+                            withAnimation(.easeOut(duration: 0.25)) {
+                                isUpdating = false
+                            }
+        //                    print(readData.products)
+        //                    readData.products = temp_products
+                        }
+                    }
+                }
+        
+//        DispatchQueue.main.async {
+//            UpdateDB().updateIndex(products_input: readData.products!) { response in
+//                if response == "Order Updated" {
+//                    print("Index changed")
+//                }
+//            }
+//
+//        }
+    }
+    
+    
+    func updateTempProducts() {
+        let updatedProducts = Array(readData.products!)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            UpdateDB().updateIndex(products_input: updatedProducts) { response in
                 if response == "Order Updated" {
                     print("Index changed")
-                    print(readData.products)
+//                    print(readData.products)
 //                    readData.products = temp_products
                 }
             }
         }
-        
     }
+
     
     
 }
+
+
 
 //struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {

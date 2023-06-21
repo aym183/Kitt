@@ -3,4 +3,22 @@
    uuid = "9824FBA4-83AF-41BD-963B-B8CE7994C097"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "56372523-3CA2-4C50-BFC3-FF6E7D2CB7E4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Kitt/View/HomePage.swift"
+            startingColumnNumber = "11"
+            endingColumnNumber = "11"
+            startingLineNumber = "692"
+            endingLineNumber = "692"
+            landmarkName = "move(from:to:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

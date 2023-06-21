@@ -32,7 +32,7 @@
 		6166875C2A1787390016A549 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6166875B2A1787390016A549 /* GoogleSignIn */; };
 		6166875E2A1787390016A549 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6166875D2A1787390016A549 /* GoogleSignInSwift */; };
 		616687602A178CF20016A549 /* +View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166875F2A178CF20016A549 /* +View.swift */; };
-		61A0E7FE2A09D0D500FE474D /* KittAPP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FD2A09D0D500FE474D /* KittAPP.swift */; };
+		61A0E7FE2A09D0D500FE474D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FD2A09D0D500FE474D /* AppDelegate.swift */; };
 		61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A0E7FF2A09D0D500FE474D /* HomePage.swift */; };
 		61A0E8022A09D0D600FE474D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61A0E8012A09D0D600FE474D /* Assets.xcassets */; };
 		61A0E8052A09D0D600FE474D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 61A0E8042A09D0D600FE474D /* Preview Assets.xcassets */; };
@@ -104,7 +104,7 @@
 		616687592A1746650016A549 /* Kitt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kitt.entitlements; sourceTree = "<group>"; };
 		6166875F2A178CF20016A549 /* +View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+View.swift"; sourceTree = "<group>"; };
 		61A0E7FA2A09D0D500FE474D /* Kitt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kitt.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		61A0E7FD2A09D0D500FE474D /* KittAPP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KittAPP.swift; sourceTree = "<group>"; };
+		61A0E7FD2A09D0D500FE474D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61A0E7FF2A09D0D500FE474D /* HomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePage.swift; sourceTree = "<group>"; };
 		61A0E8012A09D0D600FE474D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		61A0E8042A09D0D600FE474D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 				61A0E80C2A09D43B00FE474D /* Model */,
 				61A0E80D2A09D43F00FE474D /* ViewModel */,
 				61A0E80B2A09D43600FE474D /* View */,
-				61A0E7FD2A09D0D500FE474D /* KittAPP.swift */,
+				61A0E7FD2A09D0D500FE474D /* AppDelegate.swift */,
 				61A0E8012A09D0D600FE474D /* Assets.xcassets */,
 				61A0E8032A09D0D600FE474D /* Preview Content */,
 			);
@@ -482,7 +482,7 @@
 				61A0E81F2A0A15DC00FE474D /* UploadProfileImageForm.swift in Sources */,
 				61A0E86C2A0A4A5F00FE474D /* ReadDB.swift in Sources */,
 				61A0E85F2A0A2F4100FE474D /* AuthViewModel.swift in Sources */,
-				61A0E7FE2A09D0D500FE474D /* KittAPP.swift in Sources */,
+				61A0E7FE2A09D0D500FE474D /* AppDelegate.swift in Sources */,
 				61A60C572A0B91E2006B7984 /* DeleteDB.swift in Sources */,
 				61A0E80F2A09E16100FE474D /* FormSelection.swift in Sources */,
 				616687512A161E900016A549 /* CreateProfile.swift in Sources */,
@@ -622,7 +622,7 @@
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = Kitt/Kitt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Kitt/Preview Content\"";
 				DEVELOPMENT_TEAM = 29VBPZUJ23;
 				ENABLE_PREVIEWS = YES;
@@ -630,7 +630,7 @@
 				INFOPLIST_FILE = Kitt/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Kitt;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to select photos";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to select photos. It will be used to upload images for your profile and products.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -663,7 +663,7 @@
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = Kitt/Kitt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Kitt/Preview Content\"";
 				DEVELOPMENT_TEAM = 29VBPZUJ23;
 				ENABLE_PREVIEWS = YES;
@@ -671,7 +671,7 @@
 				INFOPLIST_FILE = Kitt/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Kitt;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to select photos";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow access to select photos. It will be used to upload images for your profile and products.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
