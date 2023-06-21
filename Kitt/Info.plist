@@ -30,6 +30,6 @@
 	<key>FirebaseMessagingAutoInitEnabled</key>
 	<false/>
 	<key>NSUserNotificationsUsageDescription</key>
-	<string></string>
+	<string>We’ll only notify you when you’ve made a sale 🎉</string>
 </dict>
 </plist>
