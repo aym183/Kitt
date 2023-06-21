@@ -264,17 +264,6 @@ class ReadDB : ObservableObject {
             if let error = error {
                 print("Error getting getProducts_rt: \(error)")
             } else {
-//                if snapshot!.documents != [] {
-//                    for document in snapshot!.documents {
-//                        for documentData in document.data().values {
-//                            if let valueDict = documentData as? [String: String] {
-//                                temp_products.append(valueDict)
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    print("No products for user")
-//                }
                 if let snapshotValue = snapshot.value as? [String: Any] {
                     for value in snapshotValue.values {
                         temp_products.append(value as! [String: String])

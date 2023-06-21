@@ -28,8 +28,8 @@ struct ChangeBio: View {
                         ZStack {
                             TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16))
                                 .onChange(of: self.bio, perform: { value in
-                                       if value.count > 50 {
-                                           self.bio = String(value.prefix(50))
+                                       if value.count > 45 {
+                                           self.bio = String(value.prefix(45))
                                       }
                                   })
                                 .onTapGesture {
@@ -40,13 +40,13 @@ struct ChangeBio: View {
                                 HStack {
                                     Spacer()
                                     
-                                    if bio.count >= 40 {
-                                        Text("\(50 - bio.count)")
+                                    if bio.count >= 35 {
+                                        Text("\(45 - bio.count)")
                                             .foregroundColor(.red)
                                             .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
                                             .fontWeight(.bold)
                                     } else {
-                                        Text("\(50 - bio.count)")
+                                        Text("\(45 - bio.count)")
                                             .foregroundColor(.black)
                                             .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
                                             .fontWeight(.bold)
@@ -86,7 +86,7 @@ struct ChangeBio: View {
                         }
                         .foregroundColor(.black)
                         .navigationDestination(isPresented: $profileBioChanged) {
-                            HomePage(isSignedUp: false, isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                            HomePage(isSignedUp: false, isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: false).navigationBarHidden(true)
                         }
                         .onAppear {
                             bio = bioText

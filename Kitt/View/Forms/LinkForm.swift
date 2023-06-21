@@ -170,10 +170,10 @@ struct LinkForm: View {
                     .padding(.top, -5)
                     .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                     .navigationDestination(isPresented: $linkCreated) {
-                        HomePage(isSignedUp: false, isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: true).navigationBarHidden(true)
+                        HomePage(isSignedUp: false, isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: true, isShownFromNotification: false).navigationBarHidden(true)
                     }
                     .navigationDestination(isPresented: $linkDeleted) {
-                        HomePage(isSignedUp: false, isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                        HomePage(isSignedUp: false, isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: false).navigationBarHidden(true)
                     }
                     .alert(isPresented: $showingPopupConfirmation) {
                         Alert(

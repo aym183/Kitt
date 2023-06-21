@@ -13,25 +13,6 @@ import GoogleSignIn
 import AuthenticationServices
 import UIKit
 
-struct LandingPage: View {
-    @AppStorage("username") var userName: String = ""
-    @State var loggedInUser = false
-    
-    var body: some View {
-        NavigationStack {
-            ZStack {
-                VStack {
-                    if Auth.auth().currentUser != nil {
-                        HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false)
-                    } else {
-                        LandingContent()
-                    }
-                }
-            }
-        }
-    }
-}
-
 struct LandingContent: View {
     @State var createAccountSheet = false
     @State var loginSheet = false
@@ -210,10 +191,10 @@ struct LandingContent: View {
                         .frame(width: max(0,geometry.size.width-40), height: max(0, geometry.size.height-20))
                         .foregroundColor(.black)
                         .navigationDestination(isPresented: $homePageShown) {
-                            HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                            HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: false).navigationBarHidden(true)
                         }
                         .navigationDestination(isPresented: $signUpShown) {
-                            HomePage(isSignedUp: true, isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false).navigationBarHidden(true)
+                            HomePage(isSignedUp: true, isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: false).navigationBarHidden(true)
                         }
                     }
 //                }
@@ -308,8 +289,8 @@ final class Coordinator : NSObject, ASAuthorizationControllerDelegate, ASAuthori
     }
 }
 
-struct LandingPage_Previews: PreviewProvider {
-    static var previews: some View {
-        LandingPage()
-    }
-}
+//struct LandingPage_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LandingPage()
+//    }
+//}

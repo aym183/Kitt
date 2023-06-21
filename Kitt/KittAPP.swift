@@ -12,24 +12,54 @@ import UserNotifications
 import FirebaseMessaging
 import UIKit
 
-class AppDelegate: UIResponder, UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-           FirebaseApp.configure()
-           
-               let center = UNUserNotificationCenter.current()
-               center.delegate = self
-               center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
-                   if granted {
-                       DispatchQueue.main.async {
-                           application.registerForRemoteNotifications()
-                       }
-                   }
-               }
-           
-           Messaging.messaging().delegate = self
+class AppState: ObservableObject {
+    static let shared = AppState()
+    @Published var pageToNavigationTo : String?
+}
 
-           return true
+
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate  {
+    var isNotificationReceived = false
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+            FirebaseApp.configure()
+           
+            let center = UNUserNotificationCenter.current()
+            center.delegate = self
+            center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
+                if granted {
+                    DispatchQueue.main.async {
+                        application.registerForRemoteNotifications()
+                    }
+                }
+            }
+           
+//            if let notification = launchOptions?[.remoteNotification] as? [String: Any] {
+//                        // Handle the notification and navigate the user to view X
+////                        handleNotification(notification)
+//                print("I Came from noti")
+//            }
+            Messaging.messaging().delegate = self
+
+            return true
        }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                    willPresent notification: UNNotification,
+                                    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+            let userInfo = notification.request.content.userInfo
+            print(userInfo)
+            completionHandler([.alert, .badge, .sound])
+        }
+        
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                    didReceive response: UNNotificationResponse,
+                                    withCompletionHandler completionHandler: @escaping () -> Void) {
+            let userInfo = response.notification.request.content.userInfo
+            print(userInfo)
+            AppState.shared.pageToNavigationTo = "LandingPage"
+            completionHandler()
+    }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
            Messaging.messaging().apnsToken = deviceToken
@@ -42,24 +72,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-extension AppDelegate: UNUserNotificationCenterDelegate {
-  // Receive displayed notifications for iOS 10 devices.
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                    willPresent notification: UNNotification,
-                                    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-            let userInfo = notification.request.content.userInfo
-            print(userInfo)
-            completionHandler([.alert, .badge, .sound])
-        }
-        
-        func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                    didReceive response: UNNotificationResponse,
-                                    withCompletionHandler completionHandler: @escaping () -> Void) {
-            let userInfo = response.notification.request.content.userInfo
-            print(userInfo)
-            completionHandler()
-        }
-}
+//extension AppDelegate: UNUserNotificationCenterDelegate {
+//  // Receive displayed notifications for iOS 10 devices.
+//
+//}
 
 
 extension AppDelegate: MessagingDelegate {
@@ -88,3 +104,29 @@ struct KittAPP: App {
         }
     }
 }
+
+struct LandingPage: View {
+//    @ObservedObject var appState = AppState.shared
+    @AppStorage("username") var userName: String = ""
+    @State var loggedInUser = false
+    @State var isNotificationReceived = false
+//    @EnvironmentObject var notificationState: NotificationState
+    
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                VStack {
+//                    if Auth.auth().currentUser != nil && appState.pageToNavigationTo != nil {
+//                        HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: true)
+//                    } else
+                    if Auth.auth().currentUser != nil {
+                        HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: false)
+                    } else {
+                        LandingContent()
+                    }
+                }
+            }
+        }
+    }
+}
+

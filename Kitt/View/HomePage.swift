@@ -12,12 +12,14 @@ import SPAlert
 struct HomePage: View {
     @State var formShown = false
     @State var settingsShown = false
+    @State var salesShown = false
     @State var isSignedUp: Bool
     @State var isShownHomePage: Bool
     @State var isChangesMade: Bool
     @State var isShownClassCreated: Bool
     @State var isShownProductCreated: Bool
     @State var isShownLinkCreated: Bool
+    @State var isShownFromNotification: Bool
     @AppStorage("username") var userName: String = ""
     @AppStorage("full_name") var fullName: String = ""
     @AppStorage("bio") var bioText: String = ""
@@ -67,6 +69,7 @@ struct HomePage: View {
     @State var linkEditShown = false
     @State var socialsEditShown = false
     @State var showingAlert = false
+    @ObservedObject var appState = AppState.shared
 
     
     var body: some View {
@@ -536,6 +539,9 @@ struct HomePage: View {
                     .navigationDestination(isPresented: $settingsShown) {
                         SettingsPage(readData: readData, profile_image: profile_image, name: fullName, bio: bioText)
                     }
+                    .navigationDestination(isPresented: $salesShown) {
+                        TotalSales(readData: readData)
+                    }
                     .foregroundColor(.black)
                     .padding(.top, 30)
                     .onAppear {
@@ -557,6 +563,14 @@ struct HomePage: View {
                                     isShownHomePage = false
                                     isShownLinkCreated = false
                                     isChangesMade = false
+                                    if appState.pageToNavigationTo != nil && !isShownHomePage {
+                                        salesShown = true
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            appState.pageToNavigationTo = nil
+                                            
+                                            
+                                        }
+                                    }
 //                                    temp_products = readData.products!
                                 }
                             }
@@ -575,6 +589,7 @@ struct HomePage: View {
 //                                    temp_products = readData.products!
                                 }
                             }
+                            
                         }
                     }
 //                    .onChange(of: readData.products) { _ in
