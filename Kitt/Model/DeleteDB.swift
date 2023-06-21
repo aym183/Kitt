@@ -17,6 +17,8 @@ class DeleteDB : ObservableObject {
         let db = Firestore.firestore()
         let ref = db.collection("products")
         var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
+        let rtRef = Database.database().reference().child("products")
+        let userRef = rtRef.child(products)
         
         ref.whereField(FieldPath.documentID(), isEqualTo: products)
             .getDocuments { (snapshot, error) in
@@ -31,12 +33,19 @@ class DeleteDB : ObservableObject {
                                 }
                             }
                         }
+                        userRef.setValue(temp_entries) { (error, _) in
+                            if let error = error {
+                                print("Failed to delete link in realtime db: \(error)")
+                            } else {
+                                print("Link deleted realtime")
+                                completion("Deleted")
+                            }
+                        }
                         ref.document(document.documentID).setData(temp_entries) { error in
                             if let error = error {
                                 print("Error deleting link: \(error.localizedDescription)")
                             } else {
                                 print("Link deleted successfully")
-                                completion("Deleted")
                             }
                         }
                     }
@@ -49,6 +58,8 @@ class DeleteDB : ObservableObject {
         let db = Firestore.firestore()
         let ref = db.collection("products")
         var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
+        let rtRef = Database.database().reference().child("products")
+        let userRef = rtRef.child(products)
         
         ref.whereField(FieldPath.documentID(), isEqualTo: products)
             .getDocuments { (snapshot, error) in
@@ -63,11 +74,20 @@ class DeleteDB : ObservableObject {
                                 }
                             }
                         }
+                        userRef.setValue(temp_entries) { (error, _) in
+                            if let error = error {
+                                print("Failed to delete product in realtime db: \(error)")
+                            } else {
+                                print("Product deleted realtime")
+                                completion("Deleted")
+                            }
+                        }
+                        
                         ref.document(document.documentID).setData(temp_entries) { error in
                             if let error = error {
                                 print("Error deleting product: \(error.localizedDescription)")
                             } else {
-                                completion("Deleted")
+                                print("Product deleted successfully")
                             }
                         }
                     }
@@ -80,6 +100,7 @@ class DeleteDB : ObservableObject {
         let db = Firestore.firestore()
         let ref = db.collection("classes")
         var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
+        
         
         ref.whereField(FieldPath.documentID(), isEqualTo: classes)
             .getDocuments { (snapshot, error) in

@@ -220,10 +220,20 @@ class UpdateDB : ObservableObject {
         let ref = db.collection("products")
         var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
+        let rtRef = Database.database().reference().child("products")
+        let userRef = rtRef.child(products)
         
         var documentData = [String: Any]()
         var fieldID = ref.document()
         documentData[fieldID.documentID] = ["name": name, "url": url, "time_created": presentDateTime, "index": index]
+        
+        userRef.updateChildValues(documentData) { (error, _) in
+            if let error = error {
+                print("Failed to add link to realtime db: \(error)")
+            } else {
+                print("Link added succesfully to realtimedb")
+            }
+        }
         
         docID.updateData(documentData) { error in
         if let error = error {
@@ -240,6 +250,8 @@ class UpdateDB : ObservableObject {
         let db = Firestore.firestore()
         let ref = db.collection("products")
         var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
+        let rtRef = Database.database().reference().child("products")
+        let userRef = rtRef.child(products)
         
         ref.whereField(FieldPath.documentID(), isEqualTo: products)
             .getDocuments { (snapshot, error) in
@@ -256,12 +268,20 @@ class UpdateDB : ObservableObject {
                                 }
                             }
                         }
+                        userRef.setValue(temp_entries) { (error, _) in
+                            if let error = error {
+                                print("Error updating created link in realtime_db: \(error.localizedDescription)")
+                            } else {
+                                print("Updated created link successfully realtime_db")
+                                completion("Successful")
+                            }
+                        }
                         ref.document(document.documentID).setData(temp_entries) { error in
                             if let error = error {
                                 print("Error updating created link: \(error.localizedDescription)")
                             } else {
-                                print("Updated Created Link successfully")
-                                completion("Successful")
+                                print("Updated created link successfully")
+//                                completion("Successful")
                             }
                         }
                     }
@@ -276,6 +296,8 @@ class UpdateDB : ObservableObject {
         let randomID = UUID().uuidString
         let path = "product_images/\(randomID).jpg"
         let filePath = "product_files/\(randomID).pdf"
+        let rtRef = Database.database().reference().child("products")
+        let userRef = rtRef.child(products)
         
         var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
         
@@ -360,12 +382,19 @@ class UpdateDB : ObservableObject {
                                 }
                             }
                         }
+                        userRef.setValue(temp_entries) { (error, _) in
+                            if let error = error {
+                                print("Error updating created product in realtime_db: \(error.localizedDescription)")
+                            } else {
+                                print("Updated created product successfully realtime_db")
+                                completion("Successful")
+                            }
+                        }
                         ref.document(document.documentID).setData(temp_entries) { error in
                             if let error = error {
                                 print("Error updating created product: \(error.localizedDescription)")
                             } else {
-                                print("Updated Created Product successfully")
-                                completion("Successful")
+                                print("Updated created product successfully")
                             }
                         }
                     }
@@ -380,6 +409,8 @@ class UpdateDB : ObservableObject {
         let randomID = UUID().uuidString
         let path = "product_images/\(randomID).jpg"
         let filePath = "product_files/\(randomID).pdf"
+        let rtRef = Database.database().reference().child("products")
+        let userRef = rtRef.child(products)
         
         var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
         
@@ -459,12 +490,19 @@ class UpdateDB : ObservableObject {
                                 }
                             }
                         }
+                        userRef.setValue(temp_entries) { (error, _) in
+                            if let error = error {
+                                print("Error updating created product in realtime_db: \(error.localizedDescription)")
+                            } else {
+                                print("Updated created product successfully realtime_db")
+                                completion("Successful")
+                            }
+                        }
                         ref.document(document.documentID).setData(temp_entries) { error in
                             if let error = error {
                                 print("Error updating created product: \(error.localizedDescription)")
                             } else {
-                                print("Updated Created Product successfully")
-                                completion("Successful")
+                                print("Updated created product successfully")
                             }
                         }
                     }
@@ -534,7 +572,6 @@ class UpdateDB : ObservableObject {
         guard imageData != nil else {
             return
         }
-        
         let db = Firestore.firestore()
         let ref = db.collection("products")
         var docID = ref.document(products)
@@ -542,6 +579,8 @@ class UpdateDB : ObservableObject {
         let randomID = UUID().uuidString
         let path = "product_images/\(randomID).jpg"
         let filePath = "product_files/\(randomID).pdf"
+        let rtRef = Database.database().reference().child("products")
+        let userRef = rtRef.child(products)
         
         DispatchQueue.global(qos: .background).async {
             let storage = Storage.storage().reference()
@@ -605,6 +644,16 @@ class UpdateDB : ObservableObject {
         var fieldID = ref.document()
         documentData[fieldID.documentID] = ["image": path, "name": name, "time_created": presentDateTime, "description": description, "price": price, "file": filePath, "file_name": file_name, "index": index]
         
+        
+        userRef.updateChildValues(documentData) { (error, _) in
+            if let error = error {
+                print("Failed to add product to realtime db: \(error)")
+            } else {
+                print("Product added succesfully to realtimedb")
+            }
+        }
+        
+        
         docID.updateData(documentData) { error in
         if let error = error {
             print("Error updating product: \(error.localizedDescription)")
@@ -624,6 +673,8 @@ class UpdateDB : ObservableObject {
         let ref = db.collection("products")
         var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
+        let rtRef = Database.database().reference().child("products")
+        let userRef = rtRef.child(products)
 
         var documentData = [String: Any]()
 
@@ -634,6 +685,14 @@ class UpdateDB : ObservableObject {
             products_list.append(product)
 
             documentData[fieldID.documentID] = product
+        }
+    
+        userRef.setValue(documentData) { (error, _) in
+            if let error = error {
+                print("Failed to update index after delete in realtime db: \(error)")
+            } else {
+                print("Index order updated after delete realtime db")
+            }
         }
 
         docID.setData(documentData) { error in
@@ -654,6 +713,8 @@ class UpdateDB : ObservableObject {
         let ref = db.collection("products")
         var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
+        let rtRef = Database.database().reference().child("products")
+        let userRef = rtRef.child(products)
 
         var documentData = [String: Any]()
 
@@ -666,12 +727,21 @@ class UpdateDB : ObservableObject {
             documentData[fieldID.documentID] = product
         }
 
+        userRef.setValue(documentData) { (error, _) in
+            if let error = error {
+                print("Failed to update index realtime db: \(error)")
+            } else {
+                print("Index Order Updated in realtime db")
+                completion("Order Updated")
+            }
+        }
+        
+        
         docID.setData(documentData) { error in
             if let error = error {
                 print("Error changing index order: \(error.localizedDescription)")
             } else {
                 print("Index Order Updated!")
-                completion("Order Updated")
             }
         }
         

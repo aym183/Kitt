@@ -112,10 +112,21 @@ class CreateDB : ObservableObject {
         let ref = db.collection("products")
         var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
+        let rtRef = Database.database().reference().child("products")
+        let userRef = rtRef.child(products)
         
         var documentData = [String: Any]()
         var fieldID = ref.document()
         documentData[fieldID.documentID] = ["name": name, "url": url, "time_created": presentDateTime, "index": index]
+        
+        
+        userRef.setValue(documentData) { (error, _) in
+            if let error = error {
+                print("Failed to add link to realtime db: \(error)")
+            } else {
+                print("Link added succesfully to realtimedb")
+            }
+        }
         
         docID.setData(documentData) { error in
            if let error = error {
@@ -143,6 +154,8 @@ class CreateDB : ObservableObject {
         let randomID = UUID().uuidString
         let path = "product_images/\(randomID).jpg"
         let filePath = "product_files/\(randomID).pdf"
+        let rtRef = Database.database().reference().child("products")
+        let userRef = rtRef.child(products)
         
         
         DispatchQueue.global(qos: .background).async {
@@ -208,6 +221,15 @@ class CreateDB : ObservableObject {
         var documentData = [String: Any]()
         var fieldID = ref.document()
         documentData[fieldID.documentID] = ["name": name, "image": path, "time_created": presentDateTime, "description": description, "price": price, "file": filePath, "file_name": file_name, "index": index]
+        
+    
+        userRef.setValue(documentData) { (error, _) in
+            if let error = error {
+                print("Failed to add product to realtime db: \(error)")
+            } else {
+                print("Product added succesfully to realtimedb")
+            }
+        }
         
         docID.setData(documentData) { error in
            if let error = error {

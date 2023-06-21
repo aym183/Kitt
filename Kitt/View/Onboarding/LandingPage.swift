@@ -29,7 +29,9 @@ struct LandingPage: View {
                 }
             }
             .onAppear {
-                print(Auth.auth().currentUser?.uid)
+                if Auth.auth().currentUser != nil {
+                    print("User is in the app")
+                }
             }
         }
     }

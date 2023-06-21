@@ -541,7 +541,8 @@ struct HomePage: View {
                     .onAppear {
                         readData.sales = []
                         DispatchQueue.global(qos: .userInteractive).async {
-                            readData.getProducts()
+//                            readData.getProducts()
+                            readData.getProducts_rt()
                             //readData.getSales()
 //                            readData.getClasses()
                             readData.getSales_rt()
@@ -601,20 +602,23 @@ struct HomePage: View {
     
     func move(from source: IndexSet, to destination: Int) {
 //        readData.products = []
-        temp_products.move(fromOffsets: source, toOffset: destination)
+        readData.products!.move(fromOffsets: source, toOffset: destination)
 //        readData.products!.move(fromOffsets: source, toOffset: destination)
 //        readData.products = temp_products
-//
-        var currentIndex = 0
-        for index in temp_products.indices {
-            temp_products[index]["index"] = String(describing: currentIndex)
-            currentIndex += 1
-        }
+////
+//        var currentIndex = 0
+//        for index in temp_products.indices {
+//            temp_products[index]["index"] = String(describing: currentIndex)
+//            currentIndex += 1
+//        }
         
 //        let temp_index = readData.products![destination][
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            UpdateDB().updateIndex(products_input: temp_products) { response in
-                print("Index changed")
+            UpdateDB().updateIndex(products_input: readData.products!) { response in
+                if response == "Order Updated" {
+                    print("Index changed")
+//                    readData.products = temp_products
+                }
             }
         }
         

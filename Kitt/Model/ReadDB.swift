@@ -238,28 +238,6 @@ class ReadDB : ObservableObject {
                             for documentData in document.data().values {
                                 if let valueDict = documentData as? [String: String] {
                                     temp_products.append(valueDict)
-                                    //                                if valueDict["image"] != nil {
-                                    //                                    let storageRef = Storage.storage().reference()
-                                    //                                    let fileRef = storageRef.child(String(describing: valueDict["image"]!))
-                                    //
-                                    //                                    fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-                                    //                                        if error == nil && data != nil {
-                                    //                                            if let image = UIImage(data: data!) {
-                                    //                                                temp_products_images.append(image)
-                                    //
-                                    //
-                                    //
-                                    //                                                if temp_products_images.count == self.products?.count {
-                                    //                                                    self.product_images = temp_products_images
-                                    //                                                }
-                                    //                                            }
-                                    //                                        } else {
-                                    //                                            print(error)
-                                    //                                        }
-                                    //                                    }
-                                    //                    //                self.product_images = temp_products_images
-                                    //                    //                print("Product Images are \(self.product_images)")
-                                    //                                }
                                 }
                             }
                         }
@@ -270,13 +248,53 @@ class ReadDB : ObservableObject {
                 
                 // Fix image positioning
                 self.products = temp_products
-//                self.getLinks()
-//                self.product_elements_check = true
                 if self.products != [] {
                     self.sortProductsArray()
                 }
-//                self.getLinks()
             }
+    }
+    
+    func getProducts_rt() {
+        @AppStorage("products") var products: String = ""
+        let productDB = Database.database().reference().child("products").child(products)
+        var temp_products = UserDefaults.standard.array(forKey: "myKey") as? [[String:String]] ?? []
+        
+        productDB.observe(.value) { snapshot, error  in
+            temp_products = []
+            if let error = error {
+                print("Error getting getProducts_rt: \(error)")
+            } else {
+//                if snapshot!.documents != [] {
+//                    for document in snapshot!.documents {
+//                        for documentData in document.data().values {
+//                            if let valueDict = documentData as? [String: String] {
+//                                temp_products.append(valueDict)
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    print("No products for user")
+//                }
+                if let snapshotValue = snapshot.value as? [String: Any] {
+                    for value in snapshotValue.values {
+                        temp_products.append(value as! [String: String])
+                    }
+                } else {
+                    print("No value for that name")
+                }
+            }
+            
+            // Fix image positioning
+            self.products = temp_products
+            if self.products != [] {
+                self.sortProductsArray()
+            }
+        }
+        
+//        ref.whereField(FieldPath.documentID(), isEqualTo: products)
+//            .getDocuments { (snapshot, error) in
+               
+//            }
     }
     
     func getSales_rt() {
