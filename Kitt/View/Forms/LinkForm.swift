@@ -130,7 +130,7 @@ struct LinkForm: View {
                         Button(action: {
                             if ifEdit {
                                 DispatchQueue.global(qos: .userInteractive).async {
-                                    UpdateDB().updateCreatedLink(old_url: oldURL, new_url: linkURL, old_name: oldName, new_name: linkName, index: String(describing: linkIndex!)) { response in
+                                    UpdateDB().updateCreatedLink(old_url: oldURL, new_url: linkURL.trimmingCharacters(in: .whitespaces), old_name: oldName, new_name: linkName.trimmingCharacters(in: .whitespaces), index: String(describing: linkIndex!)) { response in
                                         if response == "Successful" {
                                             linkDeleted.toggle()
                                         }
@@ -140,13 +140,13 @@ struct LinkForm: View {
                             } else {
                                 DispatchQueue.global(qos: .userInteractive).async {
                                     if products_number != 0 {
-                                        UpdateDB().updateLinks(name: linkName, url: linkURL, index: String(describing: products_number)) { response in
+                                        UpdateDB().updateLinks(name: linkName.trimmingCharacters(in: .whitespaces), url: linkURL.trimmingCharacters(in: .whitespaces), index: String(describing: products_number)) { response in
                                             if response == "Successful" {
                                                 linkCreated.toggle()
                                             }
                                         }
                                     } else {
-                                        CreateDB().addLink(name: linkName, url: linkURL, index: String(describing: products_number)) { response in
+                                        CreateDB().addLink(name: linkName.trimmingCharacters(in: .whitespaces), url: linkURL.trimmingCharacters(in: .whitespaces), index: String(describing: products_number)) { response in
                                             if response == "Successful" {
                                                 linkCreated.toggle()
                                             }

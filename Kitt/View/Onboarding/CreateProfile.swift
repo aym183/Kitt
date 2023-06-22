@@ -74,7 +74,7 @@ struct CreateProfile: View {
                         
                         Button(action: {
                             DispatchQueue.global(qos: .userInteractive).async {
-                                UpdateDB().updateUserDetails(fullName: fullName, bioText: bio) { response in
+                                UpdateDB().updateUserDetails(fullName: fullName.trimmingCharacters(in: .whitespaces), bioText: bio.trimmingCharacters(in: .whitespaces)) { response in
                                     if response == "Successful" {
                                         profileImageUploadShown.toggle()
                                         print("Successful name and bio added")

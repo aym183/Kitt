@@ -49,7 +49,7 @@ struct CreateLink: View {
                         
                         Button(action: {
                             DispatchQueue.global(qos: .userInteractive).async {
-                                CreateDB().addUser(email: email, username: username) { response in
+                                CreateDB().addUser(email: email.trimmingCharacters(in: .whitespaces), username: username.trimmingCharacters(in: .whitespaces)) { response in
                                     if response == "User Added" {
                                         profileDetailsShown.toggle()
                                     } else if response == "Username already exists" {

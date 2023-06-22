@@ -105,7 +105,7 @@ struct EditProfile: View {
 //                                            }
 //                                        }
                                         
-                                        UpdateDB().updateProfile(image: image, bioText: bio, fullName: name) { response in
+                                        UpdateDB().updateProfile(image: image, bioText: bio.trimmingCharacters(in: .whitespaces), fullName: name.trimmingCharacters(in: .whitespaces)) { response in
                                             if response == "Successful" {
                                                 print("Profile updated")
                                            }
@@ -123,7 +123,7 @@ struct EditProfile: View {
     //                                            }
     //                                        }
                                             
-                                            UpdateDB().updateProfileWithoutImage(bioText: bio, fullName: name) { response in
+                                            UpdateDB().updateProfileWithoutImage(bioText: bio.trimmingCharacters(in: .whitespaces), fullName: name.trimmingCharacters(in: .whitespaces)) { response in
                                                 if response == "Successful" {
                                                     print("Profile updated")
                                                }

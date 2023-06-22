@@ -66,7 +66,7 @@ struct LoginForm: View {
                         
                         Button(action: {
                             DispatchQueue.global(qos: .userInteractive).async {
-                                AuthViewModel().signIn(email: email, password: password) { response in
+                                AuthViewModel().signIn(email: email.trimmingCharacters(in: .whitespaces), password: password.trimmingCharacters(in: .whitespaces)) { response in
                                     if response == "Successful" {
                                         loginSheet.toggle()
                                         homePageShown.toggle()

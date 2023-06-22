@@ -96,7 +96,7 @@ struct CreateAccountForm: View {
                         
                         Button(action: {
                             DispatchQueue.global(qos: .userInteractive).async {
-                                AuthViewModel().signUp(email: email, password: password) { response in
+                                AuthViewModel().signUp(email: email.trimmingCharacters(in: .whitespaces), password: password.trimmingCharacters(in: .whitespaces)) { response in
                                     if response == "Successful" {
                                         showProfileCreation.toggle()
                                     } else {

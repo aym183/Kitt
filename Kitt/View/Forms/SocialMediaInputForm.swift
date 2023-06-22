@@ -115,7 +115,7 @@ struct SocialMediaInput: View {
                             
                             Button(action: {
                                 DispatchQueue.global(qos: .userInteractive).async {
-                                    UpdateDB().updateSocials(instagram: ig, tiktok: tiktok, facebook: fb, youtube: yt, website: web, email: email)
+                                    UpdateDB().updateSocials(instagram: ig.trimmingCharacters(in: .whitespaces), tiktok: tiktok.trimmingCharacters(in: .whitespaces), facebook: fb.trimmingCharacters(in: .whitespaces), youtube: yt.trimmingCharacters(in: .whitespaces), website: web.trimmingCharacters(in: .whitespaces), email: email.trimmingCharacters(in: .whitespaces))
                                     linkAdded.toggle()
                                 }
                                 

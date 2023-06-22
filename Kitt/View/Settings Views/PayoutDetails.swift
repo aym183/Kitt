@@ -99,7 +99,7 @@ struct PayoutDetails: View {
                         
                         Button(action: {
                             DispatchQueue.global(qos: .userInteractive).async {
-                                UpdateDB().updateBankDetails(fullName: full_name, bankName: bank_name, accountNumber: account_number, iban: iban) { response in
+                                UpdateDB().updateBankDetails(fullName: full_name.trimmingCharacters(in: .whitespaces), bankName: bank_name.trimmingCharacters(in: .whitespaces), accountNumber: account_number.trimmingCharacters(in: .whitespaces), iban: iban.trimmingCharacters(in: .whitespaces)) { response in
                                     if response == "Successful" {
                                         print("Bank Details Updated!")
                                         bankDetailsUpdated.toggle()
