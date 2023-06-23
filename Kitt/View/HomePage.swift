@@ -622,9 +622,9 @@ struct HomePage: View {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
                                 withAnimation(.easeOut(duration: 1.5)) {
                                     isSignedUp = false
-//                                    if isSignedUp == false {
-//                                        appDelegate.registerPushNotifications()
-//                                    }
+                                    if isSignedUp == false {
+                                        appDelegate.registerPushNotifications()
+                                    }
 //                                    temp_products = Array(readData.products!)
                                 }
                             }

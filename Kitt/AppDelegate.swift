@@ -25,38 +25,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
             FirebaseApp.configure()
         
-////            if isSignedUp {
-                let center = UNUserNotificationCenter.current()
-                  center.delegate = self
-                  center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
-                      if granted {
-                          DispatchQueue.main.async {
-                              application.registerForRemoteNotifications()
-                          }
-                      }
-                  }
-        
-            Messaging.messaging().delegate = self
-            
+//////            if isSignedUp {
+//                let center = UNUserNotificationCenter.current()
+//                  center.delegate = self
+//                  center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
+//                      if granted {
+//                          DispatchQueue.main.async {
+//                              application.registerForRemoteNotifications()
+//                          }
+//                      }
+//                  }
+//        
+//            Messaging.messaging().delegate = self
+//            
               
 //            }
 
             return true
        }
     
-//    func registerPushNotifications() {
-//        let center = UNUserNotificationCenter.current()
-//           center.delegate = self
-//           center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
-//               if granted {
-//                   self.isSignedUp = true
-//                   DispatchQueue.main.async {
-//                       UIApplication.shared.registerForRemoteNotifications()
-//                   }
-//               }
-//           }
-//        Messaging.messaging().delegate = self
-//    }
+    func registerPushNotifications() {
+        let center = UNUserNotificationCenter.current()
+           center.delegate = self
+           center.requestAuthorization(options: [.alert, .badge, .sound]) { granted, _ in
+               if granted {
+                   self.isSignedUp = true
+                   DispatchQueue.main.async {
+                       UIApplication.shared.registerForRemoteNotifications()
+                   }
+               }
+           }
+        Messaging.messaging().delegate = self
+    }
 //
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                     willPresent notification: UNNotification,
@@ -96,14 +96,14 @@ extension AppDelegate: MessagingDelegate {
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
             @AppStorage("fcm_token") var cached_fcm: String = ""
-        
+    
             if fcmToken == cached_fcm {
                 print("Cached registration token is: \(fcmToken ?? "")")
             } else {
                 UserDefaults.standard.set(fcmToken, forKey: "fcm_token")
                 print("New registration token is: \(fcmToken ?? "")")
+                UpdateDB().updateFCM(fcm: cached_fcm)
             }
-            // TODO: Send the fcmToken to your server if needed
         }
     
 }

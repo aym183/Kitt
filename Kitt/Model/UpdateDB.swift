@@ -188,6 +188,30 @@ class UpdateDB : ObservableObject {
         }
     }
     
+    func updateFCM(fcm: String) {
+        let db = Firestore.firestore()
+        let collectionRef = db.collection("users")
+        @AppStorage("username") var userName: String = ""
+        
+        collectionRef.whereField("metadata.username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error updating bank details: \(error)")
+            } else {
+                guard let document = querySnapshot?.documents.first else {
+                    print("No documents found")
+                    return
+                }
+            
+                let docRef = collectionRef.document(document.documentID)
+                docRef.updateData(["fcm_token": fcm])
+//                UserDefaults.standard.set(bankName, forKey: "bank_name")
+//                UserDefaults.standard.set(fullName, forKey: "bank_full_name")
+//                UserDefaults.standard.set(accountNumber, forKey: "acc_number")
+//                UserDefaults.standard.set(iban, forKey: "iban")
+            }
+        }
+    }
+    
     func updateBankDetails(fullName: String, bankName: String, accountNumber: String, iban: String, completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         let collectionRef = db.collection("users")
