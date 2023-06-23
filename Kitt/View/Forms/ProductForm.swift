@@ -74,30 +74,30 @@ struct ProductForm: View {
                                 } else {
                                     Text("New Product").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).padding(.vertical).multilineTextAlignment(.leading)
                                     
-                                    Button(action: {
-                                        withAnimation(.easeOut(duration: 0.5)) {
-                                                isShowingHint.toggle()
-                                        }
-                                        }) {
-                                        Image(systemName: "questionmark")
-                                            .background(Circle().fill(.gray).font(.system(size: 10)).frame(width: 25, height: 25).opacity(0.3))
-                                            .foregroundColor(.black).fontWeight(.bold).padding(.vertical)
-                                            .fontWeight(.semibold).padding(.leading, 10).padding(.top, -3)
-                                    }
+//                                    Button(action: {
+//                                        withAnimation(.easeOut(duration: 0.5)) {
+//                                                isShowingHint.toggle()
+//                                        }
+//                                        }) {
+//                                        Image(systemName: "questionmark")
+//                                            .background(Circle().fill(.gray).font(.system(size: 10)).frame(width: 25, height: 25).opacity(0.3))
+//                                            .foregroundColor(.black).fontWeight(.bold).padding(.vertical)
+//                                            .fontWeight(.semibold).padding(.leading, 10).padding(.top, -3)
+//                                    }
                                     
                                     Spacer()
                                 }
                             }
                             .padding(.leading, 15).padding(.bottom, -5).padding(.top, -5)
                             
-                            if isShowingHint {
-                                ProductCardView(hint: "Please upload product images taken in landscape for optimal appearance")
-                                    .transition(.scale)
-                                    .padding(.top, -18)
-                                    .padding(.trailing, -165)
-                                    .padding(.bottom, 5)
-    //                                .cornerRadius(10, corners: [.topRight, .bottomRight, .bottomLeft])
-                            }
+//                            if isShowingHint {
+//                                ProductCardView(hint: "Please upload product images taken in landscape for optimal appearance")
+//                                    .transition(.scale)
+//                                    .padding(.top, -18)
+//                                    .padding(.trailing, -165)
+//                                    .padding(.bottom, 5)
+//    //                                .cornerRadius(10, corners: [.topRight, .bottomRight, .bottomLeft])
+//                            }
                             
                             
                             ZStack {
