@@ -175,14 +175,18 @@ struct ProductForm: View {
                             }
                             
                             ZStack(alignment: .topLeading) {
-                                
                                 TextEditor(text: $productDesc)
-                                    .padding([.horizontal, .bottom], 12).padding(.top, 5)
-                                    .frame(width: max(0, geometry.size.width-70), height: 140)
+                                    .padding([.horizontal, .bottom], 12).padding(.top, 5).padding(.bottom, 25)
+                                    .frame(width: max(0, geometry.size.width-70), height: 150)
                                     .scrollContentBackground(.hidden)
                                     .background(Color("TextField"))
                                     .cornerRadius(10)
                                     .font(Font.custom("Avenir-Medium", size: 16))
+                                    .onChange(of: self.productDesc, perform: { value in
+                                        if value.count > 500 {
+                                            self.productDesc = String(value.prefix(500))
+                                        }
+                                    })
                                     .onTapGesture {
                                         isEditingTextField = true
                                     }
@@ -193,8 +197,33 @@ struct ProductForm: View {
                                         .font(Font.custom("Avenir-Black", size: 16))
                                         .padding([.top, .leading])
                                 }
+                                
+                                if productDesc.count > 0 {
+                                    VStack {
+                                        Spacer()
+                                        HStack {
+                                            Spacer()
+                                            
+                                            if productDesc.count >= 475 {
+                                                Text("\(500 - productDesc.count)")
+                                                    .foregroundColor(.red)
+                                                    .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
+                                                    .fontWeight(.bold)
+                                            } else {
+                                                Text("\(500 - productDesc.count)")
+                                                    .foregroundColor(.black)
+                                                    .font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035))
+                                                    .fontWeight(.bold)
+                                            }
+                                        }
+                                        .padding(.trailing)
+                                    }
+                                    .padding(.bottom)
+                                    .frame(height: 150)
+                            }
                             }
                             .padding(.bottom, 5)
+                            .frame(width: max(0, geometry.size.width-70))
                             
                             
                                 //                                .font(Font.custom("Avenir-Medium", size: 16))
