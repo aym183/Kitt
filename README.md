@@ -1,4 +1,4 @@
-# Kitt - Linktree for UAE
+# Kitt
 
 Kitt is an iOS application that allows creators in the UAE to create and manage custom storefronts to sell products directly via their link-in-bio. The creators must make an account, set up their web pages, and add their products to the catalogue. Doing so creates a route that fetches the relevant data when users input the right URL.
 
