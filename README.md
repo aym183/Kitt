@@ -1,5 +1,5 @@
 <h1 style="display: flex; flex-direction: column;">
-    <img align="center" height="50" src="Kitt/blob/main/Kitt/Assets.xcassets/AppIcon.appiconset/appstore.png" style="margin:20px;">
+    <img align="center" height="50" src="Kitt/Assets.xcassets/AppIcon.appiconset/appstore.png" style="margin:20px;">
      Kitt
 </h1>
 
