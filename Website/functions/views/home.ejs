@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= full_name %> - Kitt</title>
+    <link rel="stylesheet" type = 'text/css' href="/styles/style.css">
+    <link rel="icon" type="image/x-icon" href="./images/Kitt.png">
+    <script src="./scripts/base.js"></script>
+  </head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H9RZR71PKV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-H9RZR71PKV');
+  </script>
+  <body>
+    <div class="container">
+      <main>
+        <div class="profile-view">
+          <% if (profile_image === null) { %>
+            <img class="profile-image" src="./images/user-account.png" alt="your image description">
+          <% } else { %> 
+            <img class="profile-image" src=<%= profile_image %> alt="profile image">
+          <% }%> 
+        </div>
+        <div class="profile-text">
+            <h2 class="profile-name"><%= full_name %></h2>
+            <p class="bio"><%= bio %></p>
+        </div>
+    </main>
+
+        <div class="socials-view">
+           <% if (instagram != "") { %>
+              <a href="https://www.instagram.com/<%= instagram %>" class="instagram">
+                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="23px" height="23px">    <path d="M 16 3 C 8.83 3 3 8.83 3 16 L 3 34 C 3 41.17 8.83 47 16 47 L 34 47 C 41.17 47 47 41.17 47 34 L 47 16 C 47 8.83 41.17 3 34 3 L 16 3 z M 37 11 C 38.1 11 39 11.9 39 13 C 39 14.1 38.1 15 37 15 C 35.9 15 35 14.1 35 13 C 35 11.9 35.9 11 37 11 z M 25 14 C 31.07 14 36 18.93 36 25 C 36 31.07 31.07 36 25 36 C 18.93 36 14 31.07 14 25 C 14 18.93 18.93 14 25 14 z M 25 16 C 20.04 16 16 20.04 16 25 C 16 29.96 20.04 34 25 34 C 29.96 34 34 29.96 34 25 C 34 20.04 29.96 16 25 16 z"/></svg>
+
+              </a>
+          <% } %> 
+          <% if (youtube != "") { %>
+            <a href="https://www.youtube.com/@<%= youtube %>">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23px" height="23px" fill="black" class="bi bi-youtube" viewBox="0 0 16 16">
+                <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+              </svg>
+            </a>
+          <% } %> 
+          <% if (facebook != "") { %>
+            <a href="https://www.facebook.com/<%= facebook %>">
+              <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="23px" height="23px">    <path d="M25,3C12.85,3,3,12.85,3,25c0,11.03,8.125,20.137,18.712,21.728V30.831h-5.443v-5.783h5.443v-3.848 c0-6.371,3.104-9.168,8.399-9.168c2.536,0,3.877,0.188,4.512,0.274v5.048h-3.612c-2.248,0-3.033,2.131-3.033,4.533v3.161h6.588 l-0.894,5.783h-5.694v15.944C38.716,45.318,47,36.137,47,25C47,12.85,37.15,3,25,3z"/></svg>
+            </a>  
+          <% } %> 
+          <% if (tiktok != "") { %>
+            <a href="https://www.tiktok.com/@<%= tiktok %>">
+              <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="23px" height="23px">    <path d="M41,4H9C6.243,4,4,6.243,4,9v32c0,2.757,2.243,5,5,5h32c2.757,0,5-2.243,5-5V9C46,6.243,43.757,4,41,4z M37.006,22.323 c-0.227,0.021-0.457,0.035-0.69,0.035c-2.623,0-4.928-1.349-6.269-3.388c0,5.349,0,11.435,0,11.537c0,4.709-3.818,8.527-8.527,8.527 s-8.527-3.818-8.527-8.527s3.818-8.527,8.527-8.527c0.178,0,0.352,0.016,0.527,0.027v4.202c-0.175-0.021-0.347-0.053-0.527-0.053 c-2.404,0-4.352,1.948-4.352,4.352s1.948,4.352,4.352,4.352s4.527-1.894,4.527-4.298c0-0.095,0.042-19.594,0.042-19.594h4.016 c0.378,3.591,3.277,6.425,6.901,6.685V22.323z"/></svg>
+            </a>
+          <% } %> 
+          <% if (website != "") { %>
+            <a class="website" href="<%= website %>">
+              <svg xmlns="http://www.w3.org/2000/svg" width="21px" height="21px" fill="black" class="bi bi-globe" viewBox="0 0 16 16" style="
+              margin-bottom: 2px;">
+                <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"/>
+              </svg>
+            </a>
+          <% } %> 
+
+          <% if (social_email != "") { %>
+            <a href="mailto:<%= social_email %>">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23px" height="23px" fill="black" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+              </svg>   
+            </a>
+          <% } %> 
+        </div>
+        
+        <div class="products-list">
+          <% if (products.length > 0) { %>
+            <% for (var i = 0; i < products.length; i++) { %>
+                  <% if (products[i].description != null) { %>
+                    <div class="product-area">
+                      <a href="#" onclick="handlePay(event, '<%= products[i].file %>', '<%= username %>', '<%= products[i].price %>', '<%= full_name %>', '<%= profile_image %>', '<%= auth_uuid %>', '<%= fcm_token %>', '<%= products[i].image %>', '<%= products[i].full_description %>')" class="product-horizontal-row">
+                        <img src="<%= products[i].image %>" class="product-image" alt="your image description"> 
+                        <div class="product-vertical">
+                            <p class="product-title"><b><%= products[i].name %></b></p>
+                            <p class="product-description"><%= products[i].description %></p>
+                        </div>
+                      </a>
+                      <button class="product-button" type="button" onclick="handlePay(event, '<%= products[i].file %>', '<%= username %>', '<%= products[i].price %>', '<%= full_name %>', '<%= profile_image %>', '<%= auth_uuid %>', '<%= fcm_token %>', '<%= products[i].image %>', '<%= products[i].full_description %>')"><span class="download">Buy now - AED <%= products[i].price %></span></button>
+                    </div>
+                  <% } else { %>
+                    <% if (products[i].url.startsWith("https://")) { %>
+                      <a href="<%= products[i].url %>" >
+                        <div class="links">
+                          <h3><%= products[i].name %></h3>
+                        </div>
+                      </a>
+                    <% } else { %>
+                      <a href="https://<%= products[i].url %>" >
+                        <div class="links">
+                          <h3><%= products[i].name %></h3>
+                        </div>
+                      </a>
+                    <% } %>
+                  <% } %>
+                  <% } %>
+            <% } %>
+        </div>
+      <footer>
+        <a href="https://kitt.bio" class="footer">  
+          <p class="footer-text">Made with</p>   
+          <img class="footer-image" src="./images/kitt_logo.png" alt="Kitt">
+        </a>
+       </footer>
+    </div>
+  </body>
+</html>

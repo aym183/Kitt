@@ -49,14 +49,11 @@ struct FormSelection: View {
     @State var classImage: UIImage?
     @ObservedObject var readData: ReadDB
     
-    
     var body: some View {
         GeometryReader { geometry in
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack {
-//                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06))
-                        
                         Text("What would you like to add\nto your shop?").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).padding(.vertical)
                             .padding(.leading, -20)
                         
@@ -71,7 +68,6 @@ struct FormSelection: View {
                                         if index == 0 {
                                             productFormShown.toggle()
                                         } else if index == 1{
-//                                            classFormShown.toggle()
                                             linkFormShown.toggle()
                                         }
                                         else if index == 2 {
@@ -93,21 +89,11 @@ struct FormSelection: View {
                     }
                     .foregroundColor(.black)
                     .navigationDestination(isPresented: $productFormShown) {
-//                        ProductForm(products_number: products_number)
                         ProductForm(oldIndex: $oldIndex, oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, oldFile: $oldFile, oldFileName: $oldFileName, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, file: $file, fileName: $fileName, products_number: products_number, ifEdit: false, readData: readData)
                     }
-//                    .navigationDestination(isPresented: $classFormShown) {
-//                        ClassForm(oldClassName: $oldClassName, oldClassDesc: $oldClassDesc, oldClassPrice: $oldClassPrice, oldClassDuration: $oldClassDuration, oldClassSeats: $oldClassSeats, oldClassLocation: $oldClassLocation, oldImage: $oldClassImage, className: $className, classDesc: $classDesc, classDuration: $classDuration, classPrice: $classPrice, classSeats: $classSeats, classLocation: $classLocation, image: $classImage, classes_number: classes_number, ifEdit: false, readData: readData)
-//                    }
                     .navigationDestination(isPresented: $linkFormShown) {
                         LinkForm(oldName: $linkName, oldURL: $linkURL, oldIndex: $oldIndex, linkName: $linkName, linkURL: $linkURL, ifEdit: false, products_number:  products_number, linkEditShown: $linkEditShown, readData: readData)
                     }
         }
     }
 }
-
-//struct FormSelection_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FormSelection()
-//    }
-//}

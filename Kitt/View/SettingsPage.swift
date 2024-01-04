@@ -14,7 +14,7 @@ struct SettingsPage: View {
     var profile_image: UIImage?
     var name: String
     var bio: String
-    let phoneNumber = "+971506194984"
+    let phoneNumber = "+971304929456"
     @State var profileImageChange = false
     @State var profileNameChange = false
     @State var salesPageShown = false
@@ -22,16 +22,13 @@ struct SettingsPage: View {
     @State var bioChange = false
     @State var signedOut = false
     @State var showingSignOutConfirmation = false
-    
     let linkURL = URL(string: "https://kitt.bio")!
-    
     
     var body: some View {
         GeometryReader { geometry in
                 ZStack {
                     Color(.white).ignoresSafeArea()
                     VStack(alignment: .center) {
-                        
                         HStack {
                             if profile_image != nil {
                                 ZStack {
@@ -41,10 +38,6 @@ struct SettingsPage: View {
                                 }
                                 .frame(width: 75, height: 75)
                                 .cornerRadius(100)
-    //                            .padding(.top, 10)
-                                
-    //                                .frame(width: 130, height: 130)
-    //
                             } else {
                                 ZStack {
                                     Image(systemName: "person.circle")
@@ -59,24 +52,10 @@ struct SettingsPage: View {
                             
                         }
                         .padding(.horizontal, 5).padding(.bottom, 20).padding(.top, -40)
-                        
-                        
-//                        Spacer()
-//                        Image(systemName: "person.circle").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.25))
-//                        VStack(alignment: .center) {
-                            
-//                                .padding(.horizontal, 50)
-                            
-//                            Text(bio).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).opacity(0.5).multilineTextAlignment(.center).padding(.horizontal, 50).padding(.bottom)
-                            
-//                        }
-                        
-                        
+
                         ScrollView(.vertical, showsIndicators: false) {
-                            
                             ForEach(0..<6) { index in
                                 Button(action: {
-
                                     if index == 0 {
                                         salesPageShown.toggle()
                                     } else if index == 1 {
@@ -102,7 +81,6 @@ struct SettingsPage: View {
                                         RoundedRectangle(cornerRadius: 10)
                                             .fill(Color("TextField"))
                                             .frame(height: 60)
-//                                            .padding(.top, 5)
                                         HStack {
                                             Text(labels[index]).font(Font.custom("Avenir-Medium", size: 18))
                                             Spacer()
@@ -114,8 +92,6 @@ struct SettingsPage: View {
                                     .frame(width: max(0, geometry.size.width-50))
                                 }
                             }
-
-//                            .padding(.top)
                         }
                         .frame(height: 500)
                         .padding(.bottom, 10)
@@ -131,12 +107,6 @@ struct SettingsPage: View {
                     .navigationDestination(isPresented: $payoutDetailsShown) {
                         PayoutDetails()
                     }
-//                    .navigationDestination(isPresented: $profileNameChange) {
-//                        ChangeName()
-//                    }
-//                    .navigationDestination(isPresented: $bioChange) {
-//                        ChangeBio()
-//                    }
                     .navigationDestination(isPresented: $signedOut) {
                         LandingContent().navigationBarBackButtonHidden(true)
                     }
@@ -159,26 +129,4 @@ struct SettingsPage: View {
                 }
         }
     }
-    
-//    func calculateFontSize(geometry: GeometryProxy, text: String) -> CGFloat {
-//        let maxLengthFactor: CGFloat = 0.1
-//        let maxWidthFactor: CGFloat = 0.2
-//
-//        let maxLength = geometry.size.width * maxLengthFactor
-//        let maxWidth = geometry.size.width * maxWidthFactor
-//
-//        let lengthMultiplier = min(1.0, CGFloat(text.count) / maxLength)
-//        let widthMultiplier = min(1.0, geometry.size.width / maxWidth)
-//
-//        let fontSizeMultiplier = min(lengthMultiplier, widthMultiplier)
-//
-//        return geometry.size.width * fontSizeMultiplier
-//    }
-
 }
-////
-//struct SettingsPage_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SettingsPage()
-//    }
-//}

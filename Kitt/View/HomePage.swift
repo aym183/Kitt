@@ -82,46 +82,33 @@ struct HomePage: View {
                     Color(.white).ignoresSafeArea()
                     
                     if isSignedUp {
-                            
                             VStack(alignment: .center) {
                                 Spacer()
-                                
                                 Image("Shop").resizable().frame(width: 90, height: 90)
-                                
                                 Text("Congratulations!").font(Font.custom("Avenir-Medium", size: 35)).padding(.top, 10).fontWeight(.bold)
-                                
                                 Text("Your store is now ready. Add your first product to start selling.").font(Font.custom("Avenir-Medium", size: 16)).multilineTextAlignment(.center).padding(.top, 0).frame(width: 270)
-                                
                                 Spacer()
                             }
                             .foregroundColor(.black)
                             .frame(width: max(0, geometry.size.width))
-                            
                             LottieView(name: "confetti", speed: 0.5).frame(width: max(0, geometry.size.width))
                     }
                     
                     if isShownHomePage {
                         VStack(alignment: .center) {
                             Spacer()
-                            
                             LottieView(name: "loading_3.0", speed: 1).frame(width: 100, height: 100)
-                            
                             Text("Getting Kitt Ready! 🥳").font(Font.custom("Avenir-Medium", size: 25)).multilineTextAlignment(.center).padding(.horizontal).foregroundColor(.black).padding(.top, -5)
-                            
                             Spacer()
                         }
                         .foregroundColor(.black).frame(width: max(0, geometry.size.width))
-                        
                     }
                     
                     if isChangesMade {
                         VStack(alignment: .center) {
                             Spacer()
-                            
                             LottieView(name: "loading_3.0", speed: 1).frame(width: 100, height: 100)
-                            
                             Text("Implementing changes...").font(Font.custom("Avenir-Medium", size: 25)).multilineTextAlignment(.center).padding(.horizontal).foregroundColor(.black).padding(.top, -5)
-                            
                             Spacer()
                         }
                         .foregroundColor(.black).frame(width: max(0, geometry.size.width))
@@ -130,11 +117,8 @@ struct HomePage: View {
                     if isShownLinkCreated {
                         VStack(alignment: .center) {
                             Spacer()
-                            
                             LottieView(name: "loading_3.0", speed: 1).frame(width: 100, height: 100)
-                            
                             Text("Creating your link!").font(Font.custom("Avenir-Medium", size: 25)).multilineTextAlignment(.center).padding(.horizontal).foregroundColor(.black).padding(.top, -5)
-                            
                             Spacer()
                         }
                         .foregroundColor(.black).frame(width: max(0, geometry.size.width))
@@ -145,7 +129,6 @@ struct HomePage: View {
                             ProgressView()
                                 .scaleEffect(1.75)
                                 .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
-                            
                             Text("Creating your class!").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.top, 30).padding(.horizontal).foregroundColor(.black)
                         }
                     }
@@ -153,22 +136,17 @@ struct HomePage: View {
                     if isShownProductCreated {
                         VStack(alignment: .center) {
                             Spacer()
-                            
                             LottieView(name: "loading_3.0", speed: 1).frame(width: 100, height: 100)
-                            
                             Text("Creating your product!").font(Font.custom("Avenir-Medium", size: 25)).multilineTextAlignment(.center).padding(.horizontal).foregroundColor(.black).padding(.top, -5)
-                            
                             Spacer()
                         }
                         .foregroundColor(.black).frame(width: max(0, geometry.size.width))
                     }
                     
-                    
                     VStack {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text("kitt.bio/\(userName)").font(Font.custom("Avenir-Black", size: 20))
-                                
                                 HStack(spacing: 25) {
                                     Button(action: {
                                         let pasteboard = UIPasteboard.general
@@ -191,11 +169,9 @@ struct HomePage: View {
                                         guard let url = URL(string: "https://kitt.bio/\(userName)") else {
                                             return
                                         }
-                                        
                                         guard UIApplication.shared.canOpenURL(url) else {
                                             return
                                         }
-                                        
                                         UIApplication.shared.open(url)
                                     }) {
                                         Image(systemName: "arrow.up.forward").background(
@@ -210,12 +186,7 @@ struct HomePage: View {
                             }
                             Spacer()
                             
-                            Button(action: {
-//                                updateTempProducts()
-//                                print(readData.products!)
-                            
-                                settingsShown.toggle()
-                            }) {
+                            Button(action: { settingsShown.toggle() }) {
                                 
                                 if profile_image != nil {
                                     ZStack {
@@ -225,12 +196,6 @@ struct HomePage: View {
                                     }
                                     .frame(width: 80, height: 80)
                                     .cornerRadius(100)
-                                    
-//                                    Image(uiImage: profile_image!)
-//                                        .resizable()
-//                                        .scaledToFill()
-//                                        .frame(width: 80, height: 80)
-//                                        .cornerRadius(50)
                                 } else {
                                     Image(systemName: "person.circle").font(Font.system(size: 80))
                                 }
@@ -241,20 +206,9 @@ struct HomePage: View {
                         
                         HStack {
                             Button(action: {
-//                                linksNumber = noOfLinks
-//                                UpdateDB().updateIndex(products_input: readData.products!) { response in
-//                                    if response == "Order Updated" {
-//                                        print("Index changed")
-//                    //                    print(readData.products)
-//                    //                    readData.products = temp_products
-//                                    }
-//                                }
                                 productsNumber = noOfProducts
                                 classesNumber = noOfClasses
-//                                updateTempProducts()
                                 formShown.toggle()
-                                
-//                                NotificationHandler().scheduleLocalNotification()
                             }) {
                                 HStack(spacing: 6) {
                                     Image(systemName: "plus").fontWeight(.black)
@@ -267,40 +221,26 @@ struct HomePage: View {
                         }
                         .padding(.horizontal, 5).padding(.top, -5)
                         
-                        
                         Spacer()
                         
                         if isUpdating {
                             VStack(alignment: .center) {
                                 Spacer()
-                                
                                 LottieView(name: "loading_3.0", speed: 1).frame(width: 75, height: 75)
-//
                                 Text("Loading...").font(Font.custom("Avenir-Medium", size: 20)).multilineTextAlignment(.center).padding(.horizontal).foregroundColor(.black).padding(.top, -5)
-                                
                                 Spacer()
                             }
                             .foregroundColor(.black).frame(width: max(0, geometry.size.width))
                         } else {
-//                            ScrollView(showsIndicators: false) {
-//                                if readData.product_images != [] {
-                            
-                                
                                 List {
                                     
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: max(0, geometry.size.width-50), height: 70)
-                                        
                                         HStack {
                                             Text("😎").padding(.leading, 20)
                                             Text("Your Social Links").foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15))
-                                            
                                             Spacer()
-                                            
-                                            Button(action: {
-//                                                updateTempProducts()
-                                                socialsEditShown.toggle()
-                                            }) {
+                                            Button(action: { socialsEditShown.toggle() }) {
                                                 Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
                                                     .padding(.trailing, 5)
                                             }
@@ -314,75 +254,39 @@ struct HomePage: View {
                                     .listRowSeparator(.hidden)
                                     
                                     ForEach(0..<noOfProducts, id: \.self) { index in
-                                        //                                        HStack {
                                         
                                         if readData.products![index]["description"] != nil {
                                             ZStack {
-                                                
                                                 RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: max(0, geometry.size.width-50), height: 110)
-                                                
                                                 HStack {
                                                     ZStack {
                                                         Image(uiImage: readData.loadProductImage(key: readData.products![index]["image"]!)).resizable().scaledToFill()
                                                     }
                                                     .frame(width: 110, height: 110)
                                                     .cornerRadius(10)
-//                                                    ////
                                                     
                                                     VStack(alignment: .leading) {
                                                         Text("\(readData.products![index]["name"]!)").font(Font.custom("Avenir-Black", size: 15)).padding(.top, 5)
-                                                        
                                                         Spacer()
                                                         
                                                         HStack {
-                                                            
                                                             Text("\(readData.products![index]["price"]!) AED").font(Font.custom("Avenir-Medium", size: 15))
-                                                            
                                                             Spacer()
-                                                            
                                                             Button(action: {
-                                                                
-//                                                                if temp_products != [] {
-//                                                                    if let product_index = temp_products.firstIndex(where: { $0["name"] == readData.products![index]["name"]! && $0["description"] == readData.products![index]["description"]! }) {
-//
-//                                                                        productIndex = product_index
-//                                                                        productName = readData.products![index]["name"]!
-//                                                                        productDesc = readData.products![index]["description"]!
-//                                                                        productPrice = "\(readData.products![index]["price"]!)"
-//                                                                        fileName = readData.products![index]["file_name"]!
-//                                                                        file = readData.products![index]["file"]!
-//
-//                                                                        oldFile = readData.products![index]["file"]!
-//                                                                        oldFileName = readData.products![index]["file_name"]!
-//
-//                                                                        oldProductName = readData.products![index]["name"]!
-//                                                                        oldProductDesc = readData.products![index]["description"]!
-//                                                                        oldProductPrice = "\(readData.products![index]["price"]!)"
-//                                                                        oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
-//                                                                        image = readData.loadProductImage(key: readData.products![index]["image"]!)
-////                                                                        updateTempProducts()
-//                                                                        productEditShown.toggle()
-//
-//                                                                    }
-//                                                                } else {
                                                                     productIndex = index
                                                                     productName = readData.products![index]["name"]!
                                                                     productDesc = readData.products![index]["description"]!
                                                                     productPrice = "\(readData.products![index]["price"]!)"
                                                                     fileName = readData.products![index]["file_name"]!
                                                                     file = readData.products![index]["file"]!
-                                                                    
                                                                     oldFile = readData.products![index]["file"]!
                                                                     oldFileName = readData.products![index]["file_name"]!
-                                                                    
                                                                     oldProductName = readData.products![index]["name"]!
                                                                     oldProductDesc = readData.products![index]["description"]!
                                                                     oldProductPrice = "\(readData.products![index]["price"]!)"
                                                                     oldImage = readData.loadProductImage(key: readData.products![index]["image"]!)
                                                                     image = readData.loadProductImage(key: readData.products![index]["image"]!)
                                                                     productEditShown.toggle()
-//                                                                }
-                                                                
                                                             }) {
                                                                 Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding(.trailing, 5).fontWeight(.bold)
                                                             }
@@ -392,53 +296,29 @@ struct HomePage: View {
                                                     }
                                                     .frame(height: 110)
                                                     .padding(.horizontal, 5)
-//                                                    .padding(.vertical, 5)
-                                                    
                                                 }
-                                                
                                             }
                                             .padding(.bottom, 5)
-                                            //                                            .padding(.top,10)
                                             .padding(.horizontal)
                                             .multilineTextAlignment(.leading)
                                             .id(readData.products![index]["index"])
                                             .background(.white)
                                             .listRowBackground(Color.white)
-                                            //                                        .onAppear {
-                                            //                                            linksNumber += 1
-                                            //                                        }
                                             
                                         } else {
                                             
                                             ZStack {
                                                 RoundedRectangle(cornerRadius: 10).fill(Color("TextField")).frame(width: max(0, geometry.size.width-50), height: 70)
-                                                
                                                 HStack {
                                                     Text(readData.products![index]["name"]!).foregroundColor(.black).font(Font.custom("Avenir-Medium", size: 15)).padding(.leading, 20)
-                                                    
                                                     Spacer()
-                                                    
                                                     Button(action: {
-//                                                        if temp_products != [] {
-//                                                            if let link_index = temp_products.firstIndex(where: { $0["name"] == readData.products![index]["name"]! && $0["url"] == readData.products![index]["url"]! }) {
-//
-//                                                                linkIndex = link_index
-//                                                                linkName = readData.products![index]["name"]!
-//                                                                linkURL = readData.products![index]["url"]!
-//                                                                oldName = readData.products![index]["name"]!
-//                                                                oldURL = readData.products![index]["url"]!
-////                                                                updateTempProducts()
-//                                                                linkEditShown.toggle()
-//                                                            }
-//                                                        } else {
                                                             linkIndex = index
                                                             linkName = readData.products![index]["name"]!
                                                             linkURL = readData.products![index]["url"]!
                                                             oldName = readData.products![index]["name"]!
                                                             oldURL = readData.products![index]["url"]!
                                                             linkEditShown.toggle()
-//                                                        }
-//                                                        temp_products = readData.products!
                                                         
                                                     }) {
                                                         Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).fontWeight(.bold)
@@ -456,7 +336,6 @@ struct HomePage: View {
                                             .listRowBackground(Color.white)
                                             
                                         }
-                                        
                                     }
                                     .onMove(perform: move)
                                     .listRowSeparator(.hidden)
@@ -466,97 +345,6 @@ struct HomePage: View {
                                 .listStyle(.plain)
                                 .scrollContentBackground(.hidden)
                                 .padding(.vertical)
-                                
-//                                ForEach(0..<noOfClasses, id: \.self) { index in
-//                                    HStack {
-//                                        ZStack {
-//                                            RoundedRectangle(cornerRadius: 10).fill(.gray).opacity(0.2).frame(width: geometry.size.width-70, height: 310)
-//                                                Spacer()
-//
-//                                            Image(uiImage: readData.loadProductImage(key: readData.classes![index]["image"]!)).resizable().frame(width: geometry.size.width-70, height: 170).cornerRadius(10).scaledToFit().padding(.top, -150)
-//
-//
-//                                            VStack(alignment: .leading) {
-//                                                HStack {
-//                                                    Spacer()
-//                                                    Button(action: {
-//                                                        classIndex = index
-//                                                        classDuration = readData.classes![index]["duration"]!
-//                                                        classSeats = readData.classes![index]["seats"]!
-//                                                        classLocation = readData.classes![index]["location"]!
-//                                                        className = readData.classes![index]["name"]!
-//                                                        classDesc = readData.classes![index]["description"]!
-//                                                        classPrice = readData.classes![index]["price"]!
-//
-//                                                        oldClassDuration = readData.classes![index]["duration"]!
-//                                                        oldClassSeats = readData.classes![index]["seats"]!
-//                                                        oldClassLocation = readData.classes![index]["location"]!
-//                                                        oldClassName = readData.classes![index]["name"]!
-//                                                        oldClassDesc = readData.classes![index]["description"]!
-//                                                        oldClassPrice = readData.classes![index]["price"]!
-//
-//                                                        oldClassImage = readData.loadProductImage(key: readData.classes![index]["image"]!)
-//                                                        classImage = readData.loadProductImage(key: readData.classes![index]["image"]!)
-//                                                        classEditShown.toggle()
-//
-//                                                    }) {
-//                                                        Image(systemName: "pencil").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).padding([.top, .trailing]).fontWeight(.bold)
-//                                                    }
-//
-////                                                    Button(action: {
-////                                                        productIndex = index
-////                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-////                                                            DeleteDB().deleteProduct(image: readData.products![productIndex]["image"]!)
-////                                                            readData.products?.remove(at: productIndex)
-////                                                        }
-////                                                    }) {
-////                                                        Image(systemName: "trash").background(Circle().fill(.white).frame(width: 28, height: 28).opacity(0.8)).foregroundColor(.red).padding([.top, .trailing]).fontWeight(.bold)
-////                                                    }
-////                                                    .font(Font.system(size: 13))
-////                                                    .padding(.top, 5).padding(.trailing)
-////                                                    .fontWeight(.bold)
-//                                            }
-//                                            .padding(.top, -5)
-//
-//                                            Spacer()
-////                                                HStack {
-//                                                    VStack(alignment: .leading) {
-//
-//                                                        Text(readData.classes![index]["name"]!).font(Font.system(size: 17)).fontWeight(.heavy).padding(.bottom, 5)
-//
-//                                                        Text("\(readData.classes![index]["price"]!) AED").font(Font.system(size: 15)).fontWeight(.medium).padding(.top, -2).padding(.bottom, 5)
-//
-//                                                        HStack {
-//                                                            Image(systemName: "clock")
-//                                                            Text("\(readData.classes![index]["duration"]!) mins").padding(.leading, 2)
-//                                                        }
-//                                                        .font(Font.system(size: 15))
-//                                                        .padding(.bottom, 2)
-//
-//                                                        HStack {
-//                                                            Image(systemName: "mappin")
-//                                                            Text("\(readData.classes![index]["location"]!)").padding(.leading, 5)
-//                                                        }
-//                                                        .font(Font.system(size: 15))
-//                                                        .padding(.bottom)
-//                                                    }
-//                                                    .padding(.leading, 15).padding(.top, -10)
-////                                                    Spacer()
-////                                                }
-////                                                .frame(width: geometry.size.width-100, height: 100).padding(.leading)
-//                                            }
-//                                        }
-//                                        .padding(.top,10)
-//                                        .padding(.horizontal).padding(.trailing, 10)
-//                                        .multilineTextAlignment(.leading)
-//
-//                                    }
-//                                    .id(index)
-//                                }
-//                                .padding(.top, 10)
-                                
-//                            }
-//                            .padding(.vertical)
                         }
                     }
                     .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
@@ -577,10 +365,7 @@ struct HomePage: View {
                     .onAppear {
                         readData.sales = []
                         DispatchQueue.global(qos: .userInteractive).async {
-//                            readData.getProducts()
                             readData.getProducts_rt()
-                            //readData.getSales()
-//                            readData.getClasses()
                             readData.getSales_rt()
                             readData.loadProfileImage() { response in
                                 if response != nil {
@@ -597,17 +382,8 @@ struct HomePage: View {
                                         salesShown = true
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                             appState.pageToNavigationTo = nil
-                                            
-                                            
                                         }
                                     }
-//                                    temp_products = Array(readData.products!)
-                                    
-            //                            if let appDelegate = UIApplication.shared.delegate as? Kitt.AppDelegate {
-            //                                    print("Delegate it \(appDelegate)")
-            //                                   appDelegate.registerPushNotifications()
-            //                            }
-                                    
                                 }
                             }
                             
@@ -615,7 +391,6 @@ struct HomePage: View {
                                 withAnimation(.easeOut(duration: 0.5)) {
                                     isShownProductCreated = false
                                     isShownClassCreated = false
-//                                    temp_products = Array(readData.products!)
                                 }
                             }
                             
@@ -625,23 +400,10 @@ struct HomePage: View {
                                     if isSignedUp == false {
                                         appDelegate.registerPushNotifications()
                                     }
-//                                    temp_products = Array(readData.products!)
                                 }
                             }
-                            
-//                            if !isSignedUp && !isShownProductCreated && !isShownClassCreated && !isChangesMade && !isShownLinkCreated && !isShownHomePage {
-//                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                                    temp_products = Array(readData.products!)
-//                                }
-//                            }
-
-                            
                         }
                     }
-//                    .onChange(of: readData.products) { _ in
-//                        print(readData.products)
-//                    }
-                    
                     .opacity(isShownHomePage ? 0 : 1)
                     .opacity(isShownProductCreated ? 0 : 1)
                     .opacity(isShownLinkCreated ? 0 : 1)
@@ -652,9 +414,6 @@ struct HomePage: View {
                 .navigationDestination(isPresented: $productEditShown) {
                     ProductForm(oldIndex: $oldProductIndex, oldProductName: $oldProductName, oldProductDesc: $oldProductDesc, oldProductPrice: $oldProductPrice, oldImage: $oldImage, oldFile: $oldFile, oldFileName: $oldFileName, productName: $productName, productDesc: $productDesc, productPrice: $productPrice, image: $image, file: $file, fileName: $fileName, products_number: productsNumber, ifEdit: true, productIndex: productIndex, readData: readData)
                 }
-//                .navigationDestination(isPresented: $classEditShown) {
-//                    ClassForm(oldClassName: $oldClassName, oldClassDesc: $oldClassDesc, oldClassPrice: $oldClassPrice, oldClassDuration: $oldClassDuration, oldClassSeats: $oldClassSeats, oldClassLocation: $oldClassLocation, oldImage: $oldClassImage, className: $className, classDesc: $classDesc, classDuration: $classDuration, classPrice: $classPrice, classSeats: $classSeats, classLocation: $classLocation, image: $classImage, classes_number: classesNumber, ifEdit: true, classIndex: classIndex, readData: readData)
-//                }
                 .navigationDestination(isPresented: $linkEditShown) {
                     LinkForm(oldName: $oldName, oldURL: $oldURL, oldIndex: $oldLinkIndex, linkName: $linkName, linkURL: $linkURL, ifEdit: true, products_number: productsNumber, linkEditShown: $linkEditShown, linkIndex: linkIndex, readData: readData).presentationDetents([.height(500)])
                 }
@@ -662,45 +421,20 @@ struct HomePage: View {
     }
     
     func move(from source: IndexSet, to destination: Int) {
-        //        readData.products = []
-//        temp_products.move(fromOffsets: source, toOffset: destination)
-//        readData.products!.move(fromOffsets: source, toOffset: destination)
         readData.products!.move(fromOffsets: source, toOffset: destination)
-        //        readData.products = temp_products
-        ////
-//                var currentIndex = 0
-//                for index in temp_products.indices {
-//                    temp_products[index]["index"] = String(describing: currentIndex)
-//                    currentIndex += 1
-//                }
-        
-//                let temp_index = readData.products![destination][
         withAnimation(.easeOut(duration: 0.25)) {
             isUpdating = true
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     UpdateDB().updateIndex(products_input: readData.products!) { response in
                         if response == "Order Updated" {
-                            print("Index changed")
                             withAnimation(.easeOut(duration: 0.25)) {
                                 isUpdating = false
                             }
-        //                    print(readData.products)
-        //                    readData.products = temp_products
                         }
                     }
                 }
-        
-//        DispatchQueue.main.async {
-//            UpdateDB().updateIndex(products_input: readData.products!) { response in
-//                if response == "Order Updated" {
-//                    print("Index changed")
-//                }
-//            }
-//
-//        }
     }
-    
     
     func updateTempProducts() {
         let updatedProducts = Array(readData.products!)
@@ -708,21 +442,8 @@ struct HomePage: View {
             UpdateDB().updateIndex(products_input: updatedProducts) { response in
                 if response == "Order Updated" {
                     print("Index changed")
-//                    print(readData.products)
-//                    readData.products = temp_products
                 }
             }
         }
     }
-
-    
-    
 }
-
-
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HomePage()
-//    }
-//}

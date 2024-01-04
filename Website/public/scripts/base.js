@@ -1,78 +1,30 @@
-function getLinks() {
+function handlePay(event, file, username, price, creator_full_name, profile_image, auth_uuid, fcm_token, product_image, full_description) {
+    console.log("Clicked");
+    const productTitle = event.target.closest('.product-area').querySelector('.product-title').textContent;
+    const productImage = event.target.closest('.product-area').querySelector('.product-image').getAttribute('src');
 
-    const data = {
-        username: 'aym1302'
-    };
-
-    fetch('https://mishki.glitch.me/get-details', 
-    { method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    }
-    )
-    .then(response => response.json())
-    .then(data => {
-        console.log(data)
-
-        var profileView = document.querySelector('.profile-view');
-        var profileImage = document.createElement('img');
-        profileImage.classList.add('profile-image');
-        profileImage.src = data.profile_image;
-        profileImage.alt = 'profile image';
-        profileView.appendChild(profileImage);
-
-        var username = document.createElement('h1');
-        username.textContent = '@aali183';
-        profileView.appendChild(username);
-
-        var linksList = document.getElementsByClassName("links-list")[0];
-        for (var i = 0; i < data.links.length; i++) {
-            var a = document.createElement("a");
-            a.setAttribute("href", data.links[i][1]);
-            var div = document.createElement("div");
-            div.setAttribute("class", "links");
-            var p = document.createElement("h3");
-            p.innerHTML = data.links[i][0];
-            div.appendChild(p);
-            a.appendChild(div);
-            linksList.appendChild(a);
-        }
-
-        var productsList = document.getElementsByClassName("products-list")[0];
-        for (var i = 0; i < data.products.length; i++) {
-            var product = document.createElement("div");
-            product.setAttribute("class", "products");
-
-            var img = document.createElement("img");
-            img.setAttribute("src", data.products[i][3]);
-            img.setAttribute("class", "product-image");
-            img.setAttribute("alt", "your image description");
-            product.appendChild(img);
-
-            var p = document.createElement("p");
-            p.setAttribute("class", "product-title");
-            p.innerHTML = data.products[i][0];
-            product.appendChild(p);
-
-            var div = document.createElement("div");
-            div.setAttribute("class", "product-horizontal-row");
-
-            var price = document.createElement("p");
-            price.innerHTML = `<b>${data.products[i][2]} AED</b>`;
-            div.appendChild(price);
-
-            var button = document.createElement("button");
-            button.setAttribute("type", "button");
-            button.innerHTML = "Buy Now";
-            div.appendChild(button);
-
-            product.appendChild(div);
-
-            productsList.appendChild(product);
-        }
+    fetch("https://mishki-36266.web.app/create-checkout-session", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+        items: [{price: price, title: productTitle, description: full_description, image: productImage, file: file, username: username, creator_full_name: creator_full_name, profile_image: profile_image, auth_uuid: auth_uuid, fcm_token: fcm_token, product_image: product_image}],
+        }),
     })
-    .catch(error => console.error(error));
+        .then(res => {
+        if (res.ok) return res.json()
+        return res.json().then(json => Promise.reject(json))
+        })
+        .then(({ url }) => {
+            window.location = url;
+        })
+        .catch(e => {
+            console.error(`${e.error} This is an error`);
+        })
 
+}
+
+function handleImageClick() {
+    console.log("Image Clicked");
 }

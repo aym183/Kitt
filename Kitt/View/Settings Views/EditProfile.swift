@@ -49,7 +49,6 @@ struct EditProfile: View {
                                     .opacity(0.5)
                                 }
                             }
-                            
                         }
                         
                         TextField("", text: $name, prompt: Text("Full Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16))
@@ -108,7 +107,7 @@ struct EditProfile: View {
                                     profileImageChanged.toggle()
                                 }
                         }) {
-                                Text("Update Details").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: max(0,geometry.size.width-70), height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
+                            Text("Update Details").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: max(0,geometry.size.width-70), height: 60).background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white).cornerRadius(10)
                         }
                         .padding(.bottom)
                         .disabled(areAllFieldsEmpty)

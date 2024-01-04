@@ -19,14 +19,12 @@
 		61615EAD2A31B01D00A23710 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61615EAC2A31B01D00A23710 /* LoginForm.swift */; };
 		61635CED2A3EEE5D007DA218 /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 61635CEC2A3EEE5D007DA218 /* confetti.json */; };
 		61635CF12A3F0017007DA218 /* confetti_2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 61635CF02A3F0017007DA218 /* confetti_2.0.json */; };
-		61635CF32A3F0041007DA218 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61635CF22A3F0041007DA218 /* SwiftUIView.swift */; };
 		61635CF52A3F3BFF007DA218 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 61635CF42A3F3BFE007DA218 /* loading.json */; };
 		61635CF72A3F3FE5007DA218 /* loading_2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 61635CF62A3F3FE5007DA218 /* loading_2.0.json */; };
 		61635CF92A3F4632007DA218 /* loading_3.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 61635CF82A3F4632007DA218 /* loading_3.0.json */; };
 		6166874D2A15F37D0016A549 /* EditProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166874C2A15F37D0016A549 /* EditProfile.swift */; };
 		6166874F2A15FB2A0016A549 /* ChangeBio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6166874E2A15FB2A0016A549 /* ChangeBio.swift */; };
 		616687512A161E900016A549 /* CreateProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616687502A161E900016A549 /* CreateProfile.swift */; };
-		616687542A1622EA0016A549 /* ClassForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616687532A1622EA0016A549 /* ClassForm.swift */; };
 		616687562A1654660016A549 /* SocialMediaInputForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616687552A1654660016A549 /* SocialMediaInputForm.swift */; };
 		616687582A171E110016A549 /* ChangeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616687572A171E110016A549 /* ChangeName.swift */; };
 		6166875C2A1787390016A549 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 6166875B2A1787390016A549 /* GoogleSignIn */; };
@@ -91,14 +89,12 @@
 		61615EAC2A31B01D00A23710 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		61635CEC2A3EEE5D007DA218 /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
 		61635CF02A3F0017007DA218 /* confetti_2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti_2.0.json; sourceTree = "<group>"; };
-		61635CF22A3F0041007DA218 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		61635CF42A3F3BFE007DA218 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		61635CF62A3F3FE5007DA218 /* loading_2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading_2.0.json; sourceTree = "<group>"; };
 		61635CF82A3F4632007DA218 /* loading_3.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading_3.0.json; sourceTree = "<group>"; };
 		6166874C2A15F37D0016A549 /* EditProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfile.swift; sourceTree = "<group>"; };
 		6166874E2A15FB2A0016A549 /* ChangeBio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeBio.swift; sourceTree = "<group>"; };
 		616687502A161E900016A549 /* CreateProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfile.swift; sourceTree = "<group>"; };
-		616687532A1622EA0016A549 /* ClassForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassForm.swift; sourceTree = "<group>"; };
 		616687552A1654660016A549 /* SocialMediaInputForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMediaInputForm.swift; sourceTree = "<group>"; };
 		616687572A171E110016A549 /* ChangeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeName.swift; sourceTree = "<group>"; };
 		616687592A1746650016A549 /* Kitt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Kitt.entitlements; sourceTree = "<group>"; };
@@ -205,7 +201,6 @@
 				616687552A1654660016A549 /* SocialMediaInputForm.swift */,
 				61A0E8122A09F78900FE474D /* LinkForm.swift */,
 				61A0E8102A09F78200FE474D /* ProductForm.swift */,
-				616687532A1622EA0016A549 /* ClassForm.swift */,
 			);
 			path = Forms;
 			sourceTree = "<group>";
@@ -263,7 +258,6 @@
 				61A0E80E2A09E16100FE474D /* FormSelection.swift */,
 				61A0E8152A0A051300FE474D /* SettingsPage.swift */,
 				61A0E8672A0A44DC00FE474D /* ImagePicker.swift */,
-				61635CF22A3F0041007DA218 /* SwiftUIView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -472,12 +466,10 @@
 				6166874D2A15F37D0016A549 /* EditProfile.swift in Sources */,
 				61A0E81D2A0A121E00FE474D /* CreateLink.swift in Sources */,
 				616687582A171E110016A549 /* ChangeName.swift in Sources */,
-				616687542A1622EA0016A549 /* ClassForm.swift in Sources */,
 				61A0E8002A09D0D500FE474D /* HomePage.swift in Sources */,
 				616687562A1654660016A549 /* SocialMediaInputForm.swift in Sources */,
 				61615EAB2A2F7F9F00A23710 /* TotalSales.swift in Sources */,
 				61A0E8112A09F78200FE474D /* ProductForm.swift in Sources */,
-				61635CF32A3F0041007DA218 /* SwiftUIView.swift in Sources */,
 				61A0E8162A0A051300FE474D /* SettingsPage.swift in Sources */,
 				61A0E81F2A0A15DC00FE474D /* UploadProfileImageForm.swift in Sources */,
 				61A0E86C2A0A4A5F00FE474D /* ReadDB.swift in Sources */,
