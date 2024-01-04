@@ -14,11 +14,9 @@ import FirebaseFirestore
 class CreateDB : ObservableObject {
     
     let imageCache = NSCache<NSString, UIImage>()
-    
     func addtoDB(completion: @escaping (String?) -> Void) {
         let db = Firestore.firestore()
         var uuid = ""
-        
         if Auth.auth().currentUser?.uid != nil {
             uuid = Auth.auth().currentUser!.uid
         }
@@ -27,10 +25,8 @@ class CreateDB : ObservableObject {
         let productRef = db.collection("products")
         let docRef = ref.document(uuid)
         let prodDocRef = productRef.document(uuid)
-        
         prodDocRef.setData([:])
         docRef.setData([:])
-        
         completion("Successful")
     }
     
@@ -38,20 +34,11 @@ class CreateDB : ObservableObject {
 
         let db = Firestore.firestore()
         let ref = db.collection("users")
-//        let productRef = db.collection("products")
-//        let salesRef = db.collection("sales")
-        
         @AppStorage("fcm_token") var cached_fcm: String = ""
         var uuid = ""
-        
         if Auth.auth().currentUser?.uid != nil {
             uuid = Auth.auth().currentUser!.uid
         }
-        
-//        let docRef = ref.document(uuid)
-//        let prodDocRef = productRef.document(uuid)
-//        prodDocRef.setData([:])
-//        docRef.setData([:])
         let docRef = ref.document(uuid)
         
             ref.whereField("metadata.username", isEqualTo: username).getDocuments { (snapshot, error) in
@@ -59,9 +46,7 @@ class CreateDB : ObservableObject {
                     print("Error checking username: \(error.localizedDescription)")
                     return
                 }
-                
                 if let documents = snapshot?.documents, !documents.isEmpty {
-                    // Username is already in use
                     completion("Username already exists")
                 } else {
                     
@@ -107,19 +92,15 @@ class CreateDB : ObservableObject {
     
     func addLink(name: String, url: String, index: String, completion: @escaping (String?) -> Void) {
         @AppStorage("products") var products: String = ""
-        
         let db = Firestore.firestore()
         let ref = db.collection("products")
         var docID = ref.document(products)
         var presentDateTime = TimeData().getPresentDateTime()
         let rtRef = Database.database().reference().child("products")
         let userRef = rtRef.child(products)
-        
         var documentData = [String: Any]()
         var fieldID = ref.document()
         documentData[fieldID.documentID] = ["name": name, "url": url, "time_created": presentDateTime, "index": index]
-        
-        
         userRef.setValue(documentData) { (error, _) in
             if let error = error {
                 print("Failed to add link to realtime db: \(error)")
@@ -141,9 +122,7 @@ class CreateDB : ObservableObject {
     
     func addProducts(image: UIImage, name: String, description: String, price: String, file: URL, file_name: String, index: String, completion: @escaping (String?) -> Void) {
         @AppStorage("products") var products: String = ""
-        
         let imageData = image.jpegData(compressionQuality: 0.8)
-
         guard imageData != nil else {
             return
         }
@@ -156,21 +135,15 @@ class CreateDB : ObservableObject {
         let filePath = "product_files/\(randomID).pdf"
         let rtRef = Database.database().reference().child("products")
         let userRef = rtRef.child(products)
-        
-        
+
         DispatchQueue.global(qos: .background).async {
-            
             let storage = Storage.storage().reference()
             let fileRef = storage.child("product_images/\(randomID).jpg")
-
-            // Get the original image's orientation
             let sourceOrientation = image.imageOrientation
-
             let sideLength = min(image.size.width, image.size.height)
             let sourceSize = image.size
             let xOffset = (sourceSize.width - sideLength) / 2.0
             let yOffset = (sourceSize.height - sideLength) / 2.0
-
             let cropRect = CGRect(
                 x: xOffset,
                 y: yOffset,
@@ -214,14 +187,11 @@ class CreateDB : ObservableObject {
             }
         }
         
-       
         UserDefaults.standard.set(image.jpegData(compressionQuality: 0.8), forKey: path)
         UserDefaults.standard.set(file.lastPathComponent, forKey: filePath)
-        
         var documentData = [String: Any]()
         var fieldID = ref.document()
         documentData[fieldID.documentID] = ["name": name, "image": path, "time_created": presentDateTime, "description": description, "price": price, "file": filePath, "file_name": file_name, "index": index]
-        
     
         userRef.setValue(documentData) { (error, _) in
             if let error = error {
@@ -243,9 +213,7 @@ class CreateDB : ObservableObject {
     
     func addClasses(image: UIImage, name: String, description: String, price: String, duration: String, seats: String, location: String) {
         @AppStorage("classes") var classes: String = ""
-        
         let imageData = image.jpegData(compressionQuality: 0.8)
-
         guard imageData != nil else {
             return
         }
@@ -256,7 +224,6 @@ class CreateDB : ObservableObject {
         let randomID = UUID().uuidString
         let path = "classes_images/\(randomID).jpg"
         
-        
         DispatchQueue.global(qos: .background).async {
             let storage = Storage.storage().reference()
             let fileRef = storage.child("classes_images/\(randomID).jpg")
@@ -266,14 +233,12 @@ class CreateDB : ObservableObject {
                 }
             }
         }
-        
        
         UserDefaults.standard.set(image.jpegData(compressionQuality: 0.8), forKey: path)
         
         var documentData = [String: Any]()
         var fieldID = ref.document()
         documentData[fieldID.documentID] = ["name": name, "image": path, "time_created": presentDateTime, "description": description, "price": price, "duration": duration, "seats": seats, "location": location]
-        
         docID.setData(documentData) { error in
            if let error = error {
                print("Error adding class: \(error.localizedDescription)")
@@ -287,16 +252,10 @@ class CreateDB : ObservableObject {
         let db = Firestore.firestore()
         let collectionRef = db.collection("users")
         @AppStorage("username") var userName: String = ""
-        
         let imageData = image.jpegData(compressionQuality: 0.8)
-
-        guard imageData != nil else {
-            return
-        }
-        
+        guard imageData != nil else { return }
         let randomID = UUID().uuidString
         let path = "profile_images/\(randomID).jpg"
-        
         
         DispatchQueue.global(qos: .background).async {
             let storage = Storage.storage().reference()
@@ -309,11 +268,8 @@ class CreateDB : ObservableObject {
             print("File added to profile image")
         }
         
-        
         UserDefaults.standard.set(image.jpegData(compressionQuality: 0.8), forKey: "profile_image")
         completion("Cached")
-        
-        
         collectionRef.whereField("metadata.username", isEqualTo: userName).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error uploading Image: \(error)")
@@ -326,11 +282,9 @@ class CreateDB : ObservableObject {
                 let docRef = collectionRef.document(document.documentID)
                 let metadata = document.data()["metadata"] as? [String: Any]
                 var updatedMetadata = metadata ?? [:]
-                
                 updatedMetadata["profile_image"] = path
                 docRef.updateData(["metadata": updatedMetadata])
             }
         }
     }
-    
 }

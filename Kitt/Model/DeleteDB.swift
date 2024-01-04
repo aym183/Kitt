@@ -82,7 +82,6 @@ class DeleteDB : ObservableObject {
                                 completion("Deleted")
                             }
                         }
-                        
                         ref.document(document.documentID).setData(temp_entries) { error in
                             if let error = error {
                                 print("Error deleting product: \(error.localizedDescription)")
@@ -100,7 +99,6 @@ class DeleteDB : ObservableObject {
         let db = Firestore.firestore()
         let ref = db.collection("classes")
         var temp_entries = UserDefaults.standard.array(forKey: "myKey") as? [String: [String:String]] ?? [:]
-        
         
         ref.whereField(FieldPath.documentID(), isEqualTo: classes)
             .getDocuments { (snapshot, error) in

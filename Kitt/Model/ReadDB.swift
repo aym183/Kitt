@@ -21,42 +21,12 @@ class ReadDB : ObservableObject {
     @Published var month_sales: [String: Int]? = ["total": 0, "sales": 0]
     @Published var total_sales: [String: Int]? = ["total": 0, "sales": 0]
     @Published var temp_values: [[String: String]]? = []
-//    @Published var sale_dates: [String]? = []
     @Published var sale_dates: [String]? = []
     @Published var profile_image: UIImage? = nil
     @Published var link_elements_check = false
     @Published var product_elements_check = false
     @Published var product_images: [UIImage?] = []
     @Published var classes_images: [UIImage?] = []
-    
-//    func getProfileImage() {
-//        let db = Firestore.firestore()
-//        let collectionRef = db.collection("users")
-//        @AppStorage("username") var userName: String = ""
-//
-//        collectionRef.whereField("username", isEqualTo: userName).getDocuments { (snapshot, error) in
-//            if let error = error {
-//                print("Error getting profile image: \(error)")
-//            } else {
-//                for document in snapshot!.documents {
-//                    if document.data()["profile_image"] != nil {
-//                        let storageRef = Storage.storage().reference()
-//                        let fileRef = storageRef.child(String(describing: document.data()["profile_image"]!))
-//
-//                        fileRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-//                            if error == nil && data != nil {
-//                                if let image = UIImage(data: data!) {
-//                                    self.profile_image = image
-//                                }
-//                            } else {
-//                                print(error)
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     func getLinks() {
         @AppStorage("links") var links: String = ""
@@ -73,7 +43,6 @@ class ReadDB : ObservableObject {
                         for document in snapshot!.documents {
                             for documentData in document.data().values {
                                 if let valueDict = documentData as? [String: String] {
-                                    //                                temp_links.append(valueDict)
                                     temp_links.append(valueDict)
                                 }
                             }
@@ -82,8 +51,6 @@ class ReadDB : ObservableObject {
                         print("No Links for user")
                     }
                 }
-                
-//                self.products! = temp_links
                     
                 self.links = temp_links
                 self.temp_values = self.products
@@ -92,9 +59,6 @@ class ReadDB : ObservableObject {
                 if self.products != [] {
                     self.sortProductsArray()
                 }
-//                self.link_elements_check = true
-                
-               
             }
     }
     
@@ -150,11 +114,6 @@ class ReadDB : ObservableObject {
                                         completion("Successful")
                                     }
                                 }
-                            
-    //                        UserDefaults.standard.set(nil, forKey: "profile_image")
-    //                        for documentData in document.data() {
-    //                            print(documentData)
-    //                        }
                         }
                     } else {
                         completion("User does not exist")
@@ -186,7 +145,6 @@ class ReadDB : ObservableObject {
                     }
                 }
                 
-                // Fix image positioning
                 self.classes = temp_classes
                 if self.classes != [] {
                     self.sortClassesArray()
@@ -206,20 +164,7 @@ class ReadDB : ObservableObject {
         let cachedImage = UIImage(data: imageData!)
          
         return cachedImage!
-        
-        
-//        var temp_images = UserDefaults.standard.array(forKey: "myKey") as? [UIImage] ?? []
-        
-//        for product in self.products! {
-//            if let imageData = UserDefaults.standard.data(forKey: product["image"]!), let cachedImage = UIImage(data: imageData)  {
-//                temp_images.append(cachedImage)
-//            }
-//        }
-//        self.product_images = temp_images
-//        print("all product images loaded")
     }
-    
-    
     
     func getProducts() {
         @AppStorage("products") var products: String = ""
@@ -245,8 +190,7 @@ class ReadDB : ObservableObject {
                         print("No products for user")
                     }
                 }
-                
-                // Fix image positioning
+            
                 self.products = temp_products
                 if self.products != [] {
                     self.sortProductsArray()
@@ -273,22 +217,16 @@ class ReadDB : ObservableObject {
                 }
             }
             
-            // Fix image positioning
             self.products = temp_products
             if self.products != [] {
                 self.sortProductsArray()
             }
         }
-        
-//        ref.whereField(FieldPath.documentID(), isEqualTo: products)
-//            .getDocuments { (snapshot, error) in
-               
-//            }
+    
     }
     
     func getSales_rt() {
         @AppStorage("sales") var sales: String = ""
-//        @AppStorage("username") var userName: String = ""
         let salesDB = Database.database().reference().child("sales").child(sales)
         var temp_sales = UserDefaults.standard.array(forKey: "myKey") as? [[String:Any]] ?? []
         let oneWeekAgo = Date().addingTimeInterval(-7 * 24 * 60 * 60)
@@ -301,7 +239,6 @@ class ReadDB : ObservableObject {
         salesDB.observe(.value) { snapshot, error  in
             temp_sales = []
             self.sale_dates = []
-//            NotificationHandler().scheduleLocalNotification(product_name: "This is name", price: "50")
             if let error = error {
                 print("Error getting sales in getSales_rt:")
             } else {
@@ -315,7 +252,6 @@ class ReadDB : ObservableObject {
                 self.sales = temp_sales
                 
                 if self.sales!.count != 0 {
-                    
                     var temp_week_sales = 0
                     var temp_month_sales = 0
                     var temp_total_sales = 0
@@ -325,35 +261,28 @@ class ReadDB : ObservableObject {
 
                     for index in 0..<self.sales!.count {
                         let dateString = self.sales![index]["date"]! as! String
-
                         let dateFormatter = DateFormatter()
                         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
                         dateFormatter.dateFormat = "E MMM d yyyy HH:mm:ss 'GMT'Z (zzzz)"
 
                         if let date = dateFormatter.date(from: dateString) {
                             let currentDate = Date()
-
-                            
                             let calendar = Calendar.current
                             let oneWeekAgo = calendar.date(byAdding: .weekOfYear, value: -1, to: currentDate)!
                             let oneMonthAgo = calendar.date(byAdding: .month, value: -1, to: currentDate)!
-                            
                             let formattedDate = DateFormatter()
                             formattedDate.dateFormat = "dd MMMM yyyy"
                             let dateString = formattedDate.string(from: date)
-                            
                             self.sales![index]["date"]! = dateString
                             
                             if !self.sale_dates!.contains(dateString) {
                                 self.sale_dates!.append(dateString)
                             }
 
-
                             if date > oneWeekAgo {
                                 temp_week_amount += Int(String(describing: self.sales![index]["price"]!))!
                                 temp_month_amount += Int(String(describing: self.sales![index]["price"]!))!
                                 temp_total_amount += Int(String(describing: self.sales![index]["price"]!))!
-
                                 temp_week_sales += 1
                                 temp_month_sales += 1
                                 temp_total_sales += 1
@@ -399,7 +328,6 @@ class ReadDB : ObservableObject {
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-//        sales
         
         ref.whereField(FieldPath.documentID(), isEqualTo: sales)
             .getDocuments { (snapshot, error) in
@@ -415,21 +343,7 @@ class ReadDB : ObservableObject {
                 
                 self.sales = temp_sales
                 
-                
-//                if let date = dateFormatter.date(from: dateString) {
-//                    dateFormatter.dateFormat = "dd MMMM"
-//                    let formattedDate = dateFormatter.string(from: date)
-//                    print(formattedDate) // Output: 07 June
-//                }
-                
                 if self.sales!.count != 0 {
-                    
-//                    for index in 0..<self.sales!.count {
-//                        let date = (self.sales![index]["date"]! as AnyObject).dateValue()
-//                        dateFormatter.dateFormat = "dd MMMM YYYY"
-//                        let formattedDate = dateFormatter.string(from: date)
-//                        self.sales![index]["date"]! = formattedDate
-//                    }
                     var temp_week_sales = 0
                     var temp_month_sales = 0
                     var temp_total_sales = 0
@@ -489,12 +403,10 @@ class ReadDB : ObservableObject {
                   let index2 = Int(dict2["index"]!) else {
                 return false
             }
-            
             return index1 < index2
         })
         
         self.products = sortedArray
-//        self.loadProductImage()
     }
     
     func sortClassesArray() {
@@ -509,7 +421,6 @@ class ReadDB : ObservableObject {
             }
         })
         self.classes = sortedArray
-//        self.loadProductImage()
     }
     
     func sortLinksArray() {
@@ -528,12 +439,12 @@ class ReadDB : ObservableObject {
     
     func sortDatesDescending() {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM yyyy" // Update the date format
+        dateFormatter.dateFormat = "dd MMMM yyyy"
             
         let sortedDates = self.sale_dates!.sorted { dateString1, dateString2 in
                guard let date1 = dateFormatter.date(from: dateString1),
                      let date2 = dateFormatter.date(from: dateString2) else {
-                   return false // Invalid date format
+                   return false
                }
                return date1 > date2
            }
