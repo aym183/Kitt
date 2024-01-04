@@ -73,7 +73,6 @@ struct LoginForm: View {
                                     } else {
                                         alertText = response!
                                         alertShown.toggle()
-//                                        print("Incorrect email/unmatched passwords")
                                     }
                                 }
                             }
@@ -82,8 +81,6 @@ struct LoginForm: View {
                             HStack {
                                 Text("Login").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06))
                             }
-//                            .font(Font.system(size: 25))
-//                            .fontWeight(.semibold)
                             .frame(width: 200, height: 70)
                             .background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white)
                             .cornerRadius(50)
@@ -103,7 +100,6 @@ struct LoginForm: View {
                     NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
                         isEditingTextField = false
                     }
-
                 }
                 .SPAlert(
                     isPresent: $alertShown,
@@ -122,9 +118,3 @@ struct LoginForm: View {
             isEmailValid = emailPredicate.evaluate(with: email)
     }
 }
-
-//struct LoginForm_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LoginForm()
-//    }
-//}

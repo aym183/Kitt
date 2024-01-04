@@ -27,10 +27,8 @@ struct EditProfile: View {
                     VStack{
                         HStack {
                             Text("Edit Profile").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical).padding(.leading)
-                            
                             Spacer()
-                            }
-                            
+                        }
                         
                         Button(action: { showImagePicker.toggle() }) {
                             ZStack {
@@ -59,7 +57,6 @@ struct EditProfile: View {
                                 isEditingTextField = true
                             }
                         
-                        
                         ZStack {
                             TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().padding(.trailing, 30).frame(width: max(0, geometry.size.width-70), height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).font(Font.custom("Avenir-Medium", size: 16))
                                 .onChange(of: self.bio, perform: { value in
@@ -74,7 +71,6 @@ struct EditProfile: View {
                             if bio.count > 0 {
                                 HStack {
                                     Spacer()
-                                    
                                     if bio.count >= 35 {
                                         Text("\(45 - bio.count)")
                                             .foregroundColor(.red)
@@ -96,42 +92,19 @@ struct EditProfile: View {
                         
                         Button(action: {
                             DispatchQueue.global(qos: .userInteractive).async {
-                                
                                     if let image = self.image {
-//                                        CreateDB().uploadProfileImage(image: image) { response in
-//                                            if response == "Cached" {
-////                                                profileImageChanged.toggle()
-//                                                print("Image Changed")
-//                                            }
-//                                        }
-                                        
                                         UpdateDB().updateProfile(image: image, bioText: bio.trimmingCharacters(in: .whitespaces), fullName: name.trimmingCharacters(in: .whitespaces)) { response in
                                             if response == "Successful" {
                                                 print("Profile updated")
                                            }
                                         }
                                     } else if self.image == nil {
-    //                                        UpdateDB().updateFullName(fullName: name) { response in
-    //                                            if response == "Successful" {
-    //                                                print("Name updated")
-    //                                            }
-    //                                        }
-    //
-    //                                        UpdateDB().updateBio(bioText: bio) { response in
-    //                                            if response == "Successful" {
-    //                                                print("Bio updated")
-    //                                            }
-    //                                        }
-                                            
                                             UpdateDB().updateProfileWithoutImage(bioText: bio.trimmingCharacters(in: .whitespaces), fullName: name.trimmingCharacters(in: .whitespaces)) { response in
                                                 if response == "Successful" {
                                                     print("Profile updated")
                                                }
                                             }
-                                            
                                     }
-                                    
-                                
                                     profileImageChanged.toggle()
                                 }
                         }) {
@@ -139,7 +112,6 @@ struct EditProfile: View {
                         }
                         .padding(.bottom)
                         .disabled(areAllFieldsEmpty)
-                        
                         }
                         .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                         }
@@ -155,7 +127,6 @@ struct EditProfile: View {
                             HomePage(isSignedUp: false, isShownHomePage: false, isChangesMade: true, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: false).navigationBarHidden(true)
                         }
                     }
-                    
             }
     }
 

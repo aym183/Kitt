@@ -23,10 +23,8 @@ class AuthViewModel : ObservableObject {
     func signUp(email: String, password: String, completion: @escaping (String?) -> Void) {
         auth.createUser(withEmail: email, password: password) { result, error in
             if error != nil {
-                print(error!.localizedDescription)
                 completion(error!.localizedDescription)
             } else {
-                print("Successful auth")
                 CreateDB().addtoDB() { response in
                     if response == "Successful" {
                         completion("Successful")
@@ -35,18 +33,14 @@ class AuthViewModel : ObservableObject {
             }
         }
     }
-
     
     func signIn(email: String, password: String, completion: @escaping (String?) -> Void) {
         auth.signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
-                print(error.localizedDescription)
                 completion(error.localizedDescription)
             } else {
-                print("Signed in")
                 ReadDB().getUserDetails(email: email) { response in
                     if response == "Successful" {
-                        print("Successful auth")
                         completion("Successful")
                     } else if response == "Missing or insufficient permissions." {
                         completion("Missing")
@@ -54,7 +48,6 @@ class AuthViewModel : ObservableObject {
                 }
             }
         }
-    
     }
     
     func signOut(completion: @escaping (String?) -> Void) {
@@ -62,7 +55,6 @@ class AuthViewModel : ObservableObject {
             try Auth.auth().signOut()
             completion("Successful")
         } catch let signOutError as NSError {
-            print("Error signing out: \(signOutError.localizedDescription)")
             completion("Error signing out: \(signOutError.localizedDescription)")
         }
     }
@@ -79,9 +71,8 @@ class AuthViewModel : ObservableObject {
     
     func handleSignInWithAppleCompletion(_ result: Result<ASAuthorization, Error>, completion: @escaping (String?) -> Void) {
         if case .failure(let failure) = result {
-          print(failure.localizedDescription)
-        }
-        else if case .success(let authorization) = result {
+          completion(failure.localizedDescription)
+        } else if case .success(let authorization) = result {
           if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
               guard let nonce = self.currentNonce else {
               print("Invalid state: a login callback was received, but no login request was sent.")
@@ -96,19 +87,15 @@ class AuthViewModel : ObservableObject {
               return
             }
 
-            let credential = OAuthProvider.credential(withProviderID: "apple.com",
-                                                      idToken: idTokenString,
-                                                      rawNonce: nonce)
+            let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             Task {
-              do {
-                let result = try await auth.signIn(with: credential)
-                completion("Success")
-                  
-//                await updateDisplayName(for: result.user, with: appleIDCredential)
-              }
-              catch {
-                print("Error authenticating: \(error.localizedDescription)")
-              }
+                  do {
+                    let result = try await auth.signIn(with: credential)
+                    completion("Success")
+                  }
+                  catch {
+                    print("Error authenticating: \(error.localizedDescription)")
+                  }
             }
           }
         }
@@ -123,15 +110,11 @@ class AuthViewModel : ObservableObject {
           "Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)"
         )
       }
-
-      let charset: [Character] =
-        Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-
+      let charset: [Character] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
       let nonce = randomBytes.map { byte in
         // Pick a random character from the set, wrapping around if needed.
         charset[Int(byte) % charset.count]
       }
-      
       completion(String(nonce))
     }
     

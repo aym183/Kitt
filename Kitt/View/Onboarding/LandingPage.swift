@@ -14,19 +14,14 @@ import AuthenticationServices
 import UIKit
 
 struct LandingPage: View {
-//    @ObservedObject var appState = AppState.shared
     @AppStorage("username") var userName: String = ""
     @State var loggedInUser = false
     @State var isNotificationReceived = false
-//    @EnvironmentObject var notificationState: NotificationState
     
     var body: some View {
         NavigationStack {
             ZStack {
                 VStack {
-//                    if Auth.auth().currentUser != nil && appState.pageToNavigationTo != nil {
-//                        HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: true)
-//                    } else
                     if Auth.auth().currentUser != nil {
                         HomePage(isSignedUp: false, isShownHomePage: true, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: false)
                     } else {
@@ -49,7 +44,6 @@ struct LandingContent: View {
     var authVM = AuthViewModel()
     var body: some View {
             GeometryReader { geometry in
-//                NavigationStack {
                     ZStack {
                         Color(.white).ignoresSafeArea()
                         VStack{
@@ -83,23 +77,17 @@ struct LandingContent: View {
                             
                             Button(action: {
                                 guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-                                
-                                // Create Google Sign In configuration object.
                                 let config = GIDConfiguration(clientID: clientID)
                                 GIDSignIn.sharedInstance.configuration = config
-                                
-                                // Start the sign in flow!
                                 GIDSignIn.sharedInstance.signIn(withPresenting: getRootViewController()) { result, error in
                                     guard error == nil else {
                                         return
                                     }
-                                    
                                     guard let user = result?.user,
                                           let idToken = user.idToken?.tokenString
                                     else {
                                         return
                                     }
-                                    
                                     let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
                                     
                                     Task {
@@ -135,19 +123,6 @@ struct LandingContent: View {
                             }
                             .padding(.horizontal, 50).padding(.bottom, 5)
                             
-//                            Button(action: { createAccountSheet.toggle() }) {
-//                                HStack {
-//                                    Text("Continue with Apple")
-//                                }
-//                                .font(Font.custom("Avenir-Medium", size: 18))
-//                                .fontWeight(.bold)
-//                                .frame(width: 320, height: 55)
-//                                .background(Color.black).foregroundColor(Color.white)
-//                                .cornerRadius(10)
-//                            }
-//                            .padding(.horizontal, 50).padding(.bottom, 10)
-                            
-                            
                             SignInWithAppleButton { request in
                                 authVM.handleSignInWithAppleRequest(request)
                             } onCompletion: { result in
@@ -173,14 +148,11 @@ struct LandingContent: View {
                             .padding(.bottom, 10)
                             
                             Divider().frame(width: 300, height: 1.5).background(Color("Divider")).padding(.bottom, 10)
-                            
                             Button(action: { createAccountSheet.toggle() }) {
                                 HStack(spacing: 3.5) {
                                     Image("Mail").resizable().frame(width: 18, height: 18)
                                     Text("Sign up with Email")
                                 }
-//                                .font(Font.custom("Avenir-Medium", size: 18))
-//                                .fontWeight(.bold)
                                 .font(.system(size: 18.5))
                                 .fontWeight(.medium)
                                 .frame(width: 320, height: 50)
@@ -195,15 +167,11 @@ struct LandingContent: View {
                                 CreateLink(signUpShown: $signUpShown, homePageShown: $homePageShown, createAccountSheet: $createAccountSheet, email: (Auth.auth().currentUser?.email)!, createLinkSheet: $createLinkSheet).presentationDetents([.height(500)])
                             }
                             
-                            Button(action: {
-                                loginSheet.toggle()
-                            }) {
+                            Button(action: { loginSheet.toggle() }) {
                                 HStack(spacing: 3.5) {
                                     Image("Mail").resizable().frame(width: 18, height: 18)
                                     Text("Log in with Email")
                                 }
-//                                .font(Font.custom("Avenir-Medium", size: 18))
-//                                .fontWeight(.bold)
                                 .font(.system(size: 18.5))
                                 .fontWeight(.medium)
                                 .frame(width: 320, height: 50)
@@ -224,100 +192,6 @@ struct LandingContent: View {
                             HomePage(isSignedUp: true, isShownHomePage: false, isChangesMade: false, isShownClassCreated: false, isShownProductCreated: false, isShownLinkCreated: false, isShownFromNotification: false).navigationBarHidden(true)
                         }
                     }
-//                }
             }
     }
 }
-
-
-struct NavigationUtil {
-        static func popToRootView() {
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                findNavigationController(viewController:
-    UIApplication.shared.windows.filter { $0.isKeyWindow
-    }.first?.rootViewController)?
-                    .popToRootViewController(animated: true)
-            }
-        }
-    static func findNavigationController(viewController: UIViewController?)
-    -> UINavigationController? {
-            guard let viewController = viewController else {
-                return nil
-            }
-    if let navigationController = viewController as? UINavigationController
-    {
-            return navigationController
-        }
-    for childViewController in viewController.children {
-            return findNavigationController(viewController:
-    childViewController)
-        }
-    return nil
-        }
-}
-
-struct CustomSignInWithAppleButton: UIViewRepresentable {
-    var type: ASAuthorizationAppleIDButton.ButtonType = .default
-    var style: ASAuthorizationAppleIDButton.Style = .black
-   
-    func makeCoordinator() -> Coordinator {
-        Coordinator(parent: self)
-    }
-
-    func makeUIView(context: Context) -> ASAuthorizationAppleIDButton {
-        let button = ASAuthorizationAppleIDButton(
-            authorizationButtonType: .continue,
-            authorizationButtonStyle: style
-        )
-
-        button.addTarget(
-            context.coordinator,
-            action: #selector(Coordinator.buttonPressed),
-            for: .touchUpInside)
-        return button
-    }
-
-    func updateUIView(
-        _ uiView: ASAuthorizationAppleIDButton,
-        context: Context) {
-        if let anchor = uiView.window {
-            context.coordinator.presentationAnchor = anchor
-        }
-    }
-}
-
-@objc
-final class Coordinator : NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        guard let window = UIApplication.shared.windows.first else {
-               fatalError("Unable to retrieve the window.")
-           }
-           return window
-    }
-    
-    let parent: CustomSignInWithAppleButton
-    var presentationAnchor: ASPresentationAnchor?
-    var button: ASAuthorizationAppleIDButton?
-    init(parent: CustomSignInWithAppleButton) {
-         self.parent = parent
-    }
-
-    @objc
-    func buttonPressed() {
-        let provider = ASAuthorizationAppleIDProvider()
-        let request = provider.createRequest()
-
-        let authController = ASAuthorizationController(
-            authorizationRequests: [request]
-        )
-        authController.delegate = self
-        authController.presentationContextProvider = self
-        authController.performRequests()
-    }
-}
-
-//struct LandingPage_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LandingPage()
-//    }
-//}

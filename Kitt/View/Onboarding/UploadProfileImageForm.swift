@@ -26,13 +26,12 @@ struct UploadProfileImageForm: View {
                             Spacer()
                         }
                         .padding(.bottom, 2)
-//                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
                         .frame(width: max(0, geometry.size.width-40))
                         
                         Text("Select an image to use as your profile \npicture. It will show up on your page.").font(Font.custom("Avenir-Medium", size: 18)).padding(.leading, 2)
                         
                         HStack {
-                            Button(action: {showImagePicker.toggle()}) {
+                            Button(action: { showImagePicker.toggle() }) {
                                 ZStack {
                                     if let image = self.image {
                                         Image(uiImage: image)
@@ -64,7 +63,6 @@ struct UploadProfileImageForm: View {
                                                 if createLinkSheet == true {
                                                     createLinkSheet.toggle()
                                                 }
-//                                                homePageShown.toggle()
                                                 signUpShown.toggle()
                                             }
                                         }
@@ -103,15 +101,8 @@ struct UploadProfileImageForm: View {
                     .sheet(isPresented: $showImagePicker) {
                         ImagePicker(image: $image)
                     }
-                    
                     Spacer()
                 }
         }
     }
 }
-//
-//struct UploadImageForm_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UploadProfileImageForm()
-//    }
-//}

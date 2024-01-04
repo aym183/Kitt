@@ -12,7 +12,6 @@ struct ClassForm: View {
     @State var showImagePicker = false
     @State var classCreated = false
     @State var classDeleted = false
-    
     @Binding var oldClassName: String
     @Binding var oldClassDesc: String
     @Binding var oldClassPrice: String
@@ -20,7 +19,6 @@ struct ClassForm: View {
     @Binding var oldClassSeats: String
     @Binding var oldClassLocation: String
     @Binding var oldImage: UIImage?
-    
     @Binding var className: String
     @Binding var classDesc: String
     @Binding var classDuration: String
@@ -42,7 +40,6 @@ struct ClassForm: View {
                             HStack {
                                 if ifEdit {
                                     Text("Edit Class Booking").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.semibold).multilineTextAlignment(.leading).padding(.vertical)
-                                    
                                     Spacer()
                                     
                                     Button(action: {
@@ -68,8 +65,6 @@ struct ClassForm: View {
                             }
                             .padding(.leading, 15).padding(.bottom, -5).padding(.top, -10)
                             
-//                            Button(action: { showImagePicker.toggle() }) {
-//                                ZStack {
                                     if let image = self.image {
                                         ZStack {
                                             Image(uiImage: image)
@@ -77,7 +72,6 @@ struct ClassForm: View {
                                                 .scaledToFill()
                                                 .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
                                                 .cornerRadius(10)
-                                            
                                             VStack {
                                                 HStack {
                                                     Spacer()
@@ -87,16 +81,13 @@ struct ClassForm: View {
                                                 }
                                                 Spacer()
                                             }
-                                            
                                         }
                                     } else {
                                         Button(action: { showImagePicker.toggle() }) {
                                             ZStack {
-                                                
                                                     RoundedRectangle(cornerRadius: 10)
                                                         .fill(Color("TextField"))
                                                         .frame(width: geometry.size.width-70, height: geometry.size.height - 500)
-                                                    
                                                     VStack {
                                                         Image(systemName: "plus").font(.system(size: min(geometry.size.width, geometry.size.height) * 0.1)).fontWeight(.semibold)
                                                         Text("Add cover image").padding(.top,5).fontWeight(.semibold)
@@ -105,10 +96,6 @@ struct ClassForm: View {
                                             }
                                         }
                                     }
-//                                }
-                                
-//                            }
-                            
                             TextField("", text: $className, prompt: Text("Class Name").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top).disableAutocorrection(true).autocapitalization(.none)
                             
                             TextField("", text: $classDesc, prompt: Text("Class Description").foregroundColor(.gray), axis: .vertical).padding(.top, -55).padding(.horizontal).frame(width: geometry.size.width-70, height: 140).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 10).disableAutocorrection(true).autocapitalization(.none)
@@ -120,7 +107,6 @@ struct ClassForm: View {
                             TextField("", text: $classPrice, prompt: Text("Price (AED)").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
                             
                             TextField("", text: $classLocation, prompt: Text("Location").foregroundColor(.gray)).padding().frame(width: geometry.size.width-70, height: 60).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top,10).disableAutocorrection(true).autocapitalization(.none)
-                            
                                                         
                             Button(action: {
                                 if ifEdit {
@@ -134,7 +120,6 @@ struct ClassForm: View {
                                         }
                                     }
                                 } else {
-                                                                
                                     DispatchQueue.global(qos: .userInteractive).async {
                                         if classes_number != 0 {
                                             if let image = self.image {
@@ -147,8 +132,6 @@ struct ClassForm: View {
                                         }
                                         classCreated.toggle()
                                     }
-                                                                
-                                                                
                                 }
                             }) {
                                 if ifEdit {
@@ -158,12 +141,10 @@ struct ClassForm: View {
                                 }
                             }
                             .padding(.bottom)
-                            
                         }
                     }
                     .frame(width: geometry.size.width-40, height: geometry.size.height-20)
                     .padding(.top)
-                    
                     }
                     .foregroundColor(.black)
                     .sheet(isPresented: $showImagePicker) {
@@ -178,9 +159,3 @@ struct ClassForm: View {
             }
     }
 }
-
-//struct ClassForm_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ClassForm()
-//    }
-//}

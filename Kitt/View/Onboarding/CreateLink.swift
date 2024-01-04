@@ -39,8 +39,6 @@ struct CreateLink: View {
                                 isEditingTextField = true
                             }
                         
-                        //                        TextField("", text: $bio, prompt: Text("Bio").foregroundColor(.black)).padding().frame(width: geometry.size.width-40, height: 75).foregroundColor(.black).background(.gray).opacity(0.2).cornerRadius(10).padding(.top, 5).autocorrectionDisabled(true).autocapitalization(.none)
-                        
                         VStack {
                             Text("Your new page will be available under ").font(Font.custom("Avenir-Medium", size: 18)) + Text("kitt.bio/\(username == "" ? "username":username)").font(Font.custom("Avenir-Medium", size: 18)).fontWeight(.bold)
                         }

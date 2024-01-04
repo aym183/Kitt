@@ -12,7 +12,6 @@ struct PayoutDetails: View {
     @AppStorage("bank_full_name") var fullName: String = ""
     @AppStorage("acc_number") var accNumber: String = ""
     @AppStorage("iban") var ibanCache: String = ""
-    
     @State private var isEditingTextField = false
     @State var bank_name = ""
     @State var full_name = ""
@@ -30,7 +29,6 @@ struct PayoutDetails: View {
                     VStack{
                         HStack {
                             Text("Payout Details").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical).padding(.leading)
-                            
                             Spacer()
                             }
                         
@@ -90,8 +88,7 @@ struct PayoutDetails: View {
                                 }
                                 .padding(.trailing, 30).padding(.top, -8)
                                 .frame(height: 60)
-                        }
-                            
+                        }  
                         }
                         
                         
@@ -101,7 +98,6 @@ struct PayoutDetails: View {
                             DispatchQueue.global(qos: .userInteractive).async {
                                 UpdateDB().updateBankDetails(fullName: full_name.trimmingCharacters(in: .whitespaces), bankName: bank_name.trimmingCharacters(in: .whitespaces), accountNumber: account_number.trimmingCharacters(in: .whitespaces), iban: iban.trimmingCharacters(in: .whitespaces)) { response in
                                     if response == "Successful" {
-                                        print("Bank Details Updated!")
                                         bankDetailsUpdated.toggle()
                                     }
                                 }

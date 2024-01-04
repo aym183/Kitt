@@ -20,9 +20,8 @@ struct ChangeBio: View {
                     VStack{
                         HStack {
                             Text("Change Bio").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical).padding(.leading)
-                            
                             Spacer()
-                            }
+                        }
                             
                         
                         ZStack {
@@ -55,8 +54,7 @@ struct ChangeBio: View {
                                 .padding(.trailing, 30)
                             }
                         }
-                     
-                        
+                    
                         Spacer()
                         
                         Button(action: {
@@ -71,7 +69,6 @@ struct ChangeBio: View {
                                 Text("Update").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06)).frame(width: max(0, geometry.size.width-70), height: 60).background(.black).foregroundColor(.white).cornerRadius(10).font(Font.system(size: 20)).fontWeight(.heavy)
                         }
                         .padding(.bottom)
-                        
                         }
                         .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                         }

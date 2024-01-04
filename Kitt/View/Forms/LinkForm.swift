@@ -72,7 +72,6 @@ struct LinkForm: View {
                                 .transition(.scale)
                                 .padding(.top, -18)
                                 .padding(.leading, 110)
-//                                .cornerRadius(10, corners: [.topRight, .bottomRight, .bottomLeft])
                         }
                         
                         ZStack {
@@ -113,17 +112,6 @@ struct LinkForm: View {
                             .onTapGesture {
                                 isEditingTextField = true
                             }
-//                            .onChange(of: linkURL) { newValue in
-//                                validateURL()
-//                            }
-                        
-//                        if !isURLValid {
-//                            HStack {
-//                                Spacer()
-//                                Text("Invalid URL").foregroundColor(.red).font(Font.custom("Avenir-Medium", size: min(geometry.size.width, geometry.size.height) * 0.035)).fontWeight(.bold)
-//                            }
-//                            .padding(.trailing, 15)
-//                        }
                         
                         Spacer()
                         
@@ -136,7 +124,6 @@ struct LinkForm: View {
                                         }
                                     }
                                 }
-//                                linkEditShown.toggle()/
                             } else {
                                 DispatchQueue.global(qos: .userInteractive).async {
                                     if products_number != 0 {
@@ -150,7 +137,6 @@ struct LinkForm: View {
                                             if response == "Successful" {
                                                 linkCreated.toggle()
                                             }
-                                            
                                         }
                                     }
                                 }
@@ -181,11 +167,8 @@ struct LinkForm: View {
                             primaryButton: .default(Text("Yes")) {
                                 DispatchQueue.global(qos: .userInteractive).async {
                                     if let new_link_index = readData.products!.firstIndex(where: { $0["name"] == linkName && $0["url"] == linkURL }) {
-                                        print(new_link_index)
-                                        
                                         DeleteDB().deleteLink(name: readData.products![new_link_index]["name"]!, url: readData.products![new_link_index]["url"]!) { response in
                                             if response == "Deleted" {
-//                                                readData.products?.remove(at: new_link_index)
                                                 linkDeleted.toggle()
                                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                                     UpdateDB().updateDeleted(products_input: readData.products!)
@@ -226,16 +209,9 @@ struct LinkForm: View {
                   let itemURL = item["url"] else {
                 return false
             }
-            print(itemName == name && itemURL == url)
             return itemName == name && itemURL == url
         }
     }
-    
-//        private func validateURL() {
-//            let urlRegex = "^https://[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-//            let urlPredicate = NSPredicate(format: "SELF MATCHES %@", urlRegex)
-//            isURLValid = urlPredicate.evaluate(with: linkURL)
-//        }
 }
 
 struct CardView: View {
@@ -276,9 +252,3 @@ extension View {
         ModifiedContent(content: self, modifier: CornerRadiusStyle(radius: radius, corners: corners))
     }
 }
-
-//struct LinkForm_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LinkForm()
-//    }
-//}

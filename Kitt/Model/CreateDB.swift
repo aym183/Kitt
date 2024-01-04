@@ -113,7 +113,6 @@ class CreateDB : ObservableObject {
            if let error = error {
                print("Error adding link: \(error.localizedDescription)")
            } else {
-               print("Link added successfully!")
                completion("Successful")
            }
         }
@@ -205,7 +204,6 @@ class CreateDB : ObservableObject {
            if let error = error {
                print("Error adding product: \(error.localizedDescription)")
            } else {
-               print("Product added successfully!")
                completion("Successful")
            }
         }
@@ -265,7 +263,6 @@ class CreateDB : ObservableObject {
                     print("Error uploading profile image \(error.localizedDescription)")
                 }
             }
-            print("File added to profile image")
         }
         
         UserDefaults.standard.set(image.jpegData(compressionQuality: 0.8), forKey: "profile_image")

@@ -93,7 +93,6 @@ struct CreateAccountForm: View {
                             .frame(width: max(0, geometry.size.width-40), height: 40)
                             .padding(.top, 10).padding(.leading, -15)
                         
-                        
                         Button(action: {
                             DispatchQueue.global(qos: .userInteractive).async {
                                 AuthViewModel().signUp(email: email.trimmingCharacters(in: .whitespaces), password: password.trimmingCharacters(in: .whitespaces)) { response in
@@ -102,17 +101,13 @@ struct CreateAccountForm: View {
                                     } else {
                                         alertText = response!
                                         alertShown.toggle()
-//                                        print("Incorrect email/unmatched passwords")
                                     }
                                 }
                             }
-                            
                         }) {
                             HStack {
                                 Text("Sign Up").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06))
                             }
-//                            .font(Font.system(size: 25))
-//                            .fontWeight(.semibold)
                             .frame(width: 200, height: 70)
                             .background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white)
                             .cornerRadius(50)
@@ -163,9 +158,3 @@ struct CreateAccountForm: View {
         }
     }
 }
-
-//struct CreateAccountForm_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CreateAccountForm()
-//    }
-//}

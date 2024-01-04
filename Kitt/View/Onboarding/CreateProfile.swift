@@ -31,9 +31,7 @@ struct CreateProfile: View {
                             Text("Create Profile").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.08))
                             Spacer()
                         }
-//                        .font(.system(size: min(geometry.size.width, geometry.size.height) * 0.075)).fontWeight(.bold)
                         .frame(width: geometry.size.width-40)
-                        
                         
                         TextField("", text: $fullName, prompt: Text("Full Name").foregroundColor(.gray).font(Font.custom("Avenir-Black", size: 16))).padding().frame(width: max(0, geometry.size.width-40), height: 75).foregroundColor(.black).background(Color("TextField")).cornerRadius(10).padding(.top, 5).font(Font.custom("Avenir-Medium", size: 16))
                             .onTapGesture {
@@ -54,7 +52,6 @@ struct CreateProfile: View {
                             if bio.count > 0 {
                                 HStack {
                                     Spacer()
-                                    
                                     if bio.count >= 35 {
                                         Text("\(45 - bio.count)")
                                             .foregroundColor(.red)
@@ -71,13 +68,11 @@ struct CreateProfile: View {
                             }
                         }
                         
-                        
                         Button(action: {
                             DispatchQueue.global(qos: .userInteractive).async {
                                 UpdateDB().updateUserDetails(fullName: fullName.trimmingCharacters(in: .whitespaces), bioText: bio.trimmingCharacters(in: .whitespaces)) { response in
                                     if response == "Successful" {
                                         profileImageUploadShown.toggle()
-                                        print("Successful name and bio added")
                                     }
                                 }
                             }
@@ -85,17 +80,13 @@ struct CreateProfile: View {
                             HStack {
                                 Text("Create").font(Font.custom("Avenir-Black", size: min(geometry.size.width, geometry.size.height) * 0.06))
                             }
-//                            .font(Font.system(size: 25))
-//                            .fontWeight(.semibold)
                             .frame(width: 200, height: 70)
                             .background(areAllFieldsEmpty ? Color.gray : Color.black).foregroundColor(areAllFieldsEmpty ? Color.black : Color.white)
                             .cornerRadius(50)
                         }
                         .padding(.top)
                         .disabled(areAllFieldsEmpty)
-                        
                         Spacer()
-
                     }
                     .frame(width: max(0, geometry.size.width-40), height: max(0, geometry.size.height-20))
                     .foregroundColor(.black)
@@ -117,10 +108,3 @@ struct CreateProfile: View {
     }
 
 }
-
-
-//struct CreateProfile_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CreateProfile()
-//    }
-//}

@@ -10,7 +10,6 @@ import SwiftUI
 struct TotalSales: View {
     var labels = ["last 7 days", "last 30 days", "all-time"]
     @ObservedObject var readData: ReadDB
-//    @State var sales_amount: [Int]?
     
     var body: some View {
         var sales_amount = [readData.week_sales!["total"], readData.month_sales!["total"], readData.total_sales!["total"]]
@@ -36,12 +35,9 @@ struct TotalSales: View {
                                     .fill(Color("TextField"))
                                 
                                 VStack(alignment: .center) {
-                                    
                                     Text(labels[index]).font(Font.custom("Avenir-Medium", size: 18))
                                     HStack(spacing: 2) {
-
                                         Text(String(describing: sales_amount[index]!)).font(Font.custom("Avenir-Heavy", size: 50)).fontWeight(.black)
-                                        
                                         Text("aed").font(Font.custom("Avenir-Heavy", size: 25)).fontWeight(.black).padding(.bottom, -15)
                                     }
                                     .padding(.bottom, -20)
@@ -63,7 +59,6 @@ struct TotalSales: View {
                     .onAppear {
                         setupAppearance()
                     }
-
                     
                     HStack {
                         Text("Orders").font(Font.custom("Avenir-Heavy", size: min(geometry.size.width, geometry.size.height) * 0.06)).fontWeight(.bold).multilineTextAlignment(.leading).padding(.vertical)
@@ -86,7 +81,6 @@ struct TotalSales: View {
                                     ForEach(0..<noOfSales, id: \.self) { sale_index in
                                         if index == String(describing: readData.sales![sale_index]["date"]!) {
                                             HStack(spacing: -5) {
-//                                                Text(String(describing: readData.sales![sale_index]["image"]!))
                                                 ZStack {
                                                     Image(uiImage: readData.loadProductImage(key: String(describing: readData.sales![sale_index]["image"]!)))
                                                         .resizable()
@@ -104,15 +98,12 @@ struct TotalSales: View {
                                                         .foregroundColor(.gray)
                                                 }
                                                 .padding(.horizontal, 15).padding(.trailing, 30)
-                                                //                                    .frame(width: 230)
 
                                                 Spacer()
 
                                                 VStack(alignment: .trailing, spacing: 8) {
                                                     Text("\(String(describing: readData.sales![sale_index]["price"]!)) aed").font(Font.custom("Avenir-Heavy", size: 15)).fontWeight(.bold)
-
                                                     Text("").font(Font.custom("Avenir-Medium", size: 14)).foregroundColor(.gray).fontWeight(.bold)
-                                                    //                                        .padding(.trailing, 20.5)
                                                 }
                                                 .padding(.leading, -25)
                                             }
@@ -120,16 +111,10 @@ struct TotalSales: View {
                                             .padding(.bottom, 5).padding(.horizontal, 15)
                                             .id(sale_index)
                                         }
-                                        
-
                                     }
                                 }
-                                //                            .padding(.leading, 2)
-                                
                             }
                         }
-//                        .padding(.leading, 15)
-                        
                     }
                     .padding(.top, -15)
                 }
@@ -144,9 +129,3 @@ struct TotalSales: View {
         UIPageControl.appearance().pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.2)
       }
 }
-
-//struct TotalSales_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TotalSales()
-//    }
-//}
