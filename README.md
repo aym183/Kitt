@@ -2,13 +2,13 @@
     <img align="center" height="50" src="Kitt/Assets.xcassets/AppIcon.appiconset/appstore.png" style="margin:20px;">
      Kitt
 </h1>
+Assets.xcassets/AppIcon.appiconset/appstore.png
 
+Kitt is an iOS application that allows creators in the UAE to create and manage custom storefronts to sell products directly via their link-in-bio. The creators must make an account, set up their web pages, and add their products to the catalogue. Doing so creates a route fetching relevant data when users input the correct URL.
 
-Kitt is an iOS application that allows creators in the UAE to create and manage custom storefronts to sell products directly via their link-in-bio. The creators must make an account, set up their web pages, and add their products to the catalogue. Doing so creates a route that fetches the relevant data when users input the right URL.
+Users can browse their favourite creators' storefronts, view their endorsed links and products, and buy directly via Stripe. The users interact through a website, and the creators manage storefronts through the application. This application was built as an MVP for a seed-funded startup in the UAE.
 
-Users can browse through their favourite creators' storefronts, view their endorsed links and products, and buy directly via Stripe. The users interacted through a website and the creators managed storefronts through the application. This application was built as an MVP for a seed-funded startup in the UAE.
-
-Kitt is unavailable to download at the moment due to the project not being moved forward.
+Kitt is currently unavailable to download due to the project not being moved forward.
 
 ## Website
 ### Landing Page
