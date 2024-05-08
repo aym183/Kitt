@@ -27,16 +27,16 @@ Kitt is currently unavailable to download due to the project not being moved for
 </div>
 
 ### Create Link Flow
-<div style="display: flex; flex-direction: clumn; align-items: center;">
+<div style="display: flex; flex-direction: column; align-items: center;">
   <img src="https://github.com/aym183/Kitt/assets/63648492/864aa119-f2af-42e8-9ce6-965c3d5cae0a" width="200" alt="Create link flow">
 </div>
 
 ### Create Product Flow
-<div style="display: flex; flex-direction: clumn; align-items: center;">
+<div style="display: flex; flex-direction: column; align-items: center;">
   <img src="https://github.com/aym183/Kitt/assets/63648492/a36aadd9-ca59-4c0b-bc35-3e53258365dc" width="200" alt="Create product flow">
 </div>
 
 ### Managing Sales
-<div style="display: flex; flex-direction: clumn; align-items: center;">
+<div style="display: flex; flex-direction: column; align-items: center;">
   <img src="https://github.com/aym183/Kitt/assets/63648492/ec24f3d9-04cb-4206-9ee7-0db3a275bbbf" width="200" alt="Manage sales">
 </div>
