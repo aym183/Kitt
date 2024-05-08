@@ -2,7 +2,6 @@
     <img align="center" height="50" src="Kitt/Assets.xcassets/AppIcon.appiconset/appstore.png" style="margin:20px;">
      Kitt
 </h1>
-Assets.xcassets/AppIcon.appiconset/appstore.png
 
 Kitt is an iOS application that allows creators in the UAE to create and manage custom storefronts to sell products directly via their link-in-bio. The creators must make an account, set up their web pages, and add their products to the catalogue. Doing so creates a route fetching relevant data when users input the correct URL.
 
