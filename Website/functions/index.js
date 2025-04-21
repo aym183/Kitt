@@ -262,7 +262,11 @@ const getFileFromPath = async (path) => {
 };
 
 app.get("/:username/success", async (req, res) => {
-  res.render("success", {username: req.params.username});
+  const username = req.params.username;
+  if (!/^[a-zA-Z0-9_]+$/.test(username)) { // Allow only alphanumeric and underscores
+    return res.status(400).send("Invalid username");
+  }
+  res.render("success", {username: username});
 });
 
 app.get("/:username", async (req, res) => {
